@@ -1,0 +1,11 @@
+Appium-Python-Client
+pytest
+python-dotenv
+pytest-bdd
+pytest-order
+allure-pytest
+allure-pytest-bdd
+allure-slack-reporter
+pytest-alluredir
+pytest-rerunfailures 
+requests
