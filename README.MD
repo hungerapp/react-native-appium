@@ -27,14 +27,14 @@ UDID="4BEC1422-4429-4EAD-B850-C296B013A210" #Optional
 
 ```
 
-# How to run allure report first time
+# How to run allure report (Primary use)
 
 ```
 pytest --alluredir=./allure-results
 
 ```
 
-# Run failed tests and update allure report (Primary use)
+# Run failed tests and update allure report
 
 ```
 pytest --lf --alluredir=./allure-results --reruns 3

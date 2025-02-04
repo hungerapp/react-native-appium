@@ -21,12 +21,12 @@ def pytest_configure(config):
     
     # start recording screen
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    recording_path = f"screen_records/Test_{timestamp}.mp4"
+    #recording_path = f"screen_records/Test_{timestamp}.mp4"
     os.makedirs("screen_records", exist_ok=True)
     
     # use adb to start recording, store the process object in the config for later stopping
     config.recording_process = Popen(['adb', 'shell', 'screenrecord', f'/sdcard/{os.path.basename(recording_path)}'])
-    config.recording_path = recording_path
+    #config.recording_path = recording_path
     
 
 def pytest_bdd_apply_tag(tag, function):

@@ -3,12 +3,20 @@ import requests
 import json
 from datetime import datetime
 
+def format_duration(seconds):
+    """
+    將秒數轉換為 分:秒 格式
+    """
+    minutes = int(seconds // 60)
+    remaining_seconds = int(seconds % 60)
+    return f"{minutes}分{remaining_seconds}秒"
+
 def send_report_to_slack(webhook_url, allure_report_path):
     """
     Send Allure report to Slack
     """
     try:
-        # slack config
+        # slack config -> kindly remind don't put your own token here
         SLACK_BOT_TOKEN = "xoxb-857694753079-8386879001525-QUmI7GE14VL5NxQevi6apGMC"
         SLACK_CHANNEL = "C08B92NPHF0"  # your channel id
         
@@ -52,6 +60,9 @@ def send_report_to_slack(webhook_url, allure_report_path):
         # if we can read the test result, add detailed information
         if summary:
             stats = summary.get('statistic', {})
+            duration = stats.get('duration', 0)
+            formatted_duration = format_duration(duration)
+            
             message["blocks"].append({
                 "type": "section",
                 "fields": [
@@ -61,7 +72,8 @@ def send_report_to_slack(webhook_url, allure_report_path):
                                f"總數: {stats.get('total', 0)}\n"
                                f"通過: {stats.get('passed', 0)}  ✅\n"
                                f"失敗: {stats.get('failed', 0)}  ❌\n"
-                               f"跳過: {stats.get('skipped', 0)}  ⏭️"
+                               f"跳過: {stats.get('skipped', 0)}  ⏭️\n"
+                               f"執行時間: {formatted_duration} ⏱️"
                     }
                 ]
             })
@@ -94,9 +106,9 @@ def send_report_to_slack(webhook_url, allure_report_path):
                 )
                 
                 if upload_response.status_code == 200 and upload_response.json().get('ok'):
-                    print("視頻上傳成功 ✅")
+                    print("上傳成功 ✅")
                 else:
-                    print(f"視頻上傳失敗: {upload_response.text} ❌")
+                    print(f"上傳失敗: {upload_response.text} ❌")
         
         print("測試報告已成功發送到 Slack")
         
