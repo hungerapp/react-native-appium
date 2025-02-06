@@ -41,8 +41,8 @@ class PersonalPage:
   BRANCH_LIST = (AppiumBy.XPATH, '//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup')
   BRANCH_ITEM_TEMPLATE = "//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup//android.widget.TextView[contains(@text, '{}')]"
   FIRST_LOGIN_POP_UP_WINDOW_CANCEL_ICON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.SvgView").instance(0)')
-  POP_UP_1CANCEL_ICON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("android.view.ViewGroup").instance(92)')
-  POP_UP_2CANCEL_ICON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("android.view.ViewGroup").instance(19)')
+  POP_UP_1CANCEL_ICON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(0)')
+  POP_UP_2CANCEL_ICON = (AppiumBy.XPATH, '//android.widget.FrameLayout[@resource-id="android:id/content"]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/com.horcrux.svg.SvgView')
   FREE_WINDOW_BACK_TO_PERSONAL_PAGE_BTN = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("返回主頁")')
   TALK_TO_YOU_LATER_BTN = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("稍後再說")')
   WAY_TO_GIVE_UP_BTN = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("忍痛放棄")')
@@ -59,7 +59,7 @@ class PersonalPage:
   PUSH_NOTTIFICATION_SAVE = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(1)')
   
   # Manage account settings
-  SETTINGS_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("android.view.ViewGroup").instance(17)')
+  SETTINGS_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(1)')
   SETTINGS_POPUP = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("android.view.ViewGroup").instance(7)')
   ACCOUNT_SETTINGS_OPTION = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("帳號設定")')
   LANGUAGE_SETTINGS_OPTION = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("語言設定")')
@@ -100,10 +100,9 @@ class PersonalPage:
   
   # Branch name list
   BRANCH_NAMES = [
-        {"name": "Pro分店", "locator": (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.SvgView").instance(5)')},
-        {"name": "Free分店", "locator": (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.SvgView").instance(7)')},
-        {"name": "Ultra分店", "locator": (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.SvgView").instance(8)')},
-        {"name": "Ttt", "locator": (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.SvgView").instance(9)')}
+        {"name": "Star分店", "locator": (AppiumBy.XPATH, '//android.view.ViewGroup[@content-desc="Star分店, 品牌管理員"]/com.horcrux.svg.SvgView/com.horcrux.svg.GroupView/com.horcrux.svg.PathView')},
+        {"name": "Free分店", "locator": (AppiumBy.XPATH, '//android.view.ViewGroup[@content-desc="Free分店, 品牌管理員"]/com.horcrux.svg.SvgView/com.horcrux.svg.GroupView/com.horcrux.svg.PathView')},
+        {"name": "Ultra分店", "locator": (AppiumBy.XPATH, '//android.view.ViewGroup[@content-desc="Ultra分店, 品牌管理員"]/com.horcrux.svg.SvgView/com.horcrux.svg.GroupView/com.horcrux.svg.PathView')}
     ]
   
   
@@ -130,65 +129,55 @@ class PersonalPage:
   
   #click all branches
   def visit_all_branches_smart(self):
-    """Smart visit all branches with bi-directional scroll support"""
+    """Smart visit all branches"""
     results = []
     visited_branches = set()
-    max_attempts = 3
-    last_visible_branches = set()
+    needs_final_back = False
     
-    while len(visited_branches) < len(self.BRANCH_NAMES) and max_attempts > 0:
-        try:
-            time.sleep(2)
-            
-            # 遍历所有分店定位器
-            for branch_info in self.BRANCH_NAMES:
-                try:
-                    # 使用新的定位器查找元素
-                    element = self.driver.find_element(*branch_info["locator"])
+    try:
+      
+        for branch_info in self.BRANCH_NAMES:
+            try:
+                element = self.driver.find_element(*branch_info["locator"])
+                if element.is_displayed():
+                    element.click()
+                    visited_branches.add(branch_info["name"])
+                    needs_final_back = True
                     
-                    if (branch_info["name"] not in visited_branches and 
-                        element.is_displayed() and 
-                        element.is_enabled()):
-                        
-                        time.sleep(2)
-                        element.click()
-                        visited_branches.add(branch_info["name"])
-                        
-                        time.sleep(2)
-                        self._handle_popups()
-                        self.click_back_to_personal_page()
-                        time.sleep(2)
-                        
-                        results.append({
-                            "branch_name": branch_info["name"],
-                            "status": "success"
-                        })
-                except NoSuchElementException:
-                    continue
-                except Exception as e:
-                    print(f"Error clicking branch {branch_info['name']}: {str(e)}")
-                    continue
-            
-            # if no new branches found, try to scroll down
-            if not any(branch_info["name"] not in visited_branches for branch_info in self.BRANCH_NAMES):
-                if max_attempts > 1:
-                    self._scroll_down()
-                    time.sleep(1)
-                max_attempts -= 1
-            
-        except Exception as e:
-            print(f"Error in loop: {str(e)}")
-            max_attempts -= 1
-            continue
+                    #time.sleep(0.3)
+                    self._handle_popups()
+                    self.click_back_to_personal_page()
+                    #time.sleep(0.3)
+                    
+                    results.append({
+                        "branch_name": branch_info["name"],
+                        "status": "success"
+                    })
+            except Exception as e:
+                print(f"Error clicking branch {branch_info['name']}: {str(e)}")
+                results.append({
+                    "branch_name": branch_info["name"],
+                    "status": "error",
+                    "error": str(e)
+                })
     
-    # record unvisited branches
-    unvisited_branches = {b["name"] for b in self.BRANCH_NAMES} - visited_branches
-    for branch_name in unvisited_branches:
-        results.append({
-            "branch_name": branch_name,
-            "status": "not_found",
-            "error": "Branch not found after maximum attempts"
-        })
+        unvisited_branches = [branch["name"] for branch in self.BRANCH_NAMES if branch["name"] not in visited_branches]
+        if unvisited_branches:
+            print(f"Warning: Could not visit branches: {', '.join(unvisited_branches)}")
+            
+    except Exception as e:
+        print(f"Error in visit_all_branches_smart: {str(e)}")
+    
+    # ensure last time back to personal page
+    if needs_final_back:
+        try:
+            self.click_back_to_personal_page()
+        except :
+            try:
+                self.driver.find_element(*self.POP_UP_1CANCEL_ICON).click()
+            except:
+                self.driver.find_element(*self.POP_UP_2CANCEL_ICON).click()
+            
     
     return results
 
@@ -401,41 +390,20 @@ class PersonalPage:
   # Manage account settings -> Maybe seperated into different files
   def click_setting_icon(self):
     """Click settings icon and verify settings popup is displayed"""
-    max_attempts = 3
-    attempt = 0
-    scroll_direction = "up"
-    
-    while attempt < max_attempts:
-        try:
-            time.sleep(2)
-            
-            # Perform scroll first
-            self._perform_scroll(scroll_direction)
-            scroll_direction = "down" if scroll_direction == "up" else "up"
-            
-            # Then try to find and click settings button
-            try:
-                settings_button = self.driver.find_element(*self.SETTINGS_BUTTON)
-                if settings_button.is_displayed() and settings_button.is_enabled():
-                    settings_button.click()
+
+    # try to find and click settings button
+    try:
+        settings_button = self.driver.find_element(*self.SETTINGS_BUTTON)
+        if settings_button.is_displayed() and settings_button.is_enabled():
+            settings_button.click()
                     
-                    # Verify settings popup
-                    if self.driver.find_element(*self.SETTINGS_POPUP).is_displayed():
-                        print("Successfully clicked settings button and displayed settings popup")
-                        time.sleep(2)  # Wait for page to stabilize
-                        return self
-            except NoSuchElementException:
-                # If button not found, try scrolling
-                self._perform_scroll(scroll_direction)
-                scroll_direction = "down" if scroll_direction == "up" else "up"
-                attempt += 1
-                continue
-            
-        except Exception as e:
-            print(f"Error in click_setting_icon: {str(e)}")
-            attempt += 1
-    
-    raise NoSuchElementException("Unable to find settings button after multiple attempts")
+        # Verify settings popup
+            if self.driver.find_element(*self.SETTINGS_POPUP).is_displayed():
+                print("Successfully clicked settings button and displayed settings popup")
+                time.sleep(2)  # Wait for page to stabilize
+            return self
+    except NoSuchElementException:
+      raise NoSuchElementException("Unable to find settings button after multiple attempts")
 
   def _perform_scroll(self, direction):
     """Helper method to perform scroll"""
@@ -545,7 +513,7 @@ class PersonalPage:
   def select_random_gender(self):
     """Select random gender"""
     try:
-        time.sleep(2)
+        #time.sleep(2)
         gender = random.choice(list(self.GENDER_OPTIONS.keys()))
         self.driver.find_element(*self.GENDER_OPTIONS[gender]).click()
         return gender
@@ -563,17 +531,32 @@ class PersonalPage:
         calendar_window = self.driver.find_element(*self.CALENDAR_WINDOW)
         window_rect = calendar_window.rect
         
-        # Calculate scroll start position (window center point)
-        center_x = window_rect['x'] + window_rect['width'] / 2
+        # calculate year, month, day x coordinates
+        year_x = window_rect['x'] + (window_rect['width'] * 0.17)  # left side year field
+        month_x = window_rect['x'] + (window_rect['width'] * 0.5)  # middle month field
+        day_x = window_rect['x'] + (window_rect['width'] * 0.83)   # right side day field
+        
+        # calculate y coordinate center point
         center_y = window_rect['y'] + window_rect['height'] / 2
         
-        # Perform 2-4 times random scroll
-        swipe_times = random.randint(5, 10)
-        for _ in range(swipe_times):
-            self._perform_random_swipe(center_x, center_y)
-            time.sleep(1)  # Short pause to make scroll more natural
+        # random scroll each field
+        date_columns = [
+            {"name": "年", "x": year_x},
+            {"name": "月", "x": month_x},
+            {"name": "日", "x": day_x}
+        ]
         
-        # Click confirm
+        for column in date_columns:
+            swipe_times = random.randint(3, 6)
+            for _ in range(swipe_times):
+                self._perform_random_swipe(
+                    start_x=column["x"],
+                    start_y=center_y,
+                    max_offset=50  # limit horizontal random offset
+                )
+                time.sleep(0.5)
+        
+        # click confirm
         self.driver.find_element(*self.CONFIRM_BUTTON).click()
         
         # Return updated date text
@@ -583,21 +566,26 @@ class PersonalPage:
         print(f"Select date error: {str(e)}")
         raise
 
-  def _perform_random_swipe(self, start_x, start_y):
-    """Use W3C Actions API to perform swipe"""
-    actions = ActionChains(self.driver)
-    pointer = PointerInput(interaction.POINTER_TOUCH, "touch")
-    
-    # Calculate random end position
-    end_x = start_x + random.randint(-300, 300)
-    end_y = start_y + random.randint(-300, 300)
-    
-    actions.w3c_actions = ActionBuilder(self.driver, mouse=pointer)
-    actions.w3c_actions.pointer_action.move_to_location(start_x, start_y)
-    actions.w3c_actions.pointer_action.pointer_down()
-    actions.w3c_actions.pointer_action.move_to_location(end_x, end_y)
-    actions.w3c_actions.pointer_action.release()
-    actions.perform()
+  def _perform_random_swipe(self, start_x, start_y, max_offset=50):
+    """執行隨機滑動"""
+    try:
+        actions = ActionChains(self.driver)
+        pointer = PointerInput(interaction.POINTER_TOUCH, "touch")
+        
+        
+        end_x = start_x + random.randint(-max_offset, max_offset)
+        end_y = start_y + random.randint(-300, 300)  
+        
+        actions.w3c_actions = ActionBuilder(self.driver, mouse=pointer)
+        actions.w3c_actions.pointer_action.move_to_location(start_x, start_y)
+        actions.w3c_actions.pointer_action.pointer_down()
+        actions.w3c_actions.pointer_action.move_to_location(end_x, end_y)
+        actions.w3c_actions.pointer_action.release()
+        actions.perform()
+        
+    except Exception as e:
+        print(f"Random swipe error: {str(e)}")
+        raise
 
   def input_phone_number(self, valid=True):
     """Input phone number"""

@@ -72,7 +72,7 @@ def send_report_to_slack(webhook_url, allure_report_path):
                                f"總數: {stats.get('total', 0)}\n"
                                f"通過: {stats.get('passed', 0)}  ✅\n"
                                f"失敗: {stats.get('failed', 0)}  ❌\n"
-                               f"跳過: {stats.get('skipped', 0)}  ⏭️\n"
+                               f"跳過（開發中）: {stats.get('skipped', 0)}  ⏭️\n"
                                f"執行時間: {formatted_duration} ⏱️"
                     }
                 ]

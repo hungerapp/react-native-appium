@@ -4,6 +4,7 @@ from setup import AppiumSetup
 from utils.send_report_to_slack import send_report_to_slack
 from datetime import datetime
 import os
+import requests
 
 @pytest.fixture(scope="session")
 def driver():
@@ -82,9 +83,12 @@ def pytest_sessionfinish(session, exitstatus):
             else:
                 print("Recording video file does not exist or is empty")
 
-        # only send report to slack if allure_results_dir is used
-        if hasattr(session.config.option, 'allure_results_dir'):  
+        # only send report to slack if allure_report_dir is used
+        if hasattr(session.config.option, 'allure_report_dir'):  
             print("開始處理 Allure 報告...")
+            
+            
+            allure_report_path = 'allure-report'
             
             # Get the Webhook URL
             webhook_url = "https://hooks.slack.com/services/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"
@@ -92,13 +96,66 @@ def pytest_sessionfinish(session, exitstatus):
             
             # Generate Allure report
             import subprocess
-            subprocess.run(['allure', 'generate', 'allure-results', '-o', 'allure-report', '--clean'], check=True)
+            subprocess.run(['allure', 'generate', 'allure-results', '-o', allure_report_path, '--clean'], check=True)
             print("Allure 報告生成完成")
             
-            # Send report to Slack
-            allure_report_path = "allure-report"
+            with open('allure-report/widgets/summary.json', 'r') as f:
+                import json
+                summary = json.load(f)
+                
+            total_duration_seconds = summary['time']['duration'] / 1000  
+            minutes = int(total_duration_seconds // 60)
+            seconds = int(total_duration_seconds % 60)
+            
+            stats = summary['statistic']
+    
+            message = {
+                "text": "自動化測試報告 🤖",
+                "blocks": [
+                    {
+                        "type": "section",
+                        "text": {
+                            "type": "mrkdwn",
+                            "text": f"*自動化測試報告 🤖*\n執行時間: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
+                        }
+                    },
+                    {
+                        "type": "section",
+                        "fields": [
+                            {
+                                "type": "mrkdwn",
+                                "text": f"*測試結果:*\n總數: {stats['total']}\n通過: {stats['passed']}  ✅\n"
+                                       f"失敗: {stats['failed']}  ❌\n跳過（開發中）: {stats['skipped']}  ⏭️\n"
+                                       f"執行時間: {minutes}分{seconds}秒 ⏱️"
+                            }
+                        ]
+                    }
+                ]
+            }
+            
+
             print("開始發送報告到 Slack...")
-            send_report_to_slack(webhook_url, allure_report_path)
+            send_report_to_slack(webhook_url, allure_report_path, message)
+            
+
+            if os.path.exists(session.config.recording_path):
+                try:
+                    with open(session.config.recording_path, 'rb') as video_file:
+                
+                        files = {
+                            'file': video_file,
+                            'initial_comment': 'Test Execution Video',
+                            'channels': '#dev'  
+                        }
+                        response = requests.post(
+                            'https://slack.com/api/files.upload',
+                            headers={'Authorization': f'xoxb-857694753079-8386879001525-QUmI7GE14VL5NxQevi6apGMC'}, 
+                            files=files
+                        )
+                        if not response.json()['ok']:
+                            print(f"Video upload failed: {response.json()['error']}")
+                except Exception as e:
+                    print(f"Video upload failed: {str(e)}")
 
     except Exception as e:
         print(f"Error processing and sending report: {str(e)}")

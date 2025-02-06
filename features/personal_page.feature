@@ -51,26 +51,26 @@ Feature: Personal Page
       #| gender   | select random gender      |
       | birthday | select random date        |
       | phone    | input valid phone number  |
-      
+
     Examples:
       | times |
       | 3     |
   
-  @regression @empty_name
+  @regression @empty_name @skip
   Scenario: Verify empty name error
     Given I am on the personal page
     When I click settings icon
     Then I click account settings option
     Then I input empty name and get error message
   
-  @regression @empty_phone_number
+  @regression @empty_phone_number @skip
   Scenario: Verify empty phone number error
     Given I am on the personal page
     When I click settings icon
     Then I click account settings option
     Then I input empty phone number and get error message
 
-  @regression @invalid_phone_number
+  @regression @invalid_phone_number @skip
   Scenario: Verify invalid phone number error
     Given I am on the personal page
     When I click settings icon

@@ -18,9 +18,9 @@ scenarios('../../../features/onboarding.feature')
 def launch_app_first_time(driver):
     assert driver is not None, "App failed to launch"
 
-    onboarding_animation = driver.find_element(by=AppiumBy.ANDROID_UIAUTOMATOR, value='new UiSelector().className("android.widget.ImageView")')
+    onboarding_language = driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value='選擇你的語言')
   
-    assert onboarding_animation is not None, "Onboarding animation not found"
+    assert onboarding_language.is_displayed(), "Onboarding language not found"
 
     #driver.execute_script('mobile: alert', {'action': 'accept', 'buttonLabel': 'Allow'})
 
@@ -28,7 +28,7 @@ def launch_app_first_time(driver):
 def verify_onboarding_page(driver):
     """Verify navigation to the onboarding page."""
     #time.sleep(2)
-    select_language_element = driver.find_element(by=AppiumBy.ANDROID_UIAUTOMATOR, value='new UiSelector().className("android.view.ViewGroup").instance(19)')
+    select_language_element = driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value='繁體中文, 繁體中文(台灣)')
     select_language_element.click()
     confirm_button_element = driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value='確定')
     confirm_button_element.click()

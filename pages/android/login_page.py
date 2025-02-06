@@ -9,7 +9,7 @@ class LoginPage:
 
   login_button = (AppiumBy.ACCESSIBILITY_ID, '開始使用')
   email_input = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("android.widget.EditText")')
-  login_cancel_button = (AppiumBy.XPATH, '//android.widget.FrameLayout[@resource-id="android:id/content"]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.LinearLayout/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/com.horcrux.svg.SvgView')
+  login_cancel_button = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView")')
   email_next_button = (AppiumBy.ACCESSIBILITY_ID, '下一步')
   modify_email_button = (AppiumBy.ACCESSIBILITY_ID, '修改信箱')
   is_verification_code_page_title = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("驗證通行碼")')
@@ -60,7 +60,12 @@ class LoginPage:
       self.driver.find_element(*self.finish_button).click()
 
   def handle_save_alert(self):
-      self.driver.execute_script('mobile: alert', {'action': 'accept', 'buttonLabel': 'Save'})
+      #self.driver.execute_script('mobile: alert', {'action': 'accept', 'buttonLabel': 'Save'})
+      android_push_notification = self.driver.find_element(
+                      by=AppiumBy.XPATH, 
+                      value='//android.widget.Button[@resource-id="android:id/button1"]'
+                  )
+      android_push_notification.click()
 
   def is_logged_in(self):
       try:
@@ -70,8 +75,8 @@ class LoginPage:
               try:
                   # Handle push notification alert
                   android_push_notification = self.driver.find_element(
-                      by=AppiumBy.XPATH, 
-                      value='//android.widget.Button[@resource-id="android:id/button1"]'
+                      by=AppiumBy.ANDROID_UIAUTOMATOR, 
+                      value='new UiSelector().resourceId("android:id/button1")'
                   )
                   android_push_notification.click()
               except NoSuchElementException:
@@ -152,7 +157,7 @@ class LoginPage:
             
             # handle for ios login
             #self.handle_save_alert()
-            time.sleep(3)
+            #time.sleep(3)
             return True
             
         except NoSuchElementException as e:
@@ -178,7 +183,7 @@ class LoginPage:
             
             # click next button
             self.driver.find_element(*self.email_next_button).click()
-            time.sleep(1)
+            time.sleep(2)
 
         except Exception as e:
             print(f"發生未預期的錯誤: {str(e)}")
@@ -206,6 +211,7 @@ class LoginPage:
             raise
         
   def click_modify_email_button(self):
+        time.sleep(0.5)
         self.driver.find_element(*self.modify_email_button).click()
         
   def is_verification_code_page(self):
@@ -215,6 +221,7 @@ class LoginPage:
   def login_with_invalid_email(self, email):
         """run the invalid login process"""
         self.click_login_button()
+        time.sleep(2)
     
         try:
             email_input = self.driver.find_element(*self.email_input)
@@ -231,6 +238,7 @@ class LoginPage:
         
   def login_with_invalid_ver_code(self, ver_code=None):
         """run the invalid login process"""
+        time.sleep(2)
         self.enter_ver_code(ver_code)
         
 
