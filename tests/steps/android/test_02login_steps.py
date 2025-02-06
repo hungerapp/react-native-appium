@@ -4,9 +4,10 @@ import random
 
 #from appium.webdriver.common.appiumby import AppiumBy
 from pytest_bdd import scenarios, given, when, then
+
 from pages.android.login_page import LoginPage
 
-"""order=2"""
+
 scenarios('../../../features/login.feature')
 
 TEST_EMAIL = 'ann@hunger.ai'
@@ -104,7 +105,7 @@ def verify_login_success(driver):
     try:   
         login_page.is_logged_in(), "Failed to log in successfully"
 
-        #click logout button
+        #click logout button-> move to personal page
         login_page.click_logout_button()
     except Exception as e:
         # Test failed, take a screenshot

@@ -21,12 +21,12 @@ def pytest_configure(config):
     
     # start recording screen
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    #recording_path = f"screen_records/Test_{timestamp}.mp4"
+    recording_path = f"screen_records/Test_{timestamp}.mp4"
     os.makedirs("screen_records", exist_ok=True)
     
     # use adb to start recording, store the process object in the config for later stopping
     config.recording_process = Popen(['adb', 'shell', 'screenrecord', f'/sdcard/{os.path.basename(recording_path)}'])
-    #config.recording_path = recording_path
+    config.recording_path = recording_path
     
 
 def pytest_bdd_apply_tag(tag, function):
@@ -82,8 +82,8 @@ def pytest_sessionfinish(session, exitstatus):
             else:
                 print("Recording video file does not exist or is empty")
 
-        # check if --alluredir parameter is used
-        if hasattr(session.config.option, 'allure_report_dir'):
+        # only send report to slack if allure_results_dir is used
+        if hasattr(session.config.option, 'allure_results_dir'):  
             print("開始處理 Allure 報告...")
             
             # Get the Webhook URL
@@ -105,7 +105,7 @@ def pytest_sessionfinish(session, exitstatus):
         import traceback
         print(traceback.format_exc())
 
-@pytest.fixture(autouse=True)        
+@pytest.fixture(autouse=False)        
 def clean_app_state(request):
     '''Each test will re-install when we run the test'''
     print(f"Current test name: {request.node.name}")

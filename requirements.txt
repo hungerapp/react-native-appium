@@ -1,5 +1,6 @@
 Appium-Python-Client
 pytest
+selenium
 python-dotenv
 pytest-bdd
 pytest-order
