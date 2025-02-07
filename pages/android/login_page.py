@@ -150,10 +150,11 @@ class LoginPage:
             self.driver.find_element(*self.email_next_button).click()
             
             try:
-                self.click_finish_button()
-            except:
                 # verification code
                 self.enter_ver_code(ver_code)
+                
+            except:
+                self.click_finish_button()
             
             # handle for ios login
             #self.handle_save_alert()
@@ -244,6 +245,7 @@ class LoginPage:
 
 ########### Just for logout ###########
   def click_logout_button(self):
+        time.sleep(1)
         self.driver.find_element(*self.setting_icon).click()
         self.driver.find_element(*self.click_window_logout_button).click()
         self.driver.find_element(*self.sure_to_logout).click()

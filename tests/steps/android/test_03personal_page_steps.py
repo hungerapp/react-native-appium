@@ -21,7 +21,7 @@ TEST_VER = '5556666'
 def login_to_personal_page(driver):
     login_page = LoginPage(driver)
     login_page.login(TEST_EMAIL, TEST_VER)
-    login_page.handle_save_alert()
+    login_page.is_logged_in()
     
     
 @then('I should see my profile picture')
@@ -44,8 +44,8 @@ def see_greeting_message(driver):
 def see_email_address(driver):
     personal_page = PersonalPage(driver)
     personal_page.is_email_address_displayed()
-
-
+  
+  
 
 # View brand list section
 @allure.feature('Brand List')
@@ -81,6 +81,7 @@ def visit_all_branches(driver):
       pass
 
 
+
 # Manage Push Notification
 @allure.feature('Push Notification')
 @allure.story('Manage Push Notification')
@@ -107,8 +108,7 @@ def toggle_random_notification_settings(driver):
 def save_notification_settings(driver):
     personal_page = PersonalPage(driver)
     personal_page.save_notification_settings()
-
-
+ 
 
 
 
@@ -133,18 +133,14 @@ def click_account_settings_option(driver):
 @then('I should be able to update account information 3 times and save settings')
 def update_account_information(driver):
     personal_page = PersonalPage(driver)
-    results = personal_page.perform_multiple_account_updates(times=3)
-    # verify update results
-    failed_updates = [r for r in results if r['status'] == '失敗']
-    assert len(failed_updates) == 0, f"Failed updates: {failed_updates}"
+    personal_page.update_account_information_multiple_times()
     
-    
+
+
 # Account Settings for empty name
 @allure.feature('Account Settings for empty name')
 @allure.story('Account Settings for empty name')
 @pytest.mark.run(order=10)
-@pytest.mark.skip(reason="skip this test")
-
 @when('I click settings icon')
 def click_settings_icon(driver):
     personal_page = PersonalPage(driver)
@@ -162,11 +158,12 @@ def input_empty_name(driver):
     personal_page.cancel_account_settings()
 
 
+
+
 # Account Settings for empty phone number
 @allure.feature('Account Settings for empty phone number')
 @allure.story('Account Settings for empty phone number')
 @pytest.mark.run(order=11)
-@pytest.mark.skip(reason="skip this test")
 @given('I am on the personal page')
 def login_to_personal_page(driver):
     pass
@@ -193,7 +190,6 @@ def input_empty_phone_number(driver):
 @allure.feature('Account Settings for invalid phone number')
 @allure.story('Account Settings for invalid phone number')
 @pytest.mark.run(order=12)
-@pytest.mark.skip(reason="skip this test")
 @given('I am on the personal page')
 def login_to_personal_page(driver):
     pass
@@ -216,7 +212,8 @@ def input_invalid_phone_number(driver):
 @then('I should see error message for invalid phone')
 def see_error_message_for_invalid_phone(driver):
     personal_page = PersonalPage(driver)
-    personal_page.get_empty_phone_error_message()
+    personal_page.get_invalid_phone_error_message()
     personal_page.cancel_account_settings()
     
+
 

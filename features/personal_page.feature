@@ -13,7 +13,7 @@ Feature: Personal Page
     Then I should see my username
     Then I should see greeting message
     Then I should see my email address
-
+  
   @regression @brand_list
   Scenario: View brand list section
     Given I am on the personal page
@@ -21,6 +21,7 @@ Feature: Personal Page
     Then I should see hunger Salon-staging title with profile picture
     Then I should be able to visit all branches
   
+
   @regression @In_development @skip
   Scenario: Access all reservations
     Given I am on the personal page
@@ -40,6 +41,8 @@ Feature: Personal Page
     Then I should be able to toggle random notification settings
     Then I should be able to save notification settings
   
+
+
   @regression @manage_account_settings
   Scenario Outline: Update account settings multiple times
     Given I am on the personal page
@@ -56,21 +59,23 @@ Feature: Personal Page
       | times |
       | 3     |
   
-  @regression @empty_name @skip
+  
+  
+  @regression @empty_name 
   Scenario: Verify empty name error
     Given I am on the personal page
     When I click settings icon
     Then I click account settings option
     Then I input empty name and get error message
   
-  @regression @empty_phone_number @skip
+  @regression @empty_phone_number 
   Scenario: Verify empty phone number error
     Given I am on the personal page
     When I click settings icon
     Then I click account settings option
     Then I input empty phone number and get error message
 
-  @regression @invalid_phone_number @skip
+  @regression @invalid_phone_number 
   Scenario: Verify invalid phone number error
     Given I am on the personal page
     When I click settings icon

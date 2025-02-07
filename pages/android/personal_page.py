@@ -380,6 +380,7 @@ class PersonalPage:
         """Click save button"""
         save_button = self.driver.find_element(*self.PUSH_NOTTIFICATION_SAVE)
         save_button.click()
+        time.sleep(3)
         return self
 
   def toggle_num(self, num_toggles=None):
@@ -393,6 +394,7 @@ class PersonalPage:
 
     # try to find and click settings button
     try:
+        time.sleep(2)
         settings_button = self.driver.find_element(*self.SETTINGS_BUTTON)
         if settings_button.is_displayed() and settings_button.is_enabled():
             settings_button.click()
@@ -400,7 +402,6 @@ class PersonalPage:
         # Verify settings popup
             if self.driver.find_element(*self.SETTINGS_POPUP).is_displayed():
                 print("Successfully clicked settings button and displayed settings popup")
-                time.sleep(2)  # Wait for page to stabilize
             return self
     except NoSuchElementException:
       raise NoSuchElementException("Unable to find settings button after multiple attempts")
@@ -453,9 +454,10 @@ class PersonalPage:
   BIRTHDAY_FIELD = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("android.view.ViewGroup").instance(28)')
   CALENDAR_WINDOW = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("android:id/pickers")')
   CONFIRM_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("android:id/button1")')
-  PHONE_INPUT_INITIAL = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("935152036")')
+  PHONE_INPUT_INITIAL = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textMatches("\\d{9}")')
   PHONE_INPUT_CLEAR = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("請輸入電話")')
-  EMPTY_PHONE_ERROR_MESSAGE = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text(" 此欄位為必填。").instance(1)')
+  EMPTY_PHONE_ERROR_MESSAGE = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text(" 此欄位為必填。")')
+  INVALID_PHONE_ERROR_MESSAGE = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("格式錯誤")')
   SAVE_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.SvgView").instance(1)')
   ACCOUNT_SETTINGS_CANCEL_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.SvgView").instance(0)')
   
@@ -477,16 +479,13 @@ class PersonalPage:
                     
                     # click input field
                     name_field.click()
-                    time.sleep(1)
                     
                     # clear existing text
                     name_field.clear()
-                    time.sleep(1)
                     
                     # input new text
                     random_name = self.generate_random_name()
                     name_field.send_keys(random_name)
-                    time.sleep(1)
                     
                     print(f"Successfully input new name: {random_name}")
                     return random_name
@@ -502,13 +501,27 @@ class PersonalPage:
         
   def get_empty_name_error_message(self):
         """Get empty name error message"""
-        try:
-            name_field = self.driver.find_element(*self.NAME_INPUT)
-            name_field.clear()
-            error_element = self.driver.find_element(*self.EMPTY_NAME_ERROR_MESSAGE)
-            return error_element.text
-        except:
-            return None
+        for locator_strategy, locator_value in self.NAME_INPUT:
+            try:
+                name_field = self.driver.find_element(locator_strategy, locator_value)
+                if name_field.is_displayed():
+                    print(f"Found name input field, current text: {name_field.text}")
+                    
+                    # click input field
+                    name_field.click()
+                    
+                    # clear existing text
+                    name_field.clear()
+                    
+                    error_msg = self.driver.find_element(*self.EMPTY_NAME_ERROR_MESSAGE)
+                    assert error_msg.text == " 此欄位為必填。", "Empty name error message is not correct"
+                    return error_msg.text
+                  
+            except Exception as e:
+                print(f"Failed to locate strategy: {str(e)}")
+                continue
+                
+        raise NoSuchElementException("Not found name input field")
   
   def select_random_gender(self):
     """Select random gender"""
@@ -552,7 +565,7 @@ class PersonalPage:
                 self._perform_random_swipe(
                     start_x=column["x"],
                     start_y=center_y,
-                    max_offset=50  # limit horizontal random offset
+                    max_offset=50, # limit horizontal random offset
                 )
                 time.sleep(0.5)
         
@@ -574,7 +587,7 @@ class PersonalPage:
         
         
         end_x = start_x + random.randint(-max_offset, max_offset)
-        end_y = start_y + random.randint(-300, 300)  
+        end_y = start_y + random.randint(-800, 800)  
         
         actions.w3c_actions = ActionBuilder(self.driver, mouse=pointer)
         actions.w3c_actions.pointer_action.move_to_location(start_x, start_y)
@@ -595,26 +608,33 @@ class PersonalPage:
         
         if valid:
             # Generate a valid phone number
-            phone_number = f"+886{random.randint(900000000, 999999999)}"
+            phone_number = f"{random.randint(900000000, 999999999)}"
         else:
             # Generate an invalid phone number
-            phone_number = f"+886{random.randint(10000, 99999)}"
-        
-        phone_field.send_keys(phone_number)
+            phone_number = f"{random.randint(10000, 99999)}"
+            
+        phone_field_clear = self.driver.find_element(*self.PHONE_INPUT_CLEAR)
+        phone_field_clear.send_keys(phone_number)
         return phone_number
     except Exception as e:
         print(f"Input phone number error: {str(e)}")
         raise
   def get_empty_phone_error_message(self):
         """Get error message"""
-        try:
-            phone_field = self.driver.find_element(*self.PHONE_INPUT_INITIAL)
-            phone_field.clear()
-            error_element = self.driver.find_element(*self.EMPTY_PHONE_ERROR_MESSAGE)
-            return error_element.text
-        except:
-            return None
-          
+
+        phone_field = self.driver.find_element(*self.PHONE_INPUT_INITIAL)
+        phone_field.click()
+        phone_field.clear()
+        error_element = self.driver.find_element(*self.EMPTY_PHONE_ERROR_MESSAGE)
+        assert error_element.text == " 此欄位為必填。", "Empty phone error message is not correct"
+        return error_element.text
+      
+  def get_invalid_phone_error_message(self):
+        """Get error message"""
+        error_element = self.driver.find_element(*self.INVALID_PHONE_ERROR_MESSAGE)
+        assert error_element.text == " 格式錯誤。", "Invalid phone error message is not correct"
+        return error_element.text
+
   def save_account_settings(self):
         """Save settings"""
         self.driver.find_element(*self.SAVE_BUTTON).click()
@@ -625,45 +645,27 @@ class PersonalPage:
         self.driver.find_element(*self.ACCOUNT_SETTINGS_CANCEL_BUTTON).click()
         return self
   
-  def perform_multiple_account_updates(self, times=3):
-        """Perform multiple account updates"""
-        results = []
-        
-        for i in range(times):
-            try:
-                print(f"開始第 {i+1} 次帳號更新")
+  def update_account_information_multiple_times(self, times=3):
+    """
+    Args:
+        times (int): expected times of update
+    """
+    for i in range(times):
+        try:
+            print(f"Update account information {i+1} times")
+            if i > 0:  
+                self.click_setting_icon()
+                self.click_account_settings()
                 
-                # only click settings icon when it's the first time or the previous operation is successful
-                if i == 0 or (i > 0 and results[i-1]["status"] == "成功"):
-                    self.click_setting_icon()
-                    self.click_account_settings()
-                
-                # Perform update operation
-                #name = self.clear_and_input_name()
-                gender = self.select_random_gender()
-                date = self.select_random_date()
-                #phone = self.input_phone_number(valid=True)
-                
-                # Save settings
-                self.driver.find_element(*self.SAVE_BUTTON).click()
-                
-                results.append({
-                    "iteration": i + 1,
-                    #"name": name,
-                    "gender": gender,
-                    "date": date,
-                    #"phone": phone,
-                    "status": "成功"
-                })
-                
-            except Exception as e:
-                print(f"第 {i+1} 次更新失敗: {str(e)}")
-                results.append({
-                    "iteration": i + 1,
-                    "error": str(e),
-                    "status": "失敗"
-                })
-        
-        return results         
-
-  
+            self.clear_and_input_name()
+            self.select_random_gender()
+            self.select_random_date()
+            self.input_phone_number(valid=True)
+            self.save_account_settings()
+            
+            time.sleep(2) 
+            
+        except Exception as e:
+            error_msg = f"Update failed: {str(e)}"
+            print(error_msg)
+            raise Exception(error_msg)

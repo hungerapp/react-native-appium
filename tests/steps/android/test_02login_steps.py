@@ -102,18 +102,10 @@ def login_with_valid_credentials(driver):
 def verify_login_success(driver):
     """Verify login was successful."""
     login_page = LoginPage(driver)
-    try:   
-        login_page.is_logged_in(), "Failed to log in successfully"
+    login_page.is_logged_in(), "Failed to log in successfully"
 
-        #click logout button-> move to personal page
-        login_page.click_logout_button()
-    except Exception as e:
-        # Test failed, take a screenshot
-        allure.attach(
-            driver.get_screenshot_as_png(),
-            name="login_failure_screenshot",
-            attachment_type=allure.attachment_type.PNG
-        )
-        raise e
+    #click logout button-> move to personal page
+    login_page.click_logout_button()
+  
     
     
