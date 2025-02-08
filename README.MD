@@ -11,7 +11,7 @@ A powerful automated testing framework for React Native applications, supporting
 
 </div>
 
-## 📋 Table of Contents
+# 📋 Table of Contents
 
 - [System Requirements](#system-requirements)
 - [Installation Guide](#installation-guide)
@@ -21,7 +21,7 @@ A powerful automated testing framework for React Native applications, supporting
 - [Test Reports](#test-reports)
 - [Troubleshooting](#troubleshooting)
 
-## 💻 System Requirements
+# 💻 System Requirements
 
 ### Required Software
 
@@ -107,7 +107,7 @@ git clone https://github.com/appium/WebDriverAgent
 3. Select WebDriverAgentRunner and run tests
 </details>
 
-## 🧨 Running Tests
+# 🧨 Running Tests
 
 ### Start Appium Server
 
@@ -149,7 +149,7 @@ docker ps
 docker-compose logs -f
 ```
 
-## 📊 Test Execution & Reports
+# 📊 Test Execution & Reports
 
 ```bash
 # Run all tests and generate Allure report （Primary use）
@@ -213,7 +213,7 @@ allure serve allure-results
 
 </details>
 
-## 📱 Device Configuration
+# 📱 Device Configuration
 
 ### Find Device UDID
 
@@ -225,7 +225,7 @@ xcrun simctl list devices
 adb devices
 ```
 
-## 📚 References
+# 📚 References
 
 - [Appium Documentation](https://appium.io/docs/en/latest/)
 - [UIAutomator2 Driver](https://github.com/appium/appium-uiautomator2-driver)
