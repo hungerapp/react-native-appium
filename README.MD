@@ -21,7 +21,7 @@ A powerful automated testing framework for React Native applications, supporting
 - [Test Reports](#test-reports)
 - [Troubleshooting](#troubleshooting)
 
-# 💻 System Requirements
+# 💻 System Requirements {#system-requirements}
 
 ### Required Software
 
@@ -46,7 +46,7 @@ choco install ffmpeg
 sudo apt-get install ffmpeg
 ```
 
-# 🔧 Installation Guide
+# 🔧 Installation Guide {#installation-guide}
 
 ### Appium Setup
 
@@ -59,7 +59,7 @@ appium driver install uiautomator2  # Android
 appium driver install xcuitest      # iOS
 ```
 
-## ⚙️ Environment Setup
+# ⚙️ Environment Setup {#environment-setup}
 
 1. **Install Dependencies**
 
@@ -107,7 +107,7 @@ git clone https://github.com/appium/WebDriverAgent
 3. Select WebDriverAgentRunner and run tests
 </details>
 
-# 🧨 Running Tests
+# 🧨 Running Tests {#running-tests}
 
 ### Start Appium Server
 
@@ -121,7 +121,7 @@ After starting Appium, you should see something like this:
 
 ![Appium Server Started](./images/img1.png)
 
-# 🐳 Docker Setup and Execution
+# 🐳 Docker Setup and Execution {#docker-setup}
 
 ### Prerequisites
 
@@ -149,7 +149,7 @@ docker ps
 docker-compose logs -f
 ```
 
-# 📊 Test Execution & Reports
+# 📊 Test Execution & Reports {#test-execution-reports}
 
 ```bash
 # Run all tests and generate Allure report （Primary use）
@@ -170,7 +170,7 @@ allure generate allure-results -o allure-report --clean
 allure serve allure-results
 ```
 
-# 🔍 Element Location Tools
+# 🔍 Element Location Tools {#element-location-tools}
 
 ### Appium Inspector Configuration
 
@@ -225,14 +225,14 @@ xcrun simctl list devices
 adb devices
 ```
 
-# 📚 References
+# 📚 References {#references}
 
 - [Appium Documentation](https://appium.io/docs/en/latest/)
 - [UIAutomator2 Driver](https://github.com/appium/appium-uiautomator2-driver)
 - [XCUITest Driver](https://github.com/appium/appium-xcuitest-driver)
 - [Docker Setup Guide](https://github.com/appium/appium-docker-android)
 
-# ❗ Troubleshooting
+# ❗ Troubleshooting {#troubleshooting}
 
 <details>
 <summary>WebDriverAgent Installation Failed</summary>
