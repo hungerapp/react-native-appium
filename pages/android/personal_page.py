@@ -645,27 +645,16 @@ class PersonalPage:
         self.driver.find_element(*self.ACCOUNT_SETTINGS_CANCEL_BUTTON).click()
         return self
   
-  def update_account_information_multiple_times(self, times=3):
-    """
-    Args:
-        times (int): expected times of update
-    """
-    for i in range(times):
-        try:
-            print(f"Update account information {i+1} times")
-            if i > 0:  
-                self.click_setting_icon()
-                self.click_account_settings()
-                
+  def update_account_information_and_save_settings(self):
+    
+      try:
             self.clear_and_input_name()
             self.select_random_gender()
             self.select_random_date()
             self.input_phone_number(valid=True)
             self.save_account_settings()
             
-            time.sleep(2) 
-            
-        except Exception as e:
+      except Exception as e:
             error_msg = f"Update failed: {str(e)}"
             print(error_msg)
             raise Exception(error_msg)

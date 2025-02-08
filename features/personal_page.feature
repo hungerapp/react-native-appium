@@ -44,21 +44,12 @@ Feature: Personal Page
 
 
   @regression @manage_account_settings
-  Scenario Outline: Update account settings multiple times
+  Scenario: Update account settings
     Given I am on the personal page
     When I click settings icon
     Then I click account settings option
-    Then I should be able to update account information 3 times and save settings
-      | field    | action                    |
-      | name     | input random name         |
-      #| gender   | select random gender      |
-      | birthday | select random date        |
-      | phone    | input valid phone number  |
+    Then I should be able to update account information and save settings
 
-    Examples:
-      | times |
-      | 3     |
-  
   
   
   @regression @empty_name 

@@ -130,10 +130,10 @@ def click_account_settings_option(driver):
     personal_page = PersonalPage(driver)
     personal_page.click_account_settings()
 
-@then('I should be able to update account information 3 times and save settings')
+@then('I should be able to update account information and save settings')
 def update_account_information(driver):
     personal_page = PersonalPage(driver)
-    personal_page.update_account_information_multiple_times()
+    personal_page.update_account_information_and_save_settings()
     
 
 

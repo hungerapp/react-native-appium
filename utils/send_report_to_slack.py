@@ -41,9 +41,12 @@ def send_report_to_slack(webhook_url, allure_report_path, message=None):
             total = statistic.get('total', 0)
             passed = statistic.get('passed', 0)
             failed = statistic.get('failed', 0)
+            broken = statistic.get('broken', 0)
             skipped = statistic.get('skipped', 0)
             
-            # 獲取執行時間
+            total = passed + failed + broken + skipped
+            
+            
             time_data = summary.get('time', {})
             duration_ms = time_data.get('duration', 0)
             duration_min = int((duration_ms / 1000) // 60)
@@ -70,6 +73,7 @@ def send_report_to_slack(webhook_url, allure_report_path, message=None):
                                     f"總數: {total}\n"
                                     f"通過: {passed} ✅\n"
                                     f"失敗: {failed} ❌\n"
+                                    f"異常: {broken} 🔧\n"
                                     f"跳過（開發中）: {skipped} ⏭️\n"
                                     f"執行時間: {duration_min}分{duration_sec}秒 ⏱️"
                                 )
@@ -79,11 +83,12 @@ def send_report_to_slack(webhook_url, allure_report_path, message=None):
                 ]
             }
             
-            # 印出讀取到的數據以便除錯
+            
             print(f"讀取到的測試結果：")
             print(f"總數: {total}")
             print(f"通過: {passed}")
             print(f"失敗: {failed}")
+            print(f"異常: {broken}")
             print(f"跳過: {skipped}")
             print(f"執行時間: {duration_min}分{duration_sec}秒")
         
