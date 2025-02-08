@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 # install manually
 
 ```
@@ -12,6 +13,78 @@ pip3 install -r requirements.txt
 
 ```
 brew install allure
+=======
+<div align="center">
+
+# 🚀 React Native Appium Testing Framework
+
+A powerful automated testing framework for React Native applications, supporting both Android and iOS platforms.
+
+[![Platform](https://img.shields.io/badge/Platform-iOS%20%7C%20Android-blue)]()
+[![Appium](https://img.shields.io/badge/Appium-2.0-purple)]()
+[![Python](https://img.shields.io/badge/Python-3.x-yellow)]()
+[![License](https://img.shields.io/badge/License-MIT-green)]()
+
+</div>
+
+## 📋 Table of Contents
+
+- [System Requirements](#system-requirements)
+- [Installation Guide](#installation-guide)
+- [Environment Setup](#environment-setup)
+- [Running Tests](#running-tests)
+- [Docker Setup](#docker-setup)
+- [Test Reports](#test-reports)
+- [Troubleshooting](#troubleshooting)
+
+## 💻 System Requirements
+
+### Required Software
+
+| Software       | Version         | Purpose             |
+| -------------- | --------------- | ------------------- |
+| Xcode          | 15.4+           | iOS Testing         |
+| Android Studio | Koala 2024.1.1+ | Android Testing     |
+| Node.js        | Latest LTS      | Runtime Environment |
+| Python         | 3.x             | Test Scripts        |
+| ffmpeg         | Latest          | Video Processing    |
+
+### Package Installation
+
+```bash
+# macOS
+brew install ffmpeg
+
+# Windows
+choco install ffmpeg
+
+# Linux
+sudo apt-get install ffmpeg
+```
+
+## 🔧 Installation Guide
+
+### Appium Setup
+
+```bash
+# Install Appium globally
+npm install -g appium
+
+# Install platform-specific drivers
+appium driver install uiautomator2  # Android
+appium driver install xcuitest      # iOS
+```
+
+## ⚙️ Environment Setup
+
+1. **Install Dependencies**
+
+```bash
+python3 -m pip install -r requirements.txt
+```
+
+2. **Configure Environment Variables**
+>>>>>>> Stashed changes
 
 ```
 
@@ -23,6 +96,7 @@ IMPLICIT_WAIT=15
 DUMMY_PASSWORD="testP@ssword"
 NO_RESET="True"
 AUTO_ACCEPT_ALERTS="True"
+<<<<<<< Updated upstream
 UDID="4BEC1422-4429-4EAD-B850-C296B013A210" #Optional
 
 ```
@@ -30,6 +104,72 @@ UDID="4BEC1422-4429-4EAD-B850-C296B013A210" #Optional
 # How to run allure report first time
 
 ```
+=======
+UDID="4BEC1422-4429-4EAD-B850-C296B013A210"  # Optional, for specific device targeting
+```
+
+3. **Platform-Specific Setup**
+
+<details>
+<summary>iOS Setup</summary>
+
+1. Clone WebDriverAgent:
+
+```bash
+git clone https://github.com/appium/WebDriverAgent
+```
+
+2. Open WebDriverAgent.xcodeproj in Xcode
+3. Select WebDriverAgentRunner and run tests
+</details>
+
+## 🚀 Running Tests
+
+### Start Appium Server
+
+```bash
+appium
+```
+
+<div align="center">
+  <img src="./images/img1.png" alt="Appium Server Started" width="600">
+</div>
+
+## 🐳 Docker Setup
+
+### Prerequisites
+
+1. [Install Docker](https://docs.docker.com/get-docker/)
+2. Install Docker Compose (included with Docker Desktop)
+
+### Docker Commands
+
+```bash
+# Build and start
+docker-compose up --build
+
+# Run in background
+docker-compose up -d --build
+
+# Stop containers
+docker-compose down
+
+# Check container status
+docker ps
+
+# View container logs
+docker-compose logs -f
+
+```
+
+## 📊 Test Execution & Reports
+
+### Run Tests
+
+```bash
+# Run all tests and generate Allure report （Primary use）
+# It will automatically generate allure report after test execution then send result to slack channel
+>>>>>>> Stashed changes
 pytest --alluredir=./allure-results
 
 ```
@@ -51,3 +191,96 @@ or
 ```
 allure serve allure-results
 ```
+<<<<<<< Updated upstream
+=======
+
+## 🔍 Element Location Tools
+
+### Appium Inspector Configuration
+
+<details>
+<summary>Android Capabilities</summary>
+
+```json
+{
+  "platformName": "android",
+  "appium:deviceName": "emulator-5554",
+  "appium:automationName": "UiAutomator2",
+  "appium:app": "/path/to/your/app.apk",
+  "appium:noReset": true,
+  "appium:uiautomator2ServerLaunchTimeout": 60000
+}
+```
+
+</details>
+
+<details>
+<summary>iOS Capabilities</summary>
+
+```json
+{
+  "platformName": "ios",
+  "appium:deviceName": "iPhone 15 Pro",
+  "appium:automationName": "XCUITest",
+  "appium:platformVersion": "17.5",
+  "appium:app": "/path/to/your/Runner.app",
+  "appium:noReset": true,
+  "appium:autoAcceptAlerts": true
+}
+```
+
+</details>
+
+## 📱 Device Configuration
+
+### Find Device UDID
+
+```bash
+# iOS Simulator
+xcrun simctl list devices
+
+# Android
+adb devices
+```
+
+## 📚 References
+
+- [Appium Documentation](https://appium.io/docs/en/latest/)
+- [UIAutomator2 Driver](https://github.com/appium/appium-uiautomator2-driver)
+- [XCUITest Driver](https://github.com/appium/appium-xcuitest-driver)
+- [Docker Setup Guide](https://github.com/appium/appium-docker-android)
+
+## ❗ Troubleshooting
+
+<details>
+<summary>WebDriverAgent Installation Failed</summary>
+
+1. Check the following:
+
+- Verify Xcode command line tools installation
+- Rebuild WebDriverAgent in Xcode
+- Check signing certificates
+</details>
+
+<details>
+<summary>Android Device Not Detected</summary>
+
+1. Check the following:
+
+- Verify ADB installation
+- Enable USB debugging
+- Check USB connection
+</details>
+
+<details>
+<summary>Appium Server Connection Issues</summary>
+
+1. Check the following:
+
+- Verify port configuration
+- Check server permissions
+- Review server logs
+</details>
+
+---
+>>>>>>> Stashed changes
