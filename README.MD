@@ -21,7 +21,7 @@ A powerful automated testing framework for React Native applications, supporting
 - [Test Reports](#test-reports)
 - [Troubleshooting](#troubleshooting)
 
-# 💻 System Requirements {#system-requirements}
+<h1 id="system-requirements">💻 System Requirements</h1>
 
 ### Required Software
 
@@ -46,7 +46,7 @@ choco install ffmpeg
 sudo apt-get install ffmpeg
 ```
 
-# 🔧 Installation Guide {#installation-guide}
+<h1 id="installation-guide">🔧 Installation Guide</h1>
 
 ### Appium Setup
 
@@ -59,7 +59,7 @@ appium driver install uiautomator2  # Android
 appium driver install xcuitest      # iOS
 ```
 
-# ⚙️ Environment Setup {#environment-setup}
+<h1 id="environment-setup">⚙️ Environment Setup</h1>
 
 1. **Install Dependencies**
 
@@ -107,7 +107,7 @@ git clone https://github.com/appium/WebDriverAgent
 3. Select WebDriverAgentRunner and run tests
 </details>
 
-# 🧨 Running Tests {#running-tests}
+<h1 id="running-tests">🧨 Running Tests</h1>
 
 ### Start Appium Server
 
@@ -121,7 +121,7 @@ After starting Appium, you should see something like this:
 
 ![Appium Server Started](./images/img1.png)
 
-# 🐳 Docker Setup and Execution {#docker-setup}
+<h1 id="docker-setup">🐳 Docker Setup and Execution</h1>
 
 ### Prerequisites
 
@@ -149,7 +149,7 @@ docker ps
 docker-compose logs -f
 ```
 
-# 📊 Test Execution & Reports {#test-execution-reports}
+<h1 id="test-execution-reports">📊 Test Execution & Reports</h1>
 
 ```bash
 # Run all tests and generate Allure report （Primary use）
@@ -170,7 +170,7 @@ allure generate allure-results -o allure-report --clean
 allure serve allure-results
 ```
 
-# 🔍 Element Location Tools {#element-location-tools}
+<h1 id="element-location-tools">🔍 Element Location Tools</h1>
 
 ### Appium Inspector Configuration
 
@@ -213,7 +213,7 @@ allure serve allure-results
 
 </details>
 
-# 📱 Device Configuration
+<h1 id="device-configuration">📱 Device Configuration</h1>
 
 ### Find Device UDID
 
@@ -225,14 +225,14 @@ xcrun simctl list devices
 adb devices
 ```
 
-# 📚 References {#references}
+<h1 id="references">📚 References</h1>
 
 - [Appium Documentation](https://appium.io/docs/en/latest/)
 - [UIAutomator2 Driver](https://github.com/appium/appium-uiautomator2-driver)
 - [XCUITest Driver](https://github.com/appium/appium-xcuitest-driver)
 - [Docker Setup Guide](https://github.com/appium/appium-docker-android)
 
-# ❗ Troubleshooting {#troubleshooting}
+<h1 id="troubleshooting">❗ Troubleshooting</h1>
 
 <details>
 <summary>WebDriverAgent Installation Failed</summary>
