@@ -122,7 +122,7 @@ After starting Appium, you should see something like this:
 
 ![Appium Server Started](./images/img1.png)
 
-<h1 id="docker-setup">🐳 Docker Setup and Execution</h1>
+<h1 id="docker-setup-and-execution">🐳 Docker Setup and Execution</h1>
 
 ### Prerequisites
 
