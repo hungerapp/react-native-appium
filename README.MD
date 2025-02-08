@@ -107,7 +107,7 @@ git clone https://github.com/appium/WebDriverAgent
 3. Select WebDriverAgentRunner and run tests
 </details>
 
-## 🚀 Running Tests
+## 🧨 Running Tests
 
 ### Start Appium Server
 
