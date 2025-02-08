@@ -13,19 +13,14 @@ A powerful automated testing framework for React Native applications, supporting
 
 # 📋 Table of Contents
 
-- [🚀 React Native Appium Testing Framework](#-react-native-appium-testing-framework)
-- [📋 Table of Contents](#-table-of-contents)
-  - [Required Software](#required-software)
-  - [Package Installation](#package-installation)
-  - [Appium Setup](#appium-setup)
-  - [3. WebDriverAgent Setup (iOS Only)](#3-webdriveragent-setup-ios-only)
-  - [Running Tests](#running-tests)
-    - [Start Appium Server](#start-appium-server)
-    - [Prerequisites](#prerequisites)
-    - [Build and Run with Docker](#build-and-run-with-docker)
-    - [Generate Test Reports](#generate-test-reports)
-    - [Appium Inspector Configuration](#appium-inspector-configuration)
-    - [Find Device UDID](#find-device-udid)
+- [System Requirements](#system-requirements)
+- [Installation Guide](#installation-guide)
+- [Environment Setup](#environment-setup)
+- [Running Tests](#running-tests)
+- [Docker Setup and Execution](#docker-setup-and-execution)
+- [Test Execution & Reports](#test-execution-reports)
+- [Element Location Tools](#element-location-tools)
+- [Troubleshooting](#troubleshooting)
 
 <h1 id="system-requirements">💻 System Requirements</h1>
 
