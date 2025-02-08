@@ -1,19 +1,3 @@
-<<<<<<< Updated upstream
-# install manually
-
-```
-brew install node
-
-```
-
-```
-pip3 install -r requirements.txt
-
-```
-
-```
-brew install allure
-=======
 <div align="center">
 
 # 🚀 React Native Appium Testing Framework
@@ -84,31 +68,25 @@ python3 -m pip install -r requirements.txt
 ```
 
 2. **Configure Environment Variables**
->>>>>>> Stashed changes
+   > > > > > > > Stashed changes
 
 ```
 
 # .env
 
 ```
+
 APPIUM_OS="ios" # android or ios
 IMPLICIT_WAIT=15
 DUMMY_PASSWORD="testP@ssword"
 NO_RESET="True"
 AUTO_ACCEPT_ALERTS="True"
-<<<<<<< Updated upstream
-UDID="4BEC1422-4429-4EAD-B850-C296B013A210" #Optional
 
-```
+UDID="4BEC1422-4429-4EAD-B850-C296B013A210" # Optional, for specific device targeting
 
-# How to run allure report first time
+````
 
-```
-=======
-UDID="4BEC1422-4429-4EAD-B850-C296B013A210"  # Optional, for specific device targeting
-```
-
-3. **Platform-Specific Setup**
+1. **Platform-Specific Setup**
 
 <details>
 <summary>iOS Setup</summary>
@@ -117,7 +95,7 @@ UDID="4BEC1422-4429-4EAD-B850-C296B013A210"  # Optional, for specific device tar
 
 ```bash
 git clone https://github.com/appium/WebDriverAgent
-```
+````
 
 2. Open WebDriverAgent.xcodeproj in Xcode
 3. Select WebDriverAgentRunner and run tests
@@ -191,8 +169,6 @@ or
 ```
 allure serve allure-results
 ```
-<<<<<<< Updated upstream
-=======
 
 ## 🔍 Element Location Tools
 
@@ -283,4 +259,3 @@ adb devices
 </details>
 
 ---
->>>>>>> Stashed changes
