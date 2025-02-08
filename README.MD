@@ -68,7 +68,6 @@ python3 -m pip install -r requirements.txt
 ```
 
 2. **Configure Environment Variables**
-   > > > > > > > Stashed changes
 
 ```
 
@@ -147,7 +146,6 @@ docker-compose logs -f
 ```bash
 # Run all tests and generate Allure report （Primary use）
 # It will automatically generate allure report after test execution then send result to slack channel
->>>>>>> Stashed changes
 pytest --alluredir=./allure-results
 
 ```
@@ -173,6 +171,12 @@ allure serve allure-results
 ## 🔍 Element Location Tools
 
 ### Appium Inspector Configuration
+
+> ⚠️ **Important**: You must first start the Appium server in your terminal (by running the `appium` command) before you can use Appium Inspector for element inspection.
+
+<div align="center">
+  <img src="./images/img2.png" alt="Appium Inspctor Tool" width="600">
+</div>
 
 <details>
 <summary>Android Capabilities</summary>
