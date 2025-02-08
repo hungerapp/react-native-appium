@@ -89,6 +89,22 @@ def pytest_sessionfinish(session, exitstatus):
         if hasattr(session.config.option, 'allure_report_dir') and session.config.option.allure_report_dir:  
             print("開始處理 Allure 報告...")
             
+            all_tests = session.items
+            
+            skipped_tests = 0
+            total_scenarios = 0
+            
+            for item in all_tests:
+                
+                total_scenarios += 1
+                if item.get_closest_marker('skip'):
+                    skipped_tests += 1
+
+                elif hasattr(item, 'function') and hasattr(item.function, '__scenario__'):
+                    scenario = item.function.__scenario__
+                    if hasattr(scenario, 'tags') and '@skip' in scenario.tags:
+                        skipped_tests += 1
+            
             allure_report_path = 'allure-report'
             
             # Get the Webhook URL
@@ -109,24 +125,20 @@ def pytest_sessionfinish(session, exitstatus):
             seconds = int(total_duration_seconds % 60)
             
         
-            total = 0
-            passed = 0
-            failed = 0
-            skipped = 0
+            statistic = summary.get('statistic', {})
+            passed = statistic.get('passed', 0)
+            failed = statistic.get('failed', 0)
             
 
-            for item in summary.get('statistic', []):
-                if isinstance(item, dict):
-                    status = item.get('status')
-                    count = item.get('count', 0)
-                    if status == 'passed':
-                        passed = count
-                    elif status == 'failed':
-                        failed = count
-                    elif status == 'skipped':
-                        skipped = count
-                    total += count
-    
+            skipped = skipped_tests
+            total = total_scenarios
+            
+            print(f"測試統計：")
+            print(f"總測試案例數: {total}")
+            print(f"通過測試數: {passed}")
+            print(f"失敗測試數: {failed}")
+            print(f"跳過測試數: {skipped}")
+            
             message = {
                 "text": "自動化測試報告 🤖",
                 "blocks": [
@@ -151,29 +163,9 @@ def pytest_sessionfinish(session, exitstatus):
                 ]
             }
             
-
             print("開始發送報告到 Slack...")
             send_report_to_slack(webhook_url, allure_report_path, message)
             
-
-            if os.path.exists(session.config.recording_path):
-                try:
-                    with open(session.config.recording_path, 'rb') as video_file:
-                
-                        files = {
-                            'file': video_file,
-                            'initial_comment': 'Test Execution Video',
-                            'channels': '#dev'  
-                        }
-                        response = requests.post(
-                            'https://slack.com/api/files.upload',
-                            headers={'Authorization': f'xoxb-857694753079-8386879001525-QUmI7GE14VL5NxQevi6apGMC'}, 
-                            files=files
-                        )
-                        if not response.json()['ok']:
-                            print(f"Video upload failed: {response.json()['error']}")
-                except Exception as e:
-                    print(f"Video upload failed: {str(e)}")
 
     except Exception as e:
         print(f"Error processing and sending report: {str(e)}")

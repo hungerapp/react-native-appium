@@ -16,10 +16,6 @@ def send_report_to_slack(webhook_url, allure_report_path, message=None):
     Send Allure report to Slack
     """
     try:
-        # slack config -> kindly remind don't put your own token here
-        SLACK_BOT_TOKEN = "xoxb-857694753079-8386879001525-QUmI7GE14VL5NxQevi6apGMC"
-        SLACK_CHANNEL = "C08B92NPHF0"  # your channel id
-        
   
         if message:
             slack_message = message
@@ -38,7 +34,6 @@ def send_report_to_slack(webhook_url, allure_report_path, message=None):
             
          
             statistic = summary.get('statistic', {})
-            total = statistic.get('total', 0)
             passed = statistic.get('passed', 0)
             failed = statistic.get('failed', 0)
             skipped = statistic.get('skipped', 0)
@@ -94,40 +89,6 @@ def send_report_to_slack(webhook_url, allure_report_path, message=None):
         response = requests.post(webhook_url, json=slack_message)
         response.raise_for_status()
         print(f"Slack 響應狀態碼: {response.status_code}")
-        
-        video_path = None
-        for root, dirs, files in os.walk('allure-results'):
-            for file in files:
-                if file.endswith('.mp4'):
-                    video_path = os.path.join(root, file)
-                    break
-            if video_path:
-                break
-        
-        if video_path:
-            print(f"正在上傳視頻: {video_path}")
-            
-            headers = {
-                'Authorization': f'Bearer {SLACK_BOT_TOKEN}'
-            }
-            
-            with open(video_path, 'rb') as video_file:
-                files = {
-                    'file': video_file,
-                    'initial_comment': '測試錄影 📹',
-                    'channels': SLACK_CHANNEL
-                }
-                
-                upload_response = requests.post(
-                    'https://slack.com/api/files.upload',
-                    headers=headers,
-                    files=files
-                )
-                
-                if upload_response.status_code == 200 and upload_response.json().get('ok'):
-                    print("上傳成功 ✅")
-                else:
-                    print(f"上傳失敗: {upload_response.text} ❌")
         
         print("測試報告已成功發送到 Slack")
         
