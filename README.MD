@@ -46,7 +46,7 @@ choco install ffmpeg
 sudo apt-get install ffmpeg
 ```
 
-## 🔧 Installation Guide
+# 🔧 Installation Guide
 
 ### Appium Setup
 
@@ -170,7 +170,7 @@ allure generate allure-results -o allure-report --clean
 allure serve allure-results
 ```
 
-## 🔍 Element Location Tools
+# 🔍 Element Location Tools
 
 ### Appium Inspector Configuration
 
@@ -232,7 +232,7 @@ adb devices
 - [XCUITest Driver](https://github.com/appium/appium-xcuitest-driver)
 - [Docker Setup Guide](https://github.com/appium/appium-docker-android)
 
-## ❗ Troubleshooting
+# ❗ Troubleshooting
 
 <details>
 <summary>WebDriverAgent Installation Failed</summary>
