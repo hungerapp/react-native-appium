@@ -1,54 +1,87 @@
-# React Native Appium Testing Framework
+<div align="center">
 
-This project provides an automated testing framework for React Native applications, supporting both Android and iOS platforms.
+# 🚀 React Native Appium Testing Framework
 
-## System Requirements
+A powerful automated testing framework for React Native applications, supporting both Android and iOS platforms.
+
+[![Platform](https://img.shields.io/badge/Platform-iOS%20%7C%20Android-blue)]()
+[![Appium](https://img.shields.io/badge/Appium-2.0-purple)]()
+[![Python](https://img.shields.io/badge/Python-3.x-yellow)]()
+[![License](https://img.shields.io/badge/License-MIT-green)]()
+
+</div>
+
+## 📋 Table of Contents
+
+- [System Requirements](#system-requirements)
+- [Installation Guide](#installation-guide)
+- [Environment Setup](#environment-setup)
+- [Running Tests](#running-tests)
+- [Docker Setup](#docker-setup)
+- [Test Reports](#test-reports)
+- [Troubleshooting](#troubleshooting)
+
+## 💻 System Requirements
 
 ### Required Software
 
-- Xcode 15.4+ (for iOS testing)
-- Android Studio Koala 2024.1.1+ (for Android testing)
-- Node.js
-- Python 3.x
-- ffmpeg
-  ```bash
-  # macOS
-  brew install ffmpeg
-  # Windows
-  choco install ffmpeg
-  # Linux
-  sudo apt-get install ffmpeg
-  ```
+| Software       | Version         | Purpose             |
+| -------------- | --------------- | ------------------- |
+| Xcode          | 15.4+           | iOS Testing         |
+| Android Studio | Koala 2024.1.1+ | Android Testing     |
+| Node.js        | Latest LTS      | Runtime Environment |
+| Python         | 3.x             | Test Scripts        |
+| ffmpeg         | Latest          | Video Processing    |
 
-### Appium Installation
+### Package Installation
 
 ```bash
-# Install Appium
+# macOS
+brew install ffmpeg
+
+# Windows
+choco install ffmpeg
+
+# Linux
+sudo apt-get install ffmpeg
+```
+
+## 🔧 Installation Guide
+
+### Appium Setup
+
+```bash
+# Install Appium globally
 npm install -g appium
 
 # Install platform-specific drivers
-# Android
-appium driver install uiautomator2
-# iOS
-appium driver install xcuitest
+appium driver install uiautomator2  # Android
+appium driver install xcuitest      # iOS
 ```
 
-## Environment Setup
+## ⚙️ Environment Setup
 
-### 1. Install Dependencies
+1. **Install Dependencies**
 
 ```bash
 python3 -m pip install -r requirements.txt
 ```
 
-### 2. Configure .env File
+2. **Configure Environment Variables**
 
-```env
-APPIUM_OS="android"  # android or ios
+```
+
+# .env
+
+```
+
+```
+APPIUM_OS="ios" # android or ios
 IMPLICIT_WAIT=15
 NO_RESET="True"
 AUTO_ACCEPT_ALERTS="True"
-UDID="4BEC1422-4429-4EAD-B850-C296B013A210"  # Optional, for specific device targeting
+UDID="4BEC1422-4429-4EAD-B850-C296B013A210" # Optional, for specific device targeting
+
 ```
 
 ### 3. WebDriverAgent Setup (iOS Only)
@@ -59,19 +92,36 @@ UDID="4BEC1422-4429-4EAD-B850-C296B013A210"  # Optional, for specific device tar
 
 ## Running Tests
 
+1. **Platform-Specific Setup**
+
+<details>
+<summary>iOS Setup</summary>
+
+1. Clone WebDriverAgent:
+
+```bash
+git clone https://github.com/appium/WebDriverAgent
+```
+
+2. Open WebDriverAgent.xcodeproj in Xcode
+3. Select WebDriverAgentRunner and run tests
+</details>
+
+## 🚀 Running Tests
+
 ### Start Appium Server
 
 ```bash
+
 # Local start
 appium
-
 ```
 
 After starting Appium, you should see something like this:
 
-![Appium Server Started](./images/img1.png
+![Appium Server Started](./images/img1.png)
 
-# Docker Setup and Execution
+# 🐳 Docker Setup and Execution
 
 ### Prerequisites
 
@@ -91,8 +141,6 @@ docker-compose up -d --build
 docker-compose down
 ```
 
-### Verify Docker Container
-
 ```bash
 # Check container status
 docker ps
@@ -101,7 +149,7 @@ docker ps
 docker-compose logs -f
 ```
 
-### Execute Test Cases
+## 📊 Test Execution & Reports
 
 ```bash
 # Run all tests and generate Allure report （Primary use）
@@ -122,28 +170,18 @@ allure generate allure-results -o allure-report --clean
 allure serve allure-results
 ```
 
-## Element Location Tools
+## 🔍 Element Location Tools
 
-### Appium Inspector
+### Appium Inspector Configuration
 
-- Download: [appium/appium-inspector](https://github.com/appium/appium-inspector)
-- Or use web version: [inspector.appiumpro.com](https://inspector.appiumpro.com)
-  ```bash
-  # Enable CORS for web version
-  appium --allow-cors
-  ```
+> ⚠️ **Important**: You must first start the Appium server in your terminal (by running the `appium` command) before you can use Appium Inspector for element inspection.
 
-#### Steps to Connect Appium Inspector
+<div align="center">
+  <img src="./images/img2.png" alt="Appium Inspctor Tool" width="600">
+</div>
 
-1. Start Appium server in terminal:
-
-```bash
-appium
-```
-
-2. In the Desired Capabilities section, input the JSON configuration according to your platform and update the app path to your local app file location:
-
-For Android testing:
+<details>
+<summary>Android Capabilities</summary>
 
 ```json
 {
@@ -156,7 +194,10 @@ For Android testing:
 }
 ```
 
-For iOS testing:
+</details>
+
+<details>
+<summary>iOS Capabilities</summary>
 
 ```json
 {
@@ -170,59 +211,57 @@ For iOS testing:
 }
 ```
 
-![Appium Inspector Capabilities](./images/img2.png)
+</details>
 
-## Device Configuration
+## 📱 Device Configuration
 
-### Finding Device UDID
+### Find Device UDID
 
-- For iOS Simulator:
-  ```bash
-  xcrun simctl list devices
-  ```
-- For Android:
-  ```bash
-  adb devices
-  ```
+```bash
+# iOS Simulator
+xcrun simctl list devices
 
-## Capabilities Configuration
-
-Update the capabilities in your test setup according to your environment:
-
-```python
-# Android Example
-options.set_capability('app', '/path/to/your/app.apk')
-options.set_capability('deviceName', 'Android Emulator')
-options.set_capability('platformVersion', '34.0')
-
-# iOS Example
-options.set_capability('app', '/path/to/your/Runner.app')
-options.set_capability('deviceName', 'iPhone 15 Pro')
-options.set_capability('platformVersion', '17.5')
+# Android
+adb devices
 ```
 
-## References & Resources
+## 📚 References
 
-- [Appium Docker Android](https://github.com/appium/appium-docker-android)
-- [Appium UIAutomator2 Driver](https://github.com/appium/appium-uiautomator2-driver)
-- [Appium XCUITest Driver](https://github.com/appium/appium-xcuitest-driver)
-- [XCUITest Locator Strategies](https://appium.github.io/appium-xcuitest-driver/latest/reference/locator-strategies/)
-- [Appium Installation Guide](https://appium.io/docs/en/latest/quickstart/install/)
+- [Appium Documentation](https://appium.io/docs/en/latest/)
+- [UIAutomator2 Driver](https://github.com/appium/appium-uiautomator2-driver)
+- [XCUITest Driver](https://github.com/appium/appium-xcuitest-driver)
+- [Docker Setup Guide](https://github.com/appium/appium-docker-android)
 
-## Troubleshooting
+## ❗ Troubleshooting
 
-### Common Issues
+<details>
+<summary>WebDriverAgent Installation Failed</summary>
 
-1. **WebDriverAgent Installation Failed**
+1. Check the following:
 
-   - Ensure Xcode command line tools are installed
-   - Try rebuilding WebDriverAgent in Xcode
+- Verify Xcode command line tools installation
+- Rebuild WebDriverAgent in Xcode
+- Check signing certificates
+</details>
 
-2. **Android Device Not Detected**
+<details>
+<summary>Android Device Not Detected</summary>
 
-   - Verify ADB is installed and running
-   - Check USB debugging is enabled on the device
+1. Check the following:
 
-3. **Appium Server Connection Issues**
-   - Verify correct port configuration
-   - Check if the server is running with proper permissions
+- Verify ADB installation
+- Enable USB debugging
+- Check USB connection
+</details>
+
+<details>
+<summary>Appium Server Connection Issues</summary>
+
+1. Check the following:
+
+- Verify port configuration
+- Check server permissions
+- Review server logs
+</details>
+
+---
