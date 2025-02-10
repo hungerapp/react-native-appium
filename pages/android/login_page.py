@@ -6,11 +6,22 @@ from appium.webdriver.common.appiumby import AppiumBy
 class LoginPage:
   def __init__(self, driver):
       self.driver = driver
-
+      
+      
+  language_setting_button = (AppiumBy.ACCESSIBILITY_ID, '語言設定')
+  chinese_language = (AppiumBy.ACCESSIBILITY_ID, '繁體中文, 繁體中文(台灣)')
+  language_save_button = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(1)')
+  terms_and_conditions_button = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("服務條款")')
+  tc_back_button = (AppiumBy.ACCESSIBILITY_ID, '返回夯客APP')
+  privacy_button = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("隱私權政策")')
+  privacy_back_button = (AppiumBy.ACCESSIBILITY_ID, '返回夯客APP')
   login_button = (AppiumBy.ACCESSIBILITY_ID, '開始使用')
   email_input = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("android.widget.EditText")')
   login_cancel_button = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView")')
   email_next_button = (AppiumBy.ACCESSIBILITY_ID, '下一步')
+  error_unregistered_window_title = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("沒有此帳號")')
+  error_unregistered_window_message = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("請檢查信箱是否輸入正確")')
+  error_unregistered_window_button = (AppiumBy.ACCESSIBILITY_ID, '重新輸入')
   modify_email_button = (AppiumBy.ACCESSIBILITY_ID, '修改信箱')
   is_verification_code_page_title = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("驗證通行碼")')
   ver_code_input = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("android.widget.EditText")')
@@ -27,8 +38,36 @@ class LoginPage:
   setting_icon = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(0)')
   click_window_logout_button = (AppiumBy.ACCESSIBILITY_ID, '登出')
   sure_to_logout = (AppiumBy.ACCESSIBILITY_ID, '確定')
+  
+  
+  
+  def select_language(self):
+      self.driver.find_element(*self.language_setting_button).click()
+      time.sleep(1)
+      self.driver.find_element(*self.chinese_language).click()
+      self.driver.find_element(*self.language_save_button).click()
 
+  def continue_to_login_page(self):
+      language_setting_btn = self.driver.find_element(by=AppiumBy.ANDROID_UIAUTOMATOR, value='new UiSelector().text("語言設定")')
+      contact_cs_btn = self.driver.find_element(by=AppiumBy.ANDROID_UIAUTOMATOR, value='new UiSelector().text("聯繫客服")')
+      
+      assert language_setting_btn.is_displayed(), "Language setting button not found"
+      assert contact_cs_btn.is_displayed(), "Contact customer service button not found"
+      assert self.driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value='開始使用') is not None, "Start using the app button not found"
+      # click button move to login step
+      #driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value='開始使用').click()
+      
+  def click_terms_and_conditions_button(self):
+      self.driver.find_element(*self.terms_and_conditions_button).click()
+  
+  def click_tc_back_button(self):
+      self.driver.find_element(*self.tc_back_button).click()
 
+  def click_privacy_button(self):
+      self.driver.find_element(*self.privacy_button).click()
+
+  def click_privacy_back_button(self):
+      self.driver.find_element(*self.privacy_back_button).click()
 
   def click_login_button(self):
       self.driver.find_element(*self.login_button).click()
@@ -102,8 +141,33 @@ class LoginPage:
               pass
       
       return False
-   
+  
+  def login_with_unregistered_email(self, email):
+       self.click_login_button()
+       time.sleep(1)
+    
+       try:
+            email_input = self.driver.find_element(*self.email_input)
+            current_value = email_input.get_attribute("text")
+            if current_value:
+               email_input.clear()
+
+            email_input.send_keys(email)
+            self.driver.find_element(*self.email_next_button).click()
+
+            
+       except NoSuchElementException as e:
+            print(f"無法找到元素: {str(e)}")
+            raise  
+        
       
+  def error_unregistered_message(self):
+      error_element = self.driver.find_element(*self.error_unregistered_window_title)
+      assert error_element.is_displayed(), "Error unregistered window title not found"
+      error_text = self.driver.find_element(*self.error_unregistered_window_message).text.strip()
+      self.driver.find_element(*self.error_unregistered_window_button).click()
+      return error_text
+
   
   
   def get_email_error_message(self):
@@ -222,7 +286,7 @@ class LoginPage:
   def login_with_invalid_email(self, email):
         """run the invalid login process"""
         self.click_login_button()
-        time.sleep(2)
+        time.sleep(1)
     
         try:
             email_input = self.driver.find_element(*self.email_input)

@@ -5,6 +5,7 @@ import allure
 from appium.webdriver.common.appiumby import AppiumBy
 from pytest_bdd import scenarios, given, when, then
 
+from pages.android.login_page import LoginPage
 """order=1"""
 
 scenarios('../../../features/onboarding.feature')
@@ -36,11 +37,5 @@ def verify_onboarding_page(driver):
 @then('I can start using the app')
 def start_using_app(driver):
     """Verify that user can start using the app."""
-    language_setting_btn = driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value='語言設定')
-    contact_cs_btn = driver.find_element(by=AppiumBy.ANDROID_UIAUTOMATOR, value='new UiSelector().text("聯繫客服")')
-
-    assert language_setting_btn.is_displayed(), "Language setting button not found"
-    assert contact_cs_btn.is_displayed(), "Contact customer service button not found"
-    assert driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value='開始使用') is not None, "Start using the app button not found"
-    # click button move to login step
-    #driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value='開始使用').click()
+    login_page = LoginPage(driver)
+    login_page.continue_to_login_page()

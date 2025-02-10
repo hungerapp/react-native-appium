@@ -16,7 +16,7 @@ TEST_VER = '5556666'
 # View basic personal information
 @allure.feature('Personal Page')
 @allure.story('View basic personal information')
-@pytest.mark.run(order=6)
+@pytest.mark.run(order=9)
 @given('I successfully logged in first time')
 def login_to_personal_page(driver):
     login_page = LoginPage(driver)
@@ -50,7 +50,7 @@ def see_email_address(driver):
 # View brand list section
 @allure.feature('Brand List')
 @allure.story('View brand list section')
-@pytest.mark.run(order=7)
+@pytest.mark.run(order=10)
 @given('I am on the personal page')
 def login_to_personal_page(driver):
     pass
@@ -85,7 +85,7 @@ def visit_all_branches(driver):
 # Manage Push Notification
 @allure.feature('Push Notification')
 @allure.story('Manage Push Notification')
-@pytest.mark.run(order=8)
+@pytest.mark.run(order=11)
 @given('I am on the personal page')
 def login_to_personal_page(driver):
     pass
@@ -115,7 +115,7 @@ def save_notification_settings(driver):
 # Manage account settings
 @allure.feature('Account Settings')
 @allure.story('Manage account settings')
-@pytest.mark.run(order=9)
+@pytest.mark.run(order=12)
 @given('I am on the personal page')
 def login_to_personal_page(driver):
     pass
@@ -140,7 +140,7 @@ def update_account_information(driver):
 # Account Settings for empty name
 @allure.feature('Account Settings for empty name')
 @allure.story('Account Settings for empty name')
-@pytest.mark.run(order=10)
+@pytest.mark.run(order=13)
 @when('I click settings icon')
 def click_settings_icon(driver):
     personal_page = PersonalPage(driver)
@@ -163,7 +163,7 @@ def input_empty_name(driver):
 # Account Settings for empty phone number
 @allure.feature('Account Settings for empty phone number')
 @allure.story('Account Settings for empty phone number')
-@pytest.mark.run(order=11)
+@pytest.mark.run(order=14)
 @given('I am on the personal page')
 def login_to_personal_page(driver):
     pass
@@ -189,7 +189,7 @@ def input_empty_phone_number(driver):
 # Account Settings for invalid phone number
 @allure.feature('Account Settings for invalid phone number')
 @allure.story('Account Settings for invalid phone number')
-@pytest.mark.run(order=12)
+@pytest.mark.run(order=15)
 @given('I am on the personal page')
 def login_to_personal_page(driver):
     pass

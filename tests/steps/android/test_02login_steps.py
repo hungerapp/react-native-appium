@@ -11,6 +11,7 @@ from pages.android.login_page import LoginPage
 scenarios('../../../features/login.feature')
 
 TEST_EMAIL = 'ann@hunger.ai'
+TEST_UNREGISTERED_EMAIL = 'ann@hotcake.com'
 TEST_EMAIL_2 = 'ann@hotcake.app'
 TEST_INVALID_EMAILS = [
     'ann@hotcake',  # invalid domain
@@ -23,8 +24,8 @@ TEST_VER = '5556666'
 TEST_INVALID_VER = '123456'
 
 
-@allure.feature('Login Functionality')
-@allure.story('Unsuccessful login with invalid email')
+# Scenario: Select language
+@allure.feature('Select Language')
 @pytest.mark.run(order=2)
 @given('the app is launched')
 def login_page_loaded(driver):
@@ -32,6 +33,57 @@ def login_page_loaded(driver):
     #driver.execute_script('mobile: alert', {'action': 'accept', 'buttonLabel': 'Allow'})
     assert driver is not None, "App failed to launch"
 
+@when('I select my language and click sure button')
+def select_language(driver):
+    """Select language and click sure button."""
+    login_page = LoginPage(driver)
+    login_page.select_language()
+    
+@then('I can save the language setting and continue to the login page')
+def continue_to_login_page(driver):
+    """Verify that user can continue to the login page."""
+    login_page = LoginPage(driver)
+    login_page.continue_to_login_page()
+    
+    
+    
+
+# Scenario: Click terms and conditions
+@allure.feature('Click Terms and Conditions')
+@pytest.mark.run(order=3)
+@when('I click terms and conditions button')
+def click_terms_and_conditions_button(driver):
+    """Click terms button."""
+    login_page = LoginPage(driver)
+    login_page.click_terms_and_conditions_button()
+
+@then('I can see the terms page and click the back button to go back to the start page')
+def verify_terms_and_conditions_page(driver):
+    """Verify that user can see the terms page and click the back button to go back to the start page."""
+    login_page = LoginPage(driver)
+    login_page.click_tc_back_button()
+    login_page.continue_to_login_page()
+    
+@when('I click privacy button')
+def click_privacy_button(driver):
+    """Click privacy button."""
+    login_page = LoginPage(driver)
+    login_page.click_privacy_button()
+
+@then('I can see the privacy page and click the back button to go back to the start page')
+def verify_privacy_page(driver):
+    """Verify that user can see the privacy page and click the back button to go back to the start page."""
+    login_page = LoginPage(driver)
+    login_page.click_privacy_back_button()
+    login_page.continue_to_login_page()
+
+
+
+
+# Scenario: Unsuccessful login with invalid email
+@allure.feature('Login Functionality')
+@allure.story('Unsuccessful login with invalid email')
+@pytest.mark.run(order=4)
 @when('the user enters an invalid email')
 def login_with_invalid_email(driver):
     """Use invalid email to attempt login."""
@@ -47,9 +99,25 @@ def verify_invalid_email_error(driver):
 
 
 
+@allure.feature('Login Unregistered Email')
+@pytest.mark.run(order=5)
+@when('the user enters an unregistered email')
+def login_with_unregistered_email(driver):
+    """Use unregistered email to attempt login."""
+    login_page = LoginPage(driver)
+    login_page.login_with_unregistered_email(TEST_UNREGISTERED_EMAIL)
+    
+@then('the user should see an popup window with email not registered')
+def verify_unregistered_email_error(driver):
+    """Verify unregistered email error message is shown."""
+    login_page = LoginPage(driver)
+    assert login_page.error_unregistered_message() == "請檢查信箱是否輸入正確", "Unregistered email error message not shown"
+    login_page.click_login_cancel_button()
+
+
 # Scenario: Unsuccessful login with invalid verification code
 @allure.story('Unsuccessful login with invalid verification code')
-@pytest.mark.run(order=3)
+@pytest.mark.run(order=6)
 @when('the user enters an invalid verification code')
 def login_with_invalid_ver_code(driver):
     """Use invalid verification code to attempt login."""
@@ -67,7 +135,7 @@ def verify_invalid_ver_code_error(driver):
 
 # Scenario: Modify email from verification code page
 @allure.story('Modify email from verification code page')
-@pytest.mark.run(order=4)
+@pytest.mark.run(order=7)
 @when('the user clicks modify email button')
 def click_modify_email_button(driver):
     """Click modify email button."""
@@ -91,7 +159,7 @@ def verify_verification_code_page(driver):
 
 # Scenario: Successful login
 @allure.story('Successful login')
-@pytest.mark.run(order=5)
+@pytest.mark.run(order=8)
 @when('the user enters valid credentials')
 def login_with_valid_credentials(driver):
     """Use valid credentials to log in."""
