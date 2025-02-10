@@ -653,6 +653,7 @@ class PersonalPage:
   def cancel_account_settings (self):
         """Cancel account settings"""
         self.driver.find_element(*self.ACCOUNT_SETTINGS_CANCEL_BUTTON).click()
+        time.sleep(2)
         return self
   
   def update_account_information_and_save_settings(self):

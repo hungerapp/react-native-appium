@@ -109,6 +109,7 @@ class LoginPage:
   def is_logged_in(self):
       try:
           # Check if login success popup is displayed
+          time.sleep(2)
           pop_up = self.driver.find_element(*self.login_success_popup)
           if pop_up.is_displayed():
               try:
