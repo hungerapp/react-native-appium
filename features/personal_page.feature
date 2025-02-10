@@ -74,4 +74,27 @@ Feature: Personal Page
     Then I input invalid phone number
     Then I should see error message for invalid phone
 
- 
+ @regression @select_different_country_code
+ Scenario: Select different country code
+    Given I am on the personal page
+    When I click settings icon
+    Then I click account settings option
+    Then I select different country code and save 
+    Then I should see different country code in the phone number input field
+
+ @regression @search_country_code
+ Scenario: Search different country code
+    Given I am on the personal page
+    When I click settings icon
+    Then I click account settings option
+    Then I search different country code and save 
+    Then I should see different country code I've searched in the phone number input field
+
+@regression @select_language_on_personal_page
+ Scenario: Select language on personal page
+    Given I am on the personal page
+    When I click settings icon
+    Then I click language settings
+    Then I select language and save
+
+

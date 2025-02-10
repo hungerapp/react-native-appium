@@ -215,5 +215,90 @@ def see_error_message_for_invalid_phone(driver):
     personal_page.get_invalid_phone_error_message()
     personal_page.cancel_account_settings()
     
+    
+    
+    
+
+# Select different country code
+@allure.feature('Account Settings for country code')
+@allure.story('Select different country code')
+@pytest.mark.run(order=16)
+@given('I am on the personal page')
+def login_to_personal_page(driver):
+    pass
+
+@when('I click settings icon')
+def click_settings_icon(driver):
+    personal_page = PersonalPage(driver)
+    personal_page.click_setting_icon()
+
+@then('I click account settings option')
+def click_account_settings_option(driver):
+    personal_page = PersonalPage(driver)
+    personal_page.click_account_settings()
+
+@then('I select different country code and save')
+def select_different_country_code(driver):
+    personal_page = PersonalPage(driver)
+    personal_page.select_random_country_code()
+
+@then('I should see different country code in the phone number input field')
+def verify_country_code_changed(driver):
+    personal_page = PersonalPage(driver)
+    personal_page.is_country_code_changed(), "Country code not changed"
+    personal_page.cancel_account_settings()
 
 
+
+# Search different country code
+@allure.feature('Account Settings for search country code')
+@allure.story('Search different country code')
+@pytest.mark.run(order=17)
+@given('I am on the personal page')
+def login_to_personal_page(driver):
+    pass
+
+@when('I click settings icon')
+def click_settings_icon(driver):
+    personal_page = PersonalPage(driver)
+    personal_page.click_setting_icon()
+
+@then('I click account settings option')
+def click_account_settings_option(driver):
+    personal_page = PersonalPage(driver)
+    personal_page.click_account_settings()
+
+@then('I search different country code and save')
+def search_different_country_code(driver):
+    personal_page = PersonalPage(driver)
+    personal_page.search_country_code()
+
+@then('I should see different country code I\'ve searched in the phone number input field')
+def verify_country_code_changed(driver):
+    personal_page = PersonalPage(driver)
+    personal_page.is_country_code_changed(), "Country code not changed"
+    personal_page.cancel_account_settings()
+
+
+@allure.feature('Account Settings for select language')
+@allure.story('Select language on personal page')
+@pytest.mark.run(order=18)
+@given('I am on the personal page')
+def login_to_personal_page(driver):
+    pass
+
+@when('I click settings icon')
+def click_settings_icon(driver):
+    personal_page = PersonalPage(driver)
+    personal_page.click_setting_icon()
+
+@then('I click language settings')
+def click_language_settings_option(driver):
+    personal_page = PersonalPage(driver)
+    personal_page.click_language_settings()
+    
+
+@then('I select language and save')
+def verify_language_changed(driver):
+    personal_page = PersonalPage(driver)
+    personal_page.select_language()
