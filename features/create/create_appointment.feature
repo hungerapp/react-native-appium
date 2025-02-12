@@ -13,7 +13,7 @@ Feature: Create Appointment
   @regression @create_appointment_with_change_time_and_service_person
   Scenario: Successfully create an appointment with change time and service person
     Given I click the create appointment option
-    Then I fill in the contact with anonymous nickname
+    When I fill in the contact with anonymous nickname
     Then I select a service person
     Then I select a service
     Then I change service time and service person
@@ -23,7 +23,7 @@ Feature: Create Appointment
   @regression @create_appointment_with_one_more_service
   Scenario: Successfully create an appointment with one more service
     Given I click the create appointment option
-    Then I fill in the contact with anonymous nickname
+    When I fill in the contact with anonymous nickname
     Then I select a service person
     Then I select a service
     Then I add one more service
@@ -32,7 +32,7 @@ Feature: Create Appointment
   @regression @create_appointment_with_one_more_service_then_delete
   Scenario: Successfully create an appointment with one more service then delete
     Given I click the create appointment option
-    Then I fill in the contact with anonymous nickname
+    When I fill in the contact with anonymous nickname
     Then I select a service person
     Then I select a service
     Then I add one more service

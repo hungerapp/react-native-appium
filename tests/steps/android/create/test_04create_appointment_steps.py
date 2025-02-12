@@ -59,8 +59,152 @@ def click_create_button(driver):
     """Click create appointment button"""
     create_page = CreateAppointmentPage(driver)
     create_page.click_create_button()
+    
+    
+    
+    
+    
+# Scenario: Successfully create an appointment with change time and service person
+@allure.feature('Create Appointment with change time and service person')
+@allure.story('Successfully create an appointment with change time and service person')
+@pytest.mark.run(order=20)
+@given('I click the create appointment option')
+def click_create_appointment_for_change_time(driver):
+    """Click create appointment button"""
+    create_page = CreateAppointmentPage(driver)
+    create_page.create_appointment()
 
+@when('I fill in the contact with anonymous nickname')
+def fill_anonymous_contact(driver):
+    """Fill contact info as anonymous"""
+    create_page = CreateAppointmentPage(driver)
+    create_page.fill_anonymous_contact()
 
+@then('I select a service person')
+def select_service_person(driver):
+    """Select service person"""
+    create_page = CreateAppointmentPage(driver)
+    create_page.select_service_person()
+
+@then('I select a service')
+def select_service(driver):
+    """Select service"""
+    create_page = CreateAppointmentPage(driver)
+    create_page.select_service()
+    
+@then('I change service time and service person')
+def change_service_time_and_service_person(driver):
+    """Change service time and service person"""
+    create_page = CreateAppointmentPage(driver)
+    create_page.change_service_time_and_service_person()
+
+@then('I input the note in the note section')
+def input_note(driver):
+    """Input note"""
+    create_page = CreateAppointmentPage(driver)
+    create_page.input_note()
+
+@then('I click create appointment and should see the appointment created successfully')
+def click_create_button(driver):
+    """Click create appointment button"""
+    create_page = CreateAppointmentPage(driver)
+    create_page.click_create_button()
+    
+    
+    
+    
+    
+# Scenario: Successfully create an appointment with one more service
+@allure.feature('Create Appointment with one more service')
+@allure.story('Successfully create an appointment with one more service')
+@pytest.mark.run(order=21)
+@given('I click the create appointment option')
+def click_create_appointment_for_one_more_service(driver):
+    """Click create appointment button"""
+    create_page = CreateAppointmentPage(driver)
+    create_page.create_appointment()
+
+@when('I fill in the contact with anonymous nickname')
+def fill_anonymous_contact(driver):
+    """Fill contact info as anonymous"""
+    create_page = CreateAppointmentPage(driver)
+    create_page.fill_anonymous_contact()
+    
+@then('I select a service person')
+def select_service_person(driver):
+    """Select service person"""
+    create_page = CreateAppointmentPage(driver)
+    create_page.select_service_person()
+
+@then('I select a service')
+def select_service(driver):
+    """Select service"""
+    create_page = CreateAppointmentPage(driver)
+    create_page.select_service()
+
+@then('I add one more service')
+def add_one_more_service(driver):
+    """Add one more service"""
+    create_page = CreateAppointmentPage(driver)
+    create_page.add_one_more_service()
+
+@then('I click create appointment and should see the appointment created successfully')
+def click_create_button(driver):
+    """Click create appointment button"""
+    create_page = CreateAppointmentPage(driver)
+    create_page.click_create_button()
+    
+    
+    
+    
+    
+# Scenario: Successfully create an appointment with one more service then delete
+@allure.feature('Create Appointment with one more service then delete') 
+@allure.story('Successfully create an appointment with one more service then delete')
+@pytest.mark.run(order=22)
+@given('I click the create appointment option')
+def click_create_appointment_for_one_more_service_then_delete(driver):
+    """Click create appointment button"""
+    create_page = CreateAppointmentPage(driver)
+    create_page.create_appointment()
+
+@when('I fill in the contact with anonymous nickname')
+def fill_anonymous_contact(driver):
+    """Fill contact info as anonymous"""
+    create_page = CreateAppointmentPage(driver)
+    create_page.fill_anonymous_contact()
+    
+@then('I select a service person')
+def select_service_person(driver):
+    """Select service person"""
+    create_page = CreateAppointmentPage(driver)
+    create_page.select_service_person()
+
+@then('I select a service')
+def select_service(driver):
+    """Select service"""
+    create_page = CreateAppointmentPage(driver)
+    create_page.select_service()
+    
+@then('I add one more service')
+def add_one_more_service(driver):
+    """Add one more service"""
+    create_page = CreateAppointmentPage(driver)
+    create_page.add_one_more_service()
+
+@then('I delete one service')
+def delete_one_service(driver):
+    """Delete one service"""
+    create_page = CreateAppointmentPage(driver)
+    create_page.delete_one_service()
+
+@then('I can go back to calendar page after delete')
+def go_back_to_calendar(driver):
+    """Go back to calendar page after delete"""
+    create_page = CreateAppointmentPage(driver)
+    create_page.go_back_to_calendar()
+    
+    
     
 
 # Scenario: Successfully create an appointment with existing nickname
@@ -363,3 +507,36 @@ def select_and_save_contact_full_name(driver):
     create_page = CreateAppointmentPage(driver)
     create_page.select_search_result_and_save()
 
+
+@allure.feature('Create Appointment with partial information then cancel')
+@allure.story('Create Appointment with partial information then cancel')
+@pytest.mark.run(order=31)
+@given('I click the create appointment option')
+def click_create_appointment_for_partial_cancel(driver):
+    """Click create appointment button"""
+    create_page = CreateAppointmentPage(driver)
+    create_page.create_appointment()
+
+@when('I fill in the contact with anonymous nickname')
+def fill_anonymous_contact(driver):
+    """Fill contact info as anonymous"""
+    create_page = CreateAppointmentPage(driver)
+    create_page.fill_anonymous_contact()
+
+@then('I select a service person')
+def select_service_person(driver):
+    """Select service person"""
+    create_page = CreateAppointmentPage(driver)
+    create_page.select_service_person()
+
+@then('I select a service')
+def select_service(driver):
+    """Select service"""
+    create_page = CreateAppointmentPage(driver)
+    create_page.select_service()
+
+@then('I click back button should see the unfinished window')
+def click_back_button(driver):
+    """Click back button and see unfinished window"""
+    create_page = CreateAppointmentPage(driver)
+    create_page.click_back_button()
