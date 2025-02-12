@@ -67,7 +67,7 @@ def click_create_button(driver):
 # Scenario: Successfully create an appointment with change time and service person
 @allure.feature('Create Appointment with change time and service person')
 @allure.story('Successfully create an appointment with change time and service person')
-@pytest.mark.run(order=20)
+@pytest.mark.run(order=20)1
 @given('I click the create appointment option')
 def click_create_appointment_for_change_time(driver):
     """Click create appointment button"""
