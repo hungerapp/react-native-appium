@@ -25,7 +25,7 @@ if options.platform_name == 'android':
     options.automation_name = 'UiAutomator2'
     # options.set_capability('platformVersion', '34.0')
     # options.set_capability('deviceName', 'Android Emulator')
-    options.set_capability('app', '/Users/ouhiroshishi/Downloads/20250206 application-8b1f2012-698a-43fa-af1b-6c7fbae6f165.apk')
+    options.set_capability('app', '/Users/ouhiroshishi/Downloads/20250211 application-00cc6739-4c8d-440b-a626-66bdef977090.apk')
     options.set_capability('noReset', noReset_bool)
     #options.set_capability('useNewWDA', False)
     options.set_capability('autoGrantPermissions', auto_accept_alerts_bool)

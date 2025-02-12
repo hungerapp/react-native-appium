@@ -19,9 +19,10 @@ scenarios('../../../features/onboarding.feature')
 def launch_app_first_time(driver):
     assert driver is not None, "App failed to launch"
 
-    onboarding_language = driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value='選擇你的語言')
-  
-    assert onboarding_language.is_displayed(), "Onboarding language not found"
+    start_updating_app = driver.find_element(by=AppiumBy.ANDROID_UIAUTOMATOR, value='new UiSelector().description("開始更新")')
+    start_updating_app.click()
+    
+    time.sleep(5)
 
     #driver.execute_script('mobile: alert', {'action': 'accept', 'buttonLabel': 'Allow'})
 
