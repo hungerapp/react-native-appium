@@ -5,7 +5,7 @@ from pytest_bdd import scenarios, given, when, then
 
 from pages.android.create.create_appointment_page import CreateAppointmentPage
 
-scenarios('../../../../features/create/create_appointment.feature')
+scenarios('../../../features/create/create_appointment.feature')
 
 # Test data
 TEST_CONTACT_NAME = "王貝克"
