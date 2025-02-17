@@ -397,7 +397,7 @@ class PersonalPage:
 
     # try to find and click settings button
     try:
-        time.sleep(0.5)
+        time.sleep(1)
         settings_button = self.driver.find_element(*self.SETTINGS_BUTTON)
         if settings_button.is_displayed() and settings_button.is_enabled():
             settings_button.click()

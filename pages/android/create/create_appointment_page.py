@@ -14,7 +14,7 @@ class CreateAppointmentPage(CommonUseSection):
         
     # Basic element locators
     PERSONAL_PAGE_BACK_TO_CALENDAR_BTN = (AppiumBy.ACCESSIBILITY_ID, '返回')
-    CREATE_BTN = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(14)')
+    CREATE_BTN = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(13)')
     CREATE_APPOINTMENT_OPTION = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(7)')
     CONTACT_INFO_SECTION = (AppiumBy.ACCESSIBILITY_ID, '匿名')
     SERVICE_PERSON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("服務人員")')
@@ -102,7 +102,7 @@ class CreateAppointmentPage(CommonUseSection):
         """Click create appointment button"""
         
         try:
-          time.sleep(1)
+          time.sleep(1.5)
           create_button = self.driver.find_element(*self.CREATE_BTN)
           if create_button.is_displayed() and create_button.is_enabled():
               create_button.click()

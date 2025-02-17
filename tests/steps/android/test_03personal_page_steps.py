@@ -280,6 +280,8 @@ def verify_country_code_changed(driver):
     personal_page.cancel_account_settings()
 
 
+
+# Select language
 @allure.feature('Account Settings for select language')
 @allure.story('Select language on personal page')
 @pytest.mark.run(order=18)
