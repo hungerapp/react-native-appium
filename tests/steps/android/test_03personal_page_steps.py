@@ -155,7 +155,6 @@ def click_account_settings_option(driver):
 def input_empty_name(driver):
     personal_page = PersonalPage(driver)
     personal_page.get_empty_name_error_message()
-    personal_page.cancel_account_settings()
 
 
 
@@ -164,25 +163,17 @@ def input_empty_name(driver):
 @allure.feature('Account Settings for empty phone number')
 @allure.story('Account Settings for empty phone number')
 @pytest.mark.run(order=14)
-@given('I am on the personal page')
-def login_to_personal_page(driver):
+@given('I am on the acc setting page')
+def on_acc_setting_page(driver):
     pass
   
-@when('I click settings icon')
-def click_settings_icon(driver):
-    personal_page = PersonalPage(driver)
-    personal_page.click_setting_icon()
-
-@then('I click account settings option')
-def click_account_settings_option(driver):
-    personal_page = PersonalPage(driver)
-    personal_page.click_account_settings()
-
 @then('I input empty phone number and get error message')
 def input_empty_phone_number(driver):
     personal_page = PersonalPage(driver)
     personal_page.get_empty_phone_error_message()
     personal_page.cancel_account_settings()
+    
+    
     
 
 
@@ -246,7 +237,6 @@ def select_different_country_code(driver):
 def verify_country_code_changed(driver):
     personal_page = PersonalPage(driver)
     personal_page.is_country_code_changed(), "Country code not changed"
-    personal_page.cancel_account_settings()
 
 
 
@@ -254,21 +244,11 @@ def verify_country_code_changed(driver):
 @allure.feature('Account Settings for search country code')
 @allure.story('Search different country code')
 @pytest.mark.run(order=17)
-@given('I am on the personal page')
-def login_to_personal_page(driver):
+@given('I am on the acc setting page')
+def on_acc_setting_page(driver):
     pass
 
-@when('I click settings icon')
-def click_settings_icon(driver):
-    personal_page = PersonalPage(driver)
-    personal_page.click_setting_icon()
-
-@then('I click account settings option')
-def click_account_settings_option(driver):
-    personal_page = PersonalPage(driver)
-    personal_page.click_account_settings()
-
-@then('I search different country code and save')
+@when('I search different country code and save')
 def search_different_country_code(driver):
     personal_page = PersonalPage(driver)
     personal_page.search_country_code()
@@ -278,6 +258,8 @@ def verify_country_code_changed(driver):
     personal_page = PersonalPage(driver)
     personal_page.is_country_code_changed(), "Country code not changed"
     personal_page.cancel_account_settings()
+
+
 
 
 
