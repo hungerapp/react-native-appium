@@ -302,3 +302,38 @@ def click_language_settings_option(driver):
 def verify_language_changed(driver):
     personal_page = PersonalPage(driver)
     personal_page.select_language()
+
+@when('I click on the date block')
+def step_impl(context):
+    personal_page = PersonalPage(context)
+    personal_page.click_date_block()
+
+@then('a calendar popup should appear')
+def step_impl(context):
+    personal_page = PersonalPage(context)
+    assert personal_page.is_calendar_popup_visible()
+
+@when('I select a month using the left or right arrow')
+def step_impl(context):
+    personal_page = PersonalPage(context)
+    personal_page.select_month('right')  # or 'left'
+
+@when('I select a specific date')
+def step_impl(context):
+    personal_page = PersonalPage(context)
+    personal_page.select_date('15')  # example date
+
+@then('I should see the available times')
+def step_impl(context):
+    personal_page = PersonalPage(context)
+    assert personal_page.are_times_visible()
+
+@when('I select a time')
+def step_impl(context):
+    personal_page = PersonalPage(context)
+    personal_page.select_time('19:00')  # example time
+
+@then('the time should be set')
+def step_impl(context):
+    personal_page = PersonalPage(context)
+    assert personal_page.is_time_set('19:00')

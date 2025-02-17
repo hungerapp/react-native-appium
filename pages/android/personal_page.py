@@ -807,3 +807,31 @@ class PersonalPage:
   def select_language(self):
     self.driver.find_element(*self.LANGUAGE_CHINESE_OPTION).click()
     self.driver.find_element(*self.LANGUAGE_CONFIRM_BUTTON).click()
+
+  def click_date_block(self):
+    # 實作點擊日期區塊的邏輯
+    pass
+
+  def is_calendar_popup_visible(self):
+    # 實作檢查日曆彈出視窗是否可見的邏輯
+    pass
+
+  def select_month(self, direction):
+    # 實作選擇月份的邏輯，direction 可以是 'left' 或 'right'
+    pass
+
+  def select_date(self, date):
+    # 實作選擇日期的邏輯
+    pass
+
+  def are_times_visible(self):
+    # 實作檢查時間是否可見的邏輯
+    pass
+
+  def select_time(self, time):
+    # 實作選擇時間的邏輯
+    pass
+
+  def is_time_set(self, time):
+    # 實作檢查時間是否已設定的邏輯
+    pass

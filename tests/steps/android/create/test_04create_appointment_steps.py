@@ -380,11 +380,10 @@ def select_and_save_contact_full_name(driver):
 @allure.feature('Create Appointment for full phone number')
 @allure.story('Search contact by full phone number')
 @pytest.mark.run(order=27)
-@given('I am back to calendar page and click the create appointment option')
+@given('I click the create appointment option')
 def click_create_appointment_for_full_phone(driver):
     """Click create appointment button"""
     create_page = CreateAppointmentPage(driver)
-    create_page.work_as_expected_then_back_to_calendar()
     create_page.create_appointment()
 
 @when('I click contact info section')
@@ -488,3 +487,5 @@ def select_and_save_contact_full_name(driver):
     create_page = CreateAppointmentPage(driver)
     create_page.select_search_result_and_save()
     create_page.work_as_expected_then_back_to_calendar()
+
+

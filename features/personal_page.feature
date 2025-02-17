@@ -97,4 +97,15 @@ Feature: Personal Page
     Then I click language settings
     Then I select language and save
 
+@regression @select_a_specific_time
+ Scenario: Select a specific time
+    Given I am on the personal page
+    When I click on the date block
+    Then a calendar popup should appear
+    When I select a month using the left or right arrow
+    And I select a specific date
+    Then I should see the available times
+    When I select a time
+    Then the time should be set
+
 

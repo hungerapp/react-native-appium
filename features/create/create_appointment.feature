@@ -80,7 +80,7 @@ Feature: Create Appointment
 
   @regression @contact_info_search_by_full_phone_number 
   Scenario: Search contact by full phone number
-    Given I am back to calendar page and click the create appointment option
+    Given I click the create appointment option
     When I click contact info section
     Then I enter a full phone number
     Then I click the phone search button for full phone number
