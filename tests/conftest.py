@@ -23,14 +23,14 @@ def pytest_configure(config):
     config.addinivalue_line("markers", "login: Mark test as login")
     
     # start recording screen
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    recording_path = f"screen_records/Test_{timestamp}.mp4"
-    os.makedirs("screen_records", exist_ok=True)
+    # timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    # recording_path = f"screen_records/Test_{timestamp}.mp4"
+    # os.makedirs("screen_records", exist_ok=True)
     
     # use adb to start recording, store the process object in the config for later stopping
-    config.recording_process = Popen(['adb', 'shell', 'screenrecord', f'/sdcard/{os.path.basename(recording_path)}'])
-    config.recording_path = recording_path
-    
+    # config.recording_process = Popen(['adb', 'shell', 'screenrecord', f'/sdcard/{os.path.basename(recording_path)}'])
+    # config.recording_path = recording_path
+
 
 def pytest_bdd_apply_tag(tag, function):
     if tag == 'order':
@@ -49,41 +49,41 @@ def pytest_sessionfinish(session, exitstatus):
     """
     try:
         # stop recording
-        if hasattr(session.config, 'recording_process'):
-            session.config.recording_process.terminate()
-            import time
-            time.sleep(3)
+        # if hasattr(session.config, 'recording_process'):
+        #     session.config.recording_process.terminate()
+        #     import time
+        #     time.sleep(3)
             
-            # copy recording file from device to local
-            run(['adb', 'pull', f'/sdcard/{os.path.basename(session.config.recording_path)}', 
-                 session.config.recording_path])
-            # delete recording file from device
-            run(['adb', 'shell', 'rm', f'/sdcard/{os.path.basename(session.config.recording_path)}'])
+        #     # copy recording file from device to local
+        #     run(['adb', 'pull', f'/sdcard/{os.path.basename(session.config.recording_path)}', 
+        #          session.config.recording_path])
+        #     # delete recording file from device
+        #     run(['adb', 'shell', 'rm', f'/sdcard/{os.path.basename(session.config.recording_path)}'])
             
-            # check if file exists and size is not 0
-            if os.path.exists(session.config.recording_path) and os.path.getsize(session.config.recording_path) > 0:
-                try:
-                    # ensure allure environment is initialized
-                    if hasattr(session.config.option, 'allure_report_dir'):
-                        import allure
-                        # copy video to allure report directory
-                        allure_video_path = os.path.join(
-                            session.config.option.allure_report_dir,
-                            f"Screen_Recording_{time.strftime('%Y%m%d_%H%M%S')}.mp4"
-                        )
-                        import shutil
-                        shutil.copy2(session.config.recording_path, allure_video_path)
+        #     # check if file exists and size is not 0
+        #     if os.path.exists(session.config.recording_path) and os.path.getsize(session.config.recording_path) > 0:
+        #         try:
+        #             # ensure allure environment is initialized
+        #             if hasattr(session.config.option, 'allure_report_dir'):
+        #                 import allure
+        #                 # copy video to allure report directory
+        #                 allure_video_path = os.path.join(
+        #                     session.config.option.allure_report_dir,
+        #                     f"Screen_Recording_{time.strftime('%Y%m%d_%H%M%S')}.mp4"
+        #                 )
+        #                 import shutil
+        #                 shutil.copy2(session.config.recording_path, allure_video_path)
                         
-                        # add video as file path to allure report
-                        allure.attach.file(
-                            allure_video_path,
-                            name="Test Execution Video",
-                            attachment_type=allure.attachment_type.MP4
-                        )
-                except Exception as e:
-                    print(f"Error adding video to allure report: {str(e)}")
-            else:
-                print("Recording video file does not exist or is empty")
+        #                 # add video as file path to allure report
+        #                 allure.attach.file(
+        #                     allure_video_path,
+        #                     name="Test Execution Video",
+        #                     attachment_type=allure.attachment_type.MP4
+        #                 )
+        #         except Exception as e:
+        #             print(f"Error adding video to allure report: {str(e)}")
+        #     else:
+        #         print("Recording video file does not exist or is empty")
 
         # only send report to slack if allure_report_dir is used
         if hasattr(session.config.option, 'allure_report_dir') and session.config.option.allure_report_dir:  
@@ -249,78 +249,78 @@ def clean_app_state(request):
         
     """
 
-@pytest.fixture(scope="function", autouse=True)
-def screen_recorder(request):
-    """Screen recorder fixture for test cases with segmented recording"""
-    import threading
-    import time
-    import os
+# @pytest.fixture(scope="function", autouse=True)
+# def screen_recorder(request):
+#     """Screen recorder fixture for test cases with segmented recording"""
+#     import threading
+#     import time
+#     import os
     
-    # Create directory for temporary recordings
-    os.makedirs('allure-results', exist_ok=True)
+#     # Create directory for temporary recordings
+#     os.makedirs('allure-results', exist_ok=True)
     
-    # Flag to control recording
-    recording = True
-    segment_count = 0
+#     # Flag to control recording
+#     recording = True
+#     segment_count = 0
     
-    def record_segment():
-        nonlocal segment_count
-        while recording:
-            try:
-                # Start a new segment
-                segment_file = f'/sdcard/recording_segment_{segment_count}.mp4'
-                process = subprocess.Popen([
-                    'adb', 'shell', 'screenrecord',
-                    '--time-limit', '6000',  # 10 minutes per segment
-                    '--size', '1280x720',
-                    '--bit-rate', '4000000',
-                    segment_file
-                ])
-                process.wait()  # Wait for the segment to complete
+#     def record_segment():
+#         nonlocal segment_count
+#         while recording:
+#             try:
+#                 # Start a new segment
+#                 segment_file = f'/sdcard/recording_segment_{segment_count}.mp4'
+#                 process = subprocess.Popen([
+#                     'adb', 'shell', 'screenrecord',
+#                     '--time-limit', '6000',  # 10 minutes per segment
+#                     '--size', '1280x720',
+#                     '--bit-rate', '4000000',
+#                     segment_file
+#                 ])
+#                 process.wait()  # Wait for the segment to complete
                 
-                # Pull the segment file
-                subprocess.run(['adb', 'pull', segment_file, 
-                              f'allure-results/recording_segment_{segment_count}.mp4'])
-                subprocess.run(['adb', 'shell', 'rm', segment_file])
+#                 # Pull the segment file
+#                 subprocess.run(['adb', 'pull', segment_file, 
+#                               f'allure-results/recording_segment_{segment_count}.mp4'])
+#                 subprocess.run(['adb', 'shell', 'rm', segment_file])
                 
-                segment_count += 1
-            except Exception as e:
-                print(f"Segment recording error: {str(e)}")
+#                 segment_count += 1
+#             except Exception as e:
+#                 print(f"Segment recording error: {str(e)}")
     
-    # Start recording thread
-    record_thread = threading.Thread(target=record_segment)
-    record_thread.start()
+#     # Start recording thread
+#     record_thread = threading.Thread(target=record_segment)
+#     record_thread.start()
     
-    yield
+#     yield
     
-    # Stop recording
-    recording = False
-    record_thread.join(timeout=5)
+#     # Stop recording
+#     recording = False
+#     record_thread.join(timeout=5)
     
-    try:
-        # Combine all segments if there are multiple segments
-        if segment_count > 1:
-            # Create a file list
-            with open('allure-results/segments.txt', 'w') as f:
-                for i in range(segment_count):
-                    f.write(f"file 'recording_segment_{i}.mp4'\n")
+#     try:
+#         # Combine all segments if there are multiple segments
+#         if segment_count > 1:
+#             # Create a file list
+#             with open('allure-results/segments.txt', 'w') as f:
+#                 for i in range(segment_count):
+#                     f.write(f"file 'recording_segment_{i}.mp4'\n")
             
-            # Combine segments using ffmpeg
-            subprocess.run([
-                'ffmpeg', '-f', 'concat', '-safe', '0',
-                '-i', 'allure-results/segments.txt',
-                '-c', 'copy',
-                'allure-results/recording.mp4'
-            ])
+#             # Combine segments using ffmpeg
+#             subprocess.run([
+#                 'ffmpeg', '-f', 'concat', '-safe', '0',
+#                 '-i', 'allure-results/segments.txt',
+#                 '-c', 'copy',
+#                 'allure-results/recording.mp4'
+#             ])
             
-            # Clean up segment files
-            for i in range(segment_count):
-                os.remove(f'allure-results/recording_segment_{i}.mp4')
-            os.remove('allure-results/segments.txt')
-        elif segment_count == 1:
-            # If only one segment, just rename it
-            os.rename('allure-results/recording_segment_0.mp4', 
-                     'allure-results/recording.mp4')
-    except Exception as e:
-        print(f"Error combining video segments: {str(e)}")
+#             # Clean up segment files
+#             for i in range(segment_count):
+#                 os.remove(f'allure-results/recording_segment_{i}.mp4')
+#             os.remove('allure-results/segments.txt')
+#         elif segment_count == 1:
+#             # If only one segment, just rename it
+#             os.rename('allure-results/recording_segment_0.mp4', 
+#                      'allure-results/recording.mp4')
+#     except Exception as e:
+#         print(f"Error combining video segments: {str(e)}")
     
