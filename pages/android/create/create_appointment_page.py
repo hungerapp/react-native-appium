@@ -147,24 +147,6 @@ class CreateAppointmentPage(CommonUseSection):
         assert self.driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("會員護照")').is_displayed()
         self.driver.find_element(*self.MEMBER_PASSPORT_BACK_BTN).click()
         return self
-
-    def select_service_person(self):
-        """Select first available service person"""
-        self.driver.find_element(*self.SERVICE_PERSON).click()
-        
-        # click toggle switch 
-        time.sleep(3)
-        self.driver.find_element(*self.SERVICE_PAGE_TOGGLE_SWITCH).click()
-        
-        # select service testing person
-        service_testing_person = self.driver.find_element(*self.SERVICE_TESTING_PERSON)
-        if service_testing_person:
-            service_testing_person.click()
-            
-        # click save button
-        self.driver.find_element(*self.SERVICE_PAGE_SAVE_BTN).click()
-        
-        return self
       
     def select_service2_person(self):
         """Select second service person"""

@@ -59,7 +59,7 @@ class PersonalPage:
   PUSH_NOTTIFICATION_SAVE = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(1)')
   
   # Manage account settings
-  SETTINGS_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(1)')
+  SETTINGS_BUTTON = (AppiumBy.XPATH, '//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup[2]/com.horcrux.svg.SvgView/com.horcrux.svg.GroupView/com.horcrux.svg.PathView')
   SETTINGS_POPUP = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("android.view.ViewGroup").instance(7)')
   ACCOUNT_SETTINGS_OPTION = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("帳號設定")')
   LANGUAGE_SETTINGS_OPTION = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("語言設定")')
@@ -454,7 +454,7 @@ class PersonalPage:
     "其他": (AppiumBy.ACCESSIBILITY_ID, "其他")
   }
   EMPTY_NAME_ERROR_MESSAGE = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text(" 此欄位為必填。")')
-  BIRTHDAY_FIELD = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("android.view.ViewGroup").instance(28)')
+  BIRTHDAY_FIELD = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("生日")')
   CALENDAR_WINDOW = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("android:id/pickers")')
   CONFIRM_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("android:id/button1")')
   PHONE_INPUT_INITIAL = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textMatches("\\d{9}")')
@@ -808,30 +808,4 @@ class PersonalPage:
     self.driver.find_element(*self.LANGUAGE_CHINESE_OPTION).click()
     self.driver.find_element(*self.LANGUAGE_CONFIRM_BUTTON).click()
 
-  def click_date_block(self):
-    # 實作點擊日期區塊的邏輯
-    pass
-
-  def is_calendar_popup_visible(self):
-    # 實作檢查日曆彈出視窗是否可見的邏輯
-    pass
-
-  def select_month(self, direction):
-    # 實作選擇月份的邏輯，direction 可以是 'left' 或 'right'
-    pass
-
-  def select_date(self, date):
-    # 實作選擇日期的邏輯
-    pass
-
-  def are_times_visible(self):
-    # 實作檢查時間是否可見的邏輯
-    pass
-
-  def select_time(self, time):
-    # 實作選擇時間的邏輯
-    pass
-
-  def is_time_set(self, time):
-    # 實作檢查時間是否已設定的邏輯
-    pass
+  

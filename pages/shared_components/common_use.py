@@ -21,7 +21,20 @@ class CommonUseSection:
     
     
     
+    SERVICE_PERSON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("服務人員")')
+    SERVICE_TESTING_PERSON = (AppiumBy.ACCESSIBILITY_ID, 'QA測試人員')
+    SERVICE_PAGE_TOGGLE_SWITCH = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("android.view.ViewGroup").instance(31)')
+    SERVICE_PAGE_SAVE_BTN = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.SvgView").instance(1)')
     
+    SERVICE_PERSONNEL = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("服務人員")')
+    QA_TEST_PERSONNEL = (AppiumBy.ACCESSIBILITY_ID, 'QA測試人員')
+    SELECT_ALL_OPTION = (AppiumBy.ACCESSIBILITY_ID, '全部選取')
+    PERSONNEL_OPTIONS = [
+        (AppiumBy.ACCESSIBILITY_ID, 'Sally #美睫 #美甲'),
+        (AppiumBy.ACCESSIBILITY_ID, 'Bella #美甲'),
+        # Add more personnel options as needed
+    ]
+    PERSONNEL_SAVE_BUTTON = (AppiumBy.XPATH, '//android.widget.FrameLayout[@resource-id="android:id/content"]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/com.horcrux.svg.SvgView/com.horcrux.svg.GroupView/com.horcrux.svg.PathView')
     
     
 
@@ -106,31 +119,6 @@ class CommonUseSection:
         except Exception as e:
             print(f"Scroll and select country code error: {str(e)}")
             raise    
-        
-    def is_country_code_changed(self):
-        """Verify country code is changed"""
-        try:
-            time.sleep(1) 
-        
-            current_element = self.driver.find_element(*self.CHANGED_COUNTRY_CODE)
-            current_code = current_element.text #get country code only
-        
-            # Extract country code from full text (e.g. from "Russia +7" extract "+7")
-            selected_code = "+" + self.selected_country_code.split("+")[-1].strip().split()[0]
-
-            # Compare country code
-            is_matched = current_code == selected_code
-        
-            if is_matched:
-                print(f"Country code is successfully updated to: {current_code}")
-            else:
-                print(f"Country code update failed - Expected: {selected_code}, Actual: {current_code}")
-            
-            return is_matched
-        
-        except Exception as e:
-            print(f"Verify country code error: {str(e)}")
-            return False
     
     
     def search_country_code(self):
@@ -170,3 +158,38 @@ class CommonUseSection:
         except Exception as e:
             print(f"Search country code error: {str(e)}")
             raise
+    
+    # only select one service person
+    def select_service_person(self):
+        self.driver.find_element(*self.SERVICE_PERSON).click()
+        
+        # click toggle switch 
+        time.sleep(1.5)
+        self.driver.find_element(*self.SERVICE_PAGE_TOGGLE_SWITCH).click()
+        
+        # select service testing person
+        service_testing_person = self.driver.find_element(*self.SERVICE_TESTING_PERSON)
+        if service_testing_person:
+            service_testing_person.click()
+            
+        # click save button
+        self.driver.find_element(*self.SERVICE_PAGE_SAVE_BTN).click()
+        
+        return self
+    
+    # select multiple service person
+    def select_service_multiple_personnel(self, single_choice):
+        self.driver.find_element(*self.SERVICE_PERSONNEL).click()
+        # Choose single or multiple selection as needed
+        if single_choice:
+            self.driver.find_element(*self.QA_TEST_PERSONNEL).click()
+        else:
+            selected_options = random.sample(self.PERSONNEL_OPTIONS, 2)
+            for option in selected_options:
+                self.driver.find_element(*option).click()
+                
+        self.driver.find_element(*self.PERSONNEL_SAVE_BUTTON).click()
+        time.sleep(0.5)
+        return self
+    
+    

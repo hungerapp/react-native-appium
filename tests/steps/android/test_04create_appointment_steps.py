@@ -4,6 +4,7 @@ import pytest
 from pytest_bdd import scenarios, given, when, then
 
 from pages.android.create.create_appointment_page import CreateAppointmentPage
+from pages.shared_components.common_use import CommonUseSection
 
 scenarios('../../../features/create/create_appointment.feature')
 
@@ -39,8 +40,8 @@ def fill_anonymous_contact(driver):
 @then('I select a service person')
 def select_service_person(driver):
     """Select service person"""
-    create_page = CreateAppointmentPage(driver)
-    create_page.select_service_person()
+    common_use = CommonUseSection(driver)
+    common_use.select_service_person()
 
 @then('I select a service')
 def select_service(driver):
@@ -90,8 +91,8 @@ def click_create_appointment_for_one_more_service(driver):
 @when('I select a service person')
 def select_service_person(driver):
     """Select service person"""
-    create_page = CreateAppointmentPage(driver)
-    create_page.select_service_person()
+    common_use = CommonUseSection(driver)
+    common_use.select_service_person()
 
 @then('I select a service')
 def select_service(driver):
@@ -151,8 +152,8 @@ def click_create_appointment_for_one_more_service_then_delete(driver):
 @when('I select a service person')
 def select_service_person(driver):
     """Select service person"""
-    create_page = CreateAppointmentPage(driver)
-    create_page.select_service_person()
+    common_use = CommonUseSection(driver)
+    common_use.select_service_person()
 
 @then('I select a service')
 def select_service(driver):
@@ -221,8 +222,8 @@ def check_member_passport(driver):
 @then('I select a service person')
 def select_service_person_existing(driver):
     """Select service person for existing contact"""
-    create_page = CreateAppointmentPage(driver)
-    create_page.select_service_person()
+    common_use = CommonUseSection(driver)
+    common_use.select_service_person()
 
 @then('I select a service')
 def select_service_existing(driver):
@@ -294,20 +295,20 @@ def select_country_code(driver):
 @then('I should see different country code in the phone number input field')
 def verify_country_code_changed(driver):
     """Verify country code is changed"""
-    create_page = CreateAppointmentPage(driver)
-    create_page.is_country_code_changed()
+    common_use = CommonUseSection(driver)
+    common_use.is_country_code_changed()
     
 @when('I search different country code')
 def search_different_country_code(driver):
     """Search different country code"""
-    create_page = CreateAppointmentPage(driver)
-    create_page.search_country_code()
+    common_use = CommonUseSection(driver)
+    common_use.search_country_code()
 
 @then('I should see different country code in the phone number input field')
 def verify_country_code_changed(driver):
     """Verify country code is changed"""
-    create_page = CreateAppointmentPage(driver)
-    create_page.is_country_code_changed()
+    common_use = CommonUseSection(driver)
+    common_use.is_country_code_changed()
     
     
 

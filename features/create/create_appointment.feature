@@ -1,4 +1,7 @@
 Feature: Create Appointment
+  As a user
+  I want to create an appointment
+  So that I can manage my schedule
 
   @regression @create_appointment_anonymous 
   Scenario: Successfully create an appointment with anonymous nickname
