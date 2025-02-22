@@ -47,7 +47,6 @@ class CreateEventPage:
     MODIFY_QUICK_SELECT_ICON = (AppiumBy.ID, 'pen_to_square')
     
     def create_event_option(self):
-        """Click create event option"""
         try:
           time.sleep(1.5)
           create_button = self.driver.find_element(*self.CREATE_BTN)
