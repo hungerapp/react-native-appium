@@ -10,7 +10,9 @@ class CommonUseSection:
         "女": (AppiumBy.ACCESSIBILITY_ID, "女"),
         "其他": (AppiumBy.ACCESSIBILITY_ID, "其他")
     }
-    
+    BIRTHDAY_FIELD = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("生日")')
+    CALENDAR_WINDOW = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("android:id/pickers")')
+  
     
     COUNTRY_SELECTOR = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(3)')
     COUNTRY_CODE_OPTIONS = (AppiumBy.XPATH, "//android.widget.TextView[contains(@text, '+')]")
@@ -50,6 +52,51 @@ class CommonUseSection:
             return gender
         except Exception as e:
             print(f"Select gender error: {str(e)}")
+            raise
+        
+    def select_random_date(self):
+        """Random scroll to select date"""
+        try:
+            # Click birthday field to open date picker
+            self.driver.find_element(*self.BIRTHDAY_FIELD).click()
+        
+            # Get date picker window
+            calendar_window = self.driver.find_element(*self.CALENDAR_WINDOW)
+            window_rect = calendar_window.rect
+        
+            # calculate year, month, day x coordinates
+            year_x = window_rect['x'] + (window_rect['width'] * 0.17)  # left side year field
+            month_x = window_rect['x'] + (window_rect['width'] * 0.5)  # middle month field
+            day_x = window_rect['x'] + (window_rect['width'] * 0.83)   # right side day field
+        
+            # calculate y coordinate center point
+            center_y = window_rect['y'] + window_rect['height'] / 2
+        
+            # random scroll each field
+            date_columns = [
+            {"name": "年", "x": year_x},
+            {"name": "月", "x": month_x},
+            {"name": "日", "x": day_x}
+            ]
+        
+            for column in date_columns:
+                swipe_times = random.randint(3, 6)
+                for _ in range(swipe_times):
+                    self._perform_random_swipe(
+                    start_x=column["x"],
+                    start_y=center_y,
+                    max_offset=50, # limit horizontal random offset
+                    )
+                    time.sleep(0.5)
+        
+            # click confirm
+            self.driver.find_element(*self.CONFIRM_BUTTON).click()
+        
+            # Return updated date text
+            return self.driver.find_element(*self.BIRTHDAY_FIELD).text
+        
+        except Exception as e:
+            print(f"Select date error: {str(e)}")
             raise
         
     def select_random_country_code(self):
