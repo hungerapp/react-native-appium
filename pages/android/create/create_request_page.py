@@ -41,7 +41,7 @@ class CreateRequestPage:
     
     REMOVE_ITEM_BTN = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(1)')
     REMOVE_CONFIRM_BTN = (AppiumBy.ACCESSIBILITY_ID, '移除')
-    BACK_TO_REQUEST_PAGE_ICON = (AppiumBy.XPATH, '//android.widget.FrameLayout[@resource-id="android:id/content"]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup[1]/com.horcrux.svg.SvgView/com.horcrux.svg.GroupView/com.horcrux.svg.PathView')
+    BACK_TO_PREVIOUS_PAGE_ICON = (AppiumBy.XPATH, '//android.widget.FrameLayout[@resource-id="android:id/content"]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup[1]/com.horcrux.svg.SvgView/com.horcrux.svg.GroupView/com.horcrux.svg.PathView')
     SIGNATURE_PAD = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("android.webkit.WebView")')
     CLEAR_SIGNATURE_BTN = (AppiumBy.ACCESSIBILITY_ID, '清除簽名')
 
@@ -225,8 +225,8 @@ class CreateRequestPage:
             remove_confirm_btn.click()
         
         time.sleep(0.5)
-        back_to_request_page_icon = self.driver.find_element(*self.BACK_TO_REQUEST_PAGE_ICON)
-        back_to_request_page_icon.click()
+        back_to_previous_page_icon = self.driver.find_element(*self.BACK_TO_PREVIOUS_PAGE_ICON)
+        back_to_previous_page_icon.click()
         
 
     def sign_request(self):

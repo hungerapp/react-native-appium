@@ -3,6 +3,10 @@ import time
 
 from appium.webdriver.common.appiumby import AppiumBy
 from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.actions import interaction
+from selenium.webdriver.common.actions.action_builder import ActionBuilder
+from selenium.webdriver.common.actions.pointer_input import PointerInput
 
 class CommonUseSection:
     GENDER_OPTIONS = {
@@ -10,6 +14,7 @@ class CommonUseSection:
         "女": (AppiumBy.ACCESSIBILITY_ID, "女"),
         "其他": (AppiumBy.ACCESSIBILITY_ID, "其他")
     }
+    CONFIRM_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("android:id/button1")')
     BIRTHDAY_FIELD = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("生日")')
     CALENDAR_WINDOW = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("android:id/pickers")')
   
@@ -39,9 +44,42 @@ class CommonUseSection:
     PERSONNEL_SAVE_BUTTON = (AppiumBy.XPATH, '//android.widget.FrameLayout[@resource-id="android:id/content"]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/com.horcrux.svg.SvgView/com.horcrux.svg.GroupView/com.horcrux.svg.PathView')
     
     
-
+    # For checkout, request page
+    AMOUNT_EDIT_ICON = (AppiumBy.XPATH, '//android.view.ViewGroup[@resource-id="pen-to-square"]/com.horcrux.svg.SvgView/com.horcrux.svg.GroupView/com.horcrux.svg.PathView')
+    AMOUNT_INPUT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("android.widget.EditText")')
+    AMOUNT_CLEAR_BTN = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("清除")')
+    AMOUNT_SAVE_BTN = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(1)')
+    EDIT_ITEM_QUANTITY_ICON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(3)')
+    QUANTITLY_PLUS_BUTTON = (AppiumBy.XPATH, '//android.view.ViewGroup[@resource-id="plus"]/com.horcrux.svg.SvgView/com.horcrux.svg.GroupView/com.horcrux.svg.PathView')
+    QUANTITY_REVISE_INPUT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("1")')
+    QUANTITY_REVISE_INPUT2 = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("android.widget.EditText")')
+    QUANTITY_REVISE_SAVE_BTN = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(1)')
+    REMOVE_ITEM_BTN = (AppiumBy.XPATH, '//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup[1]/com.horcrux.svg.SvgView/com.horcrux.svg.GroupView/com.horcrux.svg.PathView')
+    REMOVE_CONFIRM_BTN = (AppiumBy.ACCESSIBILITY_ID, '移除')
+    BACK_TO_PREVIOUS_PAGE_ICON = (AppiumBy.XPATH, '//android.widget.FrameLayout[@resource-id="android:id/content"]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup[1]/com.horcrux.svg.SvgView/com.horcrux.svg.GroupView/com.horcrux.svg.PathView')
+    ADD_NEW_DISCOUNT_BTN = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().description("新增").instance(0)')
+    DISCOUNT_SAVE_BUTTON = (AppiumBy.XPATH, '//android.widget.FrameLayout[@resource-id="android:id/content"]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup[2]/com.horcrux.svg.SvgView/com.horcrux.svg.GroupView/com.horcrux.svg.PathView')
+    # Discount section
+    CASH_QUICK_AMOUNTS = ["50", "100", "150", "200", "250", "300", "350", "400"]
+    DISCOUNT_QUICK_RATES = ["95折", "92折", "9折", "88折", "85折", "8折", "75折", "7折"]
+    DISCOUNT_INPUT_OPTIONS = [90, 85, 95, 80, 70, 85, 75]
+    CASH_TAB = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("現金")')
+    DISCOUNT_TAB = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("折數")')
+    COUPON_TAB = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("票券")')
+    # Input fields and buttons
+    AMOUNT_INPUT_FIELD = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("請輸入金額")')
+    DISCOUNT_INPUT_FIELD = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("請輸入折數")')
+    QUICK_SELECT_AMOUNTS = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("android.widget.TextView")')
+    AUTO_TEST_COUPON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("自動化測試票券")')
+    SELECT_TICKET_ICON = (AppiumBy.XPATH, '//android.view.ViewGroup[@resource-id="caret-down"]/com.horcrux.svg.SvgView/com.horcrux.svg.GroupView/com.horcrux.svg.PathView')
+    QUANTITY_INPUT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("android.widget.EditText")')
+    
+    
     def __init__(self, driver):
         self.driver = driver
+        
+    def wait_briefly(self, seconds=0.5):
+        time.sleep(seconds)
 
     def select_random_gender(self):
         """Select random gender"""
@@ -97,6 +135,27 @@ class CommonUseSection:
         
         except Exception as e:
             print(f"Select date error: {str(e)}")
+            raise
+        
+    def _perform_random_swipe(self, start_x, start_y, max_offset=50):
+        """執行隨機滑動"""
+        try:
+            actions = ActionChains(self.driver)
+            pointer = PointerInput(interaction.POINTER_TOUCH, "touch")
+        
+        
+            end_x = start_x + random.randint(-max_offset, max_offset)
+            end_y = start_y + random.randint(-800, 800)  
+        
+            actions.w3c_actions = ActionBuilder(self.driver, mouse=pointer)
+            actions.w3c_actions.pointer_action.move_to_location(start_x, start_y)
+            actions.w3c_actions.pointer_action.pointer_down()
+            actions.w3c_actions.pointer_action.move_to_location(end_x, end_y)
+            actions.w3c_actions.pointer_action.release()
+            actions.perform()
+        
+        except Exception as e:
+            print(f"Random swipe error: {str(e)}")
             raise
         
     def select_random_country_code(self):
@@ -240,3 +299,123 @@ class CommonUseSection:
         return self
     
     
+    def update_items_amount(self):
+        amount_edit_icon = self.driver.find_element(*self.AMOUNT_EDIT_ICON)
+        amount_edit_icon.click()
+        amount_input = self.driver.find_element(*self.AMOUNT_INPUT)
+        random_amount = str(random.randint(10, 1000))
+        amount_input.send_keys(random_amount)
+        self.driver.find_element(*self.AMOUNT_CLEAR_BTN).click()
+
+        amount_input.send_keys(random_amount)
+        time.sleep(0.5)
+        self.driver.find_element(*self.AMOUNT_SAVE_BTN).click()
+        
+
+    def update_items_quantity(self):
+        time.sleep(0.5)
+        self.driver.find_element(*self.EDIT_ITEM_QUANTITY_ICON).click()
+        try:
+          if random.choice([True, False]):
+             plus_button = self.driver.find_element(*self.QUANTITLY_PLUS_BUTTON)
+             click_times = random.randint(5,8)
+             for _ in range(click_times):
+                plus_button.click()
+                time.sleep(0.5)
+          else:
+             quantity_input = self.driver.find_element(*self.QUANTITY_REVISE_INPUT)
+             quantity_input.click()
+             random_quantity = str(random.randint(5, 100))
+             quantity_input2 = self.driver.find_element(*self.QUANTITY_REVISE_INPUT2)
+             quantity_input2.click()
+             quantity_input2.send_keys(random_quantity)
+          
+          self.driver.find_element(*self.QUANTITY_REVISE_SAVE_BTN).click()
+        
+        except Exception as e:
+            print(f"Error updating items quantity: {str(e)}")
+            raise
+    
+    def remove_item(self):
+        time.sleep(1)
+        self.driver.find_element(*self.REMOVE_ITEM_BTN).click()
+        remove_confirm_btn = self.driver.find_element(*self.REMOVE_CONFIRM_BTN)
+        if remove_confirm_btn.is_displayed() and remove_confirm_btn.is_enabled():
+            remove_confirm_btn.click()
+        
+        time.sleep(0.5)
+        back_to_previous_page_icon = self.driver.find_element(*self.BACK_TO_PREVIOUS_PAGE_ICON)
+        back_to_previous_page_icon.click() 
+    
+    def add_new_discount(self):
+        self.driver.find_element(*self.ADD_NEW_DISCOUNT_BTN).click()
+        time.sleep(0.5)
+        
+        #randomly select tab
+        tabs = [self.CASH_TAB, self.DISCOUNT_TAB, self.COUPON_TAB]
+        selected_tab = random.choice(tabs)
+        self.driver.find_element(*selected_tab).click()
+        time.sleep(0.5)
+        
+        if selected_tab == self.CASH_TAB:
+            self._handle_cash_tab()
+        elif selected_tab == self.DISCOUNT_TAB:
+            self._handle_discount_tab()
+        else:
+            self._handle_coupon_tab()
+            
+        self.driver.find_element(*self.DISCOUNT_SAVE_BUTTON).click()
+    
+    def _handle_cash_tab(self):
+        if random.choice([True, False]):
+            input_field = self.driver.find_element(*self.AMOUNT_INPUT_FIELD)
+            input_field.click()
+            random_amount = str(random.randint(10, 100))
+            input_field.send_keys(random_amount)
+        else:
+            amount = random.choice(self.CASH_QUICK_AMOUNTS)
+            self.driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR, f'new UiSelector().text("{amount}")').click()
+            
+    def _handle_discount_tab(self):
+        if random.choice([True, False]):
+            input_field = self.driver.find_element(*self.DISCOUNT_INPUT_FIELD)
+            input_field.click()
+            random_discount = str(random.choice(self.DISCOUNT_INPUT_OPTIONS))
+            input_field.send_keys(random_discount)
+        else:
+            discount = random.choice(self.DISCOUNT_QUICK_RATES)
+            self.driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR, f'new UiSelector().text("{discount}")').click()
+            
+    def _handle_coupon_tab(self):
+        self.driver.find_element(*self.AUTO_TEST_COUPON).click()
+        time.sleep(0.5)
+        
+        self.driver.find_element(*self.SELECT_TICKET_ICON).click()
+        time.sleep(0.5)
+        
+        # Get window size for swipe calculation
+        window_size = self.driver.get_window_size()
+        start_x = window_size['width'] * 0.5
+        start_y = window_size['height'] * 0.7
+        end_y = window_size['height'] * 0.6
+        
+        
+        # Select random quantity (1-11)
+        random_quantity = str(random.randint(1, 11))
+        
+        # Perform small swipe gesture
+        self.driver.swipe(start_x, start_y, start_x, end_y, duration=500)
+        time.sleep(0.5)
+        
+        self.driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR, f'new UiSelector().text("{random_quantity}")').click()
+        time.sleep(0.5)
+        
+        # Input amount
+        amount_input = self.driver.find_element(*self.QUANTITY_INPUT)
+        amount_input.click()
+        random_amount = str(random.randint(1, 100))
+        amount_input.clear()
+        amount_input.send_keys(random_amount)
+
+        
+        

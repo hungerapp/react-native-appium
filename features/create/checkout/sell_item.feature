@@ -8,8 +8,7 @@ Feature: Sell Item Checkout Process
     Given I click the create checkout option
     When I select sell item option  
     Then I select a sales performance owner  
-    Then I select an item 
-    Then I click on item details to view the item info
+    Then I select an item and view the item info
     Then I do not select a member  
     Then I choose a payment method without making adjustments  
     Then I proceed to checkout  
@@ -27,9 +26,11 @@ Feature: Sell Item Checkout Process
     Then I select a sales performance owner  
     Then I select an item and view the item info
     Then I search for an non-existing member and re-search for an existing member
+    When I clear all selected items
+    Then I reselect items
     Then I adjust the item  
     Then I select a payment method below the item price and validate errors  
-    Then I input checkout record content  
+    Then I input checkout record content
     Then I adjust the total sales performance  
     Then I adjust the bonus points  
     Then I proceed to checkout  
@@ -50,8 +51,9 @@ Feature: Sell Item Checkout Process
     Then I select an item and view the item info
     Then I add a new member
     Then I delete the selected member and re-add it
-    Then I adjust the item  
-    Then I select a payment method above the item price and validate errors  
+    Then I add new discount for the item
+    Then I select a payment method above the item price and validate errors
+    Then I calculate the change amount
     Then I input checkout record content and cancel it  
     Then I adjust the total sales performance  
     Then I adjust the bonus points  
