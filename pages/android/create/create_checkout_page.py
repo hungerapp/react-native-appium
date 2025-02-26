@@ -15,8 +15,8 @@ class CreateCheckoutPage(CommonUseSection):
     CREATE_CHECKOUT_OPTION = (AppiumBy.XPATH, '//android.widget.FrameLayout[@resource-id="android:id/content"]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup[2]/com.horcrux.svg.SvgView[5]/com.horcrux.svg.GroupView/com.horcrux.svg.PathView')
     WINDOW_SECTION = {
         'sell_item_option': (AppiumBy.ACCESSIBILITY_ID, '販售商品'),
-        'sell_ticket_option': (AppiumBy.ACCESSIBILITY_ID, '販售票券'),
-        'deposit_option': (AppiumBy.ACCESSIBILITY_ID, '客人儲值（入金）')
+        'sell_ticket_option': (AppiumBy.ACCESSIBILITY_ID, '販售票券, (會員限定)'),
+        'deposit_option': (AppiumBy.ACCESSIBILITY_ID, '客人儲值（入金）, (會員限定)')
     }
     DESIGNATED_APPOINTMENT_TOGGLE = (AppiumBy.XPATH, "//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup")
     SALES_OWNER_SELECT = (AppiumBy.ACCESSIBILITY_ID, "QA測試人員")
@@ -62,7 +62,10 @@ class CreateCheckoutPage(CommonUseSection):
     )
     ITEM_SECTION = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("商品")')
     SELECT_ITEM_BTN = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("選擇商品")')
+    SELECT_TICKETS_BTN = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("選擇票券")')
     CLEAR_ITEMS_BTN = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("全部清除")')
+    TICKET_SECTION = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("票券")')
+    CLEAR_TICKETS_BTN = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("全部清除")')
     CHECKOUT_SECTION = {
       'record_content': (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("請輸入內容")'),
       'content_input': (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("輸入內容")'),
@@ -91,6 +94,21 @@ class CreateCheckoutPage(CommonUseSection):
     CLEAR_SIGNATURE = (AppiumBy.ACCESSIBILITY_ID, "清除簽名")
     CONFIRM_CHECKOUT = (AppiumBy.ACCESSIBILITY_ID, '確認結帳')
     
+    # Sell ticket use ID
+    TICKET_ELEMENTS = {
+        'ticket1': {
+            'select': (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("自動化測試票券")'),
+            'input': (AppiumBy.XPATH, '(//android.widget.EditText[@text="1"])[1]')
+        },
+        'ticket2': {
+            'select': (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("自動化測試票卷2")'),
+            'plus': (AppiumBy.XPATH, '(//android.view.ViewGroup[@resource-id="plus"])[2]/com.horcrux.svg.SvgView')
+        }
+    }
+    TICKET_INFO = (AppiumBy.XPATH, '(//android.view.ViewGroup[@resource-id="circle-info"])[3]/com.horcrux.svg.SvgView/com.horcrux.svg.GroupView/com.horcrux.svg.PathView')
+    TICKET_INFO_TITLE = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("自動化測試票券")')
+    TICKET_INFO_BACK = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView")')
+    SELECT_TICKETS_SAVE_ICON = (AppiumBy.XPATH, '(//android.view.ViewGroup[@resource-id="check"])[1]/com.horcrux.svg.SvgView/com.horcrux.svg.GroupView/com.horcrux.svg.PathView')
     
     
     def __init__(self, driver):
@@ -113,9 +131,17 @@ class CreateCheckoutPage(CommonUseSection):
     def select_sell_item(self):
         time.sleep(1)
         self.driver.find_element(*self.WINDOW_SECTION['sell_item_option']).click()
+        
+    def select_sell_ticket(self):
+        time.sleep(1)
+        self.driver.find_element(*self.WINDOW_SECTION['sell_ticket_option']).click()
+
+    def select_deposit(self):
+        time.sleep(1)
+        self.driver.find_element(*self.WINDOW_SECTION['deposit_option']).click()
 
     def select_sales_owner(self, is_performance_change=False):
-        
+        time.sleep(0.5)
         if is_performance_change:
            # change performance personnel
            self.driver.find_element(*self.PERFORMANCE_PERSONNEL).click()
@@ -126,10 +152,15 @@ class CreateCheckoutPage(CommonUseSection):
            # select sales owner
            time.sleep(0.5)
            self.driver.find_element(*self.DESIGNATED_APPOINTMENT_TOGGLE).click()
+           time.sleep(0.5)
            self.driver.find_element(*self.SALES_OWNER_SELECT).click()
            self.driver.find_element(*self.SALES_OWNER_SAVE_BUTTON).click()
     
         return self
+    
+    def non_selected_member_section(self):
+        self.driver.find_element(*self.NON_SELECTED_MEMBER_SECTION).click()
+        time.sleep(0.5)
 
     def select_item(self):
         try:
@@ -200,8 +231,6 @@ class CreateCheckoutPage(CommonUseSection):
         self.driver.find_element(*self.SAVE_PRODUCT_BTN).click()
 
     def search_non_existing_member(self, phone_number):
-        self.driver.find_element(*self.NON_SELECTED_MEMBER_SECTION).click()
-        time.sleep(0.5)
         search_input = self.driver.find_element(*self.MEMBER_SEARCH)
         search_input.click()
         search_input.send_keys(phone_number)
@@ -224,7 +253,6 @@ class CreateCheckoutPage(CommonUseSection):
         member_result.click()
 
     def add_new_member(self):
-        self.driver.find_element(*self.NON_SELECTED_MEMBER_SECTION).click()
         self.driver.find_element(*self.ADD_MEMBER_BUTTON).click()
         time.sleep(1)
         
@@ -274,7 +302,17 @@ class CreateCheckoutPage(CommonUseSection):
         time.sleep(0.5)
         self.driver.find_element(*self.SELECT_ITEM_BTN).click()
         self.driver.find_element(*self.CLEAR_ITEMS_BTN).click()
-
+        
+    def clear_all_tickets(self):
+        time.sleep(0.5)
+        self.driver.find_element(*self.TICKET_SECTION).click()
+        self.driver.find_element(*self.SELECT_TICKETS_BTN).click()
+        time.sleep(0.5)
+        self.driver.find_element(*self.CLEAR_TICKETS_BTN).click()
+        
+    def ticket_section(self):
+        self.driver.find_element(*self.TICKET_SECTION).click()
+        
     def adjust_item(self):
         self.update_items_amount()
         self.update_items_quantity()
@@ -520,3 +558,39 @@ class CreateCheckoutPage(CommonUseSection):
     def confirm_checkout(self):
         self.driver.find_element(*self.CONFIRM_CHECKOUT).click()
         time.sleep(1)
+        
+
+# sell ticker use function 
+
+    def select_ticket(self):
+       
+        # ticket 1:
+        self.driver.find_element(*self.TICKET_ELEMENTS['ticket1']['select']).click()
+        time.sleep(0.5)
+    
+        self.driver.find_element(*self.TICKET_ELEMENTS['ticket1']['input']).click()
+        random_quantity = str(random.randint(2, 998))
+        self.driver.find_element(*self.TICKET_ELEMENTS['ticket1']['input']).send_keys(random_quantity)
+        time.sleep(0.5)
+        
+        # ticket 2:
+        self.driver.find_element(*self.TICKET_ELEMENTS['ticket2']['select']).click()
+        time.sleep(0.5)
+    
+        clicks = random.randint(1, 5)
+        for _ in range(clicks):
+            self.driver.find_element(*self.TICKET_ELEMENTS['ticket2']['plus']).click()
+            time.sleep(0.3)
+            
+        self.driver.find_element(*self.TICKET_INFO).click()
+        actual_text = ''.join(self.driver.find_element(*self.TICKET_INFO_TITLE).text.split())
+        expected_text = ''.join("自動化測試票券".split())
+    
+        assert actual_text == expected_text, f"預期標題為 '自動化測試票券'，但實際為 '{actual_text}'"
+        self.driver.find_element(*self.TICKET_INFO_BACK).click()
+        
+                
+        self.driver.find_element(*self.SELECT_TICKETS_SAVE_ICON).click()
+        return self
+                
+                

@@ -25,7 +25,7 @@ Feature: Sell Item Checkout Process
     When I select sell item option  
     Then I select a sales performance owner  
     Then I select an item and view the item info
-    Then I search for an non-existing member and re-search for an existing member
+    Then I search non-existing member and then re-search for an existing member
     When I clear all selected items
     Then I reselect items
     Then I adjust the item  

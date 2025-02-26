@@ -51,7 +51,7 @@ class CommonUseSection:
     AMOUNT_SAVE_BTN = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(1)')
     EDIT_ITEM_QUANTITY_ICON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(3)')
     QUANTITLY_PLUS_BUTTON = (AppiumBy.XPATH, '//android.view.ViewGroup[@resource-id="plus"]/com.horcrux.svg.SvgView/com.horcrux.svg.GroupView/com.horcrux.svg.PathView')
-    QUANTITY_REVISE_INPUT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("1")')
+    QUANTITY_REVISE_INPUT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textMatches("^[1-9][0-9]{0,2}$")')
     QUANTITY_REVISE_INPUT2 = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("android.widget.EditText")')
     QUANTITY_REVISE_SAVE_BTN = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(1)')
     REMOVE_ITEM_BTN = (AppiumBy.XPATH, '//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup[1]/com.horcrux.svg.SvgView/com.horcrux.svg.GroupView/com.horcrux.svg.PathView')
@@ -388,10 +388,10 @@ class CommonUseSection:
             
     def _handle_coupon_tab(self):
         self.driver.find_element(*self.AUTO_TEST_COUPON).click()
-        time.sleep(0.5)
+        time.sleep(1)
         
         self.driver.find_element(*self.SELECT_TICKET_ICON).click()
-        time.sleep(0.5)
+        time.sleep(1.5)
         
         # Get window size for swipe calculation
         window_size = self.driver.get_window_size()
