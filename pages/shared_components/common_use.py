@@ -73,7 +73,7 @@ class CommonUseSection:
     AUTO_TEST_COUPON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("自動化測試票券")')
     SELECT_TICKET_ICON = (AppiumBy.XPATH, '//android.view.ViewGroup[@resource-id="caret-down"]/com.horcrux.svg.SvgView/com.horcrux.svg.GroupView/com.horcrux.svg.PathView')
     QUANTITY_INPUT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("android.widget.EditText")')
-    
+    NO_COUPON_AVAILABLE_TEXT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("目前沒有資料")')
     
     def __init__(self, driver):
         self.driver = driver
@@ -303,7 +303,7 @@ class CommonUseSection:
         amount_edit_icon = self.driver.find_element(*self.AMOUNT_EDIT_ICON)
         amount_edit_icon.click()
         amount_input = self.driver.find_element(*self.AMOUNT_INPUT)
-        random_amount = str(random.randint(10, 1000))
+        random_amount = str(random.randint(10, 99))
         amount_input.send_keys(random_amount)
         self.driver.find_element(*self.AMOUNT_CLEAR_BTN).click()
 
@@ -313,7 +313,7 @@ class CommonUseSection:
         
 
     def update_items_quantity(self):
-        time.sleep(0.5)
+        time.sleep(1)
         self.driver.find_element(*self.EDIT_ITEM_QUANTITY_ICON).click()
         try:
           if random.choice([True, False]):
@@ -324,8 +324,9 @@ class CommonUseSection:
                 time.sleep(0.5)
           else:
              quantity_input = self.driver.find_element(*self.QUANTITY_REVISE_INPUT)
+             time.sleep(1)
              quantity_input.click()
-             random_quantity = str(random.randint(5, 100))
+             random_quantity = str(random.randint(5, 99))
              quantity_input2 = self.driver.find_element(*self.QUANTITY_REVISE_INPUT2)
              quantity_input2.click()
              quantity_input2.send_keys(random_quantity)
@@ -347,12 +348,15 @@ class CommonUseSection:
         back_to_previous_page_icon = self.driver.find_element(*self.BACK_TO_PREVIOUS_PAGE_ICON)
         back_to_previous_page_icon.click() 
     
-    def add_new_discount(self):
+    def add_new_discount(self, add_new_member=False):
         self.driver.find_element(*self.ADD_NEW_DISCOUNT_BTN).click()
         time.sleep(0.5)
         
         #randomly select tab
-        tabs = [self.CASH_TAB, self.DISCOUNT_TAB, self.COUPON_TAB]
+        tabs = [self.CASH_TAB, self.DISCOUNT_TAB]
+        if not add_new_member:
+            tabs.append(self.COUPON_TAB)
+            
         selected_tab = random.choice(tabs)
         self.driver.find_element(*selected_tab).click()
         time.sleep(0.5)
@@ -370,7 +374,7 @@ class CommonUseSection:
         if random.choice([True, False]):
             input_field = self.driver.find_element(*self.AMOUNT_INPUT_FIELD)
             input_field.click()
-            random_amount = str(random.randint(10, 100))
+            random_amount = str(random.randint(10, 99))
             input_field.send_keys(random_amount)
         else:
             amount = random.choice(self.CASH_QUICK_AMOUNTS)
@@ -416,6 +420,7 @@ class CommonUseSection:
         random_amount = str(random.randint(1, 100))
         amount_input.clear()
         amount_input.send_keys(random_amount)
+            
 
         
         

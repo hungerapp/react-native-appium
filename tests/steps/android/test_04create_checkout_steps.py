@@ -7,6 +7,7 @@ from pages.android.create.create_checkout_page import CreateCheckoutPage
 
 scenarios('../../../features/create/checkout/sell_item.feature')
 scenarios('../../../features/create/checkout/sell_ticket.feature')
+scenarios('../../../features/create/checkout/deposit.feature')
 
 # TEST DATA
 TEST_INVALID_PHONE_NUMBER = "99999999999999999"
@@ -180,7 +181,7 @@ def select_and_view_item(driver):
     checkout_page = CreateCheckoutPage(driver)
     checkout_page.select_item()
 
-@then('I add a new member')
+@then('I add a brand new member')
 def add_new_member(driver):
     checkout_page = CreateCheckoutPage(driver)
     checkout_page.non_selected_member_section()
@@ -273,6 +274,11 @@ def select_ticket(driver):
 def select_payment_method(driver):
     checkout_page = CreateCheckoutPage(driver)
     checkout_page.select_payment_method()
+    
+@then('I calculate the change amount')
+def calculate_change_amount(driver):
+    checkout_page = CreateCheckoutPage(driver)
+    checkout_page.calculate_change_amount()
 
 @then('I proceed to checkout')
 def proceed_to_checkout(driver):
@@ -324,7 +330,7 @@ def select_ticket(driver):
 def adjust_item_details(driver):
     checkout_page = CreateCheckoutPage(driver)
     checkout_page.ticket_section()
-    checkout_page.adjust_item()
+    checkout_page.adjust_item(add_new_member=True)
 
 @then('I select a payment method and change it below the item price and validate errors')
 def select_payment_below_price(driver):
@@ -404,7 +410,7 @@ def clear_and_reselect_tickets(driver):
     checkout_page = CreateCheckoutPage(driver)
     checkout_page.clear_all_tickets()
     checkout_page.select_ticket()
-    checkout_page.adjust_item()
+    checkout_page.adjust_item(add_new_member=True)
 
 @then('I delete the member information and re-add it')
 def delete_and_readd_member(driver):
@@ -452,6 +458,207 @@ def sign_signature(driver):
 def clear_signature(driver):
     checkout_page = CreateCheckoutPage(driver)
     checkout_page.clear_signature()
+
+@then('I confirm the checkout and successfully create a checkout')
+def confirm_checkout(driver):
+    checkout_page = CreateCheckoutPage(driver)
+    checkout_page.confirm_checkout()
+    
+    
+    
+# TODO: 未來考慮分開 #
+
+# Deposit Checkout
+@allure.feature('Create Checkout')
+@allure.story('Successful Deposit Checkout')
+@pytest.mark.run(order=40)
+@given('I click the create checkout option')
+def click_create_checkout(driver):
+    checkout_page = CreateCheckoutPage(driver)
+    checkout_page.click_create_checkout()
+
+@when('I select deposit option')
+def select_deposit_option(driver):
+    checkout_page = CreateCheckoutPage(driver)
+    checkout_page.select_deposit()
+
+@then('I search for an existing member')
+def search_existing_member(driver):
+    checkout_page = CreateCheckoutPage(driver)
+    checkout_page.search_existing_member(TEST_VALID_PHONE_NUMBER)
+
+@then('I select a sales performance owner')
+def select_sales_owner(driver):
+    checkout_page = CreateCheckoutPage(driver)
+    checkout_page.select_sales_owner()
+
+@then('I enter the deposit amount')
+def enter_deposit_amount(driver):
+    checkout_page = CreateCheckoutPage(driver)
+    checkout_page.enter_deposit_amount()
+
+@then('I select a payment method and do not make any changes')
+def select_payment_no_changes(driver):
+    checkout_page = CreateCheckoutPage(driver)
+    checkout_page.select_payment_method()
+    
+@then('I calculate the change amount')
+def calculate_change_amount(driver):
+    checkout_page = CreateCheckoutPage(driver)
+    checkout_page.calculate_change_amount()
+
+@then('I proceed to checkout')
+def proceed_to_checkout(driver):
+    checkout_page = CreateCheckoutPage(driver)
+    checkout_page.proceed_to_checkout()
+
+@then('I do not sign any signature')
+def skip_signature(driver):
+    pass
+
+@then('I confirm the checkout and successfully create a checkout')
+def confirm_checkout(driver):
+    checkout_page = CreateCheckoutPage(driver)
+    checkout_page.confirm_checkout()
+    
+    
+
+# Modify and clear deposit details before checkout
+@allure.feature('Create Checkout')
+@allure.story('Modify and Clear Deposit Details')
+@pytest.mark.run(order=41)
+@given('I click the create checkout option')
+def click_create_checkout(driver):
+    checkout_page = CreateCheckoutPage(driver)
+    checkout_page.click_create_checkout()
+
+@when('I select deposit option')
+def select_deposit_option(driver):
+    checkout_page = CreateCheckoutPage(driver)
+    checkout_page.select_deposit()
+
+@then('I add a new member')
+def add_new_member(driver):
+    checkout_page = CreateCheckoutPage(driver)
+    checkout_page.add_new_member()
+
+@then('I delete the member and re-add a new one')
+def delete_and_add_new_member(driver):
+    checkout_page = CreateCheckoutPage(driver)
+    checkout_page.delete_selected_member()
+    checkout_page.add_new_member()
+    checkout_page.select_sales_owner()
+
+@then('I modify and clear the deposit amount before re-entering it')
+def modify_clear_reenter_deposit(driver):
+    checkout_page = CreateCheckoutPage(driver)
+    checkout_page.edit_deposit_amount()
+    
+@then('I modify the sales amount')
+def modify_sales_amount(driver):
+    checkout_page = CreateCheckoutPage(driver)
+    checkout_page.edit_sales_amount()
+
+@then('I select a different payment method and change it below the item price and validate errors')
+def select_different_payment_below_price(driver):
+    checkout_page = CreateCheckoutPage(driver)
+    checkout_page.select_payment_with_price_adjustment(is_above_price=False)
+
+@then('I input checkout record content')
+def input_record_content(driver):
+    checkout_page = CreateCheckoutPage(driver)
+    checkout_page.input_record_content()
+
+@then('I adjust the total sales performance')
+def adjust_sales_performance(driver):
+    checkout_page = CreateCheckoutPage(driver)
+    checkout_page.adjust_sales_performance()
+
+@then('I adjust the bonus points using quick select')
+def adjust_bonus_points(driver):
+    checkout_page = CreateCheckoutPage(driver)
+    checkout_page.adjust_bonus_points()
+    
+@then('I proceed to checkout')
+def proceed_to_checkout(driver):
+    checkout_page = CreateCheckoutPage(driver)
+    checkout_page.proceed_to_checkout()
+
+@then('I attempt to sign the signature')
+def sign_signature(driver):
+    checkout_page = CreateCheckoutPage(driver)
+    checkout_page.sign_request()
+
+@then('I clear the signature')
+def clear_signature(driver):
+    checkout_page = CreateCheckoutPage(driver)
+    checkout_page.clear_signature()
+    
+@then('I confirm the checkout and successfully create a checkout')
+def confirm_checkout(driver):
+    checkout_page = CreateCheckoutPage(driver)
+    checkout_page.confirm_checkout()
+    
+    
+
+# Error validation during deposit checkout
+@allure.feature('Create Checkout')
+@allure.story('Error Validation During Deposit')
+@pytest.mark.run(order=42)
+@given('I click the create checkout option')
+def click_create_checkout(driver):
+    checkout_page = CreateCheckoutPage(driver)
+    checkout_page.click_create_checkout()
+
+@when('I select deposit option')
+def select_deposit_option(driver):
+    checkout_page = CreateCheckoutPage(driver)
+    checkout_page.select_deposit()
+
+@then('I search for an non-existing member and re-search for an existing member')
+def search_members(driver):
+    checkout_page = CreateCheckoutPage(driver)
+    checkout_page.search_non_existing_member(TEST_INVALID_PHONE_NUMBER)
+    checkout_page.search_existing_member(TEST_VALID_PHONE_NUMBER)
+    
+@then('I select a sales performance owner')
+def select_sales_owner(driver):
+    checkout_page = CreateCheckoutPage(driver)
+    checkout_page.select_sales_owner()
+
+@then('I enter the deposit amount') 
+def enter_deposit_amount(driver):
+    checkout_page = CreateCheckoutPage(driver)
+    checkout_page.enter_deposit_amount()
+
+@then('I select a payment method and change it above the item price and validate errors')
+def select_payment_above_price(driver):
+    checkout_page = CreateCheckoutPage(driver)
+    checkout_page.select_payment_with_price_adjustment(is_above_price=True)
+
+@then('I input checkout record content and cancel it')
+def input_and_cancel_record(driver):
+    checkout_page = CreateCheckoutPage(driver)
+    checkout_page.cancel_record_content()
+
+@then('I adjust the total sales performance')
+def adjust_sales_performance(driver):
+    checkout_page = CreateCheckoutPage(driver)
+    checkout_page.adjust_sales_performance()
+
+@then('I adjust the bonus points using quick select')
+def adjust_bonus_points(driver):
+    checkout_page = CreateCheckoutPage(driver)
+    checkout_page.adjust_bonus_points()
+
+@then('I proceed to checkout')
+def proceed_to_checkout(driver):
+    checkout_page = CreateCheckoutPage(driver)
+    checkout_page.proceed_to_checkout()
+    
+@then('I do not sign any signature')
+def skip_signature(driver):
+    pass
 
 @then('I confirm the checkout and successfully create a checkout')
 def confirm_checkout(driver):

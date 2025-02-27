@@ -288,4 +288,3 @@ def click_refresh_button(driver):
 @then('the calendar page refreshes and shows the correct data')
 def verify_calendar_refresh(driver):
     pass
- 

@@ -10,8 +10,9 @@ Feature: Ticket Checkout Process
     Then I search for an existing member  
     Then I select a sales performance owner  
     Then I select a ticket and view the ticket info for sell
-    Then I select a payment method without making changes  
-    Then I proceed to checkout  
+    Then I select a payment method without making changes
+    Then I calculate the change amount
+    Then I proceed to checkout 
     Then I do not sign any signature  
     Then I confirm the checkout and successfully create a checkout
 

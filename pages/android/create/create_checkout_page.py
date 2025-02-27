@@ -98,7 +98,7 @@ class CreateCheckoutPage(CommonUseSection):
     TICKET_ELEMENTS = {
         'ticket1': {
             'select': (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("自動化測試票券")'),
-            'input': (AppiumBy.XPATH, '(//android.widget.EditText[@text="1"])[1]')
+            'input': (AppiumBy.XPATH, '//android.widget.EditText')
         },
         'ticket2': {
             'select': (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("自動化測試票卷2")'),
@@ -110,6 +110,9 @@ class CreateCheckoutPage(CommonUseSection):
     TICKET_INFO_BACK = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView")')
     SELECT_TICKETS_SAVE_ICON = (AppiumBy.XPATH, '(//android.view.ViewGroup[@resource-id="check"])[1]/com.horcrux.svg.SvgView/com.horcrux.svg.GroupView/com.horcrux.svg.PathView')
     
+    DEPOSIT_AMOUNT_INPUT = (AppiumBy.XPATH, '//android.widget.EditText')
+    EDIT_DEPOSIT_AMOUNT_ICON = (AppiumBy.XPATH, '(//android.view.ViewGroup[@resource-id="pen-to-square"])[1]/com.horcrux.svg.SvgView/com.horcrux.svg.GroupView/com.horcrux.svg.PathView')
+    EDIT_SALES_AMOUNT_ICON = (AppiumBy.XPATH, '(//android.view.ViewGroup[@resource-id="pen-to-square"])[2]/com.horcrux.svg.SvgView/com.horcrux.svg.GroupView/com.horcrux.svg.PathView')
     
     def __init__(self, driver):
         self.driver = driver
@@ -159,8 +162,9 @@ class CreateCheckoutPage(CommonUseSection):
         return self
     
     def non_selected_member_section(self):
+        time.sleep(1)
         self.driver.find_element(*self.NON_SELECTED_MEMBER_SECTION).click()
-        time.sleep(0.5)
+        
 
     def select_item(self):
         try:
@@ -257,7 +261,7 @@ class CreateCheckoutPage(CommonUseSection):
         time.sleep(1)
         
         # generate random phone number
-        first_digit = random.choice('23456789')  # first digit cannot be 1
+        first_digit = '9' # first digit cannot be 1
         rest_digits = ''.join(random.choice('0123456789') for _ in range(8))
         phone_number = first_digit + rest_digits
         self.driver.find_element(*self.PHONE_NUMBER_INPUT).send_keys(phone_number)
@@ -313,10 +317,13 @@ class CreateCheckoutPage(CommonUseSection):
     def ticket_section(self):
         self.driver.find_element(*self.TICKET_SECTION).click()
         
-    def adjust_item(self):
+    def adjust_item(self, add_new_member=False):
         self.update_items_amount()
+        time.sleep(0.5)
         self.update_items_quantity()
-        self.add_new_discount()
+        time.sleep(0.5)
+        self.add_new_discount(add_new_member)
+        time.sleep(0.5)
         self.remove_item()
 
 
@@ -563,13 +570,15 @@ class CreateCheckoutPage(CommonUseSection):
 # sell ticker use function 
 
     def select_ticket(self):
-       
+        
+        time.sleep(1)
         # ticket 1:
         self.driver.find_element(*self.TICKET_ELEMENTS['ticket1']['select']).click()
         time.sleep(0.5)
     
         self.driver.find_element(*self.TICKET_ELEMENTS['ticket1']['input']).click()
-        random_quantity = str(random.randint(2, 998))
+        self.driver.find_element(*self.TICKET_ELEMENTS['ticket1']['input']).clear()
+        random_quantity = str(random.randint(2, 200))
         self.driver.find_element(*self.TICKET_ELEMENTS['ticket1']['input']).send_keys(random_quantity)
         time.sleep(0.5)
         
@@ -593,4 +602,28 @@ class CreateCheckoutPage(CommonUseSection):
         self.driver.find_element(*self.SELECT_TICKETS_SAVE_ICON).click()
         return self
                 
-                
+    # deposit checkout use function
+    
+    def enter_deposit_amount(self):
+        self.driver.find_element(*self.DEPOSIT_AMOUNT_INPUT).click()
+        random_amount = str(random.randint(1, 99998))
+        self.driver.find_element(*self.DEPOSIT_AMOUNT_INPUT).send_keys(random_amount)
+        time.sleep(0.5)
+        self.driver.find_element(*self.COMMON_BUTTONS['clear']).click()
+        self.driver.find_element(*self.DEPOSIT_AMOUNT_INPUT).send_keys(random_amount)
+        self.driver.find_element(*self.COMMON_BUTTONS['confirm']).click()
+        time.sleep(0.5)
+        return self
+        
+    def edit_deposit_amount(self):
+        self.driver.find_element(*self.EDIT_DEPOSIT_AMOUNT_ICON).click()
+        time.sleep(0.5)
+        self.enter_deposit_amount()
+        return self
+    
+    def edit_sales_amount(self):
+        self.driver.find_element(*self.EDIT_SALES_AMOUNT_ICON).click()
+        time.sleep(0.5)
+        self.enter_deposit_amount()
+        return self
+    
