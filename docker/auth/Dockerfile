@@ -7,7 +7,6 @@ RUN pip3 install --no-cache-dir -r /temp/requirements.txt
 # Define build-time variables
 ARG APPIUM_OS
 ARG IMPLICIT_WAIT
-#ARG DUMMY_PASSWORD
 ARG NO_RESET
 ARG AUTO_ACCEPT_ALERTS
 ARG UDID
