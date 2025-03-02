@@ -173,7 +173,7 @@ def verify_login_success(driver):
     login_page.is_logged_in(), "Failed to log in successfully"
 
     #click logout button-> move to personal page
-    login_page.click_logout_button()
+    #login_page.click_logout_button()
   
     
     

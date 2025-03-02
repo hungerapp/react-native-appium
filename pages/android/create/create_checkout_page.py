@@ -105,7 +105,7 @@ class CreateCheckoutPage(CommonUseSection):
             'plus': (AppiumBy.XPATH, '(//android.view.ViewGroup[@resource-id="plus"])[2]/com.horcrux.svg.SvgView')
         }
     }
-    TICKET_INFO = (AppiumBy.XPATH, '(//android.view.ViewGroup[@resource-id="circle-info"])[3]/com.horcrux.svg.SvgView/com.horcrux.svg.GroupView/com.horcrux.svg.PathView')
+    TICKET_INFO = (AppiumBy.XPATH, '(//android.view.ViewGroup[@resource-id="circle-info"])[2]/com.horcrux.svg.SvgView/com.horcrux.svg.GroupView/com.horcrux.svg.PathView')
     TICKET_INFO_TITLE = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("自動化測試票券")')
     TICKET_INFO_BACK = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView")')
     SELECT_TICKETS_SAVE_ICON = (AppiumBy.XPATH, '(//android.view.ViewGroup[@resource-id="check"])[1]/com.horcrux.svg.SvgView/com.horcrux.svg.GroupView/com.horcrux.svg.PathView')
@@ -249,10 +249,16 @@ class CreateCheckoutPage(CommonUseSection):
         search_input = self.driver.find_element(*self.MEMBER_SEARCH)
         search_input.click()
         search_input.send_keys(phone_number)
-        time.sleep(1)
         member_result = self.driver.find_element(
             AppiumBy.ACCESSIBILITY_ID, 
-            "+886 972 205690, 王貝克 先生 (Beck)"
+            '+886 972 205690, 王貝克 先生 (Beck)'
+        )
+        member_result.click()
+        
+    def click_search_result(self):
+        member_result = self.driver.find_element(
+            AppiumBy.ACCESSIBILITY_ID, 
+            '+886 972 205690, 王貝克 先生 (Beck)'
         )
         member_result.click()
 
@@ -589,13 +595,15 @@ class CreateCheckoutPage(CommonUseSection):
         clicks = random.randint(1, 5)
         for _ in range(clicks):
             self.driver.find_element(*self.TICKET_ELEMENTS['ticket2']['plus']).click()
-            time.sleep(0.3)
+            time.sleep(1)
             
         self.driver.find_element(*self.TICKET_INFO).click()
         actual_text = ''.join(self.driver.find_element(*self.TICKET_INFO_TITLE).text.split())
         expected_text = ''.join("自動化測試票券".split())
     
         assert actual_text == expected_text, f"預期標題為 '自動化測試票券'，但實際為 '{actual_text}'"
+        
+        time.sleep(0.5)
         self.driver.find_element(*self.TICKET_INFO_BACK).click()
         
                 

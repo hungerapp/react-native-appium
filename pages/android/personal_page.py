@@ -9,14 +9,13 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.actions import interaction
 from selenium.webdriver.common.actions.action_builder import ActionBuilder
 from selenium.webdriver.common.actions.pointer_input import PointerInput
-
 from datetime import datetime, timedelta
-
-
 from appium.webdriver.common.appiumby import AppiumBy
 
+from pages.shared_components.common_use import CommonUseSection
 
-class PersonalPage:
+
+class PersonalPage(CommonUseSection):
   
   def __init__(self, driver):
     self.driver = driver
@@ -103,9 +102,10 @@ class PersonalPage:
   
   # Branch name list
   BRANCH_NAMES = [
-        {"name": "Star分店", "locator": (AppiumBy.XPATH, '//android.view.ViewGroup[@content-desc="Star分店, 品牌管理員"]/com.horcrux.svg.SvgView/com.horcrux.svg.GroupView/com.horcrux.svg.PathView')},
-        {"name": "Free分店", "locator": (AppiumBy.XPATH, '//android.view.ViewGroup[@content-desc="Free分店, 品牌管理員"]/com.horcrux.svg.SvgView/com.horcrux.svg.GroupView/com.horcrux.svg.PathView')},
-        {"name": "Ultra分店", "locator": (AppiumBy.XPATH, '//android.view.ViewGroup[@content-desc="Ultra分店, 品牌管理員"]/com.horcrux.svg.SvgView/com.horcrux.svg.GroupView/com.horcrux.svg.PathView')}
+        #{"name": "Pro分店", "locator": (AppiumBy.ACCESSIBILITY_ID, 'Pro分店, 品牌管理員')},
+        {"name": "Star分店", "locator": (AppiumBy.ACCESSIBILITY_ID, 'Star分店, 品牌管理員')},
+        {"name": "Free分店", "locator": (AppiumBy.ACCESSIBILITY_ID, 'Free分店, 品牌管理員')},
+        {"name": "Ultra分店", "locator": (AppiumBy.ACCESSIBILITY_ID, 'Ultra分店, 品牌管理員')}
     ]
   
   
@@ -294,17 +294,16 @@ class PersonalPage:
   
   # For Toggle locators
   TOGGLE_LOCATORS = {
-        "sally_toggle": (AppiumBy.XPATH, "//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup[2]/android.view.ViewGroup"),
-        "bella_toggle": (AppiumBy.XPATH, "//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup[2]/android.view.ViewGroup"),
-        "dami_toggle": (AppiumBy.XPATH, "//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup[2]/android.view.ViewGroup"),
-        "ella_toggle": (AppiumBy.XPATH, 'new UiSelector().className("android.view.ViewGroup").instance(41)'),
-        "test_toggle": (AppiumBy.XPATH, "//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup/android.view.ViewGroup[5]/android.view.ViewGroup[2]/android.view.ViewGroup"),
-        "918mmm_toggle": (AppiumBy.XPATH, 'new UiSelector().className("android.view.ViewGroup").instance(51)'),
-        "new1_toggle": (AppiumBy.XPATH, "//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup/android.view.ViewGroup[7]/android.view.ViewGroup[2]/android.view.ViewGroup"),
-        "new2_toggle": (AppiumBy.XPATH, "//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup/android.view.ViewGroup[8]/android.view.ViewGroup[2]/android.view.ViewGroup"),
-        "vivian_toggle": (AppiumBy.XPATH, "//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup/android.view.ViewGroup[9]/android.view.ViewGroup[2]/android.view.ViewGroup"),
-        "cindy_toggle": (AppiumBy.XPATH, "//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup/android.view.ViewGroup[10]/android.view.ViewGroup[2]/android.view.ViewGroup"),
-        "usagi_toggle": (AppiumBy.XPATH, "//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup[11]/android.view.ViewGroup[2]/android.view.ViewGroup")
+        "wen_toggle": (AppiumBy.XPATH, "//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[4]/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup[2]/android.view.ViewGroup"),
+        "sally_toggle": (AppiumBy.XPATH, "//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[4]/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup[2]/android.view.ViewGroup"),
+        "bella_toggle": (AppiumBy.XPATH, "//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[4]/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup[2]/android.view.ViewGroup"),
+        "dami_toggle": (AppiumBy.XPATH, "//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[4]/android.view.ViewGroup/android.view.ViewGroup[4]/android.view.ViewGroup[2]/android.view.ViewGroup"),
+        "ella_toggle": (AppiumBy.XPATH, '//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[4]/android.view.ViewGroup/android.view.ViewGroup[5]/android.view.ViewGroup[2]/android.view.ViewGroup'),
+        "test_toggle": (AppiumBy.XPATH, "//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[4]/android.view.ViewGroup/android.view.ViewGroup[6]/android.view.ViewGroup[2]/android.view.ViewGroup"),
+        "918mmm_toggle": (AppiumBy.XPATH, '//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[4]/android.view.ViewGroup/android.view.ViewGroup[7]/android.view.ViewGroup[2]/android.view.ViewGroup'),
+        "new1_toggle": (AppiumBy.XPATH, "//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[4]/android.view.ViewGroup/android.view.ViewGroup[8]/android.view.ViewGroup[2]/android.view.ViewGroup"),
+        "new2_toggle": (AppiumBy.XPATH, "//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[4]/android.view.ViewGroup/android.view.ViewGroup[9]/android.view.ViewGroup[2]/android.view.ViewGroup"),
+        "cindy_toggle": (AppiumBy.XPATH, "//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[4]/android.view.ViewGroup/android.view.ViewGroup[10]/android.view.ViewGroup[2]/android.view.ViewGroup")
   }
   
   def random_toggle_switches(self, num_toggles=None):
@@ -532,62 +531,6 @@ class PersonalPage:
                 continue
                 
         raise NoSuchElementException("Not found name input field")
-  
-  def select_random_gender(self):
-    """Select random gender"""
-    try:
-        #time.sleep(2)
-        gender = random.choice(list(self.GENDER_OPTIONS.keys()))
-        self.driver.find_element(*self.GENDER_OPTIONS[gender]).click()
-        return gender
-    except Exception as e:
-        print(f"Select gender error: {str(e)}")
-        raise
-  
-  def select_random_date(self):
-    """Random scroll to select date"""
-    try:
-        # Click birthday field to open date picker
-        self.driver.find_element(*self.BIRTHDAY_FIELD).click()
-        
-        # Get date picker window
-        calendar_window = self.driver.find_element(*self.CALENDAR_WINDOW)
-        window_rect = calendar_window.rect
-        
-        # calculate year, month, day x coordinates
-        year_x = window_rect['x'] + (window_rect['width'] * 0.17)  # left side year field
-        month_x = window_rect['x'] + (window_rect['width'] * 0.5)  # middle month field
-        day_x = window_rect['x'] + (window_rect['width'] * 0.83)   # right side day field
-        
-        # calculate y coordinate center point
-        center_y = window_rect['y'] + window_rect['height'] / 2
-        
-        # random scroll each field
-        date_columns = [
-            {"name": "年", "x": year_x},
-            {"name": "月", "x": month_x},
-            {"name": "日", "x": day_x}
-        ]
-        
-        for column in date_columns:
-            swipe_times = random.randint(3, 6)
-            for _ in range(swipe_times):
-                self._perform_random_swipe(
-                    start_x=column["x"],
-                    start_y=center_y,
-                    max_offset=50, # limit horizontal random offset
-                )
-                time.sleep(0.5)
-        
-        # click confirm
-        self.driver.find_element(*self.CONFIRM_BUTTON).click()
-        
-        # Return updated date text
-        return self.driver.find_element(*self.BIRTHDAY_FIELD).text
-        
-    except Exception as e:
-        print(f"Select date error: {str(e)}")
-        raise
 
   def _perform_random_swipe(self, start_x, start_y, max_offset=50):
     """執行隨機滑動"""
@@ -658,10 +601,10 @@ class PersonalPage:
   
   def update_account_information_and_save_settings(self):
     
-      try:
+      try:  
+            self.select_random_date()
             self.clear_and_input_name()
             self.select_random_gender()
-            self.select_random_date()
             self.input_phone_number(valid=True)
             self.save_account_settings()
             

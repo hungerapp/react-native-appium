@@ -8,6 +8,7 @@ Feature: Customer Deposit Checkout
     Given I click the create checkout option
     When I select deposit option  
     Then I search for an existing member  
+    Then I click the search result
     Then I select a sales performance owner  
     Then I enter the deposit amount  
     Then I select a payment method and do not make any changes
@@ -50,6 +51,7 @@ Feature: Customer Deposit Checkout
     Given I click the create checkout option
     When I select deposit option  
     Then I search for an non-existing member and re-search for an existing member
+    Then I click the search result
     Then I select a sales performance owner  
     Then I enter the deposit amount  
     Then I select a payment method and change it above the item price and validate errors  

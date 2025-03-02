@@ -87,12 +87,17 @@ def select_and_view_item(driver):
     checkout_page = CreateCheckoutPage(driver)
     checkout_page.select_item()
 
-@then('I search non-existing member and then re-search for an existing member')
+@then('I search non-existing member then re-search for an existing member')
 def search_members(driver):
     checkout_page = CreateCheckoutPage(driver)
     checkout_page.non_selected_member_section()
     checkout_page.search_non_existing_member(TEST_INVALID_PHONE_NUMBER)
     checkout_page.search_existing_member(TEST_VALID_PHONE_NUMBER)
+    
+@then('I click search result')
+def click_search_result(driver):
+    checkout_page = CreateCheckoutPage(driver)
+    checkout_page.click_search_result()
     
 @when('I clear all selected items')
 def clear_items(driver):
@@ -193,6 +198,11 @@ def delete_and_readd_member(driver):
     checkout_page = CreateCheckoutPage(driver)
     checkout_page.delete_selected_member()
     checkout_page.search_existing_member(TEST_VALID_PHONE_NUMBER)
+    
+@then('I click the search result')
+def click_search_result(driver):
+    checkout_page = CreateCheckoutPage(driver)
+    checkout_page.click_search_result()
  
 @then('I add new discount for the item')
 def add_new_discount(driver):
@@ -259,6 +269,11 @@ def select_sell_ticket(driver):
 def search_existing_member(driver):
     checkout_page = CreateCheckoutPage(driver)
     checkout_page.search_existing_member(TEST_VALID_PHONE_NUMBER)
+    
+@then('I click the search result')
+def click_search_result(driver):
+    checkout_page = CreateCheckoutPage(driver)
+    checkout_page.click_search_result()
 
 @then('I select a sales performance owner')
 def select_sales_owner(driver):
@@ -395,6 +410,11 @@ def search_members(driver):
     checkout_page.search_non_existing_member(TEST_INVALID_PHONE_NUMBER)
     checkout_page.search_existing_member(TEST_VALID_PHONE_NUMBER)
     
+@then('I click the search result')
+def click_search_result(driver):
+    checkout_page = CreateCheckoutPage(driver)
+    checkout_page.click_search_result()
+    
 @then('I select a sales performance owner')
 def select_sales_owner(driver):
     checkout_page = CreateCheckoutPage(driver)
@@ -417,6 +437,11 @@ def delete_and_readd_member(driver):
     checkout_page = CreateCheckoutPage(driver)
     checkout_page.delete_selected_member()
     checkout_page.search_existing_member(TEST_VALID_PHONE_NUMBER)
+    
+@then('I click the search result')
+def click_search_result(driver):
+    checkout_page = CreateCheckoutPage(driver)
+    checkout_page.click_search_result()
     
 @then('I add new discount for the item')
 def add_new_discount(driver):
@@ -486,6 +511,11 @@ def select_deposit_option(driver):
 def search_existing_member(driver):
     checkout_page = CreateCheckoutPage(driver)
     checkout_page.search_existing_member(TEST_VALID_PHONE_NUMBER)
+    
+@then('I click the search result')
+def click_search_result(driver):
+    checkout_page = CreateCheckoutPage(driver)
+    checkout_page.click_search_result()
 
 @then('I select a sales performance owner')
 def select_sales_owner(driver):
@@ -620,6 +650,11 @@ def search_members(driver):
     checkout_page = CreateCheckoutPage(driver)
     checkout_page.search_non_existing_member(TEST_INVALID_PHONE_NUMBER)
     checkout_page.search_existing_member(TEST_VALID_PHONE_NUMBER)
+
+@then('I click the search result')
+def click_search_result(driver):
+    checkout_page = CreateCheckoutPage(driver)
+    checkout_page.click_search_result()
     
 @then('I select a sales performance owner')
 def select_sales_owner(driver):

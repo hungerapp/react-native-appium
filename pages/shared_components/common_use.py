@@ -17,13 +17,16 @@ class CommonUseSection:
     CONFIRM_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("android:id/button1")')
     BIRTHDAY_FIELD = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("生日")')
     CALENDAR_WINDOW = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("android:id/pickers")')
-  
-    
+
     COUNTRY_SELECTOR = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(3)')
+    COUNTRY_CODE_OPTIONS = (AppiumBy.XPATH, "//android.widget.TextView[contains(@text, '+')]")
+    CHANGED_COUNTRY_CODE = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("+")')
+    COUNTRY_CODE_CONFIRM_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(1)')
     COUNTRY_CODE_OPTIONS = (AppiumBy.XPATH, "//android.widget.TextView[contains(@text, '+')]")
     CHANGED_COUNTRY_CODE = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("+")')
     COUNTRY_CODE_CONFIRM_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(1)') 
     SEARCH_INPUT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("輸入國家或號碼進行搜尋")')
+    
     
     
     
@@ -264,6 +267,31 @@ class CommonUseSection:
         except Exception as e:
             print(f"Search country code error: {str(e)}")
             raise
+        
+    def is_country_code_changed(self):
+        """Verify country code is changed"""
+        try:
+            time.sleep(1) 
+        
+            current_element = self.driver.find_element(*self.CHANGED_COUNTRY_CODE)
+            current_code = current_element.text #get country code only
+        
+            # Extract country code from full text (e.g. from "Russia +7" extract "+7")
+            selected_code = "+" + self.selected_country_code.split("+")[-1].strip().split()[0]
+
+            # Compare country code
+            is_matched = current_code == selected_code
+        
+            if is_matched:
+                print(f"Country code is successfully updated to: {current_code}")
+            else:
+                print(f"Country code update failed - Expected: {selected_code}, Actual: {current_code}")
+            
+            return is_matched
+        
+        except Exception as e:
+            print(f"Verify country code error: {str(e)}")
+            return False
     
     # only select one service person
     def select_service_person(self):
@@ -350,7 +378,7 @@ class CommonUseSection:
     
     def add_new_discount(self, add_new_member=False):
         self.driver.find_element(*self.ADD_NEW_DISCOUNT_BTN).click()
-        time.sleep(0.5)
+        time.sleep(1)
         
         #randomly select tab
         tabs = [self.CASH_TAB, self.DISCOUNT_TAB]
@@ -359,7 +387,7 @@ class CommonUseSection:
             
         selected_tab = random.choice(tabs)
         self.driver.find_element(*selected_tab).click()
-        time.sleep(0.5)
+        time.sleep(1)
         
         if selected_tab == self.CASH_TAB:
             self._handle_cash_tab()
@@ -409,10 +437,10 @@ class CommonUseSection:
         
         # Perform small swipe gesture
         self.driver.swipe(start_x, start_y, start_x, end_y, duration=500)
-        time.sleep(0.5)
+        time.sleep(1)
         
         self.driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR, f'new UiSelector().text("{random_quantity}")').click()
-        time.sleep(0.5)
+        time.sleep(1)
         
         # Input amount
         amount_input = self.driver.find_element(*self.QUANTITY_INPUT)

@@ -8,6 +8,7 @@ Feature: Ticket Checkout Process
     Given I click the create checkout option
     When I select sell ticket option  
     Then I search for an existing member  
+    Then I click the search result
     Then I select a sales performance owner  
     Then I select a ticket and view the ticket info for sell
     Then I select a payment method without making changes
@@ -46,10 +47,12 @@ Feature: Ticket Checkout Process
     Given I click the create checkout option
     When I select sell ticket option  
     Then I search for an non-existing member and re-search for an existing member
+    Then I click the search result
     Then I select a sales performance owner  
     Then I select a ticket and view the ticket info for sell
     Then I clear all selections and reselect them  
     Then I delete the member information and re-add it
+    Then I click the search result
     Then I add new discount for the item
     Then I select a payment method and change it above the item price and validate errors
     Then I input checkout record content and cancel it

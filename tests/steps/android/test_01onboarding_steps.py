@@ -18,11 +18,14 @@ scenarios('../../../features/onboarding.feature')
 @given('the app is launched for the first time')
 def launch_app_first_time(driver):
     assert driver is not None, "App failed to launch"
-
-    start_updating_app = driver.find_element(by=AppiumBy.ANDROID_UIAUTOMATOR, value='new UiSelector().description("開始更新")')
-    start_updating_app.click()
     
-    time.sleep(5)
+    try:
+        start_updating_app = driver.find_element(by=AppiumBy.ANDROID_UIAUTOMATOR, value='new UiSelector().description("開始更新")')
+        start_updating_app.click()
+        time.sleep(5)
+    except:
+        pass
+    
 
     #driver.execute_script('mobile: alert', {'action': 'accept', 'buttonLabel': 'Allow'})
 
