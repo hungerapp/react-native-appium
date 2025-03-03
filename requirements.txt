@@ -10,3 +10,4 @@ allure-slack-reporter
 pytest-alluredir
 pytest-rerunfailures 
 requests
+pytest-xdist
