@@ -49,6 +49,30 @@ elif options.platform_name == 'ios':
 
 appium_server_url = 'http://127.0.0.1:4723'
 
+
+'''
+ANDROID_DEVICES = [
+    {
+        'name': 'device1',
+        'port': 4723,
+        'udid': 'emulator-5554',
+        'systemPort': 8200,
+    },
+    {
+        'name': 'device2',
+        'port': 4724,
+        'udid': 'emulator-5556',
+        'systemPort': 8201,
+    },
+    {
+        'name': 'device3',
+        'port': 4725,
+        'udid': 'emulator-5558',
+        'systemPort': 8202,
+    }
+]
+'''
+
 #@pytest.mark.usefixtures("method", "auth_path")
 class AppiumSetup(unittest.TestCase):
     def setUp(self) -> Remote:
@@ -65,6 +89,7 @@ class AppiumSetup(unittest.TestCase):
         # Initialize  TestHelper
         self.helper = GetTestHelper(self.driver)
         return self.driver
+    
     
     
     def screen_shot(self, name: str):

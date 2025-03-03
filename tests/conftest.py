@@ -1,12 +1,13 @@
 import pytest
-from subprocess import run, Popen
-from setup import AppiumSetup
-from utils.send_report_to_slack import send_report_to_slack
-from datetime import datetime
 import os
 import requests
 import subprocess
 import time
+
+from subprocess import run, Popen
+from setup import AppiumSetup
+from utils.send_report_to_slack import send_report_to_slack
+from datetime import datetime
 
 @pytest.fixture(scope="session")
 def driver():
@@ -15,6 +16,7 @@ def driver():
     driver = appium_setup.setUp()
     yield driver
     appium_setup.tearDown()
+
 
 
 def pytest_configure(config):
@@ -323,4 +325,28 @@ def clean_app_state(request):
 #                      'allure-results/recording.mp4')
 #     except Exception as e:
 #         print(f"Error combining video segments: {str(e)}")
+    
+    
+def pytest_configure(config):
+    config.addinivalue_line(
+        "markers",
+        "login: login related tests"
+    )
+    config.addinivalue_line(
+        "markers",
+        "personal: personal related tests"
+    )
+    config.addinivalue_line(
+        "markers",
+        "create: create related tests"
+    )
+    config.addinivalue_line(
+        "markers",
+        "calendar: calendar related tests"
+    )
+    config.addinivalue_line(
+        "markers",
+        "navigation: navigation related tests"
+    )
+    
     

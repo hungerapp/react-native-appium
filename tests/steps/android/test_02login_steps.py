@@ -27,6 +27,7 @@ TEST_INVALID_VER = '123456'
 # Scenario: Select language
 @allure.feature('Select Language')
 @pytest.mark.run(order=2)
+@pytest.mark.login
 @given('the app is launched')
 def login_page_loaded(driver):
     """Verify the app is launched."""
@@ -51,6 +52,7 @@ def continue_to_login_page(driver):
 # Scenario: Click terms and conditions
 @allure.feature('Click Terms and Conditions')
 @pytest.mark.run(order=3)
+@pytest.mark.login
 @when('I click terms and conditions button')
 def click_terms_and_conditions_button(driver):
     """Click terms button."""
@@ -84,6 +86,7 @@ def verify_privacy_page(driver):
 @allure.feature('Login Functionality')
 @allure.story('Unsuccessful login with invalid email')
 @pytest.mark.run(order=4)
+@pytest.mark.login
 @when('the user enters an invalid email')
 def login_with_invalid_email(driver):
     """Use invalid email to attempt login."""
@@ -101,6 +104,7 @@ def verify_invalid_email_error(driver):
 
 @allure.feature('Login Unregistered Email')
 @pytest.mark.run(order=5)
+@pytest.mark.login
 @when('the user enters an unregistered email')
 def login_with_unregistered_email(driver):
     """Use unregistered email to attempt login."""
@@ -118,6 +122,7 @@ def verify_unregistered_email_error(driver):
 # Scenario: Unsuccessful login with invalid verification code
 @allure.story('Unsuccessful login with invalid verification code')
 @pytest.mark.run(order=6)
+@pytest.mark.login
 @when('the user enters an invalid verification code')
 def login_with_invalid_ver_code(driver):
     """Use invalid verification code to attempt login."""
@@ -136,6 +141,7 @@ def verify_invalid_ver_code_error(driver):
 # Scenario: Modify email from verification code page
 @allure.story('Modify email from verification code page')
 @pytest.mark.run(order=7)
+@pytest.mark.login
 @when('the user clicks modify email button')
 def click_modify_email_button(driver):
     """Click modify email button."""
@@ -160,6 +166,7 @@ def verify_verification_code_page(driver):
 # Scenario: Successful login
 @allure.story('Successful login')
 @pytest.mark.run(order=8)
+@pytest.mark.login
 @when('the user enters valid credentials')
 def login_with_valid_credentials(driver):
     """Use valid credentials to log in."""
@@ -173,7 +180,7 @@ def verify_login_success(driver):
     login_page.is_logged_in(), "Failed to log in successfully"
 
     #click logout button-> move to personal page
-    #login_page.click_logout_button()
+    login_page.click_logout_button()
   
     
     

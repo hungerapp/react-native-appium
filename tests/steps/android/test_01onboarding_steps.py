@@ -14,7 +14,7 @@ scenarios('../../../features/onboarding.feature')
 
 @allure.feature('Onboarding Functionality')
 @pytest.mark.run(order=1)
-@pytest.mark.onboarding
+@pytest.mark.login
 @given('the app is launched for the first time')
 def launch_app_first_time(driver):
     assert driver is not None, "App failed to launch"

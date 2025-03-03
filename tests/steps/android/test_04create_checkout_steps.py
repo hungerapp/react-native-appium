@@ -17,6 +17,7 @@ TEST_VALID_PHONE_NUMBER = "0972205690"
 @allure.feature('Create Checkout')
 @allure.story('Sell Item')
 @pytest.mark.run(order=34)
+@pytest.mark.checkout
 @given('I click the create checkout option')
 def click_create_checkout(driver):
     checkout_page = CreateCheckoutPage(driver)
@@ -67,6 +68,7 @@ def confirm_checkout(driver):
 @allure.feature('Create Checkout')
 @allure.story('Sell Item with existing member and payment adjustment validation')
 @pytest.mark.run(order=35)
+@pytest.mark.checkout
 @given('I click the create checkout option')
 def click_create_checkout(driver):
     checkout_page = CreateCheckoutPage(driver)
@@ -166,6 +168,7 @@ def confirm_checkout(driver):
 @allure.feature('Create Checkout')
 @allure.story('Checkout with new member and payment adjustment validation')
 @pytest.mark.run(order=36)
+@pytest.mark.checkout
 @given('I click the create checkout option')
 def click_create_checkout(driver):
     checkout_page = CreateCheckoutPage(driver)
@@ -255,6 +258,7 @@ def confirm_checkout(driver):
 @allure.feature('Create Checkout with sell ticket')
 @allure.story('Sell Ticket without payment adjustment')
 @pytest.mark.run(order=37)
+@pytest.mark.checkout
 @given('I click the create checkout option')
 def click_create_checkout(driver):
     checkout_page = CreateCheckoutPage(driver)
@@ -316,6 +320,7 @@ def confirm_checkout(driver):
 @allure.feature('Create Checkout with sell ticket')
 @allure.story('Checkout a ticket with a new member and modified payment method')
 @pytest.mark.run(order=38)
+@pytest.mark.checkout
 @given('I click the create checkout option')
 def click_create_checkout(driver):
     checkout_page = CreateCheckoutPage(driver)
@@ -394,6 +399,7 @@ def confirm_checkout(driver):
 @allure.feature('Create Checkout with sell ticket')
 @allure.story('Checkout a ticket with multiple modifications and re-selections')
 @pytest.mark.run(order=39)
+@pytest.mark.checkout
 @given('I click the create checkout option')
 def click_create_checkout(driver):
     checkout_page = CreateCheckoutPage(driver)
@@ -497,6 +503,7 @@ def confirm_checkout(driver):
 @allure.feature('Create Checkout')
 @allure.story('Successful Deposit Checkout')
 @pytest.mark.run(order=40)
+@pytest.mark.checkout
 @given('I click the create checkout option')
 def click_create_checkout(driver):
     checkout_page = CreateCheckoutPage(driver)
@@ -557,6 +564,7 @@ def confirm_checkout(driver):
 @allure.feature('Create Checkout')
 @allure.story('Modify and Clear Deposit Details')
 @pytest.mark.run(order=41)
+@pytest.mark.checkout
 @given('I click the create checkout option')
 def click_create_checkout(driver):
     checkout_page = CreateCheckoutPage(driver)
@@ -635,6 +643,7 @@ def confirm_checkout(driver):
 @allure.feature('Create Checkout')
 @allure.story('Error Validation During Deposit')
 @pytest.mark.run(order=42)
+@pytest.mark.checkout
 @given('I click the create checkout option')
 def click_create_checkout(driver):
     checkout_page = CreateCheckoutPage(driver)

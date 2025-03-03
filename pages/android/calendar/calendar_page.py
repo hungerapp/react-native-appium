@@ -284,6 +284,7 @@ class CalendarPage:
     def add_appointment(self):
         add_appointment_option = self.driver.find_element(*self.ADD_APPOINTMENT_OPTION)
         if add_appointment_option.is_displayed():
+            time.sleep(0.5)
             add_appointment_option.click()
         else:
             print("Add appointment option is not visible or enabled")

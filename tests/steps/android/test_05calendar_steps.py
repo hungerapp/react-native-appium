@@ -15,6 +15,7 @@ scenarios('../../../features/calendar.feature')
 @allure.feature('Calendar for open month selection')
 @allure.story('Open Month Selection')
 @pytest.mark.run(order=45)
+@pytest.mark.calendar
 @given('I am on the calendar page')
 def on_calendar_page(driver):
     pass
@@ -37,6 +38,7 @@ def verify_month_selection_window(driver):
 @allure.feature('Calendar for change display mode')
 @allure.story('Change Display Mode')
 @pytest.mark.run(order=46)
+@pytest.mark.calendar
 @when('I click the month icon')
 def click_month_icon(driver):
     calendar_page = CalendarPage(driver)
@@ -60,6 +62,7 @@ def switch_back_to_previous_mode(driver):
 @allure.feature('Calendar for filter personnel')
 @allure.story('Filter Personnel')
 @pytest.mark.run(order=47)
+@pytest.mark.calendar
 @when('I click the filter icon')
 def click_filter_icon(driver):
     calendar_page = CalendarPage(driver)
@@ -88,6 +91,7 @@ def change_personnel_filter(driver):
 @allure.feature('Calendar for navigate to today')
 @allure.story('Navigate to Today')
 @pytest.mark.run(order=48)
+@pytest.mark.calendar
 @when('I swipe to other pages and click the today icon')
 def navigate_to_today(driver):
     calendar_page = CalendarPage(driver)
@@ -106,6 +110,7 @@ def verify_navigate_to_today(driver):
 @allure.feature('Calendar for view orders')
 @allure.story('View Orders')
 @pytest.mark.run(order=49)
+@pytest.mark.calendar
 @when('I click on a date with appointment data and allow me to view orders for that day')
 def click_date_with_appointment(driver):
     calendar_page = CalendarPage(driver)
@@ -129,6 +134,7 @@ def click_back_button(driver):
 @allure.feature('Calendar for add appointment')
 @allure.story('Add Appointment')
 @pytest.mark.run(order=50)
+@pytest.mark.calendar
 @when('I long-press any date in calendar')
 def long_press_any_date(driver):
     calendar_page = CalendarPage(driver)
@@ -163,6 +169,7 @@ def appointment_created(driver):
 @allure.feature('Calendar for add appointment and change the time')
 @allure.story('Add Appointment and change the time')
 @pytest.mark.run(order=51)
+@pytest.mark.calendar
 @when('I long-press any date')
 def long_press_date(driver):
     """Long-press any date"""
@@ -200,6 +207,7 @@ def verify_appointment_created(driver):
 @allure.feature('Calendar for add event')
 @allure.story('Add Event')
 @pytest.mark.run(order=52)
+@pytest.mark.calendar
 @when('I long-press any date')
 def long_press_date(driver):
     """Long-press any date"""
@@ -238,6 +246,7 @@ def verify_event_created(driver):
 @allure.feature('Calendar for add event and change the time')
 @allure.story('Add Event and change the time')
 @pytest.mark.run(order=53)
+@pytest.mark.calendar
 @when('I long-press any date')
 def long_press_date(driver):
     """Long-press any date"""
@@ -279,6 +288,7 @@ def verify_event_created(driver):
 @allure.feature('Calendar for refresh calendar')
 @allure.story('Refresh Calendar')
 @pytest.mark.run(order=54)
+@pytest.mark.calendar
 @when('I click the refresh button')
 def click_refresh_button(driver):
     """Click the refresh button"""

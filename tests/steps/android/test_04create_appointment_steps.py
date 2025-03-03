@@ -18,6 +18,7 @@ TEST_PARTIAL_PHONE = "09722"
 @allure.feature('Create Appointment for anonymous nickname')
 @allure.story('Successfully create an appointment with anonymous nickname')
 @pytest.mark.run(order=19)
+@pytest.mark.create
 @given('I click the back button to go to calendar page')
 def click_back_to_calendar(driver):
     """Click back to calendar button"""
@@ -81,6 +82,7 @@ def click_create_button(driver):
 @allure.feature('Create Appointment with one more service')
 @allure.story('Successfully create an appointment with one more service')
 @pytest.mark.run(order=20)
+@pytest.mark.create
 @given('I click the create appointment option')
 def click_create_appointment_for_one_more_service(driver):
     """Click create appointment button"""
@@ -142,6 +144,7 @@ def verify_success(driver):
 @allure.feature('Create Appointment with one more service then delete') 
 @allure.story('Successfully create an appointment with one more service then delete')
 @pytest.mark.run(order=21)
+@pytest.mark.create
 @given('I click the create appointment option')
 def click_create_appointment_for_one_more_service_then_delete(driver):
     """Click create appointment button"""
@@ -200,6 +203,7 @@ def go_back_to_calendar(driver):
 @allure.feature('Create Appointment for existing name and phone number')
 @allure.story('Successfully create an appointment with existing name and phone number')
 @pytest.mark.run(order=22)
+@pytest.mark.create
 @given('I click the create appointment option')
 def click_create_appointment_option(driver):
     """Click create appointment button"""
@@ -251,6 +255,7 @@ def click_create_button_existing(driver):
 @allure.feature('Create Appointment for invalid phone number')
 @allure.story('Show error for invalid phone number format')
 @pytest.mark.run(order=23)
+@pytest.mark.create
 @given('I click the create appointment option')
 def click_create_appointment_for_invalid(driver):
     """Click create appointment button"""
@@ -280,6 +285,7 @@ def verify_phone_error(driver):
 # Scenario: Create Appointment for selecting and searching country code
 @allure.feature('Create Appointment for selecting and searching country code')
 @pytest.mark.run(order=24)
+@pytest.mark.create
 @given('I am on the contact page')
 def contact_page(driver):
     """Contact page"""
@@ -316,6 +322,7 @@ def verify_country_code_changed(driver):
 @allure.feature('Create Appointment for partial phone number')
 @allure.story('Search contact by partial phone number')
 @pytest.mark.run(order=25)
+@pytest.mark.create
 @given('I am on the create appointment page')
 def create_appointment_page(driver):
     """Create appointment page"""
@@ -353,6 +360,7 @@ def select_and_save_contact_partial_phone(driver):
 @allure.feature('Create Appointment for modifying contact')
 @allure.story('Create Appointment for modifying contact')
 @pytest.mark.run(order=26)
+@pytest.mark.create
 @given('I have chosen a contact')
 def create_appointment_page(driver):
     """Create appointment page"""
@@ -380,6 +388,7 @@ def select_and_save_contact_full_name(driver):
 @allure.feature('Create Appointment for full phone number')
 @allure.story('Search contact by full phone number')
 @pytest.mark.run(order=27)
+@pytest.mark.create
 @given('I click the create appointment option')
 def click_create_appointment_for_full_phone(driver):
     """Click create appointment button"""
@@ -419,6 +428,7 @@ def select_and_save_contact_full_phone(driver):
 @allure.feature('Create Appointment for partial name')
 @allure.story('Search contact by partial name')
 @pytest.mark.run(order=28)
+@pytest.mark.create
 @given('I click the create appointment option')
 def click_create_appointment_for_partial_name(driver):
     """Click create appointment button"""
@@ -457,6 +467,7 @@ def select_and_save_contact_partial_name(driver):
 @allure.feature('Create Appointment for full name')
 @allure.story('Search contact by full name')
 @pytest.mark.run(order=29)
+@pytest.mark.create
 @given('I click the create appointment option')
 def click_create_appointment_for_full_name(driver):
     """Click create appointment button"""
