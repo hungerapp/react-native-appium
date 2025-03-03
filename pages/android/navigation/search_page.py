@@ -24,6 +24,17 @@ class SearchPage:
         self.driver.find_element(*self.SEARCH_OPTION).click()
         return self
     
+    def enter_search_name(self, name):
+        search_input = self.driver.find_element(*self.SEARCH_INPUT)
+        search_input.clear()
+        time.sleep(1)
+        search_input.send_keys(name)
+        
+        # press enter
+        time.sleep(2)
+        self.driver.press_keycode(66)
+        return self
+    
     def enter_search_number(self, number):
         search_input = self.driver.find_element(*self.SEARCH_INPUT)
         search_input.clear()
@@ -31,7 +42,7 @@ class SearchPage:
         search_input.send_keys(number)
         
         # press enter
-        time.sleep(2)
+        time.sleep(1.5)
         self.driver.press_keycode(66)
         return self
     
