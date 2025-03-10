@@ -32,12 +32,12 @@ def select_sell_item(driver):
 def select_sales_owner(driver):
     checkout_page = CreateCheckoutPage(driver)
     checkout_page.select_sales_owner(is_performance_change=False)
-
+ 
 @then('I select an item and view the item info')
 def select_item(driver):
     checkout_page = CreateCheckoutPage(driver)
     checkout_page.select_item()
-
+ 
 
 @then('I do not select a member')
 def skip_member_selection(driver):
@@ -194,7 +194,6 @@ def add_new_member(driver):
     checkout_page = CreateCheckoutPage(driver)
     checkout_page.non_selected_member_section()
     checkout_page.add_new_member()
-    checkout_page.select_sales_owner()
 
 @then('I delete the selected member and re-add it')
 def delete_and_readd_member(driver):

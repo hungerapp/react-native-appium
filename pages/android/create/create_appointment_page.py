@@ -14,9 +14,10 @@ class CreateAppointmentPage(CommonUseSection):
         
     # Basic element locators
     PERSONAL_PAGE_BACK_TO_CALENDAR_BTN = (AppiumBy.ACCESSIBILITY_ID, '返回')
-    CREATE_BTN = (AppiumBy.XPATH, '//android.widget.FrameLayout[@resource-id="android:id/content"]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup[2]/android.view.ViewGroup[2]/com.horcrux.svg.SvgView[6]/com.horcrux.svg.GroupView/com.horcrux.svg.PathView')
+    CREATE_BTN = (AppiumBy.XPATH, '//android.widget.FrameLayout[@resource-id="android:id/content"]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[6]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup[2]/android.view.ViewGroup[2]/com.horcrux.svg.SvgView[6]/com.horcrux.svg.GroupView/com.horcrux.svg.PathView')
     CREATE_APPOINTMENT_OPTION = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(7)')
     CONTACT_INFO_SECTION = (AppiumBy.ACCESSIBILITY_ID, '匿名')
+    SAVE_DEFAULT_CONTACT_BUTTON = (AppiumBy.XPATH, '//android.widget.FrameLayout[@resource-id="android:id/content"]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[9]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/com.horcrux.svg.SvgView/com.horcrux.svg.GroupView/com.horcrux.svg.PathView')
     SERVICE_PERSON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("服務人員")')
     SERVICE_TESTING_PERSON = (AppiumBy.ACCESSIBILITY_ID, 'QA測試人員')
     SERVICE2_PERSON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().description("請選擇").instance(0)')
@@ -51,7 +52,7 @@ class CreateAppointmentPage(CommonUseSection):
     MODAL_NOTE_CONTENT_INPUT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("輸入內容")')
     
     MODAL_NOTE_SAVE_BTN = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(1)')
-    NOTE_CONTENT_SAVE_BTN = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(1)')
+    NOTE_CONTENT_SAVE_BTN = (AppiumBy.XPATH, '//android.widget.FrameLayout[@resource-id="android:id/content"]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[9]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup[2]/com.horcrux.svg.SvgView/com.horcrux.svg.GroupView/com.horcrux.svg.PathView')
     
     ADD_ONE_MORE_SERVICE = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("再新增一筆預約")')
     DELETE_SERVICE_BTN = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(12)')
@@ -81,15 +82,15 @@ class CreateAppointmentPage(CommonUseSection):
     NAME_INPUT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("請輸入姓名")')
     PHONE_SEARCH_BUTTON = (AppiumBy.ACCESSIBILITY_ID, '電話搜尋')
     NAME_SEARCH_BUTTON = (AppiumBy.ACCESSIBILITY_ID, '姓名搜尋')
-    SPECIFIC_SEARCH_RESULT = (AppiumBy.ACCESSIBILITY_ID, '+886 972 205690, 王貝克 先生 (Beck), 上次預約姓名： 王貝克')
+    SPECIFIC_SEARCH_RESULT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("+886 972 205690")')
     CHANGE_SPECIFIC_SEARCH_RESULT = (AppiumBy.ACCESSIBILITY_ID, '+886 911 111116, Wei 先生, 上次預約姓名： Wei')
-    SAVE_CONTACT_BUTTON = (AppiumBy.XPATH, '//android.widget.FrameLayout[@resource-id="android:id/content"]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/com.horcrux.svg.SvgView/com.horcrux.svg.GroupView/com.horcrux.svg.PathView')
+    SAVE_CONTACT_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(1)')
     INVALID_PHONE_MSG = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text(" 格式錯誤。")')
     CONTACT_BACK_BTN = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(0)')
     CONTACT_HAS_CHOSEN = (AppiumBy.ACCESSIBILITY_ID, '+886 972 205690, 王貝克 先生 (Beck)')
     CONTACT_PHONE_CHANGE = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("972205690")')
      
-
+    
     
     def personal_page_back_to_calendar(self):
         """Click back to calendar button"""
@@ -122,7 +123,7 @@ class CreateAppointmentPage(CommonUseSection):
         """Fill in contact info as anonymous"""
         self.driver.find_element(*self.CONTACT_INFO_SECTION).click()
         try: 
-           name_save_btn = self.driver.find_element(*self.SAVE_CONTACT_BUTTON)
+           name_save_btn = self.driver.find_element(*self.SAVE_DEFAULT_CONTACT_BUTTON)
            if name_save_btn.is_displayed() and name_save_btn.is_enabled():
                name_save_btn.click()
         except NoSuchElementException:
@@ -316,14 +317,12 @@ class CreateAppointmentPage(CommonUseSection):
         time.sleep(2)
     
     def one_more_service(self):
-        """Add one more service"""
         
         self.select_service2_person()
         self.select_service()
         return self
 
     def delete_service(self):
-        """Delete one service"""
         self.driver.find_element(*self.DELETE_SERVICE_BTN).click()
         return self
       
@@ -453,17 +452,17 @@ class CreateAppointmentPage(CommonUseSection):
         
         try:
   
-            toggle1 = self.driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("android.view.ViewGroup").instance(16)')
-            toggle2 = self.driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("android.view.ViewGroup").instance(23)')
+            toggle1 = self.driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("android.view.ViewGroup").instance(110)')
+            toggle2 = self.driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("android.view.ViewGroup").instance(117)')
 
             # randomly click two specific deposit options
             for toggle in [toggle1, toggle2]:
                 if random.choice([True, False]):
                     toggle.click()
-                    time.sleep(0.5)
+                    time.sleep(1)
 
             # Click save button
-            save_button = self.driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(1)')
+            save_button = self.driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(20)')
             if save_button.is_displayed():
                 save_button.click()
             else:
@@ -474,49 +473,41 @@ class CreateAppointmentPage(CommonUseSection):
     
     
     def click_create_button(self):
-        """Click confirm create appointment button"""
         self.driver.find_element(*self.CONFIRM_CREATE_BUTTON).click()
         return self
 
 
     # Contact related methods
     def enter_phone_number(self, phone_number):
-        """Enter phone number in contact info section"""
         phone_input = self.driver.find_element(*self.PHONE_INPUT)
         phone_input.send_keys(phone_number)
         return self
     
     def enter_name(self, name):
-        """Enter name in contact info section"""
         name_input = self.driver.find_element(*self.NAME_INPUT)
         name_input.send_keys(name)
         return self
       
     def verify_invalid_phone_error_message(self):
-        """Verify invalid phone number error message is displayed"""
         error_element = self.driver.find_element(*self.INVALID_PHONE_MSG)
         assert error_element.text == " 格式錯誤。", "Invalid phone error message is not correct"
         return error_element.text
       
     
     def click_contact_back_btn_to_appointment(self):
-        """Click contact back button to appointment page"""
         self.driver.find_element(*self.CONTACT_BACK_BTN).click()
         return self
 
 
     def search_by_phone(self):
-        """Search contact by partial phone number"""
         self.driver.find_element(*self.PHONE_SEARCH_BUTTON).click()
         return self
 
     def search_by_name(self):
-        """Search contact by name"""
         self.driver.find_element(*self.NAME_SEARCH_BUTTON).click()
         return self
 
     def select_search_result_and_save(self):
-        """Randomly select search result and save contact"""
         try:
 
             specific_result = self.driver.find_element(*self.SPECIFIC_SEARCH_RESULT)
@@ -537,12 +528,10 @@ class CreateAppointmentPage(CommonUseSection):
         return self
       
     def contact_has_chosen(self):
-        """Contact has chosen"""
         assert self.driver.find_element(*self.CONTACT_HAS_CHOSEN).is_displayed(), "Contact has not chosen"
         return self
       
     def change_contact_info(self):
-        """Change contact info"""
         self.driver.find_element(*self.CONTACT_HAS_CHOSEN).click()
         self.driver.find_element(*self.CONTACT_PHONE_CHANGE).clear()
         self.enter_phone_number("911111116")
@@ -568,7 +557,6 @@ class CreateAppointmentPage(CommonUseSection):
         
 
     def work_as_expected_then_back_to_calendar(self):
-        """Work as expected then back to calendar to calendar"""
         time.sleep(2)
         self.driver.find_element(*self.BACK_TO_CALENDAR_BTN).click()
         try:

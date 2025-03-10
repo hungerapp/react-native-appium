@@ -11,7 +11,7 @@ from selenium.common.exceptions import NoSuchElementException
 from pages.shared_components.common_use import CommonUseSection
 
 class CreateCheckoutPage(CommonUseSection):
-    CREATE_BTN = (AppiumBy.XPATH, '//android.widget.FrameLayout[@resource-id="android:id/content"]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup[2]/android.view.ViewGroup[2]/com.horcrux.svg.SvgView[6]/com.horcrux.svg.GroupView/com.horcrux.svg.PathView')
+    CREATE_BTN = (AppiumBy.XPATH, '//android.widget.FrameLayout[@resource-id="android:id/content"]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[6]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup[2]/android.view.ViewGroup[2]/com.horcrux.svg.SvgView[6]/com.horcrux.svg.GroupView/com.horcrux.svg.PathView')
     CREATE_CHECKOUT_OPTION = (AppiumBy.XPATH, '//android.widget.FrameLayout[@resource-id="android:id/content"]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup[2]/com.horcrux.svg.SvgView[5]/com.horcrux.svg.GroupView/com.horcrux.svg.PathView')
     WINDOW_SECTION = {
         'sell_item_option': (AppiumBy.ACCESSIBILITY_ID, '販售商品'),
@@ -20,7 +20,7 @@ class CreateCheckoutPage(CommonUseSection):
     }
     DESIGNATED_APPOINTMENT_TOGGLE = (AppiumBy.XPATH, "//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup")
     SALES_OWNER_SELECT = (AppiumBy.ACCESSIBILITY_ID, "QA測試人員")
-    SALES_OWNER_SAVE_BUTTON = (AppiumBy.XPATH, '//android.widget.FrameLayout[@resource-id="android:id/content"]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/com.horcrux.svg.SvgView/com.horcrux.svg.GroupView/com.horcrux.svg.PathView')
+    SALES_OWNER_SAVE_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(1)')
     TAB_CONTAINER = (AppiumBy.XPATH, '//android.widget.HorizontalScrollView/android.view.ViewGroup')
     AUTO_TEST_TAB = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("自動化測試商品")')
     TESTING1_ITEM_SELECT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("測試1")')
@@ -28,13 +28,14 @@ class CreateCheckoutPage(CommonUseSection):
     ITEM_INFO_TITLE = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("測試1")')
     ITEM_INFO_PRICE = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("NT$")')
     ITEM_INFO_REQUEST_PRICE = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("NT$")')
-    ITEM_INFO_BACK_BUTTON = (AppiumBy.XPATH, '//com.horcrux.svg.PathView')
-    SAVE_PRODUCT_BTN = (AppiumBy.XPATH, '//android.widget.FrameLayout[@resource-id="android:id/content"]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup[2]/com.horcrux.svg.SvgView/com.horcrux.svg.GroupView/com.horcrux.svg.PathView')
+    ITEM_INFO_BACK_BUTTON = (AppiumBy.XPATH, '//com.horcrux.svg.GroupView')
+    SAVE_PRODUCT_BTN = (AppiumBy.XPATH, '//com.horcrux.svg.GroupView')
+    SAVE_ITEM_BTN = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(1)')
     NON_SELECTED_MEMBER_SECTION = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("尚未選擇會員")')
     CLEAR_INPUT_SEARCH = (AppiumBy.XPATH, '//android.view.ViewGroup[@resource-id="circle-xmark"]/com.horcrux.svg.SvgView/com.horcrux.svg.GroupView/com.horcrux.svg.PathView')
     MEMBER_SEARCH = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("輸入手機號碼、姓名進行搜尋")')
     MEMBER_SEARCH_NOT_FOUND = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("查無資料")')
-    ADD_MEMBER_BUTTON = (AppiumBy.XPATH, '//android.widget.FrameLayout[@resource-id="android:id/content"]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup[2]/com.horcrux.svg.SvgView/com.horcrux.svg.GroupView/com.horcrux.svg.PathView')
+    ADD_MEMBER_BUTTON = (AppiumBy.XPATH, '//android.widget.FrameLayout[@resource-id="android:id/content"]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[6]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup[2]/com.horcrux.svg.SvgView/com.horcrux.svg.GroupView/com.horcrux.svg.PathView')
     PHONE_NUMBER_INPUT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("請輸入電話")')
     NICKNAME_INPUT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("請輸入別名")')
     MEMBER_DESCRIPTION_INPUT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("請輸入內容")')
@@ -82,12 +83,12 @@ class CreateCheckoutPage(CommonUseSection):
     PERFORMANCE_PERSONNEL = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("業績歸屬")')
     PERFORMANCE_CHANGE_PERSONNEL = (AppiumBy.ACCESSIBILITY_ID, 'Sally #美睫 #美甲')
     SALES_PERFORMANCE_EDIT_ICON = (AppiumBy.XPATH, '//android.view.ViewGroup[@resource-id="pen-to-square"]/com.horcrux.svg.SvgView/com.horcrux.svg.GroupView/com.horcrux.svg.PathView')
-    TOTAL_PERFORMANCE_CONFIRM_BUTTON = (AppiumBy.XPATH, '//android.widget.FrameLayout[@resource-id="android:id/content"]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/com.horcrux.svg.SvgView/com.horcrux.svg.GroupView/com.horcrux.svg.PathView')
+    TOTAL_PERFORMANCE_CONFIRM_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(1)')
     CALCULATE_ICON = (AppiumBy.XPATH, '//android.widget.TextView[@text="找零"]')
     CALCULATE_CHANGE_BACK_ICON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView")')
     
     BONUS_POINTS = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("紅利點數")')
-    BONUS_POINTS_CONFIRM_BUTTON = (AppiumBy.XPATH, '//android.widget.FrameLayout[@resource-id="android:id/content"]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup[2]/com.horcrux.svg.SvgView/com.horcrux.svg.GroupView/com.horcrux.svg.PathView')
+    BONUS_POINTS_CONFIRM_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(1)')
     CHECKOUT_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().descriptionContains("結帳 NT$")')
     MOVE_TO_SIGNATURE_BUTTON = (AppiumBy.ACCESSIBILITY_ID, '進行簽名')
     SIGNATURE_PAD = (AppiumBy.CLASS_NAME, "android.widget.Image")
@@ -119,11 +120,11 @@ class CreateCheckoutPage(CommonUseSection):
 
     def click_create_checkout(self):
         try:
-          time.sleep(1.5)
+          time.sleep(1)
           create_button = self.driver.find_element(*self.CREATE_BTN)
           if create_button.is_displayed() and create_button.is_enabled():
               create_button.click()
-              
+          time.sleep(0.5)
           self.driver.find_element(*self.CREATE_CHECKOUT_OPTION).click()
                     
         except NoSuchElementException:
@@ -231,8 +232,9 @@ class CreateCheckoutPage(CommonUseSection):
         # click back button back to the item list
         self.driver.find_element(*self.ITEM_INFO_BACK_BUTTON).click()
         
+        time.sleep(1)
         # click the save button to save the item
-        self.driver.find_element(*self.SAVE_PRODUCT_BTN).click()
+        self.driver.find_element(*self.SAVE_ITEM_BTN).click()
 
     def search_non_existing_member(self, phone_number):
         search_input = self.driver.find_element(*self.MEMBER_SEARCH)
@@ -265,38 +267,7 @@ class CreateCheckoutPage(CommonUseSection):
     def add_new_member(self):
         self.driver.find_element(*self.ADD_MEMBER_BUTTON).click()
         time.sleep(1)
-        
-        # generate random phone number
-        first_digit = '9' # first digit cannot be 1
-        rest_digits = ''.join(random.choice('0123456789') for _ in range(8))
-        phone_number = first_digit + rest_digits
-        self.driver.find_element(*self.PHONE_NUMBER_INPUT).send_keys(phone_number)
-        
-        time.sleep(0.5)
-        # Generate random name
-        nickname_chars = string.ascii_letters + string.digits + "!@#$%^&*()_+-=[]{}|;:,.<>?" + "QA測試文字在這裡qa_test"
-        nickname = ''.join(random.choice(nickname_chars) for _ in range(5))
-        self.driver.find_element(*self.NICKNAME_INPUT).send_keys(nickname)
-        
-        # select random gender
-        self.select_random_gender()
-        time.sleep(0.5)
-        # select random date
-        self.select_random_date()
-        
-        # Generate random member description
-        description = ''.join(random.choice(nickname_chars) for _ in range(20))
-        self.driver.find_element(*self.MEMBER_DESCRIPTION_INPUT).click()
-        time.sleep(0.5)
-        self.driver.find_element(*self.MEMBER_DESCRIPTION_MODAL_INPUT).send_keys(description)
-        self.driver.find_element(*self.MEMBER_DESCRIPTION_MODAL_SAVE_BUTTON).click()
-        
-        self.driver.find_element(*self.ADD_NEW_MEMBER_TOGGLE).click()
-        
-        # Click save button
-        self.driver.find_element(*self.SAVE_NEW_MEMBER_BUTTON).click()
-        time.sleep(0.5)
-        
+        self.new_member()
         
         
 
@@ -496,6 +467,7 @@ class CreateCheckoutPage(CommonUseSection):
         
         
     def select_payment_method(self):
+        time.sleep(1)
         self.driver.find_element(*self.PAYMENT_METHOD).click()
 
     def proceed_to_checkout(self):

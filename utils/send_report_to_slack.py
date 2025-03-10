@@ -54,7 +54,7 @@ def send_report_to_slack(webhook_url, allure_report_path, message=None):
                         "type": "section",
                         "text": {
                             "type": "mrkdwn",
-                            "text": f"*自動化測試報告 🤖*\n執行時間: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
+                            "text": f"*APP自動化測試報告 📱*\n執行時間: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
                         }
                     },
                     {

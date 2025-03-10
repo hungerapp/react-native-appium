@@ -211,7 +211,6 @@ class PersonalPage(CommonUseSection):
         "First Login Pop Up Window Cancel Button": self.FIRST_LOGIN_POP_UP_WINDOW_CANCEL_ICON,
         "Back to Home Button": self.FREE_WINDOW_BACK_TO_PERSONAL_PAGE_BTN,
         "Talk to you later": self.TALK_TO_YOU_LATER_BTN,
-        "Unexpected Error": self.UNEXPECTED_ERROR_BTN
     }
     
     handled_popups = []

@@ -1,6 +1,6 @@
 import random
 import time
-
+import string
 from appium.webdriver.common.appiumby import AppiumBy
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.action_chains import ActionChains
@@ -44,7 +44,7 @@ class CommonUseSection:
         (AppiumBy.ACCESSIBILITY_ID, 'Bella #美甲'),
         # Add more personnel options as needed
     ]
-    PERSONNEL_SAVE_BUTTON = (AppiumBy.XPATH, '//android.widget.FrameLayout[@resource-id="android:id/content"]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/com.horcrux.svg.SvgView/com.horcrux.svg.GroupView/com.horcrux.svg.PathView')
+    PERSONNEL_SAVE_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(1)')
     
     
     # For checkout, request page
@@ -59,10 +59,9 @@ class CommonUseSection:
     QUANTITY_REVISE_SAVE_BTN = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(1)')
     REMOVE_ITEM_BTN = (AppiumBy.XPATH, '//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup[1]/com.horcrux.svg.SvgView/com.horcrux.svg.GroupView/com.horcrux.svg.PathView')
     REMOVE_CONFIRM_BTN = (AppiumBy.ACCESSIBILITY_ID, '移除')
-    BACK_TO_PREVIOUS_PAGE_ICON = (AppiumBy.XPATH, '//android.widget.FrameLayout[@resource-id="android:id/content"]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup[1]/com.horcrux.svg.SvgView/com.horcrux.svg.GroupView/com.horcrux.svg.PathView')
+    BACK_TO_PREVIOUS_PAGE_ICON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(0)')
     ADD_NEW_DISCOUNT_BTN = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().description("新增").instance(0)')
-    DISCOUNT_SAVE_BUTTON = (AppiumBy.XPATH, '//android.widget.FrameLayout[@resource-id="android:id/content"]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup[2]/com.horcrux.svg.SvgView/com.horcrux.svg.GroupView/com.horcrux.svg.PathView')
-    # Discount section
+    DISCOUNT_SAVE_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(1)')
     CASH_QUICK_AMOUNTS = ["50", "100", "150", "200", "250", "300", "350", "400"]
     DISCOUNT_QUICK_RATES = ["95折", "92折", "9折", "88折", "85折", "8折", "75折", "7折"]
     DISCOUNT_INPUT_OPTIONS = [90, 85, 95, 80, 70, 85, 75]
@@ -77,6 +76,15 @@ class CommonUseSection:
     SELECT_TICKET_ICON = (AppiumBy.XPATH, '//android.view.ViewGroup[@resource-id="caret-down"]/com.horcrux.svg.SvgView/com.horcrux.svg.GroupView/com.horcrux.svg.PathView')
     QUANTITY_INPUT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("android.widget.EditText")')
     NO_COUPON_AVAILABLE_TEXT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("目前沒有資料")')
+    
+    # for add new member
+    PHONE_NUMBER_INPUT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("請輸入電話")')
+    NICKNAME_INPUT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("請輸入別名")')
+    MEMBER_DESCRIPTION_INPUT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("請輸入內容")')
+    MEMBER_DESCRIPTION_MODAL_INPUT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("輸入內容")')
+    MEMBER_DESCRIPTION_MODAL_SAVE_BUTTON = (AppiumBy.XPATH, '(//com.horcrux.svg.SvgView)[2]')
+    ADD_NEW_MEMBER_TOGGLE = (AppiumBy.XPATH, '//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[6]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup')
+    SAVE_NEW_MEMBER_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(1)')
     
     def __init__(self, driver):
         self.driver = driver
@@ -440,7 +448,7 @@ class CommonUseSection:
         time.sleep(1)
         
         self.driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR, f'new UiSelector().text("{random_quantity}")').click()
-        time.sleep(1)
+        time.sleep(0.5)
         
         # Input amount
         amount_input = self.driver.find_element(*self.QUANTITY_INPUT)
@@ -449,6 +457,38 @@ class CommonUseSection:
         amount_input.clear()
         amount_input.send_keys(random_amount)
             
-
+    
+    def new_member(self):
+        
+        # generate random phone number
+        first_digit = '9' # first digit cannot be 1
+        rest_digits = ''.join(random.choice('0123456789') for _ in range(8))
+        phone_number = first_digit + rest_digits
+        self.driver.find_element(*self.PHONE_NUMBER_INPUT).send_keys(phone_number)
+        
+        time.sleep(0.5)
+        # Generate random name
+        nickname_chars = string.ascii_letters + string.digits + "!@#$%^&*()_+-=[]{}|;:,.<>?" + "QA測試文字在這裡qa_test"
+        nickname = ''.join(random.choice(nickname_chars) for _ in range(5))
+        self.driver.find_element(*self.NICKNAME_INPUT).send_keys(nickname)
+        
+        # select random gender
+        self.select_random_gender()
+        time.sleep(0.5)
+        # select random date
+        self.select_random_date()
+        
+        # Generate random member description -> Due to id cannot be found, so we won't use it anymore
+        description = ''.join(random.choice(nickname_chars) for _ in range(20))
+        self.driver.find_element(*self.MEMBER_DESCRIPTION_INPUT).click()
+        time.sleep(0.5)
+        self.driver.find_element(*self.MEMBER_DESCRIPTION_MODAL_INPUT).send_keys(description)
+        self.driver.find_element(*self.MEMBER_DESCRIPTION_MODAL_SAVE_BUTTON).click()
+        
+        self.driver.find_element(*self.ADD_NEW_MEMBER_TOGGLE).click()
+        
+        # Click save button
+        time.sleep(0.5)
+        self.driver.find_element(*self.SAVE_NEW_MEMBER_BUTTON).click()
         
         

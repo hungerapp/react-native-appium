@@ -236,7 +236,7 @@ def create_event(driver):
 def verify_event_created(driver):
     """Verify event is created"""
     create_event = CreateEventPage(driver)
-    create_event.click_save_button()
+    create_event.new_event_page_save_button()
 
 
 
@@ -279,7 +279,7 @@ def change_event_time(driver):
 def verify_event_created(driver):
     # Implement verification logic
     create_event = CreateEventPage(driver)
-    create_event.click_save_button()
+    create_event.new_event_page_save_button()
 
 
 

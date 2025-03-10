@@ -10,7 +10,9 @@ class LoginPage:
       
   language_setting_button = (AppiumBy.ACCESSIBILITY_ID, '語言設定')
   chinese_language = (AppiumBy.ACCESSIBILITY_ID, '繁體中文, 繁體中文(台灣)')
-  language_save_button = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(1)')
+  language_save_button = (AppiumBy.XPATH, '(//com.horcrux.svg.GroupView)[2]')
+  contact_cs_button = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("聯繫客服")')
+  contact_cs_back_button = (AppiumBy.ACCESSIBILITY_ID, '關閉')
   terms_and_conditions_button = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("服務條款")')
   tc_back_button = (AppiumBy.ACCESSIBILITY_ID, '返回夯客APP')
   privacy_button = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("隱私權政策")')
@@ -57,6 +59,11 @@ class LoginPage:
       # click button move to login step
       #driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value='開始使用').click()
       
+  def click_contact_cs_button(self):
+      self.driver.find_element(*self.contact_cs_button).click()
+      self.driver.find_element(*self.contact_cs_back_button).click()
+
+      
   def click_terms_and_conditions_button(self):
       self.driver.find_element(*self.terms_and_conditions_button).click()
   
@@ -100,28 +107,14 @@ class LoginPage:
 
   def handle_save_alert(self):
       #self.driver.execute_script('mobile: alert', {'action': 'accept', 'buttonLabel': 'Save'})
-      android_push_notification = self.driver.find_element(
-                      by=AppiumBy.XPATH, 
-                      value='//android.widget.Button[@resource-id="android:id/button1"]'
-                  )
-      android_push_notification.click()
+      pass
 
   def is_logged_in(self):
       try:
           # Check if login success popup is displayed
-          time.sleep(2)
+          time.sleep(1)
           pop_up = self.driver.find_element(*self.login_success_popup)
-          if pop_up.is_displayed():
-              try:
-                  # Handle push notification alert
-                  android_push_notification = self.driver.find_element(
-                      by=AppiumBy.ANDROID_UIAUTOMATOR, 
-                      value='new UiSelector().resourceId("android:id/button1")'
-                  )
-                  android_push_notification.click()
-              except NoSuchElementException:
-                  pass
-              return True
+          assert pop_up.is_displayed(), "Login success popup not found"
       except NoSuchElementException:
           try:
               time.sleep(1)
@@ -130,14 +123,6 @@ class LoginPage:
               first_time_logged_in_page_finish_btn = self.driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value='完成')
               if first_time_logged_in_page_finish_btn.is_displayed():
                   first_time_logged_in_page_finish_btn.click()
-
-                   # Handle push notification alert
-                  android_push_notification = self.driver.find_element(
-                      by=AppiumBy.XPATH, 
-                      value='//android.widget.Button[@resource-id="android:id/button1"]'
-                  )
-                  android_push_notification.click()
-                  return True
           except NoSuchElementException:
               pass
       

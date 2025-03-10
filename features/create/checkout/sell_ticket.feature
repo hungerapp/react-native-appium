@@ -25,8 +25,8 @@ Feature: Ticket Checkout Process
 
     Given I click the create checkout option
     When I select sell ticket option  
-    Then I directly add a new member  
-    Then I select a sales performance owner  
+    Then I directly add a new member
+    Then I select a sales performance owner
     Then I select a ticket and view the ticket info for sell  
     Then I attempt to adjust the item details
     Then I select a payment method and change it below the item price and validate errors
