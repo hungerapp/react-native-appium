@@ -67,7 +67,7 @@ Feature: Create Appointment
 
   @regression @contact_info_search_by_partial_phone_number  
   Scenario: Search contact by partial phone number
-    Given I am on the create appointment page
+    Given I click contact back button to appointment page
     When I click contact info section
     Then I enter a partial phone number
     Then I click the phone search button for partial phone number

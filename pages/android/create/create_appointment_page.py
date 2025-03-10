@@ -87,7 +87,7 @@ class CreateAppointmentPage(CommonUseSection):
     SAVE_CONTACT_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(1)')
     INVALID_PHONE_MSG = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text(" 格式錯誤。")')
     CONTACT_BACK_BTN = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(0)')
-    CONTACT_HAS_CHOSEN = (AppiumBy.ACCESSIBILITY_ID, '+886 972 205690, 王貝克 先生 (Beck)')
+    CONTACT_HAS_CHOSEN = (AppiumBy.ACCESSIBILITY_ID, '+886 972 205690, 王貝克')
     CONTACT_PHONE_CHANGE = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("972205690")')
      
     
