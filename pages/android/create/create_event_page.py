@@ -32,7 +32,7 @@ class CreateEventPage:
     NEW_EVENT_PAGE_SAVE_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(1)')
     TIME_SAVE_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(1)')
     TIME = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("時間")')
-    ALL_DAY_TOGGLE = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("android.view.ViewGroup").instance(44)')
+    ALL_DAY_TOGGLE = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("android.view.ViewGroup").instance(38)')
     CLICK_START_TIME = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("開始時間")')
     CLICK_END_TIME = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("結束時間")')
     SELECTED_DATE = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("選擇日期")')
@@ -40,7 +40,7 @@ class CreateEventPage:
     RIGHT_DATE_ARROW = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(1)')
     REPEAT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("重複")')
     REPEAT_SAVE_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(1)')
-    REPEAT_TOGGLE = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("android.view.ViewGroup").instance(41)')
+    REPEAT_TOGGLE = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("android.view.ViewGroup").instance(35)')
     ERROR_MESSAGE = (AppiumBy.XPATH, '//android.widget.TextView[contains(@text, "此欄位為必填")]')
     ERROR_ICON1 = (AppiumBy.XPATH, '(//android.view.ViewGroup[@resource-id="circle-exclamation"])[1]/com.horcrux.svg.SvgView/com.horcrux.svg.GroupView/com.horcrux.svg.PathView')
     ERROR_ICON2 = (AppiumBy.XPATH, '(//android.view.ViewGroup[@resource-id="circle-exclamation"])[2]/com.horcrux.svg.SvgView/com.horcrux.svg.GroupView/com.horcrux.svg.PathView')
@@ -206,6 +206,7 @@ class CreateEventPage:
             'y': int(window_size['height'] * 0.9)
             })
         self.driver.find_element(*self.TIME_SAVE_BUTTON).click()
+        time.sleep(1)
         
     def change_selected_time(self):
         self.driver.find_element(*self.TIME).click()
@@ -306,7 +307,8 @@ class CreateEventPage:
     def click_repeat_back_button(self):
         self.driver.find_element(*self.REPEAT_BACK_BUTTON).click()
         self.driver.find_element(*self.BACK_TO_CALENDAR).click()
-        self.driver.find_element(*self.WINDOW_LEAVE_BUTTON).click()
+        # 這邊要單獨跑通過需要前置條件是有輸入資料
+        #self.driver.find_element(*self.WINDOW_LEAVE_BUTTON).click()
     
     def modify_quick_select_settings(self):
         self.driver.find_element(*self.MODIFY_QUICK_SELECT_ICON).click()
