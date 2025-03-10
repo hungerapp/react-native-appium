@@ -13,14 +13,21 @@ A powerful automated testing framework for React Native applications, supporting
 
 # 📋 Table of Contents
 
-- [System Requirements](#system-requirements)
-- [Installation Guide](#installation-guide)
-- [Environment Setup](#environment-setup)
-- [Running Tests](#running-tests)
-- [Docker Setup and Execution](#docker-setup-and-execution)
-- [Test Execution & Reports](#test-execution-reports)
-- [Element Location Tools](#element-location-tools)
-- [Troubleshooting](#troubleshooting)
+- [🚀 React Native Appium Testing Framework](#-react-native-appium-testing-framework)
+- [📋 Table of Contents](#-table-of-contents)
+    - [Required Software](#required-software)
+    - [Package Installation](#package-installation)
+    - [Appium Setup](#appium-setup)
+    - [3. WebDriverAgent Setup (iOS Only)](#3-webdriveragent-setup-ios-only)
+  - [Running Tests](#running-tests)
+    - [Start Appium Server](#start-appium-server)
+    - [Prerequisites](#prerequisites)
+    - [Build and Run with Docker](#build-and-run-with-docker)
+    - [Basic Test Execution](#basic-test-execution)
+    - [Report Generation Commands](#report-generation-commands)
+    - [Generate Test Reports](#generate-test-reports)
+    - [Appium Inspector Configuration](#appium-inspector-configuration)
+    - [Find Device UDID](#find-device-udid)
 
 <h1 id="system-requirements">💻 System Requirements</h1>
 
@@ -148,6 +155,40 @@ docker ps
 
 # View container logs
 docker-compose logs -f
+```
+
+<h1 id="test-execution-commands">⌨️ Test Execution Commands</h1>
+
+### Basic Test Execution
+
+```bash
+# Run all tests with verbose output
+pytest -v
+
+# Run tests with regression marker
+pytest -v -m regression
+
+# Run tests by keyword
+pytest -k "login_invalid_email"
+
+# Run tests by specific marker
+pytest -m "login_invalid_email"
+
+# Run specific test file
+pytest tests/steps/android/test_04create_checkout_steps.py
+```
+
+### Report Generation Commands
+
+```bash
+# Run tests with Allure report generation (Basic)
+pytest --alluredir=./allure-results
+
+# Run all tests including skipped tests with Allure report
+pytest -v --alluredir=./allure-results
+
+# Generate and open Allure report
+allure serve ./allure-results
 ```
 
 <h1 id="test-execution-reports">📊 Test Execution & Reports</h1>
