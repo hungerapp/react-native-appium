@@ -19,4 +19,4 @@ ENV APPIUM_OS=$APPIUM_OS \
     UDID=$UDID 
 
 # Run app.py when the container launches
-CMD ["pytest", "--alluredir=./allure-results"]
+CMD ["pytest", "-v"]
