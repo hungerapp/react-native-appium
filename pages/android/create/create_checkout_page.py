@@ -252,15 +252,15 @@ class CreateCheckoutPage(CommonUseSection):
         search_input.click()
         search_input.send_keys(phone_number)
         member_result = self.driver.find_element(
-            AppiumBy.ACCESSIBILITY_ID, 
-            '+886 972 205690, 王貝克 先生 (Beck)'
+            AppiumBy.ANDROID_UIAUTOMATOR, 
+            'new UiSelector().text("+886 972 205690")'
         )
         member_result.click()
         
     def click_search_result(self):
         member_result = self.driver.find_element(
-            AppiumBy.ACCESSIBILITY_ID, 
-            '+886 972 205690, 王貝克 先生 (Beck)'
+            AppiumBy.ANDROID_UIAUTOMATOR, 
+            'new UiSelector().text("+886 972 205690")'
         )
         member_result.click()
 

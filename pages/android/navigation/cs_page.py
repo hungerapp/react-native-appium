@@ -20,6 +20,14 @@ class CSPage():
         (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().description("Profile image for Fin").instance(1)'),
         (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().description("Profile image for Fin").instance(2)')
   ]
+  SEND_MESSAGE_TO_US_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("傳訊息給我們")')
+  CS_SEND_OPTIONS = [
+    (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("方案與價格")'),
+    (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("新手教學")'),
+    (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("通知與提醒")'),
+    (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("LINE官方帳號")'),
+    (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("😃 呼叫夯客教練")')
+  ]
   MESSAGE_BACK_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("android.widget.Button")')
   RECENT_MESSAGE_SECTION = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().description("Profile image for Fin")')
   RECENT_MESSAGE_BACK_BUTTON = (AppiumBy.XPATH, '//androidx.compose.ui.platform.ComposeView/android.view.View/android.view.View/android.view.View/android.view.View[1]/android.view.View/android.widget.Button')
@@ -52,13 +60,14 @@ class CSPage():
     
   def past_message(self):
       random_message = random.choice(self.PAST_MESSAGE)
-    
       try:
-        self.driver.find_element(*random_message).click()
+        self.driver.find_element(*self.SEND_MESSAGE_TO_US_BUTTON).click()
+        time.sleep(1)
+        select_option = random.choice(self.CS_SEND_OPTIONS)
+        self.driver.find_element(*select_option).click()
         time.sleep(1)
       except Exception as e:
-        print(f"Error: {e}")
-        self.driver.find_element(*self.PAST_MESSAGE[0]).click()
+        self.driver.find_element(*random_message).click()
         time.sleep(1)
       
       self.driver.find_element(*self.MESSAGE_BACK_BUTTON).click()

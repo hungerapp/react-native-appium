@@ -157,7 +157,7 @@ class MemberPage(CommonUseSection):
     # Search elements
     SEARCH_ELEMENTS = {
         'input': (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("搜尋")'),
-        'result': (AppiumBy.ACCESSIBILITY_ID, '+886 972 205690, 王貝克')
+        'result': (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("+886 972 205690")')
     }
     
     # System tag section

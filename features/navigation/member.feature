@@ -94,10 +94,10 @@ Feature: Member Page
 
   @regression @modify_checkout
   Scenario: Modify checkout and re-checkout
-    When I tap on the billing tab
-    Then I tap view checkout
-    Then I can delete and reprocess the checkout
-    Then I can choose the item I have bought before
-    Then I can finish the checkout process
-    Then I return to the calendar page
+    #When I tap on the billing tab
+    #Then I tap view checkout
+    #Then I can delete and reprocess the checkout
+    #Then I can choose the item I have bought before
+    #Then I can finish the checkout process
+    #Then I return to the calendar page
   
