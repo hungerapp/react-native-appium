@@ -15,11 +15,7 @@ class CSPage():
   # locator
   CS_OPTION = (AppiumBy.ACCESSIBILITY_ID, "客服")
   MESSAGE_SECTION = (AppiumBy.XPATH, '//android.widget.ScrollView/android.view.View[1]/android.view.View')
-  PAST_MESSAGE = [ 
-        (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().description("Profile image for Fin").instance(0)'),
-        (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().description("Profile image for Fin").instance(1)'),
-        (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().description("Profile image for Fin").instance(2)')
-  ]
+  PAST_MESSAGE = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("android.view.View").instance(4)'),
   SEND_MESSAGE_TO_US_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("傳訊息給我們")')
   CS_SEND_OPTIONS = [
     (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("方案與價格")'),
@@ -59,21 +55,20 @@ class CSPage():
       return self
     
   def past_message(self):
-      random_message = random.choice(self.PAST_MESSAGE)
       try:
         self.driver.find_element(*self.SEND_MESSAGE_TO_US_BUTTON).click()
         time.sleep(1)
         select_option = random.choice(self.CS_SEND_OPTIONS)
         self.driver.find_element(*select_option).click()
         time.sleep(1)
-      except Exception as e:
-        self.driver.find_element(*random_message).click()
-        time.sleep(1)
-      
-      self.driver.find_element(*self.MESSAGE_BACK_BUTTON).click()
-      
-      # click back button to go back to the cs page again
-      self.driver.find_element(*self.MESSAGE_BACK_BUTTON).click()
+        self.driver.back()
+        time.sleep(0.5)
+        self.driver.back()
+        time.sleep(0.5)
+      except:
+        self.driver.back()
+        time.sleep(0.5)
+        
       
         
   def click_recent_message_section(self):
