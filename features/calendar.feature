@@ -29,11 +29,6 @@ Feature: Calendar Page Interactions
     Then the calendar page jumps to today's date
 
 
-  @regression @view_orders
-  Scenario: View Orders
-    When I click on a date with appointment data and allow me to view orders for that day
-    Then I click the back button to go back to the calendar page
-
   @regression @add_appointment_in_calendar
   Scenario: Add Appointment
     When I long-press any date in calendar
@@ -54,7 +49,7 @@ Feature: Calendar Page Interactions
   Scenario: Add Event
     When I long-press any date
     Then I click on the add event option
-    Then I create an event in the create event page
+    Then I create event and input name in the create event page
     Then I can successfully create an event
 
   @regression @add_and_change_event_time

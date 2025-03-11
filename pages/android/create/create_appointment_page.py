@@ -249,6 +249,7 @@ class CreateAppointmentPage(CommonUseSection):
             service1.click()
 
             # Click save button
+            time.sleep(1)
             save_button = self.driver.find_element(*self.SAVE_SERVICE_BTN)
             save_button.click()
 
@@ -422,7 +423,7 @@ class CreateAppointmentPage(CommonUseSection):
                 if time_slots:
                     random_slot = random.choice(time_slots)
                     random_slot.click()
-                    time.sleep(0.5)
+                    time.sleep(1)
                     
                     save_btn = self.driver.find_element(*self.SAVE_TIME_BTN)
                     if save_btn.is_displayed():

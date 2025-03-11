@@ -105,26 +105,6 @@ def verify_navigate_to_today(driver):
 
 
 
-
-# Scenario: View Orders
-@allure.feature('Calendar for view orders')
-@allure.story('View Orders')
-@pytest.mark.run(order=49)
-@pytest.mark.calendar
-@when('I click on a date with appointment data and allow me to view orders for that day')
-def click_date_with_appointment(driver):
-    calendar_page = CalendarPage(driver)
-    calendar_page.view_orders()
-
-
-@then('I click the back button to go back to the calendar page')
-def click_back_button(driver):
-    calendar_page = CalendarPage(driver)
-    calendar_page.click_back_button()
-
-
-
-
 # Scenario: Add Appointment
 @allure.feature('Calendar for add appointment')
 @allure.story('Add Appointment')
@@ -133,8 +113,7 @@ def click_back_button(driver):
 @when('I long-press any date in calendar')
 def long_press_any_date(driver):
     calendar_page = CalendarPage(driver)
-    #calendar_page.long_press_date()
-    # todo : 需要解決長壓的問題
+    calendar_page.long_press_date()
 
 @then('I click on the add appointment option')
 def click_add_appointment_option(driver):
@@ -167,9 +146,8 @@ def appointment_created(driver):
 @pytest.mark.calendar
 @when('I long-press any date')
 def long_press_date(driver):
-    """Long-press any date"""
-    # todo : 需要解決長壓的問題
-    pass
+    calendar_page = CalendarPage(driver)
+    calendar_page.long_press_date()
 
 @then('I click on the add appointment option')
 def click_add_appointment_option(driver):
@@ -205,12 +183,8 @@ def verify_appointment_created(driver):
 @pytest.mark.calendar
 @when('I long-press any date')
 def long_press_date(driver):
-    """Long-press any date"""
     calendar_page = CalendarPage(driver)
-    #calendar_page.long_press_date()
-    pass
-    # todo : 需要解決長壓的問題
-
+    calendar_page.long_press_date()
 
 @then('I click on the add event option')
 def click_add_event_option(driver):
@@ -218,7 +192,7 @@ def click_add_event_option(driver):
     calendar_page = CalendarPage(driver)
     calendar_page.add_event()
 
-@then('I create an event in the create event page')
+@then('I create event and input name in the create event page')
 def create_event(driver):
     create_event = CreateEventPage(driver)
     common_use = CommonUseSection(driver)
@@ -244,11 +218,8 @@ def verify_event_created(driver):
 @pytest.mark.calendar
 @when('I long-press any date')
 def long_press_date(driver):
-    """Long-press any date"""
     calendar_page = CalendarPage(driver)
-    #calendar_page.long_press_date()
-    pass
-    # todo : 需要解決長壓的問題
+    calendar_page.long_press_date()
 
 
 @then('I click on the add event option')

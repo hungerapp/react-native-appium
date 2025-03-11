@@ -22,7 +22,7 @@ class CreateEventPage:
     ]
     PERSONNEL_SAVE_BUTTON = (AppiumBy.XPATH, '//android.widget.FrameLayout[@resource-id="android:id/content"]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/com.horcrux.svg.SvgView/com.horcrux.svg.GroupView/com.horcrux.svg.PathView')
     EVENT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("事件")')
-    EVENT_TITLE_INPUT = (AppiumBy.XPATH, '//android.widget.EditText[@text="請輸入事件"]')
+    EVENT_TITLE_INPUT = (AppiumBy.XPATH, '//android.widget.EditText')
     
     
     # May change frequently

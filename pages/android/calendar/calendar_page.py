@@ -1,6 +1,8 @@
 import random
 import time
 
+from selenium.webdriver.common.action_chains import ActionChains
+
 from appium.webdriver.common.appiumby import AppiumBy
 
 
@@ -12,8 +14,8 @@ class CalendarPage:
 
   
     DATE_SELECTOR = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.SvgView").instance(2)')
-    LEFT_ARROW = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(0)')
-    RIGHT_ARROW = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(1)')
+    LEFT_ARROW = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(21)')
+    RIGHT_ARROW = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(22)')
     MONTHS = [
         (AppiumBy.ACCESSIBILITY_ID, '1月'),
         (AppiumBy.ACCESSIBILITY_ID, '2月'),
@@ -92,6 +94,7 @@ class CalendarPage:
             self.driver.find_element(AppiumBy.XPATH, '//android.widget.TextView[@text="月"]').click() 
 
     def filter_personnel(self):
+        time.sleep(0.5)
         self.driver.find_element(*self.FILTER_ICON).click()
 
     def select_personnel(self):
@@ -148,8 +151,8 @@ class CalendarPage:
         height = size['height']
 
         # 定義滑動的中心位置
-        center_x = width * 0.3
-        y = height * 0.5
+        center_x = width * 0.5
+        y = height * 0.6
 
         swipe_times = times if times else random.randint(3, 4)
         swipe_direction = direction if direction else random.choice(['left', 'right'])
@@ -169,10 +172,6 @@ class CalendarPage:
         time.sleep(0.5)
         self.driver.find_element(*self.TODAY_ICON).click()
 
-    def swipe_to_change_page(self, direction):
-        """Swipe to change page"""
-        # Implement swipe logic based on direction
-        pass
 
     def view_orders(self):
         """Click on a random point in the calendar area"""
@@ -203,74 +202,26 @@ class CalendarPage:
         except Exception as e:
             raise Exception(f"Cannot click on the calendar area: {str(e)}")
 
-    
-    def click_any_order(self):
-        try:
-            # Use multiple possible location methods
-            locator_patterns = [
-                # 方式1: 使用時間格式定位
-                "//android.widget.TextView[contains(@text, ':')]",
-                # 方式2: 使用時間範圍格式定位
-                "//android.widget.TextView[contains(@text, ' - ')]",
-                "//android.widget.TextView[contains(@text, '1')]",
-                "//android.widget.TextView[contains(@text, '2')]",
-            ]
-            
-            for pattern in locator_patterns:
-                try:
-                    order_elements = self.driver.find_elements(AppiumBy.XPATH, pattern)
-                    if order_elements:
-                        # Randomly select one to click after finding the element
-                        random.choice(order_elements).click()
-                        time.sleep(1.5)
-                        return
-                except Exception:
-                    pass
-            
-        except Exception:
-            pass
-          
-          
     def click_back_button(self):
         self.driver.back()
-        time.sleep(0.5)
+        time.sleep(1)
         
     def long_press_date(self):
-        """在日曆格子中心位置長按"""
         try:
-            # 先找到有預約的日期元素（合計數字不為0的）
-            target_element = self.driver.find_element(
-                AppiumBy.XPATH,
-                "//android.widget.TextView[contains(@text, '合計') and not(contains(@text, '合計 0'))]"
+            element = self.driver.find_element(
+            AppiumBy.ANDROID_UIAUTOMATOR,
+            'new UiSelector().text("6")'
             )
-            
-            # 獲取元素的位置和大小
-            location = target_element.location
-            size = target_element.size
-            
-            # 計算元素的中心點
-            x = int(location['x'] + (size['width'] / 2))
-            y = int(location['y'] + (size['height'] / 2))
-            
-            print(f"元素位置: {location}")
-            print(f"元素大小: {size}")
-            print(f"點擊座標: ({x}, {y})")
-            print("開始執行長按...")
-            
-            # 使用 W3C mobile command 執行長按
-            self.driver.execute_script('mobile: touchAndHold', {
-                'x': x,
-                'y': y,
-                'duration': 2.0  # 單位是秒
-            })
-            
-            time.sleep(2)
-            
+        
+            actions = ActionChains(self.driver)
+            actions.click_and_hold(element)
+            actions.pause(2)  # 長按2秒
+            actions.release()
+            actions.perform()
+        
         except Exception as e:
             print(f"長按操作失敗: {str(e)}")
-            import traceback
-            print(traceback.format_exc())
-            pass
+            raise
     
     def add_appointment(self):
         time.sleep(1)
