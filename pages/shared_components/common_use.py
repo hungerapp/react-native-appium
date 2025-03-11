@@ -488,7 +488,7 @@ class CommonUseSection:
         self.driver.find_element(*self.ADD_NEW_MEMBER_TOGGLE).click()
         
         # Click save button
-        time.sleep(0.5)
+        time.sleep(1)
         #self.driver.find_element(*self.SAVE_NEW_MEMBER_BUTTON).click()
         
         

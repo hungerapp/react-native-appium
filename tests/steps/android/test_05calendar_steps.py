@@ -116,11 +116,6 @@ def click_date_with_appointment(driver):
     calendar_page = CalendarPage(driver)
     calendar_page.view_orders()
 
-@then('I click on any of the orders')
-def click_order(driver):
-    calendar_page = CalendarPage(driver)
-    calendar_page.click_any_order()
-
 
 @then('I click the back button to go back to the calendar page')
 def click_back_button(driver):

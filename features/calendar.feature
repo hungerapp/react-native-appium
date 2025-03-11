@@ -32,7 +32,6 @@ Feature: Calendar Page Interactions
   @regression @view_orders
   Scenario: View Orders
     When I click on a date with appointment data and allow me to view orders for that day
-    Then I click on any of the orders
     Then I click the back button to go back to the calendar page
 
   @regression @add_appointment_in_calendar

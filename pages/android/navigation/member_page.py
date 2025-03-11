@@ -1007,4 +1007,9 @@ class MemberPage(CommonUseSection):
         self.driver.back()
         time.sleep(0.5)
         
+        # CLICK BACK 3 TIMES
+        self.driver.back()
+        time.sleep(0.5)
+        self.driver.back()
+        
         

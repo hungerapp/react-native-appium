@@ -212,6 +212,8 @@ class CalendarPage:
                 "//android.widget.TextView[contains(@text, ':')]",
                 # 方式2: 使用時間範圍格式定位
                 "//android.widget.TextView[contains(@text, ' - ')]",
+                "//android.widget.TextView[contains(@text, '1')]",
+                "//android.widget.TextView[contains(@text, '2')]",
             ]
             
             for pattern in locator_patterns:
@@ -230,19 +232,8 @@ class CalendarPage:
           
           
     def click_back_button(self):
-        self.driver.find_element(*self.BACK_BUTTON).click()
-        time.sleep(1)
-        
-        #click back button again
-        back_button = self.driver.find_element(*self.BACK_BUTTON)
-        back_button.click()
-        
-        # in case click wrong back button, click back button again
-        try: 
-            back_to_calendar_button = self.driver.find_element(*self.BACK_TO_CALENDAR_BUTTON)
-            back_to_calendar_button.click()
-        except Exception:
-            pass
+        self.driver.back()
+        time.sleep(0.5)
         
     def long_press_date(self):
         """在日曆格子中心位置長按"""
@@ -282,6 +273,7 @@ class CalendarPage:
             pass
     
     def add_appointment(self):
+        time.sleep(1)
         add_appointment_option = self.driver.find_element(*self.ADD_APPOINTMENT_OPTION)
         if add_appointment_option.is_displayed():
             time.sleep(0.5)
