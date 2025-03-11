@@ -191,7 +191,7 @@ class CreateRequestPage:
         self.driver.find_element(*self.AMOUNT_CLEAR_BTN).click()
 
         amount_input.send_keys(random_amount)
-        time.sleep(0.5)
+        time.sleep(1.5)
         self.driver.find_element(*self.AMOUNT_SAVE_BTN).click()
         
 

@@ -9,13 +9,10 @@ class SearchPage:
         
     SEARCH_OPTION = (AppiumBy.ACCESSIBILITY_ID, '搜尋')
     SEARCH_INPUT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("搜尋")')
-    SEARCH_RESULT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("王貝克 (Beck)").instance(0)')
+    SEARCH_RESULT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("+886 972 205690").instance(0)')
     MEMBER_TAB = (AppiumBy.XPATH, '//android.view.View[@content-desc="會員"]/android.view.ViewGroup')
-    MEMBER_RESULT = (AppiumBy.ACCESSIBILITY_ID, '+886 972 205690, 王貝克 先生 (Beck)')
-    MEMBER_PASSPORT_BACK_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(0)')
-    MEMBER_PASSPORT_BACK2_BUTTON = (AppiumBy.XPATH, '//android.widget.FrameLayout[@resource-id="android:id/content"]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/com.horcrux.svg.SvgView/com.horcrux.svg.GroupView/com.horcrux.svg.PathView')
+    MEMBER_RESULT = (AppiumBy.ACCESSIBILITY_ID, '+886 972 205690, 王貝克')
     NO_DATA_TEXT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("目前沒有資料")')  
-    BACK_BUTTON = (AppiumBy.XPATH, '//android.widget.FrameLayout[@resource-id="android:id/content"]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup[1]/com.horcrux.svg.SvgView')
     
     
     
@@ -49,10 +46,12 @@ class SearchPage:
     def tap_search_result(self, is_member_tab=False):
         if not is_member_tab:
             self.driver.find_element(*self.SEARCH_RESULT).click()
-            self.driver.find_element(*self.MEMBER_PASSPORT_BACK_BUTTON).click()
+            time.sleep(0.5)
+            self.driver.back()
         else:
             self.driver.find_element(*self.MEMBER_RESULT).click()
-            self.driver.find_element(*self.MEMBER_PASSPORT_BACK2_BUTTON).click()
+            time.sleep(0.5)
+            self.driver.back()
         
         time.sleep(1)
         return self
@@ -75,9 +74,9 @@ class SearchPage:
         return self
     
     def click_back(self):
-        self.driver.find_element(*self.BACK_BUTTON).click()
-        time.sleep(2)
-        return self
+        self.driver.back()
+        time.sleep(0.5)
+
     
     def is_no_data_displayed(self):
         try:

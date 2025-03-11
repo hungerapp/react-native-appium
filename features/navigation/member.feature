@@ -99,5 +99,5 @@ Feature: Member Page
     #Then I can delete and reprocess the checkout
     #Then I can choose the item I have bought before
     #Then I can finish the checkout process
-    #Then I return to the calendar page
+    Then I return to the calendar page
   

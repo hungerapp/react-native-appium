@@ -1003,4 +1003,8 @@ class MemberPage(CommonUseSection):
         self.driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("會員護照")').click()
         
         
+    def return_to_calendar_page(self):
+        self.driver.back()
+        time.sleep(0.5)
+        
         

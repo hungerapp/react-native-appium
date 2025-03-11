@@ -15,7 +15,7 @@ INVALID_NAME = "王一二三四五六"
 # Search with a valid complete number
 @allure.feature('Search Functionality')
 @allure.story('Search with a valid complete number')
-@pytest.mark.run(order=57)
+@pytest.mark.run(order=66)
 @pytest.mark.navigation
 @given('I tap on the Search option in the navigation bar')
 def tap_search_option(driver):
@@ -56,7 +56,7 @@ def click_back_first_scenario(driver):
 # Search with an existing name
 @allure.feature('Search Functionality')
 @allure.story('Search with an existing name')
-@pytest.mark.run(order=58)
+@pytest.mark.run(order=67)
 @pytest.mark.navigation
 @given('I tap on the Search option in the navigation bar')
 def tap_search_option(driver):
@@ -92,7 +92,7 @@ def click_back_second_scenario(driver):
 # Search with an invalid name
 @allure.feature('Search Functionality')
 @allure.story('Search with an invalid name')
-@pytest.mark.run(order=59)
+@pytest.mark.run(order=68)
 @pytest.mark.navigation
 @given('I tap on the Search option in the navigation bar')
 def tap_search_option(driver):
@@ -129,7 +129,7 @@ def click_back_third_scenario(driver):
 # Search with an invalid complete number
 @allure.feature('Search Functionality')
 @allure.story('Search with an invalid complete number')
-@pytest.mark.run(order=60)
+@pytest.mark.run(order=69)
 @pytest.mark.navigation
 @given('I tap on the Search option in the navigation bar')
 def tap_search_option(driver):
