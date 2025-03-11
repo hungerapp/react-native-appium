@@ -35,7 +35,7 @@ class PersonalPage(CommonUseSection):
 
   # View brand list
   BRAND_LIST_TITLE = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("品牌列表")')
-  BRAND_HUNGER_SALON_TITLE = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("hunger Salon-staging")')
+  BRAND_HUNGER_SALON_TITLE = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("hunger Salon-staging")')
   BRAND_HUNGER_SALON_PROFILE_PICTURE = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("android.widget.ImageView").instance(1)')
   BRANCH_LIST = (AppiumBy.XPATH, '//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup')
   BRANCH_ITEM_TEMPLATE = "//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup//android.widget.TextView[contains(@text, '{}')]"
