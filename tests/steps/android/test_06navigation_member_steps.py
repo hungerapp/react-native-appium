@@ -375,6 +375,17 @@ def click_back_to_member_passport_page(driver):
 @allure.story('Modify checkout and re-checkout')
 @pytest.mark.run(order=65)
 @pytest.mark.navigation
+@when('I add member to blacklist')
+def add_member_to_blacklist(driver):
+    member_page = MemberPage(driver)
+    member_page.add_member_to_blacklist()
+    
+@then('I can remove member from blacklist')
+def remove_member_from_blacklist(driver):
+    member_page = MemberPage(driver)
+    member_page.remove_member_from_blacklist()
+
+
 @when('I tap on the billing tab')
 def tap_billing_tab(driver):
     member_page = MemberPage(driver)
@@ -400,7 +411,7 @@ def can_choose_the_item_i_have_bought_before(driver):
 def proceed_to_checkout(driver):
     member_page = MemberPage(driver)
     member_page.finish_checkout_process()
-
+    
 
 @then('I return to the calendar page')
 def return_to_calendar_page(driver):

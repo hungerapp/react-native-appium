@@ -316,7 +316,11 @@ class MemberPage(CommonUseSection):
         'confirm': (AppiumBy.ACCESSIBILITY_ID, '確定'),
         'confirm_delete': (AppiumBy.ACCESSIBILITY_ID, '刪除'),
         'message_save_button': (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(1)'),
-        'add_to_blacklist': (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("加入黑名單")'),
+        'add_to_blacklist': (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("加入黑名單")'),
+        'remove_from_blacklist': (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("移出黑名單")'),
+        'deposit_title': (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("儲值金")'),
+        'selct_item_button': (AppiumBy.ACCESSIBILITY_ID, '選擇商品'),
+        'select_ticket_button': (AppiumBy.ACCESSIBILITY_ID, '選擇票券'),
     }
     
     MESSAGE_TEMPLATE_OPTIONS = [
@@ -1004,6 +1008,8 @@ class MemberPage(CommonUseSection):
         
         
     def return_to_calendar_page(self):
+        self.driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("會員護照")').click()
+        time.sleep(1) 
         self.driver.back()
         time.sleep(0.5)
         
@@ -1012,4 +1018,49 @@ class MemberPage(CommonUseSection):
         time.sleep(0.5)
         self.driver.back()
         
+    def can_choose_the_item_i_have_bought_before(self):
+        try:
+            # item
+            item = self.driver.find_elements(*self.MORE_OPTIONS_FUNCTIONS['selct_item_button'])
+            if item:
+                item[0].click()
+                self.create_checkout_page.select_item()
+                time.sleep(0.5)
+                return True
+            
+            # deposit
+            deposit = self.driver.find_elements(*self.MORE_OPTIONS_FUNCTIONS['deposit_title'])
+            if deposit:
+                self.create_checkout_page.enter_deposit_amount()
+                time.sleep(0.5)
+                return True
+
+            # ticket
+            ticket = self.driver.find_elements(*self.MORE_OPTIONS_FUNCTIONS['select_ticket_button'])
+            if ticket:
+                ticket[0].click()
+                self.create_checkout_page.select_ticket()
+                time.sleep(0.5)
+                return True
+
+        except Exception as e:
+            print(f"Failed to choose the item I have bought before: {e}")
+            return False
         
+        self.driver.find_element(*self.MORE_OPTIONS_FUNCTIONS['me']).click()
+
+        
+    def add_member_to_blacklist(self):
+        self.driver.find_element(*self.BOTTOM_NAVIGATION['more_icon']).click()
+        self.driver.find_element(*self.MORE_OPTIONS_FUNCTIONS['add_to_blacklist']).click()
+        self.driver.find_element(*self.MORE_OPTIONS_FUNCTIONS['confirm']).click()
+        time.sleep(0.5)
+        
+        return self
+    
+    def remove_member_from_blacklist(self):
+        self.driver.find_element(*self.MORE_OPTIONS_FUNCTIONS['remove_from_blacklist']).click()
+        self.driver.find_element(*self.MORE_OPTIONS_FUNCTIONS['confirm']).click()
+        time.sleep(0.5)
+        
+        return self
