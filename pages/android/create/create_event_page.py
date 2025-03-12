@@ -75,7 +75,7 @@ class CreateEventPage:
         time.sleep(0.5)
         try:
             quick_options = ['教學', '請假', '休息', '外出', '忙碌1', '忙碌2', 
-                        '幫寶寶', '執政者', '課程', '2', '3', '4', '只', '我是新增事件1', '我是新增事件2']
+                        '幫寶寶', '執政者', '課程', '2', '3', '4', '我是新增事件1', '我是新增事件2']
         
             random_option = random.choice(quick_options)
 

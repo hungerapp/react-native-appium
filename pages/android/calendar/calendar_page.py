@@ -14,8 +14,7 @@ class CalendarPage:
 
   
     DATE_SELECTOR = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.SvgView").instance(2)')
-    LEFT_ARROW = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(21)')
-    RIGHT_ARROW = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(22)')
+    ARROW = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(21)')
     MONTHS = [
         (AppiumBy.ACCESSIBILITY_ID, '1月'),
         (AppiumBy.ACCESSIBILITY_ID, '2月'),
@@ -65,13 +64,12 @@ class CalendarPage:
         time.sleep(2)
 
     def change_month_display_mode(self):
-        # randomly click left or right arrow icon to change the month
-        for _ in range(random.randint(1, 5)):
-            if random.choice([True, False]):
-                self.driver.find_element(*self.LEFT_ARROW).click()
-            else:
-                self.driver.find_element(*self.RIGHT_ARROW).click()
+        clicks_arrow = random.randint(1, 3)
+        for _ in range(clicks_arrow):
+            self.driver.find_element(*self.ARROW).click()
+            time.sleep(0.5)
         
+        time.sleep(0.5)
         random_month = random.choice(self.MONTHS)
         self.driver.find_element(*random_month).click()
     
