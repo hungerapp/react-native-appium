@@ -25,7 +25,7 @@ if options.platform_name == 'android':
     options.automation_name = 'UiAutomator2'
     # options.set_capability('platformVersion', '34.0')
     # options.set_capability('deviceName', 'Android Emulator')
-    options.set_capability('app', '/Users/ouhiroshishi/Downloads/application-7760ee1a-5ac4-49b4-bad3-673166940ada.apk')
+    options.set_capability('app', config['ANDROID_APP_PATH'])
     options.set_capability('noReset', noReset_bool)
     #options.set_capability('useNewWDA', False)
     options.set_capability('autoGrantPermissions', auto_accept_alerts_bool)
@@ -36,7 +36,7 @@ elif options.platform_name == 'ios':
     options.set_capability('platformVersion', '17.5')
     # options.set_capability('deviceName', 'iPhone 15 Pro')
     options.set_capability('simulatorStartupTimeout', '90000')
-    options.set_capability('app', '/Users/ouhiroshishi/Downloads/Runner.app')
+    options.set_capability('app', config['IOS_APP_PATH'])
     # device: iPhone 15 pro
     #options.set_capability('udid', '9CB10BB7-489C-421B-AAEA-27EEDAF86195')
     options.set_capability('noReset', noReset_bool)
