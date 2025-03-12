@@ -151,7 +151,7 @@ class CalendarPage:
         height = size['height']
 
         # 定義滑動的中心位置
-        center_x = width * 0.5
+        start_x = width * 0.6 if direction == 'left' else width * 0.4
         y = height * 0.6
 
         swipe_times = times if times else random.randint(3, 4)
@@ -159,7 +159,7 @@ class CalendarPage:
 
         for _ in range(swipe_times):
             self.driver.execute_script("mobile: swipeGesture", {
-                'left': center_x,
+                'left': start_x,
                 'top': y,
                 'width': width * 0.5,
                 'height': 10,
@@ -207,6 +207,7 @@ class CalendarPage:
         time.sleep(1)
         
     def long_press_date(self):
+        time.sleep(1)
         try:
             element = self.driver.find_element(
             AppiumBy.ANDROID_UIAUTOMATOR,
@@ -215,7 +216,7 @@ class CalendarPage:
         
             actions = ActionChains(self.driver)
             actions.click_and_hold(element)
-            actions.pause(2)  # 長按2秒
+            actions.pause(2)  
             actions.release()
             actions.perform()
         

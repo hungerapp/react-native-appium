@@ -83,8 +83,8 @@ class CommonUseSection:
     MEMBER_DESCRIPTION_INPUT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("請輸入內容")')
     MEMBER_DESCRIPTION_MODAL_INPUT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("輸入內容")')
     MEMBER_DESCRIPTION_MODAL_SAVE_BUTTON = (AppiumBy.XPATH, '(//com.horcrux.svg.SvgView)[2]')
-    ADD_NEW_MEMBER_TOGGLE = (AppiumBy.XPATH, '//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[6]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup')
-    SAVE_NEW_MEMBER_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(1)')
+    ADD_NEW_MEMBER_TOGGLE = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("android.view.ViewGroup").instance(94)')
+    SAVE_NEW_MEMBER_BUTTON = (AppiumBy.XPATH, '//android.widget.FrameLayout[@resource-id="android:id/content"]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/com.horcrux.svg.SvgView/com.horcrux.svg.GroupView/com.horcrux.svg.PathView')
     
     def __init__(self, driver):
         self.driver = driver
@@ -488,7 +488,9 @@ class CommonUseSection:
         self.driver.find_element(*self.ADD_NEW_MEMBER_TOGGLE).click()
         
         # Click save button
-        time.sleep(1)
+        time.sleep(2)
         #self.driver.find_element(*self.SAVE_NEW_MEMBER_BUTTON).click()
+        
+        
         
         

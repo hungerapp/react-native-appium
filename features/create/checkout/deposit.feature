@@ -33,8 +33,7 @@ Feature: Customer Deposit Checkout
     Then I modify and clear the deposit amount before re-entering it  
     Then I modify the sales amount  
     Then I select a different payment method and change it below the item price and validate errors  
-    Then I input checkout record content 
-    Then I adjust the total sales performance  
+    Then I input checkout record content  
     Then I adjust the bonus points using quick select
     Then I proceed to checkout  
     Then I attempt to sign the signature  

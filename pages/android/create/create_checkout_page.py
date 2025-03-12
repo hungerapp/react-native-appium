@@ -12,7 +12,7 @@ from pages.shared_components.common_use import CommonUseSection
 
 class CreateCheckoutPage(CommonUseSection):
     CREATE_BTN = (AppiumBy.XPATH, '//android.widget.FrameLayout[@resource-id="android:id/content"]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[42]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup[2]/android.view.ViewGroup[2]/com.horcrux.svg.SvgView[6]/com.horcrux.svg.GroupView/com.horcrux.svg.PathView')
-    CREATE_CHECKOUT_OPTION = (AppiumBy.XPATH, '//android.widget.FrameLayout[@resource-id="android:id/content"]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup[2]/com.horcrux.svg.SvgView[5]/com.horcrux.svg.GroupView/com.horcrux.svg.PathView')
+    CREATE_CHECKOUT_OPTION = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("結帳")')
     WINDOW_SECTION = {
         'sell_item_option': (AppiumBy.ACCESSIBILITY_ID, '販售商品'),
         'sell_ticket_option': (AppiumBy.ACCESSIBILITY_ID, '販售票券, (會員限定)'),
@@ -35,7 +35,8 @@ class CreateCheckoutPage(CommonUseSection):
     CLEAR_INPUT_SEARCH = (AppiumBy.XPATH, '//android.view.ViewGroup[@resource-id="circle-xmark"]/com.horcrux.svg.SvgView/com.horcrux.svg.GroupView/com.horcrux.svg.PathView')
     MEMBER_SEARCH = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("輸入手機號碼、姓名進行搜尋")')
     MEMBER_SEARCH_NOT_FOUND = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("查無資料")')
-    ADD_MEMBER_BUTTON = (AppiumBy.XPATH, '//android.widget.FrameLayout[@resource-id="android:id/content"]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[6]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup[2]/com.horcrux.svg.SvgView/com.horcrux.svg.GroupView/com.horcrux.svg.PathView')
+    ADD_MEMBER_BUTTON = (AppiumBy.XPATH, '//android.widget.FrameLayout[@resource-id="android:id/content"]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[42]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup[2]/com.horcrux.svg.SvgView/com.horcrux.svg.GroupView/com.horcrux.svg.PathView')
+    RE_ADD_NEW_MEMBER_BUTTON = (AppiumBy.XPATH, '//android.widget.FrameLayout[@resource-id="android:id/content"]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[44]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup[2]/com.horcrux.svg.SvgView/com.horcrux.svg.GroupView/com.horcrux.svg.PathView')
     PHONE_NUMBER_INPUT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("請輸入電話")')
     NICKNAME_INPUT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("請輸入別名")')
     MEMBER_DESCRIPTION_INPUT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("請輸入內容")')
@@ -78,8 +79,7 @@ class CreateCheckoutPage(CommonUseSection):
     CANCEL_RECORD = (AppiumBy.XPATH, "//android.view.View[@content-desc='取消']")
     SALES_PERFORMANCE = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("總業績")')
     POSTING_SECTION = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("業績記入日期")')
-    LEFT_ARROW = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(0)')
-    RIGHT_ARROW = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(1)')
+    RIGHT_ARROW = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(6)')
     PERFORMANCE_PERSONNEL = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("業績歸屬")')
     PERFORMANCE_CHANGE_PERSONNEL = (AppiumBy.ACCESSIBILITY_ID, 'Sally #美睫 #美甲')
     SALES_PERFORMANCE_EDIT_ICON = (AppiumBy.XPATH, '//android.view.ViewGroup[@resource-id="pen-to-square"]/com.horcrux.svg.SvgView/com.horcrux.svg.GroupView/com.horcrux.svg.PathView')
@@ -268,7 +268,11 @@ class CreateCheckoutPage(CommonUseSection):
         self.driver.find_element(*self.ADD_MEMBER_BUTTON).click()
         time.sleep(1)
         self.new_member()
-        
+    
+    def re_add_new_member(self):
+        self.driver.find_element(*self.RE_ADD_NEW_MEMBER_BUTTON).click()
+        time.sleep(1)
+        self.new_member()
         
 
     def delete_selected_member(self):
@@ -352,6 +356,7 @@ class CreateCheckoutPage(CommonUseSection):
         return self
 
     def input_record_content(self):
+        time.sleep(0.5)
         record_input = self.driver.find_element(*self.CHECKOUT_SECTION['record_content'])
         record_input.click()
         time.sleep(0.5)
@@ -408,21 +413,23 @@ class CreateCheckoutPage(CommonUseSection):
         
     def adjust_sales_performance(self):
         self.driver.find_element(*self.SALES_PERFORMANCE).click()
-        time.sleep(1.5)
+        time.sleep(1)
         self.change_performance_posting_date()
         self.select_sales_owner(is_performance_change=True)
         self.change_total_sales_performance()
+        time.sleep(1)
         self.driver.find_element(*self.TOTAL_PERFORMANCE_CONFIRM_BUTTON).click()
         
     def change_performance_posting_date(self):
         # randomly click left or right arrow icon to change the performance posting date
         self.driver.find_element(*self.POSTING_SECTION).click()
-        time.sleep(1)
-        for _ in range(random.randint(1, 5)):
-            if random.choice([True, False]):
-                self.driver.find_element(*self.LEFT_ARROW).click()
-            else:
-                self.driver.find_element(*self.RIGHT_ARROW).click()
+        time.sleep(2)
+        
+        # click right arrow multiple times
+        clicks = random.randint(1, 5)
+        for _ in range(clicks):
+            self.driver.find_element(*self.RIGHT_ARROW).click()
+            time.sleep(0.5)
         
         dates = self.driver.find_elements(AppiumBy.XPATH, '//android.view.ViewGroup[@content-desc="一, 二, 三, 四, 五, 六, 日"]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup')
       

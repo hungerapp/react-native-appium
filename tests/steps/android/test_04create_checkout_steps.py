@@ -583,8 +583,7 @@ def add_new_member(driver):
 def delete_and_add_new_member(driver):
     checkout_page = CreateCheckoutPage(driver)
     checkout_page.delete_selected_member()
-    checkout_page.add_new_member()
-    checkout_page.select_sales_owner()
+    checkout_page.re_add_new_member()
 
 @then('I modify and clear the deposit amount before re-entering it')
 def modify_clear_reenter_deposit(driver):
@@ -606,10 +605,6 @@ def input_record_content(driver):
     checkout_page = CreateCheckoutPage(driver)
     checkout_page.input_record_content()
 
-@then('I adjust the total sales performance')
-def adjust_sales_performance(driver):
-    checkout_page = CreateCheckoutPage(driver)
-    checkout_page.adjust_sales_performance()
 
 @then('I adjust the bonus points using quick select')
 def adjust_bonus_points(driver):
