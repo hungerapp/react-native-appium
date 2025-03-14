@@ -39,11 +39,49 @@ Feature: Record function in bottom navigation
         Then I can delete the checkout request
         Then I can successfully return to the Calendar page
 
+    @regression @appointment_function_validation
+    Scenario: Appointment Function Validation
+        Given I successfully create an specific appointment data
+        When I tap on records in the navigation bar
+        Then I can switch any state option
+        When I tap the deposit section
+        Then I can see the deposit details
+        When I tap the deposit section
+        Then I can change the deposit state
+        When I tap the deposit section
+        Then I can see the deposit details
+        Then I can change the service personnel
+        Then I can change the service
+        When I click note section
+        Then I can input the note details
+        When I click rate section
+        Then I can rate for the user
 
-
-
-
-
+    @regression @appointment_bottom_navigation_validation
+    Scenario: Appointment Bottom Navigation Validation
+        Given I am on the record appointment page
+        When  I click send message option and attempt to send message
+        Then I can successfully send message
+        When I click edit option and attempt to edit the appointment
+        Then I can successfully edit the appointment
+        When I click cancel option and attempt to cancel the appointment
+        Then I can successfully cancel the appointment
+        When I click copy option and attempt to copy the appointment
+        Then I can successfully copy the appointment
+    
+    @regression @successfully_checkout_more_function_validation
+    Scenario: Successfully Checkout More Function Validation
+        Given I successfully finish checkout
+        When I click checkout more option
+        Then I can view checkout details
+        Then I can view billing details
+        Then I can view member passport
+        Then I can send tickets to the member
+        Then I can view the appointment history
+        
+        
+        
+        
 
 
 
