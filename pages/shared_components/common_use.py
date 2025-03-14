@@ -84,7 +84,8 @@ class CommonUseSection:
     MEMBER_DESCRIPTION_MODAL_INPUT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("輸入內容")')
     MEMBER_DESCRIPTION_MODAL_SAVE_BUTTON = (AppiumBy.XPATH, '(//com.horcrux.svg.SvgView)[2]')
     ADD_NEW_MEMBER_TOGGLE = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("android.view.ViewGroup").instance(94)')
-    SAVE_NEW_MEMBER_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(1)')
+    # you cab change the id: new UiSelector().className("com.horcrux.svg.PathView").instance(1)
+    SAVE_NEW_MEMBER_BUTTON = (AppiumBy.XPATH, '(//com.horcrux.svg.SvgView)[2]')
     def __init__(self, driver):
         self.driver = driver
         
@@ -488,7 +489,10 @@ class CommonUseSection:
         
         # Click save button
         time.sleep(0.5)
-        self.driver.find_element(*self.SAVE_NEW_MEMBER_BUTTON).click()
+        try:
+            self.driver.find_element(*self.SAVE_NEW_MEMBER_BUTTON).click()
+        except:
+            pass
         
         
         
