@@ -22,17 +22,17 @@ Feature: Personal Page
     Then I should be able to visit all branches
   
 
-  @regression @In_development @skip
+  @regression @integrate_calendar @skip
   Scenario: Access all reservations
     Given I am on the personal page
-    When I tap on "所有預約" button
+    When I tap on all reservations button
     Then I should be redirected to the reservation list page
 
-  @regression @In_development @skip
+  @regression @integrate_google_calendar 
   Scenario: Access Google Calendar
     Given I am on the personal page
-    When I tap on "Google 日曆" button  
-    Then I should be redirected to the Google Calendar page
+    When I click on google calendar button  
+    Then I should be redirected to google login page
 
   @regression @push_notification
   Scenario: Manage Push Notification

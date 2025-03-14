@@ -53,6 +53,7 @@ class PersonalPage(CommonUseSection):
   ALL_RESERVATIONS_BUTTON = (AppiumBy.ACCESSIBILITY_ID, '所有預約')
   GOOGLE_CALENDAR_BUTTON = (AppiumBy.ACCESSIBILITY_ID, 'Google 日曆')
   PUSH_NOTIFICATION_BUTTON = (AppiumBy.ACCESSIBILITY_ID, '推播設定')
+  INTEGRATE_GOOGLE_CALENDAR_BUTTON = (AppiumBy.ACCESSIBILITY_ID, 'Google行事曆, 進行串接')
   
   # Push notification page
   PUSH_NOTTIFICATION_SAVE = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(1)')
@@ -230,7 +231,6 @@ class PersonalPage(CommonUseSection):
     return len(handled_popups) > 0  # Return whether any popup was handled               
   
   def click_back_to_personal_page(self):
-    """Click back to personal page"""
     try:
         self.driver.find_element(*self.WAY_TO_GIVE_UP_BTN).click()
     except:
@@ -238,8 +238,20 @@ class PersonalPage(CommonUseSection):
     time.sleep(1)
     return self
   
+  # Google Calendar
+  def click_google_calendar_button(self):
+    self.driver.find_element(*self.GOOGLE_CALENDAR_BUTTON).click()
+    return self
   
+  def integrate_google_calendar(self):
+    time.sleep(2)
+    self.driver.find_element(*self.INTEGRATE_GOOGLE_CALENDAR_BUTTON).click()
+    time.sleep(1)
+    for _ in range (2):
+        self.driver.back()
+    return self
   
+   
   
   # Push notification
   def click_push_notification_button(self):

@@ -17,7 +17,7 @@ TEST_PARTIAL_PHONE = "09722"
 # Scenario: Successfully create an appointment with anonymous nickname
 @allure.feature('Create Appointment for anonymous nickname')
 @allure.story('Successfully create an appointment with anonymous nickname')
-@pytest.mark.run(order=19)
+@pytest.mark.run(order=20)
 @pytest.mark.create
 @given('I click the back button to go to calendar page')
 def click_back_to_calendar(driver):
@@ -73,7 +73,7 @@ def click_create_button(driver):
 # Scenario: Successfully create an appointment with one more service
 @allure.feature('Create Appointment with one more service')
 @allure.story('Successfully create an appointment with one more service')
-@pytest.mark.run(order=20)
+@pytest.mark.run(order=21)
 @pytest.mark.create
 @given('I click the create appointment option')
 def click_create_appointment_for_one_more_service(driver):
@@ -127,7 +127,7 @@ def verify_success(driver):
 # Scenario: Successfully create an appointment with one more service then delete
 @allure.feature('Create Appointment with one more service then delete') 
 @allure.story('Successfully create an appointment with one more service then delete')
-@pytest.mark.run(order=21)
+@pytest.mark.run(order=22)
 @pytest.mark.create
 @given('I click the create appointment option')
 def click_create_appointment_for_one_more_service_then_delete(driver):
@@ -178,7 +178,7 @@ def go_back_to_calendar(driver):
 # Scenario: Successfully create an appointment with existing name and phone number
 @allure.feature('Create Appointment for existing name and phone number')
 @allure.story('Successfully create an appointment with existing name and phone number')
-@pytest.mark.run(order=22)
+@pytest.mark.run(order=23)
 @pytest.mark.create
 @given('I click the create appointment option')
 def click_create_appointment_option(driver):
@@ -224,7 +224,7 @@ def click_create_button_existing(driver):
 # Scenario: Show error for invalid phone number format
 @allure.feature('Create Appointment for invalid phone number')
 @allure.story('Show error for invalid phone number format')
-@pytest.mark.run(order=23)
+@pytest.mark.run(order=24)
 @pytest.mark.create
 @given('I click the create appointment option')
 def click_create_appointment_for_invalid(driver):
@@ -250,7 +250,7 @@ def verify_phone_error(driver):
  
 # Scenario: Create Appointment for selecting and searching country code
 @allure.feature('Create Appointment for selecting and searching country code')
-@pytest.mark.run(order=24)
+@pytest.mark.run(order=25)
 @pytest.mark.create
 @given('I am on the contact page')
 def contact_page(driver):
@@ -282,7 +282,7 @@ def verify_country_code_changed(driver):
 # Scenario: Search contact by partial phone number
 @allure.feature('Create Appointment for partial phone number')
 @allure.story('Search contact by partial phone number')
-@pytest.mark.run(order=25)
+@pytest.mark.run(order=26)
 @pytest.mark.create
 @given('I click contact back button to appointment page')
 def click_contact_back_btn_to_appointment(driver):
@@ -315,7 +315,7 @@ def select_and_save_contact_partial_phone(driver):
 # Scenario: Create Appointment for modify contact
 @allure.feature('Create Appointment for modifying contact')
 @allure.story('Create Appointment for modifying contact')
-@pytest.mark.run(order=26)
+@pytest.mark.run(order=27)
 @pytest.mark.create
 @given('I have chosen a contact')
 def create_appointment_page(driver):
@@ -340,7 +340,7 @@ def select_and_save_contact_full_name(driver):
 # Scenario: Search contact by full phone number
 @allure.feature('Create Appointment for full phone number')
 @allure.story('Search contact by full phone number')
-@pytest.mark.run(order=27)
+@pytest.mark.run(order=28)
 @pytest.mark.create
 @given('I click the create appointment option')
 def click_create_appointment_for_full_phone(driver):
@@ -375,7 +375,7 @@ def select_and_save_contact_full_phone(driver):
 # Scenario: Search contact by partial name
 @allure.feature('Create Appointment for partial name')
 @allure.story('Search contact by partial name')
-@pytest.mark.run(order=28)
+@pytest.mark.run(order=29)
 @pytest.mark.create
 @given('I click the create appointment option')
 def click_create_appointment_for_partial_name(driver):
@@ -409,7 +409,7 @@ def select_and_save_contact_partial_name(driver):
 # Scenario: Search contact by full name
 @allure.feature('Create Appointment for full name')
 @allure.story('Search contact by full name')
-@pytest.mark.run(order=29)
+@pytest.mark.run(order=30)
 @pytest.mark.create
 @given('I click the create appointment option')
 def click_create_appointment_for_full_name(driver):

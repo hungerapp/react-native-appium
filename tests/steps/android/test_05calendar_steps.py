@@ -14,7 +14,7 @@ scenarios('../../../features/calendar.feature')
 # Scenario: Open Month Selection
 @allure.feature('Calendar for open month selection')
 @allure.story('Open Month Selection')
-@pytest.mark.run(order=45)
+@pytest.mark.run(order=46)
 @pytest.mark.calendar
 @given('I am on the calendar page')
 def on_calendar_page(driver):
@@ -37,7 +37,7 @@ def verify_month_selection_window(driver):
 # Scenario: Change Display Mode
 @allure.feature('Calendar for change display mode')
 @allure.story('Change Display Mode')
-@pytest.mark.run(order=46)
+@pytest.mark.run(order=47)
 @pytest.mark.calendar
 @when('I click the month icon')
 def click_month_icon(driver):
@@ -61,7 +61,7 @@ def switch_back_to_previous_mode(driver):
 # Scenario: Filter Personnel
 @allure.feature('Calendar for filter personnel')
 @allure.story('Filter Personnel')
-@pytest.mark.run(order=47)
+@pytest.mark.run(order=48)
 @pytest.mark.calendar
 @when('I click the filter icon')
 def click_filter_icon(driver):
@@ -90,7 +90,7 @@ def change_personnel_filter(driver):
 # Scenario: Navigate to Today
 @allure.feature('Calendar for navigate to today')
 @allure.story('Navigate to Today')
-@pytest.mark.run(order=48)
+@pytest.mark.run(order=49)
 @pytest.mark.calendar
 @when('I swipe to other pages and click the today icon')
 def navigate_to_today(driver):

@@ -401,7 +401,6 @@ def delete_and_reprocess_checkout(driver):
     member_page = MemberPage(driver)
     member_page.delete_and_reprocess_checkout()
 
-#todo: 會員資料不會帶入
 @then('I can choose the item I have bought before')
 def can_choose_the_item_i_have_bought_before(driver):
     member_page = MemberPage(driver)
