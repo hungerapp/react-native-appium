@@ -8,6 +8,7 @@ Feature: Ticket Checkout Process
     Given I click the create checkout option
     When I select sell ticket option  
     Then I search for an existing member  
+    Then I click the search result
     Then I select a sales performance owner  
     Then I select a ticket and view the ticket info for sell
     Then I select a payment method without making changes

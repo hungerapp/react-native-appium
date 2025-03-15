@@ -273,6 +273,11 @@ def select_sell_ticket(driver):
 def search_existing_member(driver):
     checkout_page = CreateCheckoutPage(driver)
     checkout_page.search_existing_member(TEST_VALID_PHONE_NUMBER)
+    
+@then('I click the search result')
+def click_search_result(driver):
+    checkout_page = CreateCheckoutPage(driver)
+    checkout_page.click_search_result()
 
 
 @then('I select a sales performance owner')
