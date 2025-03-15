@@ -189,11 +189,12 @@ def select_and_view_item(driver):
     checkout_page = CreateCheckoutPage(driver)
     checkout_page.select_item()
 
-@then('I add a brand new member')
-def add_new_member(driver):
+@then('I select a member and search for an existing member')
+def search_existing_member(driver):
     checkout_page = CreateCheckoutPage(driver)
     checkout_page.non_selected_member_section()
-    checkout_page.add_new_member()
+    checkout_page.search_existing_member(TEST_VALID_PHONE_NUMBER)
+    checkout_page.click_search_result()
 
 @then('I delete the selected member and re-add it')
 def delete_and_readd_member(driver):
@@ -251,7 +252,7 @@ def confirm_checkout(driver):
     checkout_page.confirm_checkout()
     
     
-# TODO: 未來考慮分開 #
+########## Sell Ticket ##########
 
 # General Sell Ticket without selecting a payment adjustment
 @allure.feature('Create Checkout with sell ticket')
@@ -272,11 +273,7 @@ def select_sell_ticket(driver):
 def search_existing_member(driver):
     checkout_page = CreateCheckoutPage(driver)
     checkout_page.search_existing_member(TEST_VALID_PHONE_NUMBER)
-    
-@then('I click the search result')
-def click_search_result(driver):
-    checkout_page = CreateCheckoutPage(driver)
-    checkout_page.click_search_result()
+
 
 @then('I select a sales performance owner')
 def select_sales_owner(driver):
@@ -315,9 +312,9 @@ def confirm_checkout(driver):
     
     
 
-# Checkout a ticket with a new member and modified payment method
+# Checkout a ticket with below item price payment adjustment
 @allure.feature('Create Checkout with sell ticket')
-@allure.story('Checkout a ticket with a new member and modified payment method')
+@allure.story('Checkout a ticket with below item price payment adjustment')
 @pytest.mark.run(order=39)
 @pytest.mark.checkout
 @given('I click the create checkout option')
@@ -330,11 +327,11 @@ def select_sell_ticket(driver):
     checkout_page = CreateCheckoutPage(driver)
     checkout_page.select_sell_ticket()
 
-@then('I directly add a new member')
-def add_new_member(driver):
+@then('I directly search for an existing member')
+def search_existing_member(driver):
     checkout_page = CreateCheckoutPage(driver)
-    checkout_page.add_new_member()
-
+    checkout_page.search_existing_member(TEST_VALID_PHONE_NUMBER)
+    
 @then('I select a sales performance owner')
 def select_sales_owner(driver):
     checkout_page = CreateCheckoutPage(driver)
@@ -446,7 +443,7 @@ def delete_and_readd_member(driver):
 @then('I click the search result')
 def click_search_result(driver):
     checkout_page = CreateCheckoutPage(driver)
-    checkout_page.click_search_result()
+    checkout_page.click_search_result() 
     
 @then('I add new discount for the item')
 def add_new_discount(driver):
@@ -496,7 +493,7 @@ def confirm_checkout(driver):
     
     
     
-# TODO: 未來考慮分開 #
+########## Deposit ##########
 
 # Deposit Checkout
 @allure.feature('Create Checkout')
@@ -574,17 +571,23 @@ def select_deposit_option(driver):
     checkout_page = CreateCheckoutPage(driver)
     checkout_page.select_deposit()
 
-@then('I add a new member')
-def add_new_member(driver):
+@then('I search for an existing member')
+def search_existing_member(driver):
     checkout_page = CreateCheckoutPage(driver)
-    checkout_page.add_new_member()
+    checkout_page.search_existing_member(TEST_VALID_PHONE_NUMBER)
+    
+@then('I click the search result')
+def click_search_result(driver):
+    checkout_page = CreateCheckoutPage(driver)
+    checkout_page.click_search_result()
 
-@then('I delete the member and re-add a new one')
+@then('I delete the member and re-search for an existing member')
 def delete_and_add_new_member(driver):
     checkout_page = CreateCheckoutPage(driver)
     checkout_page.delete_selected_member()
-    checkout_page.re_add_new_member()
-
+    checkout_page.search_existing_member(TEST_VALID_PHONE_NUMBER)
+    checkout_page.click_search_result()
+    
 @then('I modify and clear the deposit amount before re-entering it')
 def modify_clear_reenter_deposit(driver):
     checkout_page = CreateCheckoutPage(driver)

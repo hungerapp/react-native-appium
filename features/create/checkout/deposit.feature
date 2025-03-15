@@ -26,10 +26,11 @@ Feature: Customer Deposit Checkout
 
     Given I click the create checkout option
     When I select deposit option  
-    Then I add a new member  
+    Then I search for an existing member
+    Then I click the search result
     Then I select a sales performance owner  
     Then I enter the deposit amount  
-    Then I delete the member and re-add a new one  
+    Then I delete the member and re-search for an existing member  
     Then I modify and clear the deposit amount before re-entering it  
     Then I modify the sales amount  
     Then I select a different payment method and change it below the item price and validate errors  

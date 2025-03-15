@@ -8,7 +8,6 @@ Feature: Ticket Checkout Process
     Given I click the create checkout option
     When I select sell ticket option  
     Then I search for an existing member  
-    Then I click the search result
     Then I select a sales performance owner  
     Then I select a ticket and view the ticket info for sell
     Then I select a payment method without making changes
@@ -18,14 +17,15 @@ Feature: Ticket Checkout Process
     Then I confirm the checkout and successfully create a checkout
 
    
-  @regression @new_member_modify_payment_method
-  Scenario: Checkout a ticket with a new member and modified payment method  
-    I want to complete a ticket checkout with a new member and modify the payment  
+  @regression @below_price_payment_adjustment
+  Scenario: Checkout a ticket below item price payment adjustment  
+    I want to complete a ticket checkout with below item price payment adjustment  
     So that I can validate the checkout process with changes  
 
     Given I click the create checkout option
     When I select sell ticket option  
-    Then I directly add a new member
+    Then I directly search for an existing member
+    Then I click the search result
     Then I select a sales performance owner
     Then I select a ticket and view the ticket info for sell  
     Then I attempt to adjust the item details
@@ -39,8 +39,8 @@ Feature: Ticket Checkout Process
     Then I confirm the checkout and successfully create a checkout
 
  
-  @regression @multiple_modifications_and_re_selections
-  Scenario: Checkout a ticket with multiple modifications and re-selections  
+  @regression @above_ticket_price_payment_adjustment_and_multiple_modifications
+  Scenario: Checkout a ticket with above item price payment adjustment and multiple modifications  
     I want to complete a ticket checkout with multiple modifications and re-selections  
     So that I can verify the system handles all changes correctly  
 

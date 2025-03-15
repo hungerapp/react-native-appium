@@ -489,10 +489,7 @@ class CommonUseSection:
         
         # Click save button
         time.sleep(0.5)
-        try:
-            self.driver.find_element(*self.SAVE_NEW_MEMBER_BUTTON).click()
-        except:
-            pass
+        self.driver.find_element(*self.SAVE_NEW_MEMBER_BUTTON).click()
         
         
         

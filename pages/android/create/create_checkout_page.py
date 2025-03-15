@@ -35,8 +35,6 @@ class CreateCheckoutPage(CommonUseSection):
     CLEAR_INPUT_SEARCH = (AppiumBy.XPATH, '//android.view.ViewGroup[@resource-id="circle-xmark"]/com.horcrux.svg.SvgView/com.horcrux.svg.GroupView/com.horcrux.svg.PathView')
     MEMBER_SEARCH = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("輸入手機號碼、姓名進行搜尋")')
     MEMBER_SEARCH_NOT_FOUND = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("查無資料")')
-    ADD_MEMBER_BUTTON = (AppiumBy.XPATH, '//android.widget.FrameLayout[@resource-id="android:id/content"]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[42]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup[2]/com.horcrux.svg.SvgView/com.horcrux.svg.GroupView/com.horcrux.svg.PathView')
-    RE_ADD_NEW_MEMBER_BUTTON = (AppiumBy.XPATH, '//android.widget.FrameLayout[@resource-id="android:id/content"]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[42]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup[2]/com.horcrux.svg.SvgView/com.horcrux.svg.GroupView/com.horcrux.svg.PathView')
     PHONE_NUMBER_INPUT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("請輸入電話")')
     NICKNAME_INPUT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("請輸入別名")')
     MEMBER_DESCRIPTION_INPUT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("請輸入內容")')
@@ -251,32 +249,20 @@ class CreateCheckoutPage(CommonUseSection):
         search_input = self.driver.find_element(*self.MEMBER_SEARCH)
         search_input.click()
         search_input.send_keys(phone_number)
+        time.sleep(1)
         member_result = self.driver.find_element(
             AppiumBy.ANDROID_UIAUTOMATOR, 
-            'new UiSelector().text("+886 972 205690")'
+            'new UiSelector().textContains("+886 972 205690")'
         )
         member_result.click()
         
     def click_search_result(self):
+        time.sleep(1)
         member_result = self.driver.find_element(
             AppiumBy.ANDROID_UIAUTOMATOR, 
-            'new UiSelector().text("+886 972 205690")'
+            'new UiSelector().textContains("+886 972 205690")'
         )
         member_result.click()
-
-    def add_new_member(self):
-        self.driver.find_element(*self.ADD_MEMBER_BUTTON).click()
-        time.sleep(1)
-        self.new_member()
-        
-    
-    
-    def re_add_new_member(self):
-        self.driver.find_element(*self.RE_ADD_NEW_MEMBER_BUTTON).click()
-        time.sleep(1)
-        self.new_member()
-        
-        
 
     def delete_selected_member(self):
         self.driver.find_element(*self.DELETE_MEMBER_BUTTON).click()
