@@ -80,7 +80,7 @@ def select_event_time_period(driver):
 @then('I enable the Repeat option')
 def enable_repeat_option(driver):
     create_page = CreateEventPage(driver)
-    create_page.toggle_repeat_option(enable=False, multi_select=True)
+    create_page.toggle_repeat_option(enable=True, multi_select=True)
 
 @then('I click the Save button and back to the calendar page')
 def click_save_button(driver):
@@ -101,8 +101,13 @@ def click_save_button(driver):
 def click_create_event_option(driver):
     create_page = CreateEventPage(driver)
     create_page.create_event_option()
+    
+@when('I select Add Service Personnel for single choice')
+def select_service_personnel_single(driver):
+    common_use = CommonUseSection(driver)
+    common_use.select_service_multiple_personnel(single_choice=True)
 
-@when('I click the time section and do not enter an event time')
+@then('I click the time section and do not enter an event time')
 def click_time_section_no_time(driver):
     create_page = CreateEventPage(driver)
     create_page.click_time_section()

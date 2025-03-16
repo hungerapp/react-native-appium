@@ -24,7 +24,8 @@ Feature: Create Event
   @regression @error_handling_for_missing_time
   Scenario: Error Handling for Missing Time
   Given I click the create event option
-  When I click the time section and do not enter an event time
+  When I select Add Service Personnel for single choice
+  Then I click the time section and do not enter an event time
   Then I click the Save button and verify the error message
   Then I revise the selected time and return to the Create Event page
 

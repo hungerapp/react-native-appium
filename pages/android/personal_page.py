@@ -4,7 +4,6 @@ import string
 import warnings
 
 from selenium.common.exceptions import NoSuchElementException
-from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.actions import interaction
 from selenium.webdriver.common.actions.action_builder import ActionBuilder
@@ -13,72 +12,33 @@ from datetime import datetime, timedelta
 from appium.webdriver.common.appiumby import AppiumBy
 
 from pages.shared_components.common_use import CommonUseSection
-
+from pages.locators.android.personal_page.personal_page_locators import PersonalPageLocators
 
 class PersonalPage(CommonUseSection):
   
   def __init__(self, driver):
     self.driver = driver
+    self.personal_page_locators = PersonalPageLocators()
+    
+    
     # Get window size
     window_size = self.driver.get_window_size()
     # Calculate center coordinates
     self.center_x = window_size['width'] // 2
     self.center_y = window_size['height'] // 2
     
-    
-  # View basic personal information 
-  PROFILE_PICTURE = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("android.widget.ImageView").instance(0)')
-  USERNAME = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("ann")')
-  GREETING_MESSAGE = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textMatches(".*保持好心情.*|.*開始美好.*|.*好好休息.*")')
-  EMAIL_ADDRESS = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textMatches(".*@.*")')
-
-
-  # View brand list
-  BRAND_LIST_TITLE = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("品牌列表")')
-  BRAND_HUNGER_SALON_TITLE = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("hunger Salon-staging")')
-  BRAND_HUNGER_SALON_PROFILE_PICTURE = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("android.widget.ImageView").instance(1)')
-  BRANCH_LIST = (AppiumBy.XPATH, '//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup')
-  BRANCH_ITEM_TEMPLATE = "//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup//android.widget.TextView[contains(@text, '{}')]"
-  FIRST_LOGIN_POP_UP_WINDOW_CANCEL_ICON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.SvgView").instance(0)')
-  POP_UP_1CANCEL_ICON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(0)')
-  POP_UP_2CANCEL_ICON = (AppiumBy.XPATH, '//android.widget.FrameLayout[@resource-id="android:id/content"]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/com.horcrux.svg.SvgView')
-  FREE_WINDOW_BACK_TO_PERSONAL_PAGE_BTN = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("返回主頁")')
-  TALK_TO_YOU_LATER_BTN = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("稍後再說")')
-  WAY_TO_GIVE_UP_BTN = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("忍痛放棄")')
-  BACK_TO_PERSONAL_PAGE_BTN = (AppiumBy.XPATH, "//android.view.ViewGroup[contains(@content-desc, '分店') or contains(@content-desc, 'Ffff') or contains(@content-desc, 'Ttt')]/descendant::com.horcrux.svg.PathView")
-  UNEXPECTED_ERROR_BTN = (AppiumBy.ACCESSIBILITY_ID, '關閉')
-  
-  
-  # Quick functions
-  ALL_RESERVATIONS_BUTTON = (AppiumBy.ACCESSIBILITY_ID, '所有預約')
-  GOOGLE_CALENDAR_BUTTON = (AppiumBy.ACCESSIBILITY_ID, 'Google 日曆')
-  PUSH_NOTIFICATION_BUTTON = (AppiumBy.ACCESSIBILITY_ID, '推播設定')
-  INTEGRATE_GOOGLE_CALENDAR_BUTTON = (AppiumBy.ACCESSIBILITY_ID, 'Google行事曆, 進行串接')
-  
-  # Push notification page
-  PUSH_NOTTIFICATION_SAVE = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(1)')
-  
-  # Manage account settings
-  SETTINGS_BUTTON = (AppiumBy.XPATH, '//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup[2]/com.horcrux.svg.SvgView/com.horcrux.svg.GroupView/com.horcrux.svg.PathView')
-  SETTINGS_POPUP = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("android.view.ViewGroup").instance(7)')
-  ACCOUNT_SETTINGS_OPTION = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("帳號設定")')
-  LANGUAGE_SETTINGS_OPTION = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("語言設定")')
-  LANGUAGE_CHINESE_OPTION = (AppiumBy.ACCESSIBILITY_ID, '繁體中文, 繁體中文(台灣)')
-  LANGUAGE_CONFIRM_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(1)')
-  
-  
   
   
   # Check if Basic elements are displayed
   def is_profile_picture_displayed(self):
     time.sleep(2)
-    assert self.driver.find_element(*self.PROFILE_PICTURE).is_displayed()
+    assert self.driver.find_element(*self.personal_page_locators.PROFILE_PICTURE).is_displayed()
   
   def is_username_displayed(self):
-    assert self.driver.find_element(*self.USERNAME).is_displayed()
+    assert self.driver.find_element(*self.personal_page_locators.USERNAME).is_displayed()
   
   def get_greeting_message_message(self):
-    elements = self.driver.find_elements(*self.GREETING_MESSAGE)
+    elements = self.driver.find_elements(*self.personal_page_locators.GREETING_MESSAGE)
     for e in elements:
       text = e.text
       if "早安" in text or "保持好心情" in text or "晚安" in text:
@@ -87,27 +47,19 @@ class PersonalPage(CommonUseSection):
     return None
   
   def is_email_address_displayed(self):
-    assert self.driver.find_element(*self.EMAIL_ADDRESS).is_displayed()
+    assert self.driver.find_element(*self.personal_page_locators.EMAIL_ADDRESS).is_displayed()
   
   
   
   # Check if Brand list elements are displayed
   def is_brand_list_title_displayed(self):
-    assert self.driver.find_element(*self.BRAND_LIST_TITLE).is_displayed()
+    assert self.driver.find_element(*self.personal_page_locators.BRAND_LIST_TITLE).is_displayed()
   
   def is_brand_hunger_salon_title_displayed(self):
-    assert self.driver.find_element(*self.BRAND_HUNGER_SALON_TITLE).is_displayed()
+    assert self.driver.find_element(*self.personal_page_locators.BRAND_HUNGER_SALON_TITLE).is_displayed()
   
   def is_brand_hunger_salon_profile_picture_displayed(self):
-    assert self.driver.find_element(*self.BRAND_HUNGER_SALON_PROFILE_PICTURE).is_displayed()
-  
-  # Branch name list
-  BRANCH_NAMES = [
-        #{"name": "Pro分店", "locator": (AppiumBy.ACCESSIBILITY_ID, 'Pro分店, 品牌管理員')},
-        {"name": "Star分店", "locator": (AppiumBy.ACCESSIBILITY_ID, 'Star分店, 品牌管理員')},
-        {"name": "Free分店", "locator": (AppiumBy.ACCESSIBILITY_ID, 'Free分店, 品牌管理員')},
-        {"name": "Ultra分店", "locator": (AppiumBy.ACCESSIBILITY_ID, 'Ultra分店, 品牌管理員')}
-    ]
+    assert self.driver.find_element(*self.personal_page_locators.BRAND_HUNGER_SALON_PROFILE_PICTURE).is_displayed()
   
   
   def _scroll_down(self):
@@ -140,7 +92,7 @@ class PersonalPage(CommonUseSection):
     
     try:
       
-        for branch_info in self.BRANCH_NAMES:
+        for branch_info in self.personal_page_locators.BRANCH_NAMES:
             try:
                 element = self.driver.find_element(*branch_info["locator"])
                 if element.is_displayed():
@@ -178,9 +130,9 @@ class PersonalPage(CommonUseSection):
             self.click_back_to_personal_page()
         except :
             try:
-                self.driver.find_element(*self.POP_UP_1CANCEL_ICON).click()
+                self.driver.find_element(*self.personal_page_locators.POP_UP_1CANCEL_ICON).click()
             except:
-                self.driver.find_element(*self.POP_UP_2CANCEL_ICON).click()
+                self.driver.find_element(*self.personal_page_locators.POP_UP_2CANCEL_ICON).click()
             
     
     return results
@@ -207,11 +159,11 @@ class PersonalPage(CommonUseSection):
   def _handle_popups(self):
     """Handle all possible popups and return buttons"""
     popup_locators = {
-        "Cancel Style1 Button": self.POP_UP_1CANCEL_ICON,
-        "Cancel Style2 Button": self.POP_UP_2CANCEL_ICON,
-        "First Login Pop Up Window Cancel Button": self.FIRST_LOGIN_POP_UP_WINDOW_CANCEL_ICON,
-        "Back to Home Button": self.FREE_WINDOW_BACK_TO_PERSONAL_PAGE_BTN,
-        "Talk to you later": self.TALK_TO_YOU_LATER_BTN,
+        "Cancel Style1 Button": self.personal_page_locators.POP_UP_1CANCEL_ICON,
+        "Cancel Style2 Button": self.personal_page_locators.POP_UP_2CANCEL_ICON,
+        "First Login Pop Up Window Cancel Button": self.personal_page_locators.FIRST_LOGIN_POP_UP_WINDOW_CANCEL_ICON,
+        "Back to Home Button": self.personal_page_locators.FREE_WINDOW_BACK_TO_PERSONAL_PAGE_BTN,
+        "Talk to you later": self.personal_page_locators.TALK_TO_YOU_LATER_BTN,
     }
     
     handled_popups = []
@@ -232,20 +184,20 @@ class PersonalPage(CommonUseSection):
   
   def click_back_to_personal_page(self):
     try:
-        self.driver.find_element(*self.WAY_TO_GIVE_UP_BTN).click()
+        self.driver.find_element(*self.personal_page_locators.WAY_TO_GIVE_UP_BTN).click()
     except:
-       self.driver.find_element(*self.BACK_TO_PERSONAL_PAGE_BTN).click()
+       self.driver.find_element(*self.personal_page_locators.BACK_TO_PERSONAL_PAGE_BTN).click()
     time.sleep(1)
     return self
   
   # Google Calendar
   def click_google_calendar_button(self):
-    self.driver.find_element(*self.GOOGLE_CALENDAR_BUTTON).click()
+    self.driver.find_element(*self.personal_page_locators.GOOGLE_CALENDAR_BUTTON).click()
     return self
   
   def integrate_google_calendar(self):
     time.sleep(2)
-    self.driver.find_element(*self.INTEGRATE_GOOGLE_CALENDAR_BUTTON).click()
+    self.driver.find_element(*self.personal_page_locators.INTEGRATE_GOOGLE_CALENDAR_BUTTON).click()
     time.sleep(1)
     for _ in range (2):
         self.driver.back()
@@ -262,7 +214,7 @@ class PersonalPage(CommonUseSection):
     
     while attempt < max_attempts:
         try:
-            element = self.driver.find_element(*self.PUSH_NOTIFICATION_BUTTON)
+            element = self.driver.find_element(*self.personal_page_locators.PUSH_NOTIFICATION_BUTTON)
             if element.is_displayed():
                 element.click()
                 return self
@@ -303,19 +255,6 @@ class PersonalPage(CommonUseSection):
     
     raise NoSuchElementException("After multiple up and down scrolls, still not found push notification button")
   
-  # For Toggle locators
-  TOGGLE_LOCATORS = {
-        "wen_toggle": (AppiumBy.XPATH, "//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[4]/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup[2]/android.view.ViewGroup"),
-        "sally_toggle": (AppiumBy.XPATH, "//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[4]/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup[2]/android.view.ViewGroup"),
-        "bella_toggle": (AppiumBy.XPATH, "//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[4]/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup[2]/android.view.ViewGroup"),
-        "dami_toggle": (AppiumBy.XPATH, "//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[4]/android.view.ViewGroup/android.view.ViewGroup[4]/android.view.ViewGroup[2]/android.view.ViewGroup"),
-        "ella_toggle": (AppiumBy.XPATH, '//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[4]/android.view.ViewGroup/android.view.ViewGroup[5]/android.view.ViewGroup[2]/android.view.ViewGroup'),
-        "test_toggle": (AppiumBy.XPATH, "//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[4]/android.view.ViewGroup/android.view.ViewGroup[6]/android.view.ViewGroup[2]/android.view.ViewGroup"),
-        "918mmm_toggle": (AppiumBy.XPATH, '//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[4]/android.view.ViewGroup/android.view.ViewGroup[7]/android.view.ViewGroup[2]/android.view.ViewGroup'),
-        "new1_toggle": (AppiumBy.XPATH, "//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[4]/android.view.ViewGroup/android.view.ViewGroup[8]/android.view.ViewGroup[2]/android.view.ViewGroup"),
-        "new2_toggle": (AppiumBy.XPATH, "//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[4]/android.view.ViewGroup/android.view.ViewGroup[9]/android.view.ViewGroup[2]/android.view.ViewGroup"),
-        "cindy_toggle": (AppiumBy.XPATH, "//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[4]/android.view.ViewGroup/android.view.ViewGroup[10]/android.view.ViewGroup[2]/android.view.ViewGroup")
-  }
   
   def random_toggle_switches(self, num_toggles=None):
     """
@@ -324,9 +263,9 @@ class PersonalPage(CommonUseSection):
     :return: return toggle results list
     """
     if num_toggles is None:
-        num_toggles = random.randint(1, len(self.TOGGLE_LOCATORS))
+        num_toggles = random.randint(1, len(self.personal_page_locators.TOGGLE_LOCATORS))
         
-    selected_toggles = random.sample(list(self.TOGGLE_LOCATORS.items()), num_toggles)
+    selected_toggles = random.sample(list(self.personal_page_locators.TOGGLE_LOCATORS.items()), num_toggles)
     toggled_results = []
     
     for toggle_name, toggle_locator in selected_toggles:
@@ -391,7 +330,7 @@ class PersonalPage(CommonUseSection):
      
   def save_notification_settings(self):
         """Click save button"""
-        save_button = self.driver.find_element(*self.PUSH_NOTTIFICATION_SAVE)
+        save_button = self.driver.find_element(*self.personal_page_locators.PUSH_NOTTIFICATION_SAVE)
         save_button.click()
         time.sleep(3)
         return self
@@ -408,12 +347,12 @@ class PersonalPage(CommonUseSection):
     # try to find and click settings button
     try:
         time.sleep(1)
-        settings_button = self.driver.find_element(*self.SETTINGS_BUTTON)
+        settings_button = self.driver.find_element(*self.personal_page_locators.SETTINGS_BUTTON)
         if settings_button.is_displayed() and settings_button.is_enabled():
             settings_button.click()
                     
         # Verify settings popup
-            if self.driver.find_element(*self.SETTINGS_POPUP).is_displayed():
+            if self.driver.find_element(*self.personal_page_locators.SETTINGS_POPUP).is_displayed():
                 print("Successfully clicked settings button and displayed settings popup")
             return self
     except NoSuchElementException:
@@ -445,41 +384,9 @@ class PersonalPage(CommonUseSection):
   
   def click_account_settings(self):
     """Click account settings"""
-    self.driver.find_element(*self.ACCOUNT_SETTINGS_OPTION).click()
+    self.driver.find_element(*self.personal_page_locators.ACCOUNT_SETTINGS_OPTION).click()
     return self
   
-  # Locators for account settings page
-  NAME_INPUT = [
-    (AppiumBy.XPATH, "//android.widget.EditText"),  # 通用的 EditText
-    (AppiumBy.CLASS_NAME, "android.widget.EditText"),  # 使用 class name
-    (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Ann")'),  # 使用 UiSelector
-    (AppiumBy.XPATH, "//android.widget.EditText[contains(@text, 'Ann')]"),
-    (AppiumBy.XPATH, '//android.widget.EditText[@text="Ann"]'),
-    (AppiumBy.XPATH, "//android.widget.EditText[@text='請輸入姓名']")# 包含特定文本
-  ]
-  
-  GENDER_OPTIONS = {
-    "男": (AppiumBy.ACCESSIBILITY_ID, "男"),
-    "女": (AppiumBy.ACCESSIBILITY_ID, "女"),
-    "其他": (AppiumBy.ACCESSIBILITY_ID, "其他")
-  }
-  EMPTY_NAME_ERROR_MESSAGE = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text(" 此欄位為必填。")')
-  BIRTHDAY_FIELD = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("生日")')
-  CALENDAR_WINDOW = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("android:id/pickers")')
-  CONFIRM_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("android:id/button1")')
-  PHONE_INPUT_INITIAL = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textMatches("\\d{9}")')
-  PHONE_INPUT_CLEAR = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("請輸入電話")')
-  EMPTY_PHONE_ERROR_MESSAGE = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text(" 此欄位為必填。")')
-  INVALID_PHONE_ERROR_MESSAGE = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("格式錯誤")')
-  SAVE_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.SvgView").instance(1)')
-  ACCOUNT_SETTINGS_CANCEL_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.SvgView").instance(0)')
-  
-  COUNTRY_SELECTOR = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(4)')
-  COUNTRY_CODE_OPTIONS = (AppiumBy.XPATH, "//android.widget.TextView[contains(@text, '+')]")
-  CHANGED_COUNTRY_CODE = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("+")')
-  COUNTRY_CODE_CONFIRM_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(1)')
-  
-  SEARCH_INPUT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("輸入國家或號碼進行搜尋")')
   
   def generate_random_name(self):
     """Generate random name"""
@@ -487,11 +394,10 @@ class PersonalPage(CommonUseSection):
     return f"Ann{random_suffix}"
 
   def clear_and_input_name(self):
-    """清除并输入随机姓名"""
     try:
         time.sleep(2)  
         
-        for locator_strategy, locator_value in self.NAME_INPUT:
+        for locator_strategy, locator_value in self.personal_page_locators.NAME_INPUT:
             try:
                 name_field = self.driver.find_element(locator_strategy, locator_value)
                 if name_field.is_displayed():
@@ -521,7 +427,7 @@ class PersonalPage(CommonUseSection):
         
   def get_empty_name_error_message(self):
         """Get empty name error message"""
-        for locator_strategy, locator_value in self.NAME_INPUT:
+        for locator_strategy, locator_value in self.personal_page_locators.NAME_INPUT:
             try:
                 name_field = self.driver.find_element(locator_strategy, locator_value)
                 if name_field.is_displayed():
@@ -533,7 +439,7 @@ class PersonalPage(CommonUseSection):
                     # clear existing text
                     name_field.clear()
                     
-                    error_msg = self.driver.find_element(*self.EMPTY_NAME_ERROR_MESSAGE)
+                    error_msg = self.driver.find_element(*self.personal_page_locators.EMPTY_NAME_ERROR_MESSAGE)
                     assert error_msg.text == " 此欄位為必填。", "Empty name error message is not correct"
                     return error_msg.text
                   
@@ -567,7 +473,7 @@ class PersonalPage(CommonUseSection):
   def input_phone_number(self, valid=True):
     """Input phone number"""
     try:
-        phone_field = self.driver.find_element(*self.PHONE_INPUT_INITIAL)
+        phone_field = self.driver.find_element(*self.personal_page_locators.PHONE_INPUT_INITIAL)
         phone_field.clear()
         
         if valid:
@@ -577,7 +483,7 @@ class PersonalPage(CommonUseSection):
             # Generate an invalid phone number
             phone_number = f"{random.randint(10000, 99999)}"
             
-        phone_field_clear = self.driver.find_element(*self.PHONE_INPUT_CLEAR)
+        phone_field_clear = self.driver.find_element(*self.personal_page_locators.PHONE_INPUT_CLEAR)
         phone_field_clear.send_keys(phone_number)
         return phone_number
     except Exception as e:
@@ -586,27 +492,27 @@ class PersonalPage(CommonUseSection):
   def get_empty_phone_error_message(self):
         """Get error message"""
 
-        phone_field = self.driver.find_element(*self.PHONE_INPUT_INITIAL)
+        phone_field = self.driver.find_element(*self.personal_page_locators.PHONE_INPUT_INITIAL)
         phone_field.click()
         phone_field.clear()
-        error_element = self.driver.find_element(*self.EMPTY_PHONE_ERROR_MESSAGE)
+        error_element = self.driver.find_element(*self.personal_page_locators.EMPTY_PHONE_ERROR_MESSAGE)
         assert error_element.text == " 此欄位為必填。", "Empty phone error message is not correct"
         return error_element.text
       
   def get_invalid_phone_error_message(self):
         """Get error message"""
-        error_element = self.driver.find_element(*self.INVALID_PHONE_ERROR_MESSAGE)
+        error_element = self.driver.find_element(*self.personal_page_locators.INVALID_PHONE_ERROR_MESSAGE)
         assert error_element.text == " 格式錯誤。", "Invalid phone error message is not correct"
         return error_element.text
 
   def save_account_settings(self):
         """Save settings"""
-        self.driver.find_element(*self.SAVE_BUTTON).click()
+        self.driver.find_element(*self.personal_page_locators.SAVE_BUTTON).click()
         return self
       
   def cancel_account_settings (self):
         """Cancel account settings"""
-        self.driver.find_element(*self.ACCOUNT_SETTINGS_CANCEL_BUTTON).click()
+        self.driver.find_element(*self.personal_page_locators.ACCOUNT_SETTINGS_CANCEL_BUTTON).click()
         time.sleep(2)
         return self
   
@@ -627,7 +533,7 @@ class PersonalPage(CommonUseSection):
   def select_random_country_code(self):
     """Select random country code"""
     try:
-        self.driver.find_element(*self.COUNTRY_SELECTOR).click()
+        self.driver.find_element(*self.personal_page_locators.COUNTRY_SELECTOR).click()
         time.sleep(1)
         
         self._random_scroll_and_select()
@@ -657,7 +563,7 @@ class PersonalPage(CommonUseSection):
         
         for _ in range(num_scrolls):
             # Get current visible options
-            visible_options = self.driver.find_elements(*self.COUNTRY_CODE_OPTIONS)
+            visible_options = self.driver.find_elements(*self.personal_page_locators.COUNTRY_CODE_OPTIONS)
             
             # Record current visible options
             for option in visible_options:
@@ -673,7 +579,7 @@ class PersonalPage(CommonUseSection):
             time.sleep(0.5)
         
         # Get final visible options
-        final_visible_options = self.driver.find_elements(*self.COUNTRY_CODE_OPTIONS)
+        final_visible_options = self.driver.find_elements(*self.personal_page_locators.COUNTRY_CODE_OPTIONS)
         
         if final_visible_options:
             # Randomly select a visible option
@@ -683,7 +589,7 @@ class PersonalPage(CommonUseSection):
             time.sleep(0.5)
             
             # Click confirm button
-            self.driver.find_element(*self.COUNTRY_CODE_CONFIRM_BUTTON).click()
+            self.driver.find_element(*self.personal_page_locators.COUNTRY_CODE_CONFIRM_BUTTON).click()
             time.sleep(0.5)
         else:
             raise NoSuchElementException("No country code options visible after scrolling")
@@ -697,7 +603,7 @@ class PersonalPage(CommonUseSection):
     try:
         time.sleep(1) 
         
-        current_element = self.driver.find_element(*self.CHANGED_COUNTRY_CODE)
+        current_element = self.driver.find_element(*self.personal_page_locators.CHANGED_COUNTRY_CODE)
         current_code = current_element.text #get country code only
         
         # Extract country code from full text (e.g. from "Russia +7" extract "+7")
@@ -719,25 +625,12 @@ class PersonalPage(CommonUseSection):
 
   def search_country_code(self):
     """Search and select a random country code"""
-    self.driver.find_element(*self.COUNTRY_SELECTOR).click()
+    self.driver.find_element(*self.personal_page_locators.COUNTRY_SELECTOR).click()
     
-    try:
-        # Common country code search terms
-        COMMON_SEARCH_TERMS = [
-            {"keyword": "台", "expected": "+886"},
-            {"keyword": "香", "expected": "+852"},
-            {"keyword": "日", "expected": "+81"},
-            {"keyword": "美", "expected": "+1"},
-            {"keyword": "英", "expected": "+44"},
-            {"keyword": "新", "expected": "+65"},
-            {"keyword": "澳", "expected": "+61"},
-            {"keyword": "中", "expected": "+86"}
-        ]
-        
-    
+    try: 
         search_term = random.choice(COMMON_SEARCH_TERMS)
         
-        search_input = self.driver.find_element(*self.SEARCH_INPUT)
+        search_input = self.driver.find_element(*self.personal_page_locators.SEARCH_INPUT)
         search_input.click()
         search_input.send_keys(search_term["keyword"])
         time.sleep(1)
@@ -748,7 +641,7 @@ class PersonalPage(CommonUseSection):
         self.selected_country_code = result.text
         result.click()
         
-        self.driver.find_element(*self.COUNTRY_CODE_CONFIRM_BUTTON).click()
+        self.driver.find_element(*self.personal_page_locators.COUNTRY_CODE_CONFIRM_BUTTON).click()
         time.sleep(0.5)
         
     except Exception as e:
@@ -756,10 +649,10 @@ class PersonalPage(CommonUseSection):
         raise
 
   def click_language_settings(self):
-    self.driver.find_element(*self.LANGUAGE_SETTINGS_OPTION).click()
+    self.driver.find_element(*self.personal_page_locators.LANGUAGE_SETTINGS_OPTION).click()
     
   def select_language(self):
-    self.driver.find_element(*self.LANGUAGE_CHINESE_OPTION).click()
-    self.driver.find_element(*self.LANGUAGE_CONFIRM_BUTTON).click()
+    self.driver.find_element(*self.personal_page_locators.LANGUAGE_CHINESE_OPTION).click()
+    self.driver.find_element(*self.personal_page_locators.LANGUAGE_CONFIRM_BUTTON).click()
 
   

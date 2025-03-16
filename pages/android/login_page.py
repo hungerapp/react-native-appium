@@ -3,107 +3,72 @@ import time
 from selenium.common.exceptions import NoSuchElementException
 from appium.webdriver.common.appiumby import AppiumBy
 
+from pages.locators.android.login.login_locators import LoginLocators
+
 class LoginPage:
   def __init__(self, driver):
       self.driver = driver
-      
-      
-  language_setting_button = (AppiumBy.ACCESSIBILITY_ID, '語言設定')
-  chinese_language = (AppiumBy.ACCESSIBILITY_ID, '繁體中文, 繁體中文(台灣)')
-  language_save_button = (AppiumBy.XPATH, '(//com.horcrux.svg.GroupView)[2]')
-  contact_cs_button = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("聯繫客服")')
-  contact_cs_back_button = (AppiumBy.ACCESSIBILITY_ID, '關閉')
-  terms_and_conditions_button = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("服務條款")')
-  tc_back_button = (AppiumBy.ACCESSIBILITY_ID, '返回夯客APP')
-  privacy_button = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("隱私權政策")')
-  privacy_back_button = (AppiumBy.ACCESSIBILITY_ID, '返回夯客APP')
-  login_button = (AppiumBy.ACCESSIBILITY_ID, '開始使用')
-  email_input = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("android.widget.EditText")')
-  login_cancel_button = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView")')
-  email_next_button = (AppiumBy.ACCESSIBILITY_ID, '下一步')
-  error_unregistered_window_title = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("沒有此帳號")')
-  error_unregistered_window_message = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("請檢查信箱是否輸入正確")')
-  error_unregistered_window_button = (AppiumBy.ACCESSIBILITY_ID, '重新輸入')
-  modify_email_button = (AppiumBy.ACCESSIBILITY_ID, '修改信箱')
-  is_verification_code_page_title = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("驗證通行碼")')
-  ver_code_input = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("android.widget.EditText")')
-  ver_submit_button = (AppiumBy.ACCESSIBILITY_ID, '送出')
-  finish_button = (AppiumBy.ACCESSIBILITY_ID, '完成')
-  login_success_popup = (AppiumBy.ACCESSIBILITY_ID, '登入成功')
-  error_message = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text(" 請填寫正確的電子郵件。")')
-  error_window_text = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("請檢查驗證通行碼是否輸入正確")')
-  error_retry_button = (AppiumBy.ACCESSIBILITY_ID, '好')
- 
-
-
-  ### Logout ###
-  setting_icon = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(0)')
-  click_window_logout_button = (AppiumBy.ACCESSIBILITY_ID, '登出')
-  sure_to_logout = (AppiumBy.ACCESSIBILITY_ID, '確定')
-  
-  
+      self.login_locators = LoginLocators()
   
   def select_language(self):
-      self.driver.find_element(*self.language_setting_button).click()
+      self.driver.find_element(*self.login_locators.LANGUAGE_SETTING_BUTTON).click()
       time.sleep(1)
-      self.driver.find_element(*self.chinese_language).click()
-      self.driver.find_element(*self.language_save_button).click()
+      self.driver.find_element(*self.login_locators.CHINESE_LANGUAGE).click()
+      self.driver.find_element(*self.login_locators.LANGUAGE_SAVE_BUTTON).click()
 
   def continue_to_login_page(self):
-      language_setting_btn = self.driver.find_element(by=AppiumBy.ANDROID_UIAUTOMATOR, value='new UiSelector().text("語言設定")')
-      contact_cs_btn = self.driver.find_element(by=AppiumBy.ANDROID_UIAUTOMATOR, value='new UiSelector().text("聯繫客服")')
+      language_setting_btn = self.driver.find_element(*self.login_locators.LANGUAGE_SETTING_BUTTON)
+      contact_cs_btn = self.driver.find_element(*self.login_locators.CONTACT_CS_BUTTON)
       
       assert language_setting_btn.is_displayed(), "Language setting button not found"
       assert contact_cs_btn.is_displayed(), "Contact customer service button not found"
-      assert self.driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value='開始使用') is not None, "Start using the app button not found"
+      assert self.driver.find_element(*self.login_locators.LOGIN_BUTTON) is not None, "Start using the app button not found"
       # click button move to login step
       #driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value='開始使用').click()
       
   def click_contact_cs_button(self):
-      self.driver.find_element(*self.contact_cs_button).click()
-      self.driver.find_element(*self.contact_cs_back_button).click()
+      self.driver.find_element(*self.login_locators.CONTACT_CS_BUTTON).click()
+      self.driver.find_element(*self.login_locators.CONTACT_CS_BACK_BUTTON).click()
 
       
   def click_terms_and_conditions_button(self):
-      self.driver.find_element(*self.terms_and_conditions_button).click()
+      self.driver.find_element(*self.login_locators.TERMS_AND_CONDITIONS_BUTTON).click()
   
   def click_tc_back_button(self):
-      self.driver.find_element(*self.tc_back_button).click()
+      self.driver.find_element(*self.login_locators.TC_BACK_BUTTON).click()
 
   def click_privacy_button(self):
-      self.driver.find_element(*self.privacy_button).click()
+      self.driver.find_element(*self.login_locators.PRIVACY_BUTTON).click()
 
   def click_privacy_back_button(self):
-      self.driver.find_element(*self.privacy_back_button).click()
+      self.driver.find_element(*self.login_locators.PRIVACY_BACK_BUTTON).click()
 
   def click_login_button(self):
-      self.driver.find_element(*self.login_button).click()
+      self.driver.find_element(*self.login_locators.LOGIN_BUTTON).click()
   
   def enter_email(self, email):
       try:
-          #self.driver.find_element(*self.email_input).clear()
-          email_input = self.driver.find_element(*self.email_input)
+          email_input = self.driver.find_element(*self.login_locators.EMAIL_INPUT)
           current_value = email_input.get_attribute("text")
 
           if current_value:
-            self.driver.find_element(*self.email_next_button).click()
+            self.driver.find_element(*self.login_locators.EMAIL_NEXT_BUTTON).click()
             return
       except NoSuchElementException:
         pass
       
       try:
-          self.driver.find_element(*self.email_input).send_keys(email)
-          self.driver.find_element(*self.email_next_button).click()
+          self.driver.find_element(*self.login_locators.EMAIL_INPUT).send_keys(email)
+          self.driver.find_element(*self.login_locators.EMAIL_NEXT_BUTTON).click()
       except:
           pass
 
   def enter_ver_code(self, ver_code):
-      #time.sleep(1)
-      self.driver.find_element(*self.ver_code_input).send_keys(ver_code)
-      self.driver.find_element(*self.ver_submit_button).click()
+      self.driver.find_element(*self.login_locators.VER_CODE_INPUT).send_keys(ver_code)
+      self.driver.find_element(*self.login_locators.VER_SUBMIT_BUTTON).click()
 
   def click_finish_button(self):
-      self.driver.find_element(*self.finish_button).click()
+      self.driver.find_element(*self.login_locators.FINISH_BUTTON).click()
 
   def handle_save_alert(self):
       #self.driver.execute_script('mobile: alert', {'action': 'accept', 'buttonLabel': 'Save'})
@@ -113,14 +78,14 @@ class LoginPage:
       try:
           # Check if login success popup is displayed
           time.sleep(1)
-          pop_up = self.driver.find_element(*self.login_success_popup)
+          pop_up = self.driver.find_element(*self.login_locators.LOGIN_SUCCESS_POPUP)
           assert pop_up.is_displayed(), "Login success popup not found"
       except NoSuchElementException:
           try:
               time.sleep(1)
               
               # Check if first time logged in finish btn  is displayed
-              first_time_logged_in_page_finish_btn = self.driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value='完成')
+              first_time_logged_in_page_finish_btn = self.driver.find_element(*self.login_locators.FINISH_BUTTON)
               if first_time_logged_in_page_finish_btn.is_displayed():
                   first_time_logged_in_page_finish_btn.click()
           except NoSuchElementException:
@@ -133,13 +98,13 @@ class LoginPage:
        time.sleep(1)
     
        try:
-            email_input = self.driver.find_element(*self.email_input)
+            email_input = self.driver.find_element(*self.login_locators.EMAIL_INPUT)
             current_value = email_input.get_attribute("text")
             if current_value:
                email_input.clear()
 
             email_input.send_keys(email)
-            self.driver.find_element(*self.email_next_button).click()
+            self.driver.find_element(*self.login_locators.EMAIL_NEXT_BUTTON).click()
 
             
        except NoSuchElementException as e:
@@ -148,10 +113,10 @@ class LoginPage:
         
       
   def error_unregistered_message(self):
-      error_element = self.driver.find_element(*self.error_unregistered_window_title)
+      error_element = self.driver.find_element(*self.login_locators.ERROR_UNREGISTERED_WINDOW_TITLE)
       assert error_element.is_displayed(), "Error unregistered window title not found"
-      error_text = self.driver.find_element(*self.error_unregistered_window_message).text.strip()
-      self.driver.find_element(*self.error_unregistered_window_button).click()
+      error_text = self.driver.find_element(*self.login_locators.ERROR_UNREGISTERED_WINDOW_MESSAGE).text.strip()
+      self.driver.find_element(*self.login_locators.ERROR_UNREGISTERED_WINDOW_BUTTON).click()
       return error_text
 
   
@@ -159,7 +124,7 @@ class LoginPage:
   def get_email_error_message(self):
        try: 
             time.sleep(1)
-            error_element = self.driver.find_element(*self.error_message)
+            error_element = self.driver.find_element(*self.login_locators.ERROR_MESSAGE)
             return error_element.text.strip()
         
        except NoSuchElementException:
@@ -169,16 +134,16 @@ class LoginPage:
         
   def error_ver_window(self):
         try:
-            error_element = self.driver.find_element(*self.error_window_text)
+            error_element = self.driver.find_element(*self.login_locators.ERROR_WINDOW_TEXT)
             error_text = error_element.text.strip()
-            self.driver.find_element(*self.error_retry_button).click()
+            self.driver.find_element(*self.login_locators.ERROR_RETRY_BUTTON).click()
             return error_text
             
         except NoSuchElementException:
             return None
        
   def click_login_cancel_button(self):
-       login_button_cancel = self.driver.find_element(*self.login_cancel_button)
+       login_button_cancel = self.driver.find_element(*self.login_locators.LOGIN_CANCEL_BUTTON)
        login_button_cancel.click()
        
  
@@ -188,7 +153,7 @@ class LoginPage:
 
         try:
             # find email input and clear
-            email_input = self.driver.find_element(*self.email_input)
+            email_input = self.driver.find_element(*self.login_locators.EMAIL_INPUT)
             current_value = email_input.get_attribute("text")
             if current_value:
                 email_input.clear()
@@ -197,7 +162,7 @@ class LoginPage:
             email_input.send_keys(email)
             
             # click next button
-            self.driver.find_element(*self.email_next_button).click()
+            self.driver.find_element(*self.login_locators.EMAIL_NEXT_BUTTON).click()
             
             try:
                 # verification code
@@ -206,9 +171,6 @@ class LoginPage:
             except:
                 self.click_finish_button()
             
-            # handle for ios login
-            #self.handle_save_alert()
-            #time.sleep(3)
             return True
             
         except NoSuchElementException as e:
@@ -224,7 +186,7 @@ class LoginPage:
 
         try:
             # find email input and clear
-            email_input = self.driver.find_element(*self.email_input)
+            email_input = self.driver.find_element(*self.login_locators.EMAIL_INPUT)
             current_value = email_input.get_attribute("text")
             if current_value:
                 email_input.clear()
@@ -233,7 +195,7 @@ class LoginPage:
             email_input.send_keys(email)
             
             # click next button
-            self.driver.find_element(*self.email_next_button).click()
+            self.driver.find_element(*self.login_locators.EMAIL_NEXT_BUTTON).click()
             time.sleep(2)
 
         except Exception as e:
@@ -254,7 +216,7 @@ class LoginPage:
             email_input.send_keys(email)
             
             # click next button
-            self.driver.find_element(*self.email_next_button).click()
+            self.driver.find_element(*self.login_locators.EMAIL_NEXT_BUTTON).click()
             time.sleep(1)
 
         except Exception as e:
@@ -263,10 +225,10 @@ class LoginPage:
         
   def click_modify_email_button(self):
         time.sleep(0.5)
-        self.driver.find_element(*self.modify_email_button).click()
+        self.driver.find_element(*self.login_locators.MODIFY_EMAIL_BUTTON).click()
         
   def is_verification_code_page(self):
-      verification_code_page_title = self.driver.find_element(*self.is_verification_code_page_title)
+      verification_code_page_title = self.driver.find_element(*self.login_locators.IS_VERIFICATION_CODE_PAGE_TITLE)
       return verification_code_page_title.is_displayed()
 
   def login_with_invalid_email(self, email):
@@ -275,7 +237,7 @@ class LoginPage:
         time.sleep(1)
     
         try:
-            email_input = self.driver.find_element(*self.email_input)
+            email_input = self.driver.find_element(*self.login_locators.EMAIL_INPUT)
             current_value = email_input.get_attribute("text")
             if current_value:
                email_input.clear()
@@ -296,8 +258,8 @@ class LoginPage:
 ########### Just for logout ###########
   def click_logout_button(self):
         time.sleep(1)
-        self.driver.find_element(*self.setting_icon).click()
-        self.driver.find_element(*self.click_window_logout_button).click()
-        self.driver.find_element(*self.sure_to_logout).click()
+        self.driver.find_element(*self.login_locators.SETTING_ICON).click()
+        self.driver.find_element(*self.login_locators.CLICK_WINDOW_LOGOUT_BUTTON).click()
+        self.driver.find_element(*self.login_locators.SURE_TO_LOGOUT).click()
         
         

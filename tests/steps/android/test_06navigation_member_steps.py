@@ -107,7 +107,7 @@ def modify_custom_tag(driver):
     member_page = MemberPage(driver)
     member_page.modify_custom_tag()
 
-@then('I successfully change the custom tag and return to the member page')
+@then('I successfully change the custom tag and return to the member passport page')
 def verify_custom_tag_changed(driver):
     pass
 

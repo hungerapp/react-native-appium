@@ -24,7 +24,7 @@ Feature: Member Page
     Then I can modify tag setting
     When I click on the member custom tags setting
     Then I can add, edit, or delete a custom tag
-    Then I successfully change the custom tag and return to the member page
+    Then I successfully change the custom tag and return to the member passport page
     When I tap on the billing tab
     Then I can view details and export details file
     When I tap view checkout

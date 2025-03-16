@@ -2,11 +2,11 @@ import pytest
 import time
 import allure
 
-from appium.webdriver.common.appiumby import AppiumBy
+
 from pytest_bdd import scenarios, given, when, then
 
 from pages.android.login_page import LoginPage
-"""order=1"""
+from pages.locators.android.onboarding.onboarding_locators import OnboardingLocators
 
 scenarios('../../../features/onboarding.feature')
 
@@ -19,7 +19,7 @@ scenarios('../../../features/onboarding.feature')
 def launch_app_first_time(driver):
     
     try:
-        start_updating_app = driver.find_element(by=AppiumBy.ANDROID_UIAUTOMATOR, value='new UiSelector().description("開始更新")')
+        start_updating_app = driver.find_element(*OnboardingLocators.START_UPDATE)
         start_updating_app.click()
         time.sleep(5)
         assert driver is not None, "App failed to launch"
@@ -31,15 +31,12 @@ def launch_app_first_time(driver):
 
 @when('I select my language and click sure button')
 def verify_onboarding_page(driver):
-    """Verify navigation to the onboarding page."""
-    #time.sleep(2)
-    select_language_element = driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value='繁體中文, 繁體中文(台灣)')
+    select_language_element = driver.find_element(*OnboardingLocators.SELECT_LANGUAGE)
     select_language_element.click()
-    confirm_button_element = driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value='確定')
+    confirm_button_element = driver.find_element(*OnboardingLocators.CONFIRM_BUTTON)
     confirm_button_element.click()
 
 @then('I can start using the app')
 def start_using_app(driver):
-    """Verify that user can start using the app."""
     login_page = LoginPage(driver)
     login_page.continue_to_login_page()
