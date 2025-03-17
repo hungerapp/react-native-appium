@@ -159,6 +159,20 @@ class CreateCheckoutPage(CommonUseSection):
             print(f"點擊搜尋結果時發生錯誤: {str(e)}")
             raise
 
+    def add_new_member(self):
+        self.driver.find_element(*self.ADD_MEMBER_BUTTON).click()
+        time.sleep(1)
+        self.new_member()
+        
+    
+    
+    def re_add_new_member(self):
+        self.driver.find_element(*self.RE_ADD_NEW_MEMBER_BUTTON).click()
+        time.sleep(1)
+        self.new_member()
+        
+        
+
     def delete_selected_member(self):
         self.driver.find_element(*self.create_checkout_locators.DELETE_MEMBER_BUTTON).click()
         time.sleep(1)

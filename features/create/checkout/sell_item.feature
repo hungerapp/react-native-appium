@@ -16,8 +16,8 @@ Feature: Sell Item Checkout Process
     Then I confirm the checkout and successfully create a checkout
 
 
-  @regression @item_below_price_and_payment_adjustment
-  Scenario: Checkout with existing member and  below item price payment adjustment validation  
+  @regression   @existing_member_error_payment_adjustment
+  Scenario: Checkout with existing member and payment adjustment validation  
     I want to complete a checkout with an existing member and validate payment adjustments  
     So that I can verify the behavior when modifying payment options  
 
@@ -41,16 +41,16 @@ Feature: Sell Item Checkout Process
 
 
 
-  @regression @item_above_price_payment_adjustment
-  Scenario: Checkout with above item price payment adjustment validation  
-    I want to complete a checkout validate payment adjustments  
+  @regression @new_member_error_payment_adjustment
+  Scenario: Checkout with new member and payment adjustment validation  
+    I want to complete a checkout with a new member and validate payment adjustments  
     So that I can verify the behavior when adding a new member  
 
     Given I click the create checkout option
     When I select sell item option  
     Then I select a sales performance owner  
     Then I select an item and view the item info
-    Then I select a member and search for an existing member
+    Then I add a brand new member
     Then I delete the selected member and re-add it
     Then I click the search result
     Then I add new discount for the item
