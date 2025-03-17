@@ -6,8 +6,6 @@ pytest-bdd
 pytest-order
 allure-pytest
 allure-pytest-bdd
-allure-slack-reporter
-pytest-alluredir
 pytest-rerunfailures 
 requests
 pytest-xdist
