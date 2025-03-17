@@ -207,7 +207,7 @@ class CreateCheckoutPage(CommonUseSection):
 
         total_amount_text = self.driver.find_element(*TOTAL_AMOUNT).text
         total_amount = int(total_amount_text.replace(",", ""))
-        
+
         min_amount = int(total_amount * 1.1) if is_above_price else 10
         max_amount = int(total_amount * 1.9) if is_above_price else int(total_amount * 0.9)
 
