@@ -160,14 +160,14 @@ class CreateCheckoutPage(CommonUseSection):
             raise
 
     def add_new_member(self):
-        self.driver.find_element(*self.ADD_MEMBER_BUTTON).click()
+        self.driver.find_element(*self.ADD_NEW_MEMBER_TOGGLE).click()
         time.sleep(1)
         self.new_member()
         
     
     
     def re_add_new_member(self):
-        self.driver.find_element(*self.RE_ADD_NEW_MEMBER_BUTTON).click()
+        self.driver.find_element(*self.SAVE_NEW_MEMBER_BUTTON).click()
         time.sleep(1)
         self.new_member()
         
