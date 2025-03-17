@@ -30,7 +30,7 @@ class CreateCheckoutLocators:
       NON_SELECTED_MEMBER_SECTION = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("尚未選擇會員")')
       CLEAR_INPUT_SEARCH = (AppiumBy.XPATH, '//android.view.ViewGroup[@resource-id="circle-xmark"]/com.horcrux.svg.SvgView/com.horcrux.svg.GroupView/com.horcrux.svg.PathView')
       MEMBER_SEARCH = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("輸入手機號碼、姓名進行搜尋")')
-      MEMBER_SEARCH_RESULT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("972 205690")')
+      MEMBER_SEARCH_RESULT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().descriptionContains("972 205690")')
       MEMBER_SEARCH_NOT_FOUND = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("查無資料")')
       PHONE_NUMBER_INPUT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("請輸入電話")')
       NICKNAME_INPUT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("請輸入別名")')

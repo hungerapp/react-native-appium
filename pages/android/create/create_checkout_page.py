@@ -144,19 +144,20 @@ class CreateCheckoutPage(CommonUseSection):
         search_input.click()
         search_input.send_keys(phone_number)
         time.sleep(3)
-        member_result = self.driver.find_element(
-            AppiumBy.ANDROID_UIAUTOMATOR, 
-            self.driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("972 205690")')
-        )
-        member_result.click()
+        result = self.driver.find_element(*self.create_checkout_locators.MEMBER_SEARCH_RESULT)
+        result.click()
+    
         
     def click_search_result(self):
-        time.sleep(3)
-        member_result = self.driver.find_element(
-            AppiumBy.ANDROID_UIAUTOMATOR, 
-            self.driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("972 205690")')
-        )
-        member_result.click()
+        try:
+            time.sleep(1)  
+            result = self.driver.find_element(*self.create_checkout_locators.MEMBER_SEARCH_RESULT)
+            if result.is_displayed():
+                result.click()
+                time.sleep(0.5) 
+        except Exception as e:
+            print(f"點擊搜尋結果時發生錯誤: {str(e)}")
+            raise
 
     def delete_selected_member(self):
         self.driver.find_element(*self.create_checkout_locators.DELETE_MEMBER_BUTTON).click()
