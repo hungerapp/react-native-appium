@@ -59,3 +59,65 @@ Feature: Setting Button in Navigation Bar
         Then I enter a new branch name
         Then I tap the confirm edit button
         Then the branch name should be updated successfully
+
+    @regression @edit_branch_description
+    Scenario: Edit Branch Description on Branch and Brand Information Page
+        Given I am on the Branch and Brand Information page
+        Then I can see the branch description title
+        Then I can see the original branch description
+        When I tap on the Branch Description field
+        Then I enter a new branch description
+        Then I tap the confirm edit button
+        Then the branch description should be updated successfully
+
+    @regression @toggle_branch_phone_switch_on
+    Scenario: Open Show Branch Phone Toggle in Branch Phone Section
+        Given I am on the Branch and Brand Information page
+        Then I can see the Show Branch Phone Toggle title in the Branch Phone Section
+        Then I can see the Show Branch Phone Toggle is off
+        When I tap on the Show Branch Phone Toggle
+        Then the Show Branch Phone Toggle should turn on
+        Then I tap the confirm edit button
+        Then the branch description should be updated successfully
+
+    @regression @toggle_branch_phone_switch_off
+    Scenario: Close Show Branch Phone Toggle in Branch Phone Section
+        Given I am on the Branch and Brand Information page
+        Then I can see the Show Branch Phone Toggle title in the Branch Phone Section
+        Then I can see the Show Branch Phone Toggle is on
+        When I tap on the Show Branch Phone Toggle
+        Then the Show Branch Phone Toggle should turn off
+        Then I tap the confirm edit button
+        Then the branch description should be updated successfully
+
+    @regression @edit_taiwan_phone_number
+    # Note: Currently only supporting Taiwan region, country code selection not implemented yet
+    Scenario: Edit Taiwan Phone Number in Branch Phone Section
+        Given I am on the Branch and Brand Information page
+        Then I can see the Show Branch Phone Toggle title in the Branch Phone Section
+        Then I can see the country code and Branch Phone in the Branch Phone Section
+        Then I can see the original country code and phone number
+        When I tap on the Branch Phone field
+        Then I enter a new phone number
+        Then I tap the Confirm Edit Button
+        Then the Branch Phone should be updated successfully
+
+    @regression @toggle_branch_address_switch_on
+    Scenario: Open Show Branch Address Toggle in Branch Address Section
+        Given I am on the Branch and Brand Information page
+        Then I can see the Show Branch Address Toggle title in the Branch Address Section
+        Then I can see the Show Branch Address Toggle is off
+        When I tap on the Show Branch Address Toggle
+        Then the Show Branch Address Toggle should turn on
+        Then I tap the confirm edit button
+        Then the branch address should be updated successfully
+
+    @regression @toggle_branch_address_switch_off
+    Scenario: Close Show Branch Address Toggle in Branch Address Section
+        Given I am on the Branch and Brand Information page
+        Then I can see the Show Branch Address Toggle title in the Branch Address Section
+        Then I can see the Show Branch Address Toggle is on
+        When I tap on the Show Branch Address Toggle
+        Then the Show Branch Address Toggle should turn off
+        Then I tap the confirm edit button
+        Then the branch address should be updated successfully
