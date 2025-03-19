@@ -86,6 +86,9 @@ class CommonUseSection:
     ADD_NEW_MEMBER_TOGGLE = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("android.view.ViewGroup").instance(94)')
     # you cab change the id: new UiSelector().className("com.horcrux.svg.PathView").instance(1)
     SAVE_NEW_MEMBER_BUTTON = (AppiumBy.XPATH, '(//com.horcrux.svg.SvgView)[2]')
+    RIGHT_ARROW = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(6)')      
+    
+    
     def __init__(self, driver):
         self.driver = driver
         
@@ -491,6 +494,20 @@ class CommonUseSection:
         time.sleep(0.5)
         self.driver.find_element(*self.SAVE_NEW_MEMBER_BUTTON).click()
         
+    def choose_date(self):
+        # click right arrow multiple times
+        clicks = random.randint(1, 5)
+        for _ in range(clicks):
+            self.driver.find_element(*self.RIGHT_ARROW).click()
+            time.sleep(0.5)
         
+        dates = self.driver.find_elements(AppiumBy.XPATH, '//android.view.ViewGroup[@content-desc="一, 二, 三, 四, 五, 六, 日"]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup')
+      
+        random.choice(dates).click()
         
-        
+        # click outside to close the date window
+        size = self.driver.get_window_size()
+        self.driver.execute_script('mobile: clickGesture', {
+            'x': int(size['width'] * 0.5),  
+            'y': int(size['height'] * 0.9)   
+        })

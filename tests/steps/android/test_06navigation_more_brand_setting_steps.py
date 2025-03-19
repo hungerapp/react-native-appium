@@ -35,3 +35,4 @@ def edit_brand_description(driver):
     brand_setting_page = BrandSettingPage(driver)
     brand_setting_page.edit_brand_description(BRAND_DESCRIPTION)
     brand_setting_page.save_changes()
+    
