@@ -24,7 +24,7 @@ class CreateAppointmentLocators:
       SUB_SERVICE_SAVE_BTN = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(1)')
       CHANGE_SERVICE_TIME_SECTION = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(1)')
       CHANGE_SERVICE_PERSON_COUNT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(1)')
-      BACK_TO_CALENDAR_BTN = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(0)')
+      BACK_TO_CALENDAR_BTN = (AppiumBy.ACCESSIBILITY_ID, 'xmark')
     
       MEMBER_PASSPORT_BTN = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("查看會員護照")')
       MEMBER_PASSPORT_TITLE = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("會員護照")')
@@ -55,7 +55,7 @@ class CreateAppointmentLocators:
       NOTE_CONTENT_SAVE_BTN = (AppiumBy.XPATH, '//android.widget.FrameLayout[@resource-id="android:id/content"]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[48]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup[2]/com.horcrux.svg.SvgView/com.horcrux.svg.GroupView/com.horcrux.svg.PathView')
     
       ADD_ONE_MORE_SERVICE = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("再新增一筆預約")')
-      DELETE_SERVICE_BTN = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(12)')
+      DELETE_SERVICE_BTN = (AppiumBy.ACCESSIBILITY_ID, 'trash-can')
     
       #  Unexpected Cancel  related elements
       CONTACT_CANCEL_BTN = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(0)')
@@ -87,7 +87,7 @@ class CreateAppointmentLocators:
       NAME_SEARCH_BUTTON = (AppiumBy.ACCESSIBILITY_ID, '姓名搜尋')
       SPECIFIC_SEARCH_RESULT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("+886 972 205690")')
       CHANGE_SPECIFIC_SEARCH_RESULT = (AppiumBy.ACCESSIBILITY_ID, '+886 911 111116, Wei 先生, 上次預約姓名： Wei')
-      SAVE_CONTACT_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(1)')
+      SAVE_CONTACT_BUTTON = (AppiumBy.ACCESSIBILITY_ID, 'check')
       INVALID_PHONE_MSG = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text(" 格式錯誤。")')
       CONTACT_BACK_BTN = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(0)')
       CONTACT_HAS_CHOSEN = (AppiumBy.ACCESSIBILITY_ID, '+886 972 205690, 王貝克')
