@@ -1,8 +1,8 @@
 from appium.webdriver.common.appiumby import AppiumBy
 
 class CalendarLocators:
-      DATE_SELECTOR = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.SvgView").instance(2)')
-      ARROW = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(30)')
+      DATE_SELECTOR = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("caret-down")')
+      ARROW = (AppiumBy.ACCESSIBILITY_ID, 'arrow-right')
       MONTHS = [
         (AppiumBy.ACCESSIBILITY_ID, '1月'),
         (AppiumBy.ACCESSIBILITY_ID, '2月'),
