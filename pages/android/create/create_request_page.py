@@ -81,12 +81,9 @@ class CreateRequestPage:
                 service.click()
                 time.sleep(0.5)
             
-            try:
-                save_button = self.driver.find_element(*self.create_request_locators.SAVE_PRODUCT_BTN)
-                save_button.click()
-            except:
-                save_button = self.driver.find_element(*self.create_request_locators.SAVE_PRODUCT_BTN_2)
-                save_button.click()
+            save_button = self.driver.find_element(*self.create_request_locators.SAVE_PRODUCT_BTN)
+            save_button.click()
+           
             
         except Exception as e:
             print(f"Error selecting services: {str(e)}")

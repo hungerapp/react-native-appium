@@ -67,6 +67,15 @@ class CreateEventPage:
     def select_event_time(self, all_day=True):
         
         self.driver.find_element(*self.create_event_locators.SELECTED_DATE).click()
+        
+        # select random date
+        direction = random.choice(['left', 'right'])
+        if direction == 'left':
+            arrow = self.driver.find_element(*self.create_event_locators.LEFT_DATE_ARROW)
+        else:
+            arrow = self.driver.find_element(*self.create_event_locators.RIGHT_DATE_ARROW)
+            arrow.click()
+            
         dates = self.driver.find_elements(AppiumBy.XPATH, '//android.view.ViewGroup[@content-desc="一, 二, 三, 四, 五, 六, 日"]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup')
       
         random.choice(dates).click()

@@ -628,7 +628,7 @@ class PersonalPage(CommonUseSection):
     self.driver.find_element(*self.personal_page_locators.COUNTRY_SELECTOR).click()
     
     try: 
-        search_term = random.choice(COMMON_SEARCH_TERMS)
+        search_term = random.choice(self.personal_page_locators.COMMON_SEARCH_TERMS)
         
         search_input = self.driver.find_element(*self.personal_page_locators.SEARCH_INPUT)
         search_input.click()
