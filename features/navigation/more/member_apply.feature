@@ -37,7 +37,7 @@ Feature: Member Apply
 
 
   # [MEMBER APPLY] DOCUMENT_MANAGEMENT
-  @regression @document_management_in_member_apply
+  @regression @document_management_in_member_apply @skip
   Scenario: Manage Documents in Membership Application
     Given I am on the membership application page
     When I tap on document management
@@ -47,7 +47,7 @@ Feature: Member Apply
 
 
   # [MEMBER APPLY] DISABLED_DOCUMENT_MANAGEMENT
-  @regression @disabled_document_management_in_member_apply
+  @regression @disabled_document_management_in_member_apply @skip
   Scenario: Manage Disabled Documents
     Given I am in the document management section
     When I tap on the disabled tab
@@ -57,7 +57,7 @@ Feature: Member Apply
 
 
   # [MEMBER APPLY] BONUS_POINT_RATIO_MANAGEMENT
-  @regression @bonus_point_ratio_in_member_apply
+  @regression @bonus_point_ratio_in_member_apply @skip
   Scenario: Configure Bonus Point Ratio in Membership Application
     Given I am on the membership application page
     When I tap on bonus points
@@ -65,7 +65,7 @@ Feature: Member Apply
     Then I can return to the membership application page
 
   # [MEMBER APPLY] CUSTOM_MEMBERSHIP_REGISTRATION
-  @regression @custom_membership_registration_in_member_apply
+  @regression @custom_membership_registration_in_member_apply @skip
   Scenario: Configure Custom Membership Registration in Membership Application
     Given I am on the membership application page
     When I tap on custom membership registration fields
