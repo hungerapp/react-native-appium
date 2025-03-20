@@ -124,7 +124,7 @@ def select_payment_below_price(driver):
 @then('I input checkout record content')
 def input_record_content(driver):
     checkout_page = CreateCheckoutPage(driver)
-    checkout_page.input_record_content()
+    checkout_page.input_record_content() 
 
 @then('I adjust the total sales performance')
 def adjust_sales_performance(driver):
