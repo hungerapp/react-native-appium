@@ -54,7 +54,7 @@ class PersonalPageLocators:
       PUSH_NOTTIFICATION_SAVE = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(1)')
   
       # Manage account settings
-      SETTINGS_BUTTON = (AppiumBy.XPATH, '//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup[2]/com.horcrux.svg.SvgView/com.horcrux.svg.GroupView/com.horcrux.svg.PathView')
+      SETTINGS_BUTTON = (AppiumBy.ACCESSIBILITY_ID, 'gear')
       SETTINGS_POPUP = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("android.view.ViewGroup").instance(7)')
       ACCOUNT_SETTINGS_OPTION = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("帳號設定")')
       LANGUAGE_SETTINGS_OPTION = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("語言設定")')

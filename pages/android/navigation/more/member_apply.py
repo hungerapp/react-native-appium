@@ -145,8 +145,7 @@ class MemberApplyPage(CommonUseSection):
         # toggle
         toggle_elements = [
             self.driver.find_element(*self.member_apply_locators.SALES_TOGGLE),
-            self.driver.find_element(*self.member_apply_locators.AUTO_DISCOUNT_TOGGLE),
-            self.driver.find_element(*self.member_apply_locators.INCLUDE_PERFORMANCE_TOGGLE)
+            self.driver.find_element(*self.member_apply_locators.AUTO_DISCOUNT_TOGGLE)
         ]
         
         for toggle in toggle_elements:
@@ -242,9 +241,6 @@ class MemberApplyPage(CommonUseSection):
         self.driver.find_element(*self.member_apply_locators.ADD_MEMBERSHIP_GIFT_VOUCHER_BUTTON).click()
         time.sleep(0.5)
         
-        # open to change toggle
-        self.driver.find_element(*self.member_apply_locators.OPEN_TO_CHANGE_TOGGLE).click()
-        time.sleep(0.5)
         
         # enter membership gift title
         membership_gift_title = ''.join(random.choices(string.ascii_letters + string.digits + "!@#$%^&*()_+", k=5)) + "自動化測試"

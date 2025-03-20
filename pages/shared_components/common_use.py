@@ -33,8 +33,8 @@ class CommonUseSection:
     
     SERVICE_PERSON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("服務人員")')
     SERVICE_TESTING_PERSON = (AppiumBy.ACCESSIBILITY_ID, 'QA測試人員')
-    SERVICE_PAGE_TOGGLE_SWITCH = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("android.view.ViewGroup").instance(31)')
-    SERVICE_PAGE_SAVE_BTN = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.SvgView").instance(1)')
+    SERVICE_PAGE_TOGGLE_SWITCH = (AppiumBy.ACCESSIBILITY_ID, '該筆預約為指定預約-switch-button')
+    SERVICE_PAGE_SAVE_BTN = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("check")')
     
     SERVICE_PERSONNEL = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("服務人員")')
     QA_TEST_PERSONNEL = (AppiumBy.ACCESSIBILITY_ID, 'QA測試人員')
@@ -44,24 +44,24 @@ class CommonUseSection:
         (AppiumBy.ACCESSIBILITY_ID, 'Bella #美甲'),
         # Add more personnel options as needed
     ]
-    PERSONNEL_SAVE_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(1)')
+    PERSONNEL_SAVE_BUTTON = (AppiumBy.ACCESSIBILITY_ID, 'check')
     
     
     # For checkout, request page
-    AMOUNT_EDIT_ICON = (AppiumBy.XPATH, '//android.view.ViewGroup[@resource-id="pen-to-square"]/com.horcrux.svg.SvgView/com.horcrux.svg.GroupView/com.horcrux.svg.PathView')
+    AMOUNT_EDIT_ICON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("pen-to-square").instance(0)')
     AMOUNT_INPUT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("android.widget.EditText")')
     AMOUNT_CLEAR_BTN = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("清除")')
     AMOUNT_SAVE_BTN = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(1)')
-    EDIT_ITEM_QUANTITY_ICON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(3)')
+    EDIT_ITEM_QUANTITY_ICON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("caret-down").instance(0)')
     QUANTITLY_PLUS_BUTTON = (AppiumBy.XPATH, '//android.view.ViewGroup[@resource-id="plus"]/com.horcrux.svg.SvgView/com.horcrux.svg.GroupView/com.horcrux.svg.PathView')
     QUANTITY_REVISE_INPUT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textMatches("^[1-9][0-9]{0,2}$")')
     QUANTITY_REVISE_INPUT2 = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("android.widget.EditText")')
     QUANTITY_REVISE_SAVE_BTN = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(1)')
-    REMOVE_ITEM_BTN = (AppiumBy.XPATH, '//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup[1]/com.horcrux.svg.SvgView/com.horcrux.svg.GroupView/com.horcrux.svg.PathView')
+    REMOVE_ITEM_BTN = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("circle-minus").instance(0)')
     REMOVE_CONFIRM_BTN = (AppiumBy.ACCESSIBILITY_ID, '移除')
-    BACK_TO_PREVIOUS_PAGE_ICON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(0)')
+    BACK_TO_PREVIOUS_PAGE_ICON = (AppiumBy.ACCESSIBILITY_ID, 'arrow-left')
     ADD_NEW_DISCOUNT_BTN = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().description("新增").instance(0)')
-    DISCOUNT_SAVE_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(1)')
+    DISCOUNT_SAVE_BUTTON = (AppiumBy.ACCESSIBILITY_ID, 'check')
     CASH_QUICK_AMOUNTS = ["50", "100", "150", "200", "250", "300", "350", "400"]
     DISCOUNT_QUICK_RATES = ["95折", "92折", "9折", "88折", "85折", "8折", "75折", "7折"]
     DISCOUNT_INPUT_OPTIONS = [90, 85, 95, 80, 70, 85, 75]
@@ -83,10 +83,10 @@ class CommonUseSection:
     MEMBER_DESCRIPTION_INPUT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("請輸入內容")')
     MEMBER_DESCRIPTION_MODAL_INPUT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("輸入內容")')
     MEMBER_DESCRIPTION_MODAL_SAVE_BUTTON = (AppiumBy.XPATH, '(//com.horcrux.svg.SvgView)[2]')
-    ADD_NEW_MEMBER_TOGGLE = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("android.view.ViewGroup").instance(94)')
-    # you cab change the id: new UiSelector().className("com.horcrux.svg.PathView").instance(1)
-    SAVE_NEW_MEMBER_BUTTON = (AppiumBy.XPATH, '(//com.horcrux.svg.SvgView)[2]')
-    RIGHT_ARROW = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(6)')      
+    ADD_NEW_MEMBER_TOGGLE = (AppiumBy.ACCESSIBILITY_ID, '是否加入黑名單-switch-button')
+   
+    SAVE_NEW_MEMBER_BUTTON = (AppiumBy.ACCESSIBILITY_ID, 'check')
+    RIGHT_ARROW = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("arrow-right")')      
     
     
     def __init__(self, driver):
@@ -488,7 +488,7 @@ class CommonUseSection:
         self.driver.find_element(*self.MEMBER_DESCRIPTION_MODAL_INPUT).send_keys(description)
         self.driver.find_element(*self.MEMBER_DESCRIPTION_MODAL_SAVE_BUTTON).click()
         
-        #self.driver.find_element(*self.ADD_NEW_MEMBER_TOGGLE).click()
+        self.driver.find_element(*self.ADD_NEW_MEMBER_TOGGLE).click()
         
         # Click save button
         time.sleep(0.5)
