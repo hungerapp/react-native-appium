@@ -79,7 +79,7 @@ class CreateCheckoutLocators:
       PERFORMANCE_CHANGE_PERSONNEL = (AppiumBy.ACCESSIBILITY_ID, 'Sally #美睫 #美甲')
       SALES_PERFORMANCE_EDIT_ICON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("pen-to-square")')
       TOTAL_PERFORMANCE_CONFIRM_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(1)')
-      CALCULATE_ICON = (AppiumBy.XPATH, '//android.widget.TextView[@text="找零"]')
+      CALCULATE_ICON = (AppiumBy.ACCESSIBILITY_ID, '找零')
       CALCULATE_CHANGE_BACK_ICON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView")')
     
       BONUS_POINTS = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("紅利點數")')
