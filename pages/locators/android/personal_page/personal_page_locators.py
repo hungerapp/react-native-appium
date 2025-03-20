@@ -51,7 +51,7 @@ class PersonalPageLocators:
       INTEGRATE_GOOGLE_CALENDAR_BUTTON = (AppiumBy.ACCESSIBILITY_ID, 'Google行事曆, 進行串接')
   
       # Push notification page
-      PUSH_NOTTIFICATION_SAVE = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(1)')
+      PUSH_NOTTIFICATION_SAVE = (AppiumBy.ACCESSIBILITY_ID, 'check')
   
       # Manage account settings
       SETTINGS_BUTTON = (AppiumBy.ACCESSIBILITY_ID, 'gear')
@@ -101,10 +101,10 @@ class PersonalPageLocators:
       PHONE_INPUT_CLEAR = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("請輸入電話")')
       EMPTY_PHONE_ERROR_MESSAGE = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text(" 此欄位為必填。")')
       INVALID_PHONE_ERROR_MESSAGE = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("格式錯誤")')
-      SAVE_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.SvgView").instance(1)')
-      ACCOUNT_SETTINGS_CANCEL_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.SvgView").instance(0)')
+      SAVE_BUTTON = (AppiumBy.ACCESSIBILITY_ID, 'check')
+      ACCOUNT_SETTINGS_CANCEL_BUTTON = (AppiumBy.ACCESSIBILITY_ID, 'xmark')
   
-      COUNTRY_SELECTOR = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(4)')
+      COUNTRY_SELECTOR = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("caret-down")')
       COUNTRY_CODE_OPTIONS = (AppiumBy.XPATH, "//android.widget.TextView[contains(@text, '+')]")
       CHANGED_COUNTRY_CODE = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("+")')
       COUNTRY_CODE_CONFIRM_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(1)')
