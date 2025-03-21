@@ -406,46 +406,49 @@ class MemberApplyPage(CommonUseSection):
             self.driver.find_element(*self.member_apply_locators.NEW_PROBLEM_INPUT).send_keys(random_input)
             time.sleep(0.5)
             
-            option_type_section = self.driver.find_element(*self.member_apply_locators.OPTION_TYPE_SECTION)
-            option_type_section.click()
-            time.sleep(0.5)
-            
-            selected_option = random.choice(self.member_apply_locators.OPTION_TYPE_OPTIONS)
-            self.driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR, f'new UiSelector().text("{selected_option}")').click()
-            
-            
-            if selected_option == self.member_apply_locators.OPTION_TYPE_OPTIONS[0] or selected_option == self.member_apply_locators.OPTION_TYPE_OPTIONS[1]:
-                # add new option
-                self.driver.find_element(*self.member_apply_locators.NEW_OPTION).click()
-                time.sleep(0.5)
-                
-                # input random option name
-                random_option = ''.join(random.choices(string.ascii_letters + string.digits + "!@#$%^&*()_+", k=5)) + "自動化測試"
-                self.driver.find_element(*self.member_apply_locators.NEW_OPTION_INPUT).send_keys(random_option)
-                time.sleep(0.5)
-                
-                # click save button
-                self.driver.find_element(*self.member_apply_locators.SAVE_BUTTON).click()
-             
-                
-            else:
-                pass
-            
-            # CLICK QUESTION TYPE SECTION
-            question_type_section = self.driver.find_element(*self.member_apply_locators.QUESTION_TYPE_SECTION)
-            question_type_section.click()
-            time.sleep(0.5)
-            
-            selected_option = random.choice(self.member_apply_locators.QUESTION_TYPE_OPTIONS)
-            self.driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR, f'new UiSelector().text("{selected_option}")').click()
-            
-            # click save button
-            self.driver.find_element(*self.member_apply_locators.SAVE_BUTTON).click()
+            self.option_type_question_section()
              
         self.driver.find_element(*self.member_apply_locators.CUSTOMER_NEED_TO_SIGN_TOGGLE).click()    
         self.driver.find_element(*self.member_apply_locators.SAVE_BUTTON).click()
         
         return self
+    
+    def option_type_question_section(self):
+        option_type_section = self.driver.find_element(*self.member_apply_locators.OPTION_TYPE_SECTION)
+        option_type_section.click()
+        time.sleep(0.5)
+            
+        selected_option = random.choice(self.member_apply_locators.OPTION_TYPE_OPTIONS)
+        self.driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR, f'new UiSelector().text("{selected_option}")').click()
+            
+            
+        if selected_option == self.member_apply_locators.OPTION_TYPE_OPTIONS[0] or selected_option == self.member_apply_locators.OPTION_TYPE_OPTIONS[1]:
+            # add new option
+            self.driver.find_element(*self.member_apply_locators.NEW_OPTION).click()
+            time.sleep(0.5)
+                
+            # input random option name
+            random_option = ''.join(random.choices(string.ascii_letters + string.digits + "!@#$%^&*()_+", k=5)) + "自動化測試"
+            self.driver.find_element(*self.member_apply_locators.NEW_OPTION_INPUT).send_keys(random_option)
+            time.sleep(0.5)
+                
+            # click save button
+            self.driver.find_element(*self.member_apply_locators.SAVE_BUTTON).click()
+             
+                
+        else:
+            pass
+            
+        # CLICK QUESTION TYPE SECTION
+        question_type_section = self.driver.find_element(*self.member_apply_locators.QUESTION_TYPE_SECTION)
+        question_type_section.click()
+        time.sleep(0.5)
+            
+        selected_option = random.choice(self.member_apply_locators.QUESTION_TYPE_OPTIONS)
+        self.driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR, f'new UiSelector().text("{selected_option}")').click()
+            
+        # click save button
+        self.driver.find_element(*self.member_apply_locators.SAVE_BUTTON).click()
     
     def edit_preview_share_document(self):
         # Scroll down to continue editing
@@ -500,6 +503,7 @@ class MemberApplyPage(CommonUseSection):
         return self
     
     def reactivate_disabled_document(self):
+        time.sleep(1)
         self.driver.find_element(*self.member_apply_locators.REACTIVATE_BUTTON).click()
         time.sleep(0.5)
         self.driver.find_element(*self.member_apply_locators.REACTIVATE_CONFIRM_BUTTON).click()
@@ -540,3 +544,63 @@ class MemberApplyPage(CommonUseSection):
         # click save button
         self.driver.find_element(*self.member_apply_locators.SAVE_BUTTON).click()
         return self
+
+
+####### CUSTOM MEMBERSHIP REGISTRATION #######
+
+    def tap_custom_membership_registration_fields(self):
+        self.driver.find_element(*self.member_apply_locators.CUSTOM_MEMBERSHIP_REGISTRATION_FIELDS).click()
+        time.sleep(0.5)
+        return self
+    
+    def add_new_field(self):
+        self.driver.find_element(*self.member_apply_locators.ADD_NEW_FIELD_BUTTON).click()
+        time.sleep(0.5)
+        
+        # open to member input toggle
+        self.driver.find_element(*self.member_apply_locators.MEMBER_INPUT_TOGGLE).click()
+    
+        # input random field name
+        random_field_name = ''.join(random.choices(string.ascii_letters + string.digits + "!@#$%^&*()_+", k=5)) + "自動化測試"
+        self.driver.find_element(*self.member_apply_locators.FIELD_TITLE_INPUT).send_keys(random_field_name)
+        time.sleep(0.5)
+        
+        # option type & question type section
+        self.option_type_question_section()
+        
+        # click add new field button
+        self.driver.find_element(*self.member_apply_locators.ADD_NEW_COLUMN_BUTTON).click()
+        time.sleep(0.5)
+        
+        
+    
+    def edit_and_delete_field(self):
+        self.driver.find_element(*self.member_apply_locators.EDIT_FIELD_BUTTON).click()
+        time.sleep(0.5)
+        
+        # click open to member input toggle
+        self.driver.find_element(*self.member_apply_locators.MEMBER_INPUT_TOGGLE).click()
+        
+        # click save button
+        self.driver.find_element(*self.member_apply_locators.SAVE_BUTTON).click()
+        
+        # click edit confirm button
+        self.driver.find_element(*self.member_apply_locators.EDIT_CONFIRM_BUTTON).click()
+        
+        # click delete button
+        self.driver.find_element(*self.member_apply_locators.DELETE_BUTTON).click()
+        
+        # input delete text then click delete confirm button
+        self.driver.find_element(*self.member_apply_locators.DELETE_INPUT).send_keys("Delete")
+        self.driver.find_element(*self.member_apply_locators.DELETE_CONFIRM_BUTTON).click()
+        
+        return self
+    
+    def return_to_membership_application(self):
+        self.driver.find_element(*self.member_apply_locators.RETURN_TO_CALENDAR_BUTTON).click()
+        time.sleep(0.5)
+        return self
+        
+        
+        
+        

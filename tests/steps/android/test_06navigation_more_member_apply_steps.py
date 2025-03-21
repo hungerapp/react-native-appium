@@ -206,3 +206,43 @@ def return_to_membership_application(driver):
     member_apply_page.back_to_membership_application()
     
     
+    
+# CUSTOM MEMBERSHIP REGISTRATION
+@allure.feature('Custom Membership Registration')
+@allure.story('Custom Membership Registration in Membership Application')
+@pytest.mark.navigation
+@pytest.mark.run(order=82)
+@given('I am on the membership application page')
+def in_membership_application_page(driver):
+    pass
+
+@when('I tap on custom membership registration fields')
+def tap_custom_membership_registration_fields(driver):
+    member_apply_page = MemberApplyPage(driver)
+    member_apply_page.tap_custom_membership_registration_fields()
+
+@then('I can add a new field')
+def add_new_field(driver):
+    member_apply_page = MemberApplyPage(driver)
+    member_apply_page.add_new_field()
+
+@then('I can edit or delete a field')
+def edit_or_delete_field(driver):
+    member_apply_page = MemberApplyPage(driver)
+    member_apply_page.edit_and_delete_field()
+    
+@then('I can return to the membership application page')
+def return_to_membership_application(driver):
+    member_apply_page = MemberApplyPage(driver)
+    member_apply_page.back_to_membership_application()  
+    
+@then('I can tap the return to calendar button to go back to the calendar page')
+def tap_return_to_calendar_button(driver):
+    member_apply_page = MemberApplyPage(driver)
+    member_apply_page.return_to_membership_application()
+    
+    
+    
+
+
+    

@@ -39,9 +39,9 @@ Feature: Member Apply
   # [MEMBER APPLY] DOCUMENT_MANAGEMENT
   @regression @add_edit_preview_share_document_management_in_member_apply 
   Scenario: Manage Documents in Membership Application
-    #Given I am on the membership application page
-    #When I tap on document management
-    #Then I can add a document
+    Given I am on the membership application page
+    When I tap on document management
+    Then I can add a document
     Then I can edit, preview, and share a document
 
 
@@ -65,7 +65,7 @@ Feature: Member Apply
     Then I can return to the membership application page
 
   # [MEMBER APPLY] CUSTOM_MEMBERSHIP_REGISTRATION
-  @regression @custom_membership_registration_in_member_apply @skip
+  @regression @custom_membership_registration_in_member_apply 
   Scenario: Configure Custom Membership Registration in Membership Application
     Given I am on the membership application page
     When I tap on custom membership registration fields

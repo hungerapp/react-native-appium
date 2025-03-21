@@ -118,7 +118,20 @@ class MemberApplyLocators:
       CHECKOUT_AUTO_SEND_TOGGLE = (AppiumBy.ACCESSIBILITY_ID, '結帳自動贈點-switch-button')
       BONUS_POINT_RATIO_INPUT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("android.widget.EditText")')
       BONUS_POINT_RATIO_SAVE_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("check")')
+      ##################################
       
       
+      
+      ########## CUSTOM MEMBERSHIP REGISTRATION ##########
+      CUSTOM_MEMBERSHIP_REGISTRATION_FIELDS = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("自訂會員註冊欄位")')
+      ADD_NEW_FIELD_BUTTON = (AppiumBy.ACCESSIBILITY_ID, '新增欄位')
+      MEMBER_INPUT_TOGGLE = (AppiumBy.ACCESSIBILITY_ID, '開放會員填寫-switch-button')
+      FIELD_TITLE_INPUT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("請輸入欄位標題")')
+      ADD_NEW_COLUMN_BUTTON = (AppiumBy.ACCESSIBILITY_ID, '新增')
+      EDIT_FIELD_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("pen-to-square").instance(5)')
+      EDIT_CONFIRM_BUTTON = (AppiumBy.ACCESSIBILITY_ID, '編輯')
+      DELETE_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("circle-minus").instance(5)')
+      DELETE_INPUT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("android.widget.EditText")')
+      RETURN_TO_CALENDAR_BUTTON = (AppiumBy.ACCESSIBILITY_ID, '回到行事曆')
       
       
