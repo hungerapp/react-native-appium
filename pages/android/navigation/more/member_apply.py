@@ -492,6 +492,7 @@ class MemberApplyPage(CommonUseSection):
         return self
     
     def disable_document(self):
+        time.sleep(1)
         self.driver.find_element(*self.member_apply_locators.DISABLE_DOCUMENT_BUTTON).click()
         time.sleep(0.5)
         self.driver.find_element(*self.member_apply_locators.DISABLE_DOCUMENT_CONFIRM_BUTTON).click()
@@ -510,10 +511,9 @@ class MemberApplyPage(CommonUseSection):
         return self
     
     def edit_and_reactivate_disabled_document(self):
+        time.sleep(1)
         self.driver.find_element(*self.member_apply_locators.RANDOMLY_EDIT_DISABLE_DOCUMENT_BUTTON).click()
-        time.sleep(0.5)
         self.driver.find_element(*self.member_apply_locators.MEMBER_AUTO_SIGN_TOGGLE).click()
-        self.driver.find_element(*self.member_apply_locators.CUSTOMER_NEED_TO_SIGN_TOGGLE).click()
         
         # click reactivate document button
         self.driver.find_element(*self.member_apply_locators.REACTIVATE_DOCUMENT_BUTTON).click()
