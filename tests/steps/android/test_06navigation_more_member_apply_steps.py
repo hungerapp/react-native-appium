@@ -120,3 +120,60 @@ def return_to_membership_application(driver):
     member_apply_page = MemberApplyPage(driver)
     member_apply_page.back_to_membership_application()
 
+
+
+@allure.feature('Document Management')
+@allure.story('Document Management in Membership Application')
+@pytest.mark.navigation
+@pytest.mark.run(order=79)
+@given('I am on the membership application page')
+def in_membership_application_page(driver):
+    pass
+
+@when('I tap on document management')
+def tap_document_management(driver):
+    member_apply_page = MemberApplyPage(driver)
+    member_apply_page.tap_document_management()
+    
+@then('I can add a document')
+def add_document(driver):
+    member_apply_page = MemberApplyPage(driver)
+    member_apply_page.add_document()
+
+@then('I can edit, preview, and share a document')
+def edit_preview_share_document(driver):
+    member_apply_page = MemberApplyPage(driver)
+    member_apply_page.edit_preview_share_document()
+
+
+@allure.feature('Disabled Document Management')
+@allure.story('Disabled Document Management in Membership Application')
+@pytest.mark.navigation
+@pytest.mark.run(order=80)
+@given('I am in the document management section')
+def in_document_management_section(driver):
+    pass
+
+@when('I disable a document')
+def disable_document(driver):
+    member_apply_page = MemberApplyPage(driver)
+    member_apply_page.disable_document()
+    
+@then('I click on the disabled tab')
+def click_disabled_tab(driver):
+    member_apply_page = MemberApplyPage(driver)
+    member_apply_page.click_disabled_tab()
+    
+@then('I can reactivate a disabled document')
+def reactivate_disabled_document(driver):
+    member_apply_page = MemberApplyPage(driver)
+    member_apply_page.reactivate_disabled_document()
+
+@then('I can edit and reactivate another disabled document')
+def edit_disabled_document(driver):
+    member_apply_page = MemberApplyPage(driver)
+    member_apply_page.edit_and_reactivate_disabled_document()
+
+@then('I can successfully return to the membership application page')
+def return_to_membership_application(driver):
+    pass

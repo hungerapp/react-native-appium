@@ -37,23 +37,23 @@ Feature: Member Apply
 
 
   # [MEMBER APPLY] DOCUMENT_MANAGEMENT
-  @regression @document_management_in_member_apply @skip
+  @regression @add_edit_preview_share_document_management_in_member_apply 
   Scenario: Manage Documents in Membership Application
-    Given I am on the membership application page
-    When I tap on document management
-    Then I can add a document
+    #Given I am on the membership application page
+    #When I tap on document management
+    #Then I can add a document
     Then I can edit, preview, and share a document
-    Then I can view the signing history
 
 
   # [MEMBER APPLY] DISABLED_DOCUMENT_MANAGEMENT
-  @regression @disabled_document_management_in_member_apply @skip
+  @regression @disabled_document_management_in_member_apply
   Scenario: Manage Disabled Documents
     Given I am in the document management section
-    When I tap on the disabled tab
-    Then I can edit a disabled document
+    When I disable a document
+    Then I click on the disabled tab
     Then I can reactivate a disabled document
-    Then I can return to the membership application page
+    Then I can edit and reactivate another disabled document
+    Then I can successfully return to the membership application page
 
 
   # [MEMBER APPLY] BONUS_POINT_RATIO_MANAGEMENT

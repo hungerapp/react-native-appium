@@ -366,3 +366,152 @@ class MemberApplyPage(CommonUseSection):
         self.driver.back()
         time.sleep(0.5)
         return self
+
+
+####### DOCUMENT MANAGEMENT #######
+
+    def tap_document_management(self):
+        self.driver.find_element(*self.member_apply_locators.DOCUMENT_MANAGEMENT).click()
+        time.sleep(0.5)
+        return self
+    
+    def add_document(self):
+        self.driver.find_element(*self.member_apply_locators.ADD_DOCUMENT_BUTTON).click()
+        time.sleep(0.5)
+        
+        # member auto sign toggle
+        self.driver.find_element(*self.member_apply_locators.MEMBER_AUTO_SIGN_TOGGLE).click()
+        time.sleep(0.5)
+        
+        # document name input
+        random_input = ''.join(random.choices(string.ascii_letters + string.digits + "!@#$%^&*()_+", k=5)) + "自動化測試"
+        self.driver.find_element(*self.member_apply_locators.DOCUMENT_NAME_INPUT).send_keys(random_input)
+        
+        # click text paragraph & problem btn
+        self.driver.find_element(*self.member_apply_locators.ADD_TEXT_PARAGRAPH_BUTTON).click()
+        time.sleep(0.5)
+        
+
+        selected_option = random.choice(self.member_apply_locators.ADD_TEXT_PROBLEM_OPTIONS)
+        self.driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR, f'new UiSelector().text("{selected_option}")').click()
+  
+        if selected_option == self.member_apply_locators.ADD_TEXT_PROBLEM_OPTIONS[0]:
+            # add text paragraph
+            self.driver.find_element(*self.member_apply_locators.ADD_TEXT_PARAGRAPH_CONTENT_INPUT).send_keys(random_input)
+            time.sleep(0.5)
+            self.driver.find_element(*self.member_apply_locators.ADD_TEXT_PARAGRAPH_SAVE_BUTTON).click()
+            time.sleep(0.5)
+        else:
+            # add problem
+            self.driver.find_element(*self.member_apply_locators.NEW_PROBLEM_INPUT).send_keys(random_input)
+            time.sleep(0.5)
+            
+            option_type_section = self.driver.find_element(*self.member_apply_locators.OPTION_TYPE_SECTION)
+            option_type_section.click()
+            time.sleep(0.5)
+            
+            selected_option = random.choice(self.member_apply_locators.OPTION_TYPE_OPTIONS)
+            self.driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR, f'new UiSelector().text("{selected_option}")').click()
+            
+            
+            if selected_option == self.member_apply_locators.OPTION_TYPE_OPTIONS[0] or selected_option == self.member_apply_locators.OPTION_TYPE_OPTIONS[1]:
+                # add new option
+                self.driver.find_element(*self.member_apply_locators.NEW_OPTION).click()
+                time.sleep(0.5)
+                
+                # input random option name
+                random_option = ''.join(random.choices(string.ascii_letters + string.digits + "!@#$%^&*()_+", k=5)) + "自動化測試"
+                self.driver.find_element(*self.member_apply_locators.NEW_OPTION_INPUT).send_keys(random_option)
+                time.sleep(0.5)
+                
+                # click save button
+                self.driver.find_element(*self.member_apply_locators.SAVE_BUTTON).click()
+             
+                
+            else:
+                pass
+            
+            # CLICK QUESTION TYPE SECTION
+            question_type_section = self.driver.find_element(*self.member_apply_locators.QUESTION_TYPE_SECTION)
+            question_type_section.click()
+            time.sleep(0.5)
+            
+            selected_option = random.choice(self.member_apply_locators.QUESTION_TYPE_OPTIONS)
+            self.driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR, f'new UiSelector().text("{selected_option}")').click()
+            
+            # click save button
+            self.driver.find_element(*self.member_apply_locators.SAVE_BUTTON).click()
+             
+        self.driver.find_element(*self.member_apply_locators.CUSTOMER_NEED_TO_SIGN_TOGGLE).click()    
+        self.driver.find_element(*self.member_apply_locators.SAVE_BUTTON).click()
+        
+        return self
+    
+    def edit_preview_share_document(self):
+        # Scroll down to continue editing
+        for _ in range(3):
+            self.driver.swipe(
+                 start_x=500,
+                 start_y=1800,
+                 end_x=500,
+                 end_y=300,
+                 duration=1000
+        )
+        time.sleep(0.5)
+        
+        # click edit document button
+        self.driver.find_element(*self.member_apply_locators.EDIT_DOCUMENT_BUTTON).click()
+        time.sleep(0.5)
+        
+        # randomly choose one of the options
+        selected_option = random.choice(self.member_apply_locators.EDIT_DOCUMENT_OPTIONS)
+        self.driver.find_element(AppiumBy.ACCESSIBILITY_ID, f'{selected_option}').click()
+        
+        
+        if selected_option == self.member_apply_locators.EDIT_DOCUMENT_OPTIONS[0]:
+            # edit document
+            self.driver.find_element(*self.member_apply_locators.MEMBER_AUTO_SIGN_TOGGLE).click()
+            self.driver.find_element(*self.member_apply_locators.CUSTOMER_NEED_TO_SIGN_TOGGLE).click()
+            self.driver.find_element(*self.member_apply_locators.SAVE_BUTTON).click()
+        elif selected_option == self.member_apply_locators.EDIT_DOCUMENT_OPTIONS[1]:
+            # preview document
+            time.sleep(0.5)
+            self.driver.find_element(*self.member_apply_locators.PREVIEW_DOCUMENT_BACK_BUTTON).click()
+        elif selected_option == self.member_apply_locators.EDIT_DOCUMENT_OPTIONS[2]:
+            # share document
+            time.sleep(0.5)
+            self.driver.find_element(*self.member_apply_locators.SHARE_DOCUMENT_COPY_BUTTON).click()
+        else:
+            # sign record
+            time.sleep(0.5)
+            self.driver.find_element(*self.member_apply_locators.SIGN_RECORD_BACK_BUTTON).click()
+        
+        return self
+    
+    def disable_document(self):
+        self.driver.find_element(*self.member_apply_locators.DISABLE_DOCUMENT_BUTTON).click()
+        time.sleep(0.5)
+        self.driver.find_element(*self.member_apply_locators.DISABLE_DOCUMENT_CONFIRM_BUTTON).click()
+        return self
+    
+    def click_disabled_tab(self):
+        self.driver.find_element(*self.member_apply_locators.DISABLE_TAB).click()
+        time.sleep(0.5)
+        return self
+    
+    def reactivate_disabled_document(self):
+        self.driver.find_element(*self.member_apply_locators.REACTIVATE_BUTTON).click()
+        time.sleep(0.5)
+        self.driver.find_element(*self.member_apply_locators.REACTIVATE_CONFIRM_BUTTON).click()
+        return self
+    
+    def edit_and_reactivate_disabled_document(self):
+        self.driver.find_element(*self.member_apply_locators.RANDOMLY_EDIT_DISABLE_DOCUMENT_BUTTON).click()
+        time.sleep(0.5)
+        self.driver.find_element(*self.member_apply_locators.MEMBER_AUTO_SIGN_TOGGLE).click()
+        self.driver.find_element(*self.member_apply_locators.CUSTOMER_NEED_TO_SIGN_TOGGLE).click()
+        
+        # click reactivate document button
+        self.driver.find_element(*self.member_apply_locators.REACTIVATE_DOCUMENT_BUTTON).click()
+        self.driver.find_element(*self.member_apply_locators.REACTIVATE_CONFIRM_BUTTON).click()
+        return self
