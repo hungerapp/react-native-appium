@@ -107,3 +107,18 @@ class MemberApplyLocators:
       REACTIVATE_CONFIRM_BUTTON = (AppiumBy.ACCESSIBILITY_ID, '啟用')
       RANDOMLY_EDIT_DISABLE_DOCUMENT_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("pen-to-square").instance(0)')
       REACTIVATE_DOCUMENT_BUTTON = (AppiumBy.ACCESSIBILITY_ID, '重新啟用')
+      
+      ##################################
+      
+      
+      
+      ######## BONUS POINT RATIO MANAGEMENT ########
+      BONUS_POINTS = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("紅利點數")')
+      BONUS_POINT_RATIO_SECTION = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("贈點比例")')
+      CHECKOUT_AUTO_SEND_TOGGLE = (AppiumBy.ACCESSIBILITY_ID, '結帳自動贈點-switch-button')
+      BONUS_POINT_RATIO_INPUT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("android.widget.EditText")')
+      BONUS_POINT_RATIO_SAVE_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("check")')
+      
+      
+      
+      

@@ -515,3 +515,28 @@ class MemberApplyPage(CommonUseSection):
         self.driver.find_element(*self.member_apply_locators.REACTIVATE_DOCUMENT_BUTTON).click()
         self.driver.find_element(*self.member_apply_locators.REACTIVATE_CONFIRM_BUTTON).click()
         return self
+    
+    
+    
+####### BONUS POINT RATIO MANAGEMENT #######
+
+    def tap_bonus_points(self):
+        self.driver.find_element(*self.member_apply_locators.BONUS_POINTS).click()
+        time.sleep(0.5)
+        return self
+
+    def set_bonus_point_ratio(self):
+        
+        # click toggle 2 times
+        for _ in range(2):
+            self.driver.find_element(*self.member_apply_locators.CHECKOUT_AUTO_SEND_TOGGLE).click()
+            time.sleep(0.5)
+            
+        # set bonus point ratio
+        self.driver.find_element(*self.member_apply_locators.BONUS_POINT_RATIO_SECTION).click()
+        self.driver.find_element(*self.member_apply_locators.BONUS_POINT_RATIO_INPUT).send_keys(random.randint(1, 100))
+        time.sleep(0.5)
+        
+        # click save button
+        self.driver.find_element(*self.member_apply_locators.SAVE_BUTTON).click()
+        return self

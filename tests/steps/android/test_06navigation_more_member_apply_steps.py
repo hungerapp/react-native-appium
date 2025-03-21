@@ -11,7 +11,7 @@ scenarios('../../../features/navigation/more/member_apply.feature')
 
 
     
-# general voucher management
+# GENERAL VOUCHER MANAGEMENT
 @allure.feature('General Voucher Management')
 @allure.story('General Voucher Management')
 @pytest.mark.navigation
@@ -38,7 +38,7 @@ def edit_and_delete_general_voucher(driver):
 
 
     
-# bonus point voucher management
+# BONUS POINT VOUCHER MANAGEMENT
 @allure.feature('Bonus Point Voucher Management')
 @allure.story('Bonus Point Voucher Management')
 @pytest.mark.navigation
@@ -65,7 +65,7 @@ def edit_and_delete_bonus_point_voucher(driver):
 
   
     
-# membership gift voucher management
+# MEMBERSHIP GIFT VOUCHER MANAGEMENT
 @allure.feature('Membership Gift Voucher Management')
 @allure.story('Membership Gift Voucher Management')
 @pytest.mark.navigation
@@ -91,7 +91,7 @@ def edit_and_delete_membership_gift_voucher(driver):
 
     
 
-# birthday gift voucher management
+# BIRTHDAY GIFT VOUCHER MANAGEMENT
 @allure.feature('Birthday Gift Voucher Management')
 @allure.story('Birthday Gift Voucher Management')
 @pytest.mark.navigation
@@ -121,7 +121,7 @@ def return_to_membership_application(driver):
     member_apply_page.back_to_membership_application()
 
 
-
+# DOCUMENT MANAGEMENT
 @allure.feature('Document Management')
 @allure.story('Document Management in Membership Application')
 @pytest.mark.navigation
@@ -146,6 +146,7 @@ def edit_preview_share_document(driver):
     member_apply_page.edit_preview_share_document()
 
 
+# DISABLED DOCUMENT MANAGEMENT
 @allure.feature('Disabled Document Management')
 @allure.story('Disabled Document Management in Membership Application')
 @pytest.mark.navigation
@@ -177,3 +178,31 @@ def edit_disabled_document(driver):
 @then('I can successfully return to the membership application page')
 def return_to_membership_application(driver):
     pass
+
+
+
+# BONUS POINT RATIO MANAGEMENT
+@allure.feature('Bonus Point Ratio Management')
+@allure.story('Bonus Point Ratio Management in Membership Application')
+@pytest.mark.navigation
+@pytest.mark.run(order=81)
+@given('I am on the membership application page')
+def in_membership_application_page(driver):
+    pass
+
+@when('I tap on bonus points')
+def tap_bonus_points(driver):
+    member_apply_page = MemberApplyPage(driver)
+    member_apply_page.tap_bonus_points()
+
+@then('I can freely set the bonus point ratio')
+def set_bonus_point_ratio(driver):
+    member_apply_page = MemberApplyPage(driver)
+    member_apply_page.set_bonus_point_ratio()
+
+@then('I can return to the membership application page')
+def return_to_membership_application(driver):
+    member_apply_page = MemberApplyPage(driver)
+    member_apply_page.back_to_membership_application()
+    
+    

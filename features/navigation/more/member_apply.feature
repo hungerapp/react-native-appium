@@ -57,7 +57,7 @@ Feature: Member Apply
 
 
   # [MEMBER APPLY] BONUS_POINT_RATIO_MANAGEMENT
-  @regression @bonus_point_ratio_in_member_apply @skip
+  @regression @bonus_point_ratio_in_member_apply 
   Scenario: Configure Bonus Point Ratio in Membership Application
     Given I am on the membership application page
     When I tap on bonus points
