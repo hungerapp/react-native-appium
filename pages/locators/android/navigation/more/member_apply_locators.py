@@ -105,7 +105,7 @@ class MemberApplyLocators:
       DISABLE_DOCUMENT_CONFIRM_BUTTON = (AppiumBy.ACCESSIBILITY_ID, '停用')
       REACTIVATE_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("arrows-repeat").instance(0)')
       REACTIVATE_CONFIRM_BUTTON = (AppiumBy.ACCESSIBILITY_ID, '啟用')
-      RANDOMLY_EDIT_DISABLE_DOCUMENT_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("pen-to-square").instance(0)')
+      RANDOMLY_EDIT_DISABLE_DOCUMENT_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("pen-to-square").instance(1)')
       REACTIVATE_DOCUMENT_BUTTON = (AppiumBy.ACCESSIBILITY_ID, '重新啟用')
       
       ##################################

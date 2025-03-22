@@ -293,6 +293,7 @@ class MemberPage(CommonUseSection):
           return self
     
       def edit_top_up_amount(self):
+          
           self.driver.find_element(*self.member_locators.TOP_UP_SECTION['edit_top_up_icon']).click()
           time.sleep(0.5)
         
@@ -339,7 +340,7 @@ class MemberPage(CommonUseSection):
           return self
     
       def edit_bonus_points(self):
-          # same id same logic 
+          time.sleep(1)
           self.edit_top_up_amount()
           time.sleep(0.5) 
         
