@@ -4,7 +4,8 @@ from appium.webdriver.common.appiumby import AppiumBy
 class LoginLocators:
       LANGUAGE_SETTING_BUTTON = (AppiumBy.ACCESSIBILITY_ID, '語言設定')
       CHINESE_LANGUAGE = (AppiumBy.ACCESSIBILITY_ID, '繁體中文, 繁體中文(台灣)')
-      LANGUAGE_SAVE_BUTTON = (AppiumBy.ACCESSIBILITY_ID, '語言設定-modal-right-button ')
+      # language save button may disappear frequently, thus we use uiautomator to find it
+      LANGUAGE_SAVE_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(1)')
       CONTACT_CS_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("聯繫客服")')
       CONTACT_CS_BACK_BUTTON = (AppiumBy.ACCESSIBILITY_ID, '關閉')
       TERMS_AND_CONDITIONS_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("服務條款")')

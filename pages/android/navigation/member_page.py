@@ -424,6 +424,7 @@ class MemberPage(CommonUseSection):
           return self
       
       def edit_basic_info(self):
+          time.sleep(1)
           self.driver.find_element(*self.member_locators.EDIT_SECTION['edit_info_icon']).click()
           time.sleep(0.5)
         
@@ -443,6 +444,7 @@ class MemberPage(CommonUseSection):
           return self
     
       def edit_custom_fields(self):
+          time.sleep(1)
           self.driver.find_element(*self.member_locators.EDIT_SECTION['edit_custom_info_icon']).click()
           time.sleep(0.5)
         

@@ -511,7 +511,7 @@ class MemberApplyPage(CommonUseSection):
         return self
     
     def edit_and_reactivate_disabled_document(self):
-        time.sleep(1)
+        time.sleep(1.5)
         self.driver.find_element(*self.member_apply_locators.RANDOMLY_EDIT_DISABLE_DOCUMENT_BUTTON).click()
         self.driver.find_element(*self.member_apply_locators.MEMBER_AUTO_SIGN_TOGGLE).click()
         
