@@ -511,3 +511,14 @@ class CommonUseSection:
             'x': int(size['width'] * 0.5),  
             'y': int(size['height'] * 0.9)   
         })
+
+    @staticmethod
+    def get_current_timestamp():
+        """
+        Generates current timestamp in YYYYMMDDHHMMSSmmm format
+        """
+        from datetime import datetime
+
+        now = datetime.now()
+        timestamp = now.strftime("%Y%m%d%H%M%S") + f"{int(now.microsecond / 1000):03d}"
+        return timestamp

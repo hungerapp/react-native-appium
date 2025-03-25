@@ -1,111 +1,42 @@
 Feature: Setting Button in Navigation Bar
 
-    @regression @navigate_to_branch_settings @calendar_page
-    Scenario: Navigate to Branch Settings Page from Calendar
-        Given I am on the Calendar page
-        When I tap on the Settings button in the navigation bar
-        Then I should be navigated to the Branch Settings page
-
-    @regression @navigate_to_branch_and_brand_info @branch_settings_page
-    Scenario: Access Branch Information from Branch Settings Page
-        Given I am on the Branch Settings page
-        When I tap on the Branch Information option section's Branch Name
-        Then I should be navigated to the Branch and Brand Information page
-        Then I can view the list of branches and their details
-
-    @regression @edit_branch_name @branch_brand_info_page
-    Scenario: Edit Branch Name on Branch and Brand Information Page
-        Given I am on the Branch and Brand Information page
-        When I tap on the Branch Name field
-        Then I enter a new branch name
-        Then I tap the confirm edit button
-        Then the branch name should be updated successfully
-
-    @regression @edit_branch_description @branch_brand_info_page
-    Scenario: Edit Branch Description on Branch and Brand Information Page
-        Given I am on the Branch and Brand Information page
-        When I tap on the Branch Description field
-        Then I enter a new branch description
-        Then I tap the confirm edit button
-        Then the branch description should be updated successfully
-
-    @regression @toggle_branch_phone_switch_on @branch_brand_info_page
-    Scenario: Open Show Branch Phone Toggle in Branch Phone Section
-        Given I am on the Branch and Brand Information page
-        Then I can see the Show Branch Phone Toggle is off
-        When I tap on the Show Branch Phone Toggle
-        Then the Show Branch Phone Toggle should turn on
-        Then I tap the confirm edit button
-        Then the branch description should be updated successfully
-
-    @regression @toggle_branch_phone_switch_off @branch_brand_info_page
-    Scenario: Close Show Branch Phone Toggle in Branch Phone Section
-        Given I am on the Branch and Brand Information page
-        Then I can see the Show Branch Phone Toggle is on
-        When I tap on the Show Branch Phone Toggle
-        Then the Show Branch Phone Toggle should turn off
-        Then I tap the confirm edit button
-        Then the branch description should be updated successfully
-
-    @regression @edit_taiwan_phone_number @branch_brand_info_page
-    # Note: Currently only supporting Taiwan region, country code selection not implemented yet
-    Scenario: Edit Taiwan Phone Number in Branch Phone Section
-        Given I am on the Branch and Brand Information page
-        When I tap on the Branch Phone field
-        Then I enter a new phone number
-        Then I tap the Confirm Edit Button
-        Then the Branch Phone should be updated successfully
-
-    @regression @toggle_branch_address_switch_on @branch_brand_info_page
-    Scenario: Open Show Branch Address Toggle in Branch Address Section
-        Given I am on the Branch and Brand Information page
-        Then I can see the Show Branch Address Toggle is off
-        When I tap on the Show Branch Address Toggle
-        Then the Show Branch Address Toggle should turn on
-        Then I tap the confirm edit button
-        Then the branch address should be updated successfully
-
-    @regression @toggle_branch_address_switch_off @branch_brand_info_page
-    Scenario: Close Show Branch Address Toggle in Branch Address Section
-        Given I am on the Branch and Brand Information page
-        Then I can see the Show Branch Address Toggle is on
-        When I tap on the Show Branch Address Toggle
-        Then the Show Branch Address Toggle should turn off
-        Then I tap the confirm edit button
-        Then the branch address should be updated successfully
-
-
-    @regression @expand_brand_setting_button @branch_brand_info_page
-    Scenario: Expand Brand Setting Button on Branch and Brand Information Page
-        Given I am on the Branch and Brand Information page
-        When I tap on the expand brand settings button
-        Then the button text should change to collapse brand settings button
+    @regression @branch_settings_management @branch_settings_page @branch_brand_info_page
+    Scenario: Navigate to Branch Settings and Edit Branch Information
+        Given I tap the Settings button in the navigation bar
+        Then I should see the Branch Settings Page
+        When I tap on the Branch Name in the Branch Information section in the Branch Settings page
+        Then I should see the Branch and Brand Information page
+        Then I modify the branch name
+        Then I modify the branch description
+        Then I turn on the Show Branch Phone Toggle
+        Then I modify the branch phone number
+        Then I turn on the Show Branch Address Toggle
+        Then I modify the branch address
+        Then I tap on the expand brand settings button
         Then the brand settings section should be expanded
-        Then within the brand settings section, I should see the brand image
-        Then within the brand settings section, I should see the brand name
-        Then within the brand settings section, I should see the brand description
+        Then I tap the Confirm Edit button in the Branch and Brand Information page
+        Then I should return to the Branch Settings page
 
-    @regression @edit_brand_name @branch_brand_info_page
-    Scenario: Edit Brand Name on Branch and Brand Information Page
-        Given I am on the Branch and Brand Information page
-        When I tap on the expand brand settings button
-        Then the brand settings section should be expanded
-        Then I can see the original brand name
-        When I tap on the Brand Name field
-        Then I enter a new brand name
-        Then I tap the confirm edit button
-        Then the brand name should be updated successfully
+    @regression @branch_settings @toggle_off_display_features @branch_brand_info_page
+    Scenario: Turn Off Branch Phone Display And Address Display
+        Given I tap on the Branch Name in the Branch Information section in the Branch Settings page
+        When I turn off the Show Branch Phone Toggle
+        Then I turn off the Show Branch Address Toggle
+        Then I tap the Confirm Edit button in the Branch and Brand Information page
+        Then I should return to the Branch Settings page
 
-    @regression @edit_brand_description @branch_brand_info_page
-    Scenario: Edit Brand Description on Branch and Brand Information Page
-        Given I am on the Branch and Brand Information page
-        When I tap on the expand brand settings button
-        Then the brand settings section should be expanded
-        Then I can see the original brand description
-        When I tap on the Brand Description field
-        Then I enter a new brand description
-        Then I tap the confirm edit button
-        Then the brand description should be updated successfully
+    @regression @branch_settings_management @branch_settings_page @branch_brand_info_page
+    Scenario: Turn Off Branch Address Display
+        Given I tap the Settings button in the navigation bar
+        Then I should see the Branch Settings Page
+        When I tap on the Branch Name in the Branch Information section in the Branch Settings page
+        Then I should see the Branch and Brand Information page
+        When I turn off the Show Branch Address Toggle
+        Then the branch address fields should be hidden
+        Then I tap the Confirm Edit button in the Branch and Brand Information page
+        Then I should return to the Branch Settings page
+        Then I should see the branch address is not displayed
+
 
     @regression @navigate_to_plan_management @branch_settings_page
     Scenario: Navigate to Plan Management Page from Branch Settings
