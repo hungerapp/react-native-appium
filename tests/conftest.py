@@ -5,19 +5,21 @@ import subprocess
 import time
 
 from subprocess import run, Popen
+from datetime import datetime
+
 from setup import AppiumSetup
 from utils.send_report_to_slack import send_report_to_slack
-from datetime import datetime
+from utils.logger import logger
+
 
 @pytest.fixture(scope="session")
 def driver():
     """Set up and tear down Appium driver for the test session."""
     appium_setup = AppiumSetup()
     driver = appium_setup.setUp()
+    logger.info("Appium driver setup complete")
     yield driver
     appium_setup.tearDown()
-
-
 
 def pytest_configure(config):
     """Add custom markers for tagging tests."""
