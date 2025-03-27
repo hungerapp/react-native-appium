@@ -21,8 +21,8 @@ def click_user_book(driver):
     tutorial_book_page = TutorialBookPage(driver)
     tutorial_book_page.click_tutorial_book()
     
-@then('I can successfully redirect to the user guide')
-def successfully_redirect_to_the_user_guide(driver):
+@then('I can successfully redirect to the user book')
+def successfully_redirect_to_the_user_book(driver):
     pass
     
 @then('I can return to the calendar page')
