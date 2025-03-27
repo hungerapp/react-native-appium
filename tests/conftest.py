@@ -17,7 +17,6 @@ def driver():
     """Set up and tear down Appium driver for the test session."""
     appium_setup = AppiumSetup()
     driver = appium_setup.setUp()
-    logger.info("Appium driver setup complete")
     yield driver
     appium_setup.tearDown()
 

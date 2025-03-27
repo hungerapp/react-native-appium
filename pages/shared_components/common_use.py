@@ -604,7 +604,7 @@ class CommonUseSection:
             time.sleep(0.5)
         
         dates = self.driver.find_elements(AppiumBy.XPATH, '//android.view.ViewGroup[@content-desc="一, 二, 三, 四, 五, 六, 日"]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup')
-      
+        
         random.choice(dates).click()
         
         # click outside to close the date window

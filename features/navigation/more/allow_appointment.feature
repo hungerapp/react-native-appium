@@ -5,7 +5,7 @@ Feature: Allow Appointment
   Scenario: Accessing Reservation Settings
     Given I click on the more option in the bottom navigation bar
     When I click on the allow appointment settings
-    Then I can select open days and times
+    Then I can click the toggle and select open times
     Then I can select the latest reservation time
     When I click on the expand advanced settings
     Then I can enter the quantity selection
@@ -17,8 +17,8 @@ Feature: Allow Appointment
     When I click on the open time tab
     Then I can select the display date
     Then I can add a new open time
-    When I click on edit
-    Then I can edit the open time
+    When I click on edit then copy today
+    Then I can edit the open time and quick close
 
 
   # [ALLOW APPOINTMENT SETTINGS] OPEN_ITEMS_MANAGEMENT
