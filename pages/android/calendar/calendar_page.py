@@ -18,7 +18,7 @@ class CalendarPage:
         time.sleep(2)
 
     def change_month_display_mode(self):
-        clicks_arrow = random.randint(1, 3)
+        clicks_arrow = random.randint(1, 8)
         for _ in range(clicks_arrow):
             self.driver.find_element(*self.calendar_locators.ARROW).click()
             time.sleep(0.5)

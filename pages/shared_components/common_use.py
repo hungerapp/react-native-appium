@@ -28,6 +28,20 @@ class CommonUseSection:
     SEARCH_INPUT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("輸入國家或號碼進行搜尋")')
     
     
+    # select service
+    TAB_CONTAINER = (AppiumBy.XPATH, '//android.widget.HorizontalScrollView/android.view.ViewGroup')
+    SERVICE_TAB_CONTAINER = (AppiumBy.XPATH, "//android.widget.HorizontalScrollView/android.view.ViewGroup")
+    AUTO_TEST_TAB = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("自動化測試服物分類")')
+    SERVICE_ITEMS = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("測試服務")')
+    SAVE_SERVICE_BTN = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(1)')
+    SERVICE_OPTION1 = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("測試服務1")')
+    SERVICE_OPTION4 = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("測試服務4")')
+    SUB_SERVICE_SAVE_BTN = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(1)')
+    SUB_SERVICE_OPTIONS = {
+            "option1": "附加服務1, +30 分鐘 / +NT$500",
+            "option2": "附加服務2, +30 分鐘 / +NT$500",
+            "option3": "附加服務3, +30 分鐘 / +NT$500"
+      }
     
     
     
@@ -338,6 +352,93 @@ class CommonUseSection:
         time.sleep(0.5)
         return self
     
+    def select_service(self):
+        try:
+            tab_container = self.driver.find_element(*self.TAB_CONTAINER)
+            size = tab_container.size
+            location = tab_container.location
+
+            start_x = location['x'] + int(size['width'] * 0.8)
+            end_x = location['x'] + int(size['width'] * 0.2)
+            y = location['y'] + int(size['height'] * 0.5)
+
+            max_attempts = 5
+            found_target = False
+
+            for _ in range(max_attempts):
+                self.driver.swipe(start_x, y, end_x, y, 100)
+                time.sleep(0.5)
+                try:
+                    auto_test_tab = self.driver.find_element(*self.AUTO_TEST_TAB)
+                    if auto_test_tab.is_displayed():
+                        auto_test_tab.click()
+                        found_target = True
+                        break
+                except NoSuchElementException:
+                    continue
+
+            if not found_target:
+                print("Could not find AUTO_TEST_TAB after maximum attempts")
+                return self
+
+        except Exception as e:
+            print(f"Error swiping tabs: {str(e)}")
+            return self
+
+        # Select specific services under AUTO_TEST_TAB
+        try:
+            service1 = self.driver.find_element(*self.SERVICE_OPTION1)
+            service4 = self.driver.find_element(*self.SERVICE_OPTION4)
+
+            service4.click()
+            time.sleep(0.5)
+            self.handle_sub_services()
+            
+            service1.click()
+
+            # Click save button
+            time.sleep(1)
+            save_button = self.driver.find_element(*self.SAVE_SERVICE_BTN)
+            save_button.click()
+
+        except Exception as e:
+            print(f"Error selecting services: {str(e)}")
+
+        return self
+    
+    def handle_sub_services(self):
+        """
+        Handle sub-services modal if it appears:
+        1. Always select 2 options from predefined options
+        2. Click selected options using description
+        3. Click save button
+        """
+        
+        try:
+            num_to_select = 2
+            selected_options = random.sample(list(self.SUB_SERVICE_OPTIONS.values()), num_to_select)
+            
+            for description in selected_options:
+                try:
+                    option_locator = (AppiumBy.ANDROID_UIAUTOMATOR, f'new UiSelector().description("{description}")')
+                    option_element = self.driver.find_element(*option_locator)
+                    option_element.click()
+                except NoSuchElementException:
+                    continue
+            
+            # Click save button for sub-service
+            sub_save_button = self.driver.find_element(*self.SUB_SERVICE_SAVE_BTN)
+            if sub_save_button.is_displayed():
+                sub_save_button.click()
+            else:
+                print("Sub-service save button is not visible or enabled")
+            return True
+            
+        except Exception as e:
+            print(f"Error handling sub-services: {str(e)}")
+            return False
+
+    
     
     def update_items_amount(self):
         amount_edit_icon = self.driver.find_element(*self.AMOUNT_EDIT_ICON)
@@ -503,7 +604,7 @@ class CommonUseSection:
             time.sleep(0.5)
         
         dates = self.driver.find_elements(AppiumBy.XPATH, '//android.view.ViewGroup[@content-desc="一, 二, 三, 四, 五, 六, 日"]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup')
-      
+        
         random.choice(dates).click()
         
         # click outside to close the date window
