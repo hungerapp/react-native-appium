@@ -90,6 +90,6 @@ class CreateAppointmentLocators:
       SAVE_CONTACT_BUTTON = (AppiumBy.ACCESSIBILITY_ID, 'check')
       INVALID_PHONE_MSG = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text(" 格式錯誤。")')
       CONTACT_BACK_BTN = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(0)')
-      CONTACT_HAS_CHOSEN = (AppiumBy.ACCESSIBILITY_ID, '+886 972 205690, 王貝克')
+      CONTACT_HAS_CHOSEN = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("+886 972 205690")')
       CONTACT_PHONE_CHANGE = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("972205690")')
      

@@ -30,9 +30,9 @@ class Member_Locators:
         'check_scheduling_records': (AppiumBy.ACCESSIBILITY_ID, '排程記錄'),
         'search_member': (AppiumBy.ACCESSIBILITY_ID, '搜尋'),
         'sent_tag': (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().description("已發送").instance(0)'),
-        'member_filer_back': (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(0)'),
-        'passport_return_button': (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(0)'),
-        'scheduling_records_back': (AppiumBy.XPATH, '//com.horcrux.svg.PathView')
+        'member_filer_back': (AppiumBy.ACCESSIBILITY_ID, 'xmark'),
+        'passport_return_button': (AppiumBy.ACCESSIBILITY_ID, 'xmark'),
+        'scheduling_records_back': (AppiumBy.ACCESSIBILITY_ID, 'xmark')
       }
     
       MEMBER_FILTER_SECTIONS = {
