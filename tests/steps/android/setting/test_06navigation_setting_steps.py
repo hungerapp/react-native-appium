@@ -115,3 +115,45 @@ def tap_show_branch_address_toggle(driver):
     brand_page.is_branch_address_toggle_on()
     brand_page.tap_branch_address_toggle()
     assert brand_page.verify_branch_address_turn_off(), "Branch address information section is displayed"
+
+# Scenario: Verify Pro Business Plan Features and Navigation
+@given("I am on the Branch Settings page")
+def verify_on_branch_settings_page(driver):
+    brand_page = BrandPage(driver)
+    assert brand_page.verify_branch_settings_page(), "Branch Settings page not found"
+
+@then("my branch has a Pro Business plan subscription")
+def verify_pro_business_plan(driver):
+    brand_page = BrandPage(driver)
+    assert brand_page.verify_pro_business_plan(), "Pro Business plan not found"
+
+@when("I tap on the Branch Information option section's Branch Purchase Plan")
+def tap_branch_purchase_plan(driver):
+    brand_page = BrandPage(driver)
+    brand_page.tap_branch_purchase_plan()
+
+@then("I should be navigated to the Plan Management page")
+def verify_plan_management_page(driver):
+    brand_page = BrandPage(driver)
+    assert brand_page.verify_plan_management_page(), "Plan Management page not found"
+
+@when("I tap on the view next plan details button")
+def tap_view_next_plan_details_button(driver):
+    brand_page = BrandPage(driver)
+    brand_page.tap_view_next_plan_details_button()
+
+@then("the Payment Details dialog should be displayed")
+def verify_payment_details_dialog(driver):
+    brand_page = BrandPage(driver)
+    assert brand_page.verify_payment_details_dialog(), "Payment Details dialog not found"
+
+@when("I tap on the close button in the Payment Details dialog")
+def tap_close_button_in_payment_details_dialog(driver):
+    brand_page = BrandPage(driver)
+    brand_page.tap_close_button_in_payment_details_dialog()
+
+@then("the Payment Details dialog should be dismissed")
+def verify_payment_details_dialog_dismissed(driver):
+    brand_page = BrandPage(driver)
+    assert brand_page.verify_payment_details_dialog_dismissed(), "Payment Details dialog not dismissed"
+
