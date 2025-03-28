@@ -15,7 +15,7 @@ noReset_bool = True if config['NO_RESET'] == 'True' else False
 platform = config['APPIUM_OS']
 auto_accept_alerts_bool = True if config['AUTO_ACCEPT_ALERTS'] == 'True' else False
 
-# 設備配置
+# Android devices
 ANDROID_DEVICES = {
     'gw0': {  # worker ID
         'udid': 'emulator-5554',
@@ -33,7 +33,7 @@ ANDROID_DEVICES = {
     }
 }
 
-# 基本 options 設置
+# basic options setup
 options = XCUITestOptions()
 options.platform_name = platform
 options.set_capability('language', 'zh')
@@ -68,15 +68,43 @@ elif options.platform_name == 'ios':
 
 class AppiumSetup(unittest.TestCase):
     def setUp(self) -> Remote:
-        worker_id = getattr(self, 'worker_id', 'gw0')
-        device_config = ANDROID_DEVICES.get(worker_id, ANDROID_DEVICES['gw0'])
+        worker_id = getattr(self, 'worker_id', None)
+        appium_port = getattr(self, 'appium_port', None)
+        
+        # decide which device to use
+        device_config = None
+        
+        # 1. first check if there is a specified appium_port
+        if appium_port:
+            for device_id, device in ANDROID_DEVICES.items():
+                if device['appium_port'] == appium_port:
+                    device_config = device
+                    break
+        
+        # 2. if no config found through port, check marker
+        if not device_config and hasattr(self, '_pytest_request'):
+            for marker in self._pytest_request.node.iter_markers():
+                for device_id, device in ANDROID_DEVICES.items():
+                    if device['marker'] == marker.name:
+                        device_config = device
+                        break
+        
+        # 3. if still no config found, use gw0
+        if not device_config:
+            device_config = ANDROID_DEVICES['gw0']
         
         # Setting Appium server URL
-        appium_server_url = f'http://127.0.0.1:{device_config["appium_port"]}'  
+        appium_server_url = f'http://127.0.0.1:{device_config["appium_port"]}'
+        print(f"Using device config: {device_config}")
+        print(f"Connecting to Appium server at: http://127.0.0.1:{device_config['appium_port']}")
+
         
         if platform == 'android':
             options.set_capability('udid', device_config['udid'])
             options.set_capability('systemPort', device_config['systemPort'])
+            options.set_capability('platformName', 'Android')
+            options.set_capability('automationName', 'UiAutomator2')
+            options.set_capability('deviceName', device_config['avd'])
         
         # Setting global variables
         self.config = config
