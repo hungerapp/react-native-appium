@@ -1,4 +1,4 @@
-Feature: Setting Button in Navigation Bar
+Feature: Brand Management in Branch Settings
 
     @regression @branch_settings_management @branch_settings_page @branch_brand_info_page
     Scenario: Navigate to Branch Settings and Edit Branch Information
@@ -26,17 +26,52 @@ Feature: Setting Button in Navigation Bar
         Then I should return to the Branch Settings page
 
     @regression @pro_business_plan_verification @plan_management_page
-    Scenario: Verify Pro Business Plan Features and Navigation
-#        Given I am on the Branch Settings page
-#        Then my branch has a Pro Business plan subscription
-#        When I tap on the Branch Information option section's Branch Purchase Plan
-#        Then I should be navigated to the Plan Management page
-#        When I tap on the view next plan details button
+    Scenario: Verify PRO Business Plan Features and Navigation
+        Given I am on the Branch Settings page
+        Then my branch has a Pro Business plan subscription
+        When I tap on the Branch Information option section's Branch Purchase Plan
+        Then I should be navigated to the Plan Management page
+        When I tap on the view next plan details button
         Then the Payment Details dialog should be displayed
         When I tap on the close button in the Payment Details dialog
         Then the Payment Details dialog should be dismissed
-#        When I tap on the plan change button
-#        Then I should be navigated to the Plan Change page
-#        When I navigate back to the Plan Management page
-#        Then I tap on the Payment Records section
-#        Then I should be navigated to the Payment Records page
+        When I tap on the plan change button
+        Then I should be navigated to the Plan Change page
+        When I tap the select Pro business plan button
+        Then I should be navigated to the Pro Business plan page
+        Then the select Pro Business plan button should be disabled
+        When I tap the different plan button on the Pro Business plan page
+        Then I should see the Pro Business plan content in the plan functionality dialog
+        When I switch to the Start New tab
+        Then I should see the Start New plan content in the plan functionality dialog
+        When I switch to the Free Trial tab
+        Then I should see the Free Trial plan content in the plan functionality dialog
+        When I tap the close button plan functionality dialog button
+        Then the plan functionality dialog should be dismissed
+        When I tap the close button in the Pro Business plan page
+        Then I should be navigated back to the Plan Change page
+        When I tap the select Start New plan button
+        Then I should be navigated to the Start New plan page
+        Then the select Start New plan button should be enable
+        When I tap the different plan button on the Pro Business plan page
+        Then I should see the Start New plan content in the plan functionality dialog
+        When I switch to the Free Trial tab
+        Then I should see the Free Trial plan content in the plan functionality dialog
+        When I switch to the Pro Business plan tab
+        Then I should see the Pro Business plan content in the plan functionality dialog
+        When I tap the close button plan functionality dialog button
+        Then the plan functionality dialog should be dismissed
+        When I tap the close button in the Start New Plan page
+        Then I should be navigated back to the Plan Change page
+        When I tap on Downgrade to Free Trial Plan in the Plan Change page
+        Then the Cancel Payment Plan dialog should be displayed
+        When I tap on Cancel button in the Cancel Payment Plan dialog
+        Then the Cancel Payment Plan dialog should be dismissed
+        When I tap close button in the Plan Change page
+        Then I should be navigated to the Plan Management page
+        When I tap on the Payment Records section
+        Then I should be navigated to the Payment Records page
+        When I tap close button in the Payment Records page
+        Then I should be navigated to the Plan Management page
+        When I tap back hotcake app button
+        Then I should be navigated to the Branch Settings page

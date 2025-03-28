@@ -157,3 +157,152 @@ def verify_payment_details_dialog_dismissed(driver):
     brand_page = BrandPage(driver)
     assert brand_page.verify_payment_details_dialog_dismissed(), "Payment Details dialog not dismissed"
 
+@when("I tap on the plan change button")
+def tap_plan_change_button(driver):
+    brand_page = BrandPage(driver)
+    brand_page.tap_plan_change_button()
+
+@then("I should be navigated to the Plan Change page")
+def verify_plan_change_page(driver):
+    brand_page = BrandPage(driver)
+    assert brand_page.verify_plan_change_page(), "Plan Change page not found"
+
+@when("I tap the select Pro business plan button")
+def tap_pro_business_plan_button(driver):
+    brand_page = BrandPage(driver)
+    brand_page.tap_pro_business_plan_button()
+
+@then("I should be navigated to the Pro Business plan page")
+def verify_pro_business_plan_page(driver):
+    brand_page = BrandPage(driver)
+    assert brand_page.verify_pro_business_plan_page(), "Pro Business plan page not found"
+
+@then("the select Pro Business plan button should be disabled")
+def verify_pro_business_plan_button_disabled(driver):
+    brand_page = BrandPage(driver)
+    assert brand_page.verify_pro_business_plan_button_disabled(), "Pro Business plan button is enabled"
+
+@when("I tap the different plan button on the Pro Business plan page")
+def tap_different_plan_button(driver):
+    brand_page = BrandPage(driver)
+    brand_page.tap_different_plan_button()
+
+@then("I should see the Pro Business plan content in the plan functionality dialog")
+def verify_pro_business_plan_content_in_plan_functionality_dialog(driver):
+    brand_page = BrandPage(driver)
+    assert brand_page.verify_pro_business_plan_content_in_plan_functionality_dialog(), "Pro Business plan content not found in Plan Functionality dialog"
+
+@when("I switch to the Start New tab")
+def switch_to_star_new_tab(driver):
+    brand_page = BrandPage(driver)
+    brand_page.tap_star_new_tab()
+
+@then("I should see the Start New plan content in the plan functionality dialog")
+def verify_star_new_plan_content_in_plan_functionality_dialog(driver):
+    brand_page = BrandPage(driver)
+    assert brand_page.verify_start_new_plan_content_in_plan_functionality_dialog(), "Star new plan content not found in Plan Functionality dialog"
+
+@when("I switch to the Free Trial tab")
+def switch_to_free_plan_tab(driver):
+    brand_page = BrandPage(driver)
+    brand_page.tap_free_plan_tab()
+
+@then("I should see the Free Trial plan content in the plan functionality dialog")
+def verify_free_plan_content_in_plan_functionality_dialog(driver):
+    brand_page = BrandPage(driver)
+    assert brand_page.verify_free_plan_content_in_plan_functionality_dialog(), "Free trial plan content not found in Plan Functionality dialog"
+
+@when("I tap the close button plan functionality dialog button")
+def tap_close_plan_functionality_dialog_button(driver):
+    brand_page = BrandPage(driver)
+    brand_page.tap_close_plan_functionality_dialog_button()
+
+@then("the plan functionality dialog should be dismissed")
+def verify_plan_functionality_dialog_dismissed(driver):
+    brand_page = BrandPage(driver)
+    assert brand_page.verify_plan_functionality_dialog_dismissed(), "Plan Functionality dialog not dismissed"
+
+@when("I tap the close button in the Start New Plan page")
+def tap_close_button_in_start_new_plan_page(driver):
+    brand_page = BrandPage(driver)
+    brand_page.tap_close_button_in_start_new_plan_page()
+
+@when("I tap the close button in the Pro Business plan page")
+def tap_close_button_in_pro_business_plan_page(driver):
+    brand_page = BrandPage(driver)
+    brand_page.tap_close_button_in_pro_business_plan_page()
+
+@then("I should be navigated back to the Plan Change page")
+def verify_plan_change_page(driver):
+    brand_page = BrandPage(driver)
+    assert brand_page.verify_plan_change_page(), "Plan Change page not found"
+
+@when("I tap the select Start New plan button")
+def tap_start_new_plan_button(driver):
+    brand_page = BrandPage(driver)
+    brand_page.tap_start_new_plan_button()
+
+@then("I should be navigated to the Start New plan page")
+def verify_start_new_plan_page(driver):
+    brand_page = BrandPage(driver)
+    assert brand_page.verify_start_new_plan_page(), "Start new plan page not found"
+
+@then("the select Start New plan button should be enable")
+def verify_start_new_plan_button_enabled(driver):
+    brand_page = BrandPage(driver)
+    assert brand_page.verify_start_new_plan_button_enabled(), "Start new plan button is disabled"
+
+@when("I switch to the Pro Business plan tab")
+def switch_to_pro_business_plan_tab(driver):
+    brand_page = BrandPage(driver)
+    brand_page.tap_pro_business_plan_tab()
+
+@when("I tap on Downgrade to Free Trial Plan in the Plan Change page")
+def tap_downgrade_to_free_trial_plan(driver):
+    brand_page = BrandPage(driver)
+    brand_page.tap_downgrade_to_free_trial_plan()
+
+@then("the Cancel Payment Plan dialog should be displayed")
+def verify_cancel_payment_plan_dialog(driver):
+    brand_page = BrandPage(driver)
+    assert brand_page.verify_cancel_payment_plan_dialog(), "Cancel Payment Plan dialog not found"
+
+@when("I tap on Cancel button in the Cancel Payment Plan dialog")
+def tap_cancel_button_in_cancel_payment_plan_dialog(driver):
+    brand_page = BrandPage(driver)
+    brand_page.tap_cancel_button_in_cancel_payment_plan_dialog()
+
+@then("the Cancel Payment Plan dialog should be dismissed")
+def verify_cancel_payment_plan_dialog_dismissed(driver):
+    brand_page = BrandPage(driver)
+    assert brand_page.verify_cancel_payment_plan_dialog_dismissed(), "Cancel Payment Plan dialog not dismissed"
+
+@when("I tap close button in the Plan Change page")
+def tap_close_button_in_plan_change_page(driver):
+    brand_page = BrandPage(driver)
+    brand_page.tap_close_button_in_plan_change_page()
+
+@when("I tap on the Payment Records section")
+def tap_payment_records_section(driver):
+    brand_page = BrandPage(driver)
+    brand_page.tap_payment_records_section()
+
+@then("I should be navigated to the Payment Records page")
+def verify_payment_records_page(driver):
+    brand_page = BrandPage(driver)
+    assert brand_page.verify_payment_records_page(), "Payment Records page not found"
+
+@when("I tap close button in the Payment Records page")
+def tap_close_button_in_payment_records_page(driver):
+    brand_page = BrandPage(driver)
+    brand_page.tap_close_button_in_payment_records_page()
+
+@when("I tap back hotcake app button")
+def tap_back_hotcake_app_button(driver):
+    brand_page = BrandPage(driver)
+    brand_page.tap_back_hotcake_app_button()
+
+@then("I should be navigated to the Branch Settings page")
+def verify_branch_settings_page(driver):
+    brand_page = BrandPage(driver)
+    assert brand_page.verify_branch_settings_page(), "Branch Settings page not found"

@@ -13,51 +13,6 @@ class BrandPage:
         self.common_use = CommonUseSection(driver)
         self.brand_locators = BrandPageLocators()
 
-        # self.SETTINGS_OPTION_IN_NAVIGATION = (AppiumBy.ACCESSIBILITY_ID, '設定')
-        #
-        # self.BRANCH_SETTINGS_PAGE = (AppiumBy.XPATH, '//*[@text="分店設定"]')
-        # self.BRANCH_NAME_IN_BRANCH_SETTINGS_PAGE = (AppiumBy.XPATH, "(//android.view.ViewGroup[@resource-id='chevron-right'])[1]/com.horcrux.svg.SvgView/com.horcrux.svg.GroupView/com.horcrux.svg.PathView")
-        # self.BRANCH_NAME_VALUE_IN_BRANCH_SETTINGS_PAGE = lambda text: (AppiumBy.XPATH, f"//android.widget.TextView[@text='{text}']")
-        #
-        # self.BRANCH_BRAND_INFO_PAGE = (AppiumBy.XPATH, '//*[@text="分店和品牌資訊"]')
-        # self.CONFIRM_BUTTON_IN_BRANCH_BRAND_INFO_PAGE = (AppiumBy.ACCESSIBILITY_ID, 'check')
-        # self.BRANCH_NAME_FIELD_IN_BRANCH_BRAND_INFO_PAGE = (AppiumBy.CLASS_NAME, 'android.widget.EditText')
-        # self.BRANCH_NAME_VALUE_IN_BRANCH_BRAND_INFO_PAGE = lambda text: (AppiumBy.XPATH, f"//android.widget.EditText[@text='{text}']")
-        # self.BRANCH_DESCRIPTION_IN_BRANCH_BRAND_INFO_PAGE = (AppiumBy.XPATH, '//*[@text="分店介紹"]/../android.view.ViewGroup')
-        #
-        # self.BRANCH_DESCRIPTION_VALUE_IN_BRANCH_BRAND_INFO_PAGE = lambda text: (AppiumBy.XPATH, f"//android.widget.TextView[@text='{text}']")
-        #
-        # self.BRANCH_PHONE_INFO_SECTION_IN_BRANCH_BRAND_INFO_PAGE = (AppiumBy.XPATH, '//android.widget.TextView[@text="分店電話"]')
-        # self.BRANCH_PHONE_TOGGLE_IN_BRANCH_BRAND_INFO_PAGE = (AppiumBy.XPATH, '//*[@resource-id="顯示分店電話-switch-button"]')
-        # self.BRANCH_PHONE_TEXT_FIELD_IN_BRANCH_BRAND_INFO_PAGE = (AppiumBy.XPATH, '//*[@text="分店電話"]/../android.widget.EditText')
-        # self.BRANCH_PHONE_COUNTY_CODE_IN_BRANCH_BRAND_INFO_PAGE = (AppiumBy.XPATH, '//*[@resource-id="caret-down"]')
-        # self.BRANCH_ADDRESS_TOGGLE_IN_BRANCH_BRAND_INFO_PAGE = (AppiumBy.XPATH, '//*[@resource-id="顯示分店地址-switch-button"]')
-        # self.BRANCH_ADDRESS_INFO_SECTION_IN_BRANCH_BRAND_INFO_PAGE = (AppiumBy.XPATH, '//*[@text="國家"]')
-        # self.BRANCH_ADDRESS_CITY_IN_BRANCH_BRAND_INFO_PAGE = (AppiumBy.XPATH, '//*[@text="城市"]/../android.view.ViewGroup')
-        # self.BRANCH_ADDRESS_DISTRICT_IN_BRANCH_BRAND_INFO_PAGE = (AppiumBy.XPATH, '//*[@text="地區"]/../android.view.ViewGroup')
-        # self.BRANCH_ADDRESS_DISTRICT_WARM_IN_BRANCH_BRAND_INFO_PAGE = (AppiumBy.XPATH, '//*[@text=" 此欄位為必填。"]')
-        # self.BRANCH_ADDRESS_TEXT_FIELD_IN_BRANCH_BRAND_INFO_PAGE = (AppiumBy.XPATH, '//*[@text="地址"]/../android.widget.EditText')
-        #
-        # self.EXPAND_BRAND_SETTINGS_BUTTON_IN_BRANCH_BRAND_INFO_PAGE = (AppiumBy.XPATH, '//*[@content-desc="展開品牌設定"]')
-        # self.CLOSE_BRAND_SETTINGS_BUTTON_IN_BRANCH_BRAND_INFO_PAGE = (AppiumBy.XPATH, '//*[@content-desc="收起品牌設定"]')
-        # self.BRAND_SETTINGS_SECTION_IN_BRANCH_BRAND_INFO_PAGE = (AppiumBy.XPATH, '//*[@resource-id="android:id/parentPanel"]')
-        # self.BRAND_IMAGE_IN_BRANCH_BRAND_INFO_PAGE = (AppiumBy.XPATH, '//*[@resource-id="com.hunger.hotcakeapp.staging:id/action_bar_root"]//android.widget.ImageView')
-        # self.BRAND_NAME_IN_BRANCH_BRAND_INFO_PAGE = (AppiumBy.XPATH, '//android.widget.TextView[@text="品牌名稱"]')
-        # self.BRAND_DESCRIPTION_IN_BRANCH_BRAND_INFO_PAGE = (AppiumBy.XPATH, '//android.widget.TextView[@text="品牌介紹"]')
-        #
-        # self.TEXT_IN_BRANCH_DESCRIPTION_DIALOG = (AppiumBy.XPATH, '//*[@resource-id="modal-surface"]//android.widget.EditText')
-        # self.CONFIRM_BUTTON_IN_BRANCH_DESCRIPTION_DIALOG = (AppiumBy.XPATH, '//*[@resource-id="circle-check"]//com.horcrux.svg.GroupView')
-        #
-        # self.SEARCH_COUNTRY_CODE_IN_BRANCH_PHONE_COUNTY_CODE_DIALOG = (AppiumBy.XPATH, '//*[@resource-id="magnifying-glass"]/../android.view.ViewGroup//android.widget.EditText')
-        # self.CONFIRM_BUTTON_IN_BRANCH_PHONE_COUNTY_CODE_DIALOG = (AppiumBy.XPATH, '//*[@resource-id="國碼-modal-right-button "]')
-        #
-        # self.BRANCH_ADDRESS_CITY_IN_DIALOG = (AppiumBy.XPATH, '//*[@text="城市"]/../android.view.ViewGroup//android.widget.ScrollView')
-        # self.BRANCH_ADDRESS_CITY_OPTION_IN_DIALOG = lambda index: (AppiumBy.XPATH, f'//*[@text="城市"]/../android.view.ViewGroup//android.widget.ScrollView//android.view.ViewGroup//android.view.ViewGroup[{index}]')
-        #
-        # self.BRANCH_ADDRESS_DISTRICT_IN_DIALOG = (AppiumBy.XPATH, '//*[@resource-id="地區-close-button"]/../android.view.ViewGroup//android.widget.ScrollView')
-        # self.BRANCH_ADDRESS_DISTRICT_OPTION_IN_DIALOG = lambda index: (AppiumBy.XPATH, f'//*[@resource-id="地區-close-button"]/../android.view.ViewGroup//android.widget.ScrollView//android.view.ViewGroup//android.view.ViewGroup[{index}]//*[@resource-id="circle"]')
-
-
     def tap_settings_option(self):
         self.driver.find_element(*self.brand_locators.SETTINGS_OPTION_IN_NAVIGATION).click()
         time.sleep(0.5)
@@ -555,5 +510,220 @@ class BrandPage:
         except NoSuchElementException:
             return True
 
+    def tap_plan_change_button(self):
+        self.driver.find_element(*self.brand_locators.PLAN_CHANGE_IN_PLAN_MANAGEMENT_PAGE).click()
+        time.sleep(1)
+        return self
 
+    def verify_plan_change_page(self):
+        # Check for the Plan Change page element
+        self.driver.find_element(*self.brand_locators.PLAN_CHANGE_PAGE).is_displayed()
+        self.driver.find_element(*self.brand_locators.PLAN_CHANGE_DESCRIPTION_IN_PLAN_CHANGE_PAGE).is_displayed()
+        self.driver.find_element(*self.brand_locators.PRO_BUSINESS_PLAN_TITLE_IN_PLAN_CHANGE_PAGE).is_displayed()
+        self.driver.find_element(*self.brand_locators.PRO_BUSINESS_PLAN_DESCRIPTION_IN_PLAN_CHANGE_PAGE).is_displayed()
+        self.driver.find_element(*self.brand_locators.PRO_BUSINESS_PLAN_BUTTON_IN_PLAN_CHANGE_PAGE).is_displayed()
+        self.driver.find_element(*self.brand_locators.STAR_NEW_PLAN_TITLE_IN_PLAN_CHANGE_PAGE).is_displayed()
+        self.driver.find_element(*self.brand_locators.STAR_NEW_PLAN_DESCRIPTION_IN_PLAN_CHANGE_PAGE).is_displayed()
+        self.driver.find_element(*self.brand_locators.STAR_NEW_PLAN_BUTTON_IN_PLAN_CHANGE_PAGE).is_displayed()
+        self.driver.find_element(*self.brand_locators.SMS_COST_DESCRIPTION_IN_PLAN_CHANGE_PAGE).is_displayed()
+        self.driver.find_element(*self.brand_locators.DOWN_GRADE_TO_FREE_TRIAL_PLAN_IN_PLAN_CHANGE_PAGE).is_displayed()
+        return self
 
+    def tap_pro_business_plan_button(self):
+        self.driver.find_element(*self.brand_locators.PRO_BUSINESS_PLAN_BUTTON_IN_PLAN_CHANGE_PAGE).click()
+        time.sleep(1)
+        return self
+
+    def verify_pro_business_plan_page(self):
+        # Check for the Pro Business Plan page element
+        self.driver.find_element(*self.brand_locators.DESCRIPTION_IN_PRO_BUSINESS_PLAN_PAGE).is_displayed()
+        self.driver.find_element(*self.brand_locators.PRICE_IN_PRO_BUSINESS_PLAN_PAGE).is_displayed()
+        self.driver.find_element(*self.brand_locators.CONTENT_1_IN_PRO_BUSINESS_PLAN_PAGE).is_displayed()
+        self.driver.find_element(*self.brand_locators.CONTENT_2_IN_PRO_BUSINESS_PLAN_PAGE).is_displayed()
+        self.driver.find_element(*self.brand_locators.CONTENT_3_IN_PRO_BUSINESS_PLAN_PAGE).is_displayed()
+        self.driver.find_element(*self.brand_locators.CONTENT_4_IN_PRO_BUSINESS_PLAN_PAGE).is_displayed()
+        self.driver.find_element(*self.brand_locators.CONTENT_5_IN_PRO_BUSINESS_PLAN_PAGE).is_displayed()
+        self.driver.find_element(*self.brand_locators.CONTENT_6_IN_PRO_BUSINESS_PLAN_PAGE).is_displayed()
+        self.driver.find_element(*self.brand_locators.CONTENT_7_IN_PRO_BUSINESS_PLAN_PAGE).is_displayed()
+        self.driver.find_element(*self.brand_locators.CONTENT_8_IN_PRO_BUSINESS_PLAN_PAGE).is_displayed()
+        self.driver.find_element(*self.brand_locators.TOLL_REMINDER_TEXT_IN_PRO_BUSINESS_PLAN_PAGE).is_displayed()
+        self.driver.find_element(*self.brand_locators.DIFFERENT_PLAN_BUTTON_IN_PRO_BUSINESS_PLAN_PAGE).is_displayed()
+        self.driver.find_element(*self.brand_locators.SELECT_THIS_PLAN_BUTTON_IN_PRO_BUSINESS_PLAN_PAGE).is_displayed()
+        return self
+
+    def verify_pro_business_plan_button_disabled(self):
+        # Check for the Pro Business Plan button element
+        pro_business_plan_button = self.driver.find_element(*self.brand_locators.SELECT_THIS_PLAN_BUTTON_IN_PRO_BUSINESS_PLAN_PAGE)
+        return not pro_business_plan_button.is_enabled()
+
+    def tap_different_plan_button(self):
+        self.driver.find_element(*self.brand_locators.DIFFERENT_PLAN_BUTTON_IN_PRO_BUSINESS_PLAN_PAGE).click()
+        time.sleep(1)
+        return self
+
+    def verify_pro_business_plan_content_in_plan_functionality_dialog(self):
+        # Check for the Pro Business Plan content in the Plan Functionality dialog
+        self.driver.find_element(*self.brand_locators.PLAN_FUNCTION_DIALOG).is_displayed()
+        self.driver.find_element(*self.brand_locators.PRO_BUSINESS_PLAN_TAB_IN_PLAN_FUNCTION_DIALOG).is_displayed()
+        self.driver.find_element(*self.brand_locators.STAR_NEW_PLAN_TAB_IN_PLAN_FUNCTION_DIALOG).is_displayed()
+        self.driver.find_element(*self.brand_locators.FREE_TRIAL_TAB_PLAN_IN_PLAN_FUNCTION_DIALOG).is_displayed()
+        self.driver.find_element(*self.brand_locators.DESCRIPTION_IN_PRO_BUSINESS_PLAN_TAB).is_displayed()
+        self.driver.find_element(*self.brand_locators.PRICE_DETAILS_TEXT_1_IN_PRO_BUSINESS_PLAN_TAB).is_displayed()
+        self.driver.find_element(*self.brand_locators.PRICE_DETAILS_TEXT_2_IN_PRO_BUSINESS_PLAN_TAB).is_displayed()
+        self.driver.find_element(*self.brand_locators.FEATURE_TEXT_1_IN_PLAN_FUNCTION_DIALOG).is_displayed()
+        self.driver.find_element(*self.brand_locators.FEATURE_TEXT_2_IN_PLAN_FUNCTION_DIALOG).is_displayed()
+        self.driver.find_element(*self.brand_locators.FEATURE_TEXT_3_IN_PLAN_FUNCTION_DIALOG).is_displayed()
+        self.driver.find_element(*self.brand_locators.FEATURE_TEXT_4_IN_PLAN_FUNCTION_DIALOG).is_displayed()
+        self.driver.find_element(*self.brand_locators.FEATURE_TEXT_5_IN_PLAN_FUNCTION_DIALOG).is_displayed()
+        self.driver.find_element(*self.brand_locators.FEATURE_TEXT_6_IN_PLAN_FUNCTION_DIALOG).is_displayed()
+        self.driver.find_element(*self.brand_locators.FEATURE_TEXT_7_IN_PLAN_FUNCTION_DIALOG).is_displayed()
+        self.driver.find_element(*self.brand_locators.FEATURE_TEXT_8_IN_PLAN_FUNCTION_DIALOG).is_displayed()
+        return self
+
+    def tap_star_new_tab(self):
+        self.driver.find_element(*self.brand_locators.STAR_NEW_PLAN_TAB_IN_PLAN_FUNCTION_DIALOG).click()
+        time.sleep(1)
+        return self
+
+    def verify_start_new_plan_content_in_plan_functionality_dialog(self):
+        # Check for the Star New Plan content in the Plan Functionality dialog
+        self.driver.find_element(*self.brand_locators.STAR_NEW_PLAN_TAB_IN_PLAN_FUNCTION_DIALOG).is_displayed()
+        self.driver.find_element(*self.brand_locators.DESCRIPTION_IN_START_NEW_PLAN_TAB).is_displayed()
+        self.driver.find_element(*self.brand_locators.PRICE_DETAILS_TEXT_1_IN_START_NEW_PLAN_TAB).is_displayed()
+        self.driver.find_element(*self.brand_locators.PRICE_DETAILS_TEXT_2_IN_START_NEW_PLAN_TAB).is_displayed()
+        self.driver.find_element(*self.brand_locators.FEATURE_TEXT_1_IN_PLAN_FUNCTION_DIALOG).is_displayed()
+        self.driver.find_element(*self.brand_locators.FEATURE_TEXT_2_IN_PLAN_FUNCTION_DIALOG).is_displayed()
+        self.driver.find_element(*self.brand_locators.FEATURE_TEXT_3_IN_PLAN_FUNCTION_DIALOG).is_displayed()
+        self.driver.find_element(*self.brand_locators.FEATURE_TEXT_4_IN_PLAN_FUNCTION_DIALOG).is_displayed()
+        self.driver.find_element(*self.brand_locators.FEATURE_TEXT_5_IN_PLAN_FUNCTION_DIALOG).is_displayed()
+        self.driver.find_element(*self.brand_locators.FEATURE_TEXT_6_IN_PLAN_FUNCTION_DIALOG).is_displayed()
+        self.driver.find_element(*self.brand_locators.FEATURE_TEXT_7_IN_PLAN_FUNCTION_DIALOG).is_displayed()
+        self.driver.find_element(*self.brand_locators.FEATURE_TEXT_8_IN_PLAN_FUNCTION_DIALOG).is_displayed()
+        return self
+
+    def tap_free_plan_tab(self):
+        self.driver.find_element(*self.brand_locators.FREE_TRIAL_TAB_PLAN_IN_PLAN_FUNCTION_DIALOG).click()
+        time.sleep(1)
+        return self
+
+    def verify_free_plan_content_in_plan_functionality_dialog(self):
+        # Check for the Free Trial Plan content in the Plan Functionality dialog
+        self.driver.find_element(*self.brand_locators.FREE_TRIAL_TAB_PLAN_IN_PLAN_FUNCTION_DIALOG).is_displayed()
+        self.driver.find_element(*self.brand_locators.DESCRIPTION_IN_FREE_TRIAL_PLAN_TAB).is_displayed()
+        self.driver.find_element(*self.brand_locators.PRICE_DETAILS_TEXT_1_IN_FREE_TRIAL_PLAN_TAB).is_displayed()
+        self.driver.find_element(*self.brand_locators.PRICE_DETAILS_TEXT_2_IN_FREE_TRIAL_PLAN_TAB).is_displayed()
+        self.driver.find_element(*self.brand_locators.FEATURE_TEXT_1_IN_PLAN_FUNCTION_DIALOG).is_displayed()
+        self.driver.find_element(*self.brand_locators.FEATURE_TEXT_2_IN_PLAN_FUNCTION_DIALOG).is_displayed()
+        self.driver.find_element(*self.brand_locators.FEATURE_TEXT_3_IN_PLAN_FUNCTION_DIALOG).is_displayed()
+        self.driver.find_element(*self.brand_locators.FEATURE_TEXT_4_IN_PLAN_FUNCTION_DIALOG).is_displayed()
+        self.driver.find_element(*self.brand_locators.FEATURE_TEXT_5_IN_PLAN_FUNCTION_DIALOG).is_displayed()
+        self.driver.find_element(*self.brand_locators.FEATURE_TEXT_6_IN_PLAN_FUNCTION_DIALOG).is_displayed()
+        self.driver.find_element(*self.brand_locators.FEATURE_TEXT_7_IN_PLAN_FUNCTION_DIALOG).is_displayed()
+        self.driver.find_element(*self.brand_locators.FEATURE_TEXT_8_IN_PLAN_FUNCTION_DIALOG).is_displayed()
+        return self
+
+    def tap_close_plan_functionality_dialog_button(self):
+        self.driver.find_element(*self.brand_locators.CLOSE_BUTTON_IN_PLAN_FUNCTION_DIALOG).click()
+        time.sleep(1)
+        return self
+
+    def verify_plan_functionality_dialog_dismissed(self):
+        try:
+            # Check for the Plan Functionality dialog element
+            self.driver.find_element(*self.brand_locators.PLAN_FUNCTION_DIALOG)
+            return False  # Dialog is still displayed
+        except NoSuchElementException:
+            return True
+
+    def tap_close_button_in_pro_business_plan_page(self):
+        self.driver.find_element(*self.brand_locators.CLOSE_BUTTON_IN_PRO_BUSINESS_PLAN_PAGE).click()
+        time.sleep(1)
+        return self
+
+    def tap_start_new_plan_button(self):
+        self.driver.find_element(*self.brand_locators.STAR_NEW_PLAN_BUTTON_IN_PLAN_CHANGE_PAGE).click()
+        time.sleep(1)
+        return self
+
+    def verify_start_new_plan_page(self):
+        # Check for the Start New Plan page element
+        self.driver.find_element(*self.brand_locators.DESCRIPTION_IN_START_NEW_PLAN_PAGE).is_displayed()
+        self.driver.find_element(*self.brand_locators.PRICE_IN_START_NEW_PLAN_PAGE).is_displayed()
+        self.driver.find_element(*self.brand_locators.CONTENT_1_IN_START_NEW_PLAN_PAGE).is_displayed()
+        self.driver.find_element(*self.brand_locators.CONTENT_2_IN_START_NEW_PLAN_PAGE).is_displayed()
+        self.driver.find_element(*self.brand_locators.CONTENT_3_IN_START_NEW_PLAN_PAGE).is_displayed()
+        self.driver.find_element(*self.brand_locators.CONTENT_4_IN_START_NEW_PLAN_PAGE).is_displayed()
+        self.driver.find_element(*self.brand_locators.CONTENT_5_IN_START_NEW_PLAN_PAGE).is_displayed()
+        self.driver.find_element(*self.brand_locators.CONTENT_6_IN_START_NEW_PLAN_PAGE).is_displayed()
+        self.driver.find_element(*self.brand_locators.CONTENT_7_IN_START_NEW_PLAN_PAGE).is_displayed()
+        self.driver.find_element(*self.brand_locators.CONTENT_8_IN_START_NEW_PLAN_PAGE).is_displayed()
+        self.driver.find_element(*self.brand_locators.TOLL_REMINDER_TEXT_IN_START_NEW_PLAN_PAGE).is_displayed()
+        self.driver.find_element(*self.brand_locators.DIFFERENT_PLAN_BUTTON_IN_START_NEW_PLAN_PAGE).is_displayed()
+        self.driver.find_element(*self.brand_locators.SELECT_THIS_PLAN_BUTTON_IN_START_NEW_PLAN_PAGE).is_displayed()
+        return self
+
+    def verify_start_new_plan_button_enabled(self):
+        # Check for the Start New Plan button element
+        start_new_plan_button = self.driver.find_element(*self.brand_locators.SELECT_THIS_PLAN_BUTTON_IN_START_NEW_PLAN_PAGE)
+        return start_new_plan_button.is_enabled()
+
+    def tap_pro_business_plan_tab(self):
+        self.driver.find_element(*self.brand_locators.PRO_BUSINESS_PLAN_TAB_IN_PLAN_FUNCTION_DIALOG).click()
+        time.sleep(1)
+        return self
+
+    def tap_close_button_in_start_new_plan_page(self):
+        self.driver.find_element(*self.brand_locators.CLOSE_BUTTON_IN_START_NEW_PLAN_PAGE).click()
+        time.sleep(1)
+        return self
+
+    def tap_downgrade_to_free_trial_plan(self):
+        self.driver.find_element(*self.brand_locators.DOWN_GRADE_TO_FREE_TRIAL_PLAN_IN_PLAN_CHANGE_PAGE).click()
+        time.sleep(2)
+        return self
+
+    def verify_cancel_payment_plan_dialog(self):
+        # Check for the Cancel Payment Plan dialog element
+        self.driver.find_element(*self.brand_locators.TITLE_IN_CANCEL_PAYMENT_PLAN_DIALOG).is_displayed()
+        self.driver.find_element(*self.brand_locators.CONFIRM_BUTTON_IN_CANCEL_PAYMENT_PLAN_DIALOG).is_displayed()
+        self.driver.find_element(*self.brand_locators.CANCEL_BUTTON_IN_CANCEL_PAYMENT_PLAN_DIALOG).is_displayed()
+        return self
+
+    def tap_cancel_button_in_cancel_payment_plan_dialog(self):
+        self.driver.find_element(*self.brand_locators.CANCEL_BUTTON_IN_CANCEL_PAYMENT_PLAN_DIALOG).click()
+        time.sleep(1)
+        return self
+
+    def verify_cancel_payment_plan_dialog_dismissed(self):
+        try:
+            # Check for the Cancel Payment Plan dialog element
+            self.driver.find_element(*self.brand_locators.TITLE_IN_CANCEL_PAYMENT_PLAN_DIALOG)
+            return False  # Dialog is still displayed
+        except NoSuchElementException:
+            return True
+
+    def tap_close_button_in_plan_change_page(self):
+        self.driver.find_element(*self.brand_locators.CLOSE_BUTTON_IN_PLAN_CHANGE_PAGE).click()
+        time.sleep(1)
+        return self
+
+    def tap_payment_records_section(self):
+        self.driver.find_element(*self.brand_locators.DEDUCTION_RECORD_IN_PLAN_MANAGEMENT_PAGE).click()
+        time.sleep(3)
+        return self
+
+    def verify_payment_records_page(self):
+        # Check for the Payment Records page element
+        self.driver.find_element(*self.brand_locators.TITLE_IN_PAYMENT_RECORD_PAGE).is_displayed()
+        self.driver.find_element(*self.brand_locators.ClOSE_BUTTON_IN_PAYMENT_RECORD_PAGE).is_displayed()
+        return self
+
+    def tap_close_button_in_payment_records_page(self):
+        self.driver.find_element(*self.brand_locators.ClOSE_BUTTON_IN_PAYMENT_RECORD_PAGE).click()
+        time.sleep(1)
+        return self
+
+    def tap_back_hotcake_app_button(self):
+        self.driver.find_element(*self.brand_locators.BACK_HOTCAKE_APP_BUTTON).click()
+        time.sleep(1)
+        return self
