@@ -7,6 +7,8 @@ from pages.shared_components.common_use import CommonUseSection
 
 scenarios('../../../features/create/create_appointment.feature')
 
+pytestmark = pytest.mark.create
+
 # Test data
 TEST_CONTACT_NAME = "王貝克"
 TEST_PARTIAL_NAME = "B"

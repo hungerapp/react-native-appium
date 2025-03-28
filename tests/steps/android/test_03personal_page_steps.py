@@ -7,6 +7,8 @@ from pytest_bdd import scenarios, given, then, when
 from pages.android.login_page import LoginPage
 from pages.android.personal_page import PersonalPage
 
+pytestmark = pytest.mark.personal
+
 scenarios('../../../features/personal_page.feature')
 
 TEST_EMAIL = 'ann@hunger.ai'

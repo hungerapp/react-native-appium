@@ -6,5 +6,5 @@ Feature: First launch onboarding flow
   @regression  @onboarding 
   Scenario: Display onboarding animation and start using the app
     Given the app is launched for the first time
-    When I select my language and click sure button
+    When I select my own language and click sure button
     Then I can start using the app

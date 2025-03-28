@@ -1,6 +1,7 @@
 import pytest
 import allure
 import random
+import time
 
 #from appium.webdriver.common.appiumby import AppiumBy
 from pytest_bdd import scenarios, given, when, then
@@ -8,6 +9,9 @@ from pytest_bdd import scenarios, given, when, then
 from pages.android.login_page import LoginPage
 
 
+pytestmark = pytest.mark.login 
+
+scenarios('../../../features/onboarding.feature')
 scenarios('../../../features/login.feature')
 
 TEST_EMAIL = 'ann@hunger.ai'
@@ -22,6 +26,28 @@ TEST_INVALID_EMAILS = [
 ]
 TEST_VER = '5556666'
 TEST_INVALID_VER = '123456'
+
+
+
+# Scenario: Launch app
+@allure.feature('Onboarding Functionality')
+@pytest.mark.run(order=1)
+@pytest.mark.onboarding
+@given('the app is launched for the first time')
+def launch_app_first_time(driver):
+    login_page = LoginPage(driver)
+    login_page.launch_app()
+
+@when('I select my own language and click sure button')
+def verify_onboarding_page(driver):
+    login_page = LoginPage(driver)
+    login_page.select_my_own_language()
+
+@then('I can start using the app')
+def start_using_app(driver):
+    login_page = LoginPage(driver)
+    login_page.continue_to_login_page()
+
 
 
 # Scenario: Select language

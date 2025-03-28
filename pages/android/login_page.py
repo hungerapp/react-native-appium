@@ -4,11 +4,31 @@ from selenium.common.exceptions import NoSuchElementException
 from appium.webdriver.common.appiumby import AppiumBy
 
 from pages.locators.android.login.login_locators import LoginLocators
+from pages.locators.android.onboarding.onboarding_locators import OnboardingLocators
 
 class LoginPage:
   def __init__(self, driver):
       self.driver = driver
       self.login_locators = LoginLocators()
+      self.onboarding_locators = OnboardingLocators()
+      
+  def launch_app(self):
+      try:
+        start_updating_app = self.driver.find_element(*self.onboarding_locators.START_UPDATE)
+        start_updating_app.click()
+        time.sleep(5)
+        assert self.driver is not None, "App failed to launch"
+      except:
+        pass
+    
+
+    #driver.execute_script('mobile: alert', {'action': 'accept', 'buttonLabel': 'Allow'})
+    
+  def select_my_own_language(self):
+      select_language_element = self.driver.find_element(*self.onboarding_locators.SELECT_LANGUAGE)
+      select_language_element.click()
+      confirm_button_element = self.driver.find_element(*self.onboarding_locators.CONFIRM_BUTTON)
+      confirm_button_element.click()
   
   def select_language(self):
       self.driver.find_element(*self.login_locators.LANGUAGE_SETTING_BUTTON).click()

@@ -7,24 +7,53 @@ import time
 from subprocess import run, Popen
 from datetime import datetime
 
-from setup import AppiumSetup
+from setup import ANDROID_DEVICES, AppiumSetup
 from utils.send_report_to_slack import send_report_to_slack
 from utils.logger import logger
 
 
 @pytest.fixture(scope="session")
-def driver():
+def driver(request):
     """Set up and tear down Appium driver for the test session."""
+    worker_id = getattr(request.config, 'workerinput', {}).get('workerid', 'gw0')
+    
     appium_setup = AppiumSetup()
+    appium_setup.worker_id = worker_id
+    
     driver = appium_setup.setUp()
     yield driver
     appium_setup.tearDown()
+    
+def pytest_collection_modifyitems(config, items):
+    """處理測試項目的收集和排序"""
+    if hasattr(config, 'workerinput'):
+        worker_id = config.workerinput['workerid']
+        device_config = ANDROID_DEVICES.get(worker_id)
+        
+        if device_config:
+            target_marker = device_config['marker']
+            print(f"Worker {worker_id} running tests with marker: {target_marker}")
+            
+            # 過濾測試
+            for item in items[:]:  # 使用切片來創建副本
+                markers = [marker.name for marker in item.iter_markers()]
+                if target_marker not in markers:
+                    items.remove(item)
+                else:
+                    print(f"Including test: {item.name}")
+
+    # 保持原有的排序邏輯
+    items.sort(key=lambda x: x.get_closest_marker('run').args[0] if x.get_closest_marker('run') else 999)
 
 def pytest_configure(config):
-    """Add custom markers for tagging tests."""
-    config.addinivalue_line("markers", "onboarding: Mark test as onboarding")
-    config.addinivalue_line("markers", "login: Mark test as login")
-    
+    """Configure pytest markers"""
+    config.addinivalue_line("markers", "login: login related tests")
+    config.addinivalue_line("markers", "personal: personal related tests")
+    config.addinivalue_line("markers", "create: create related tests")
+    config.addinivalue_line("markers", "calendar: calendar related tests")
+    config.addinivalue_line("markers", "navigation: navigation related tests")
+    config.addinivalue_line("markers", "onboarding: onboarding related tests")
+
     # start recording screen
     # timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     # recording_path = f"screen_records/Test_{timestamp}.mp4"
@@ -42,10 +71,6 @@ def pytest_bdd_apply_tag(tag, function):
         return True
     return None
 
-def pytest_collection_modifyitems(items):
-    items.sort(key=lambda x: x.get_closest_marker('run').args[0] if x.get_closest_marker('run') else 999)
-    
-    
 def pytest_sessionfinish(session, exitstatus):
     """
     Test session finish after the test
@@ -189,16 +214,19 @@ def clean_app_state(request):
     print(f"Module name: {request.node.module.__name__}")
     print(f"Module file path: {request.node.module.__file__}")
     
-
     if not hasattr(request.node, 'retry_count'):
         request.node.retry_count = 0
     
-    # Clean app state before onboarding test
+    # 獲取當前的 worker ID
+    worker_id = getattr(request.config, 'workerinput', {}).get('workerid', 'gw0')
+    device_config = ANDROID_DEVICES.get(worker_id, ANDROID_DEVICES['gw0'])
+    
+    # Clean app state before login test
     if request.node.get_closest_marker('onboarding'):
-        # force stop the app
-        run(['adb', 'shell', 'am', 'force-stop', 'com.hunger.hotcakeapp.staging'])
-        # uninstall the app
-        run(['adb', 'uninstall', 'com.hunger.hotcakeapp.staging'])
+        print(f"Cleaning app state for onboarding test on device {device_config['udid']}")
+        # 使用特定設備的 udid 執行 adb 命令
+        run(['adb', '-s', device_config['udid'], 'shell', 'am', 'force-stop', 'com.hunger.hotcakeapp.staging'])
+        run(['adb', '-s', device_config['udid'], 'uninstall', 'com.hunger.hotcakeapp.staging'])
     
     yield
     
@@ -328,26 +356,16 @@ def clean_app_state(request):
 #         print(f"Error combining video segments: {str(e)}")
     
     
-def pytest_configure(config):
-    config.addinivalue_line(
-        "markers",
-        "login: login related tests"
-    )
-    config.addinivalue_line(
-        "markers",
-        "personal: personal related tests"
-    )
-    config.addinivalue_line(
-        "markers",
-        "create: create related tests"
-    )
-    config.addinivalue_line(
-        "markers",
-        "calendar: calendar related tests"
-    )
-    config.addinivalue_line(
-        "markers",
-        "navigation: navigation related tests"
-    )
-    
-    
+
+def pytest_configure_node(node):
+    """Configure node with a marker to run"""
+    worker_id = node.workerinput['workerid']
+    if worker_id in ANDROID_DEVICES:
+        node.workerinput['marker'] = ANDROID_DEVICES[worker_id]['marker']
+
+def pytest_runtest_setup(item):
+    """Setup a test item"""
+    if hasattr(item.config, 'workerinput'):
+        worker_marker = item.config.workerinput.get('marker')
+        if worker_marker and not item.get_closest_marker(worker_marker):
+            pytest.skip(f"Test does not have {worker_marker} marker")
