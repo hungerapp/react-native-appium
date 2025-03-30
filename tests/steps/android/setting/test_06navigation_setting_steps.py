@@ -1,8 +1,10 @@
 from pytest_bdd import given, when, then, scenarios
 from pages.android.navigation.setting.brand import BrandPage
+from pages.android.navigation.setting.invitation_code import InvitationCodePage
 from pages.shared_components.common_use import CommonUseSection
 
 scenarios('../../../../features/navigation/setting/brand.feature')
+scenarios('../../../../features/navigation/setting/invitation_code.feature')
 
 BRANCH_NAME = f"Robot_Test_Name_{CommonUseSection.get_current_timestamp()}"
 BRANCH_DESCRIPTION = f"Robot_Test_Description_{CommonUseSection.get_current_timestamp()}"
@@ -306,3 +308,65 @@ def tap_back_hotcake_app_button(driver):
 def verify_branch_settings_page(driver):
     brand_page = BrandPage(driver)
     assert brand_page.verify_branch_settings_page(), "Branch Settings page not found"
+
+# Invitation Code Page
+# Scenario: Verify Invitation Code Management Flow
+@when("I tap on Invitation Code in the Branch Settings page")
+def tap_invitation_code_in_branch_settings_page(driver):
+    invitation_code_page = InvitationCodePage(driver)
+    assert invitation_code_page.tap_invitation_code_in_branch_settings_page(), "Invitation Code not found in Branch Settings page"
+
+@then("I should be navigated to the Invitation Code page")
+def verify_invitation_code_page(driver):
+    invitation_code_page = InvitationCodePage(driver)
+    assert invitation_code_page.verify_invitation_code_page(), "Invitation Code page not found"
+
+@when("I tap on Invitation Code Sharing")
+def click_invitation_code_sharing(driver):
+    invitation_code_page = InvitationCodePage(driver)
+    invitation_code_page.tap_invitation_code_sharing()
+
+@then("the Invitation Code Sharing dialog is displayed")
+def verify_invitation_code_sharing_dialog(driver):
+    invitation_code_page = InvitationCodePage(driver)
+    assert invitation_code_page.verify_invitation_code_sharing_dialog(), "Invitation Code Sharing dialog not found"
+
+@when("I tap on Copy in the Invitation Code Sharing dialog")
+def tap_copy_in_invitation_code_sharing_dialog(driver):
+    invitation_code_page = InvitationCodePage(driver)
+    invitation_code_page.tap_copy_button_in_invitation_code_sharing_dialog()
+
+@then("the Invitation Code Sharing dialog is dismissed")
+def verify_invitation_code_sharing_dialog_dismissed(driver):
+    invitation_code_page = InvitationCodePage(driver)
+    assert invitation_code_page.verify_invitation_code_sharing_dialog_dismissed(), "Invitation Code Sharing dialog not dismissed"
+
+@when("I tap on Invited List in the Invitation Code page")
+def tap_invited_list_in_invitation_code_page(driver):
+    invitation_code_page = InvitationCodePage(driver)
+    invitation_code_page.tap_invited_list_in_invitation_code_page()
+
+@then("I should be navigated to the Invited List page")
+def verify_invited_list_page(driver):
+    invitation_code_page = InvitationCodePage(driver)
+    assert invitation_code_page.verify_invited_list_page(), "Invited List page not found"
+
+@when("I tap on Close Button in the Invited List page")
+def tap_close_button_in_invited_list_page(driver):
+    invitation_code_page = InvitationCodePage(driver)
+    invitation_code_page.tap_close_button_in_invited_list_page()
+
+@then("I should be navigated back to the Invitation Code page")
+def verify_invitation_code_page(driver):
+    invitation_code_page = InvitationCodePage(driver)
+    assert invitation_code_page.verify_invitation_code_page(), "Invitation Code page not found"
+
+@when("I tap on Close Button in the Invitation Code page")
+def tap_close_button_in_invitation_code_page(driver):
+    invitation_code_page = InvitationCodePage(driver)
+    invitation_code_page.tap_close_button_in_invitation_code_page()
+
+@then("I should be navigated back to the Branch Settings page")
+def verify_branch_settings_page(driver):
+    band_page = BrandPage(driver)
+    assert band_page.verify_branch_settings_page(), "Branch Settings page not found"
