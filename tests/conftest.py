@@ -242,8 +242,8 @@ def clean_app_state(request):
             print(f"iOS app path: {app_path}")
             
             if device_id and app_path:
-                # reset simulator
-                run(['xcrun', 'simctl', 'erase', device_id])
+                # uninstall app
+                run(['xcrun', 'simctl', 'uninstall', device_id, 'com.hunger.hotcakeapp.staging'])
                 # install app
                 run(['xcrun', 'simctl', 'install', device_id, app_path])
             else:
