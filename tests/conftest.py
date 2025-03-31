@@ -8,10 +8,15 @@ from subprocess import run, Popen
 from datetime import datetime
 from xdist.workermanage import WorkerController
 from xdist.scheduler import LoadScheduling, LoadScopeScheduling
+from dotenv import load_dotenv
 
 from setup import ANDROID_DEVICES, AppiumSetup
 from utils.send_report_to_slack import send_report_to_slack
 from utils.logger import logger
+
+
+# load .env file
+load_dotenv()
 
 
 def pytest_addoption(parser):
@@ -58,7 +63,20 @@ def pytest_collection_modifyitems(config, items):
             selected_items.append(item)
     
     items[:] = selected_items
-    items.sort(key=lambda x: x.get_closest_marker('run').args[0] if x.get_closest_marker('run') else 999)
+    
+    # Filter tests based on the platform specified in .env
+    platform = os.getenv('APPIUM_OS', 'android').lower()
+    print(f"Running tests for platform: {platform}")
+ 
+    filtered_items = []
+    for item in items:
+        file_path = str(item.fspath)
+        if platform == 'ios' and '/ios/' in file_path:
+             filtered_items.append(item)
+        elif platform == 'android' and '/android/' in file_path:
+             filtered_items.append(item)
+ 
+    items[:] = filtered_items
 
 def pytest_configure(config):
     """Configure pytest markers"""
@@ -188,27 +206,48 @@ def clean_app_state(request):
     if not hasattr(request.node, 'retry_count'):
         request.node.retry_count = 0
     
-    # decide which device to use based on worker
-    if hasattr(request.config, 'workerinput'):
-        worker_id = request.config.workerinput['workerid']
-        port = request.config.workerinput['port']
-    else:
-        markers = [marker.name for marker in request.node.iter_markers()]
-        if "personal" in markers:
-            worker_id = "gw1"
-            port = 4724
-        else:
-            worker_id = "gw0"
-            port = 4723
-    
-    device_config = ANDROID_DEVICES[worker_id]
-    print(f"Clean app state for worker {worker_id} on port {port} with device {device_config['udid']}")
+    # check environment variable
+    platform = os.getenv('APPIUM_OS', 'android').lower()
+    print(f"Current platform from .env: {platform}")
     
     # Clean app state before onboarding test
     if request.node.get_closest_marker('onboarding'):
-        print(f"Cleaning app state for onboarding test on device {device_config['udid']}")
-        run(['adb', '-s', device_config['udid'], 'shell', 'am', 'force-stop', 'com.hunger.hotcakeapp.staging'])
-        run(['adb', '-s', device_config['udid'], 'uninstall', 'com.hunger.hotcakeapp.staging'])
+        if platform == 'android':
+            # 決定使用哪個設備
+            if hasattr(request.config, 'workerinput'):
+                worker_id = request.config.workerinput['workerid']
+                port = request.config.workerinput['port']
+            else:
+                markers = [marker.name for marker in request.node.iter_markers()]
+                if "personal" in markers:
+                    worker_id = "gw1"
+                    port = 4724
+                else:
+                    worker_id = "gw0"
+                    port = 4723
+            
+            device_config = ANDROID_DEVICES[worker_id]
+            print(f"Cleaning app state for worker {worker_id} on port {port} with device {device_config['udid']}")
+            
+            # Android cleanup
+            run(['adb', '-s', device_config['udid'], 'shell', 'am', 'force-stop', 'com.hunger.hotcakeapp.staging'])
+            run(['adb', '-s', device_config['udid'], 'uninstall', 'com.hunger.hotcakeapp.staging'])
+            
+        elif platform == 'ios':
+            # iOS cleanup
+            device_id = os.getenv('UDID')
+            app_path = os.getenv('IOS_APP_PATH')
+            
+            print(f"iOS device ID: {device_id}")
+            print(f"iOS app path: {app_path}")
+            
+            if device_id and app_path:
+                # reset simulator
+                run(['xcrun', 'simctl', 'erase', device_id])
+                # install app
+                run(['xcrun', 'simctl', 'install', device_id, app_path])
+            else:
+                print("Warning: Please ensure UDID and IOS_APP_PATH are set in .env")
     
     yield
     
