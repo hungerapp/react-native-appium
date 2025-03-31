@@ -1,15 +1,23 @@
 from pytest_bdd import given, when, then, scenarios
 from pages.android.navigation.setting.brand import BrandPage
 from pages.android.navigation.setting.invitation_code import InvitationCodePage
+from pages.android.navigation.setting.service_personnel import ServicePersonnelPage
 from pages.shared_components.common_use import CommonUseSection
 
 scenarios('../../../../features/navigation/setting/brand.feature')
 scenarios('../../../../features/navigation/setting/invitation_code.feature')
+scenarios('../../../../features/navigation/setting/service_personnel.feature')
 
 BRANCH_NAME = f"Robot_Test_Name_{CommonUseSection.get_current_timestamp()}"
 BRANCH_DESCRIPTION = f"Robot_Test_Description_{CommonUseSection.get_current_timestamp()}"
 BRANCH_PHONE_NUMBER = f"09{str(CommonUseSection.get_current_timestamp())[-8:]}"
 BRANCH_ADDRESS = f"地球路{str(CommonUseSection.get_current_timestamp())[-3:]}號"
+SERVICE_PERSONNEL_NAME = f"Robot_{CommonUseSection.get_current_timestamp()}"
+# SERVICE_PERSONNEL_NAME = "Robot_edit_20250331151040253"
+SERVICE_PERSONNEL_INTRODUCTION = f"Robot_Test_Introduction_{CommonUseSection.get_current_timestamp()}"
+# EDIT_SERVICE_PERSONNEL_NAME = f"Robot_edit_{CommonUseSection.get_current_timestamp()}"
+EDIT_SERVICE_PERSONNEL_NAME = "Robot_edit_20250331154203197"
+EDIT_SERVICE_PERSONNEL_INTRODUCTION = f"Robot__edit_Test_Introduction_{CommonUseSection.get_current_timestamp()}"
 
 # Scenario: Navigate to Branch Settings and Edit Branch Information
 @given("I tap the Settings button in the navigation bar")
@@ -370,3 +378,99 @@ def tap_close_button_in_invitation_code_page(driver):
 def verify_branch_settings_page(driver):
     band_page = BrandPage(driver)
     assert band_page.verify_branch_settings_page(), "Branch Settings page not found"
+
+# Scenario: Verify Service Personnel Management Flow
+@when("I tap on Service Personnel in the Branch Settings page")
+def tap_service_personnel_in_branch_settings_page(driver):
+    service_personnel_page = ServicePersonnelPage(driver)
+    service_personnel_page.tap_service_personnel_in_branch_settings_page()
+
+@then("I should be navigated to the Service Personnel page")
+def verify_service_personnel_page(driver):
+    service_personnel_page = ServicePersonnelPage(driver)
+    assert service_personnel_page.verify_service_personnel_page(), "Service Personnel page not found"
+
+@when("I tap on Add Service Personnel in the Service Personnel page")
+def tap_add_service_personnel_in_service_personnel_page(driver):
+    service_personnel_page = ServicePersonnelPage(driver)
+    service_personnel_page.tap_add_service_personnel_in_service_personnel_page()
+
+@then("the Add Service Personnel Alert Dialog is displayed")
+def verify_add_service_personnel_alert_dialog(driver):
+    service_personnel_page = ServicePersonnelPage(driver)
+    assert service_personnel_page.verify_add_service_personnel_alert_dialog(), "Add Service Personnel Alert Dialog not found"
+
+@when("I tap on the Cancel button in the Add Service Personnel Alert Dialog")
+def tap_cancel_button_in_add_service_personnel_alert_dialog(driver):
+    service_personnel_page = ServicePersonnelPage(driver)
+    service_personnel_page.tap_cancel_button_in_add_service_personnel_alert_dialog()
+
+@then("the Add Service Personnel Alert Dialog is dismissed")
+def verify_add_service_personnel_alert_dialog_dismissed(driver):
+    service_personnel_page = ServicePersonnelPage(driver)
+    assert service_personnel_page.verify_add_service_personnel_alert_dialog_dismissed(), "Add Service Personnel Alert Dialog not dismissed"
+
+@when("I tap on the Add button in the Add Service Personnel Alert Dialog")
+def tap_add_button_in_add_service_personnel_alert_dialog(driver):
+    service_personnel_page = ServicePersonnelPage(driver)
+    service_personnel_page.tap_add_button_in_add_service_personnel_alert_dialog()
+
+@then("I should be navigated to the Add Service Personnel Page")
+def verify_add_service_personnel_page(driver):
+    service_personnel_page = ServicePersonnelPage(driver)
+    assert service_personnel_page.verify_add_service_personnel_page(), "Add Service Personnel page not found"
+
+@when("I add a new service personnel")
+def add_new_service_personnel(driver):
+    service_personnel_page = ServicePersonnelPage(driver)
+    service_personnel_page.enter_name_in_add_service_personnel_page(SERVICE_PERSONNEL_NAME)
+    service_personnel_page.select_random_color_in_personnel_color()
+    service_personnel_page.tap_introduction_in_add_service_personnel_page()
+    service_personnel_page.verify_personnel_introduction_dialog()
+    service_personnel_page.enter_introduction_in_introduction_dialog(SERVICE_PERSONNEL_INTRODUCTION)
+    service_personnel_page.tap_confirm_button_in_introduction_dialog()
+    service_personnel_page.tap_expand_advanced_settings_button_in_add_service_personnel_page()
+    service_personnel_page.verify_advanced_settings_section_expanded()
+    service_personnel_page.enter_random_service_count_in_add_service_personnel_page()
+    service_personnel_page.tap_confirm_button_in_add_service_personnel_page()
+
+@then("a new service personnel should be successfully added on the Service Personnel page")
+def verify_new_service_personnel_added(driver):
+    service_personnel_page = ServicePersonnelPage(driver)
+    assert service_personnel_page.verify_new_service_personnel_added(SERVICE_PERSONNEL_NAME), "New Service Personnel not added successfully"
+
+@when("I edit service personnel")
+def edit_service_personnel(driver):
+    service_personnel_page = ServicePersonnelPage(driver)
+    service_personnel_page.tap_service_personnel_in_service_personnel_page(SERVICE_PERSONNEL_NAME)
+    service_personnel_page.verify_edit_service_personnel_page()
+    service_personnel_page.enter_name_in_edit_service_personnel_page(EDIT_SERVICE_PERSONNEL_NAME)
+    service_personnel_page.select_random_color_in_personnel_color()
+    service_personnel_page.tap_introduction_in_edit_service_personnel_page()
+    service_personnel_page.verify_personnel_introduction_dialog()
+    service_personnel_page.enter_introduction_in_introduction_dialog(EDIT_SERVICE_PERSONNEL_INTRODUCTION)
+    service_personnel_page.tap_confirm_button_in_introduction_dialog()
+    service_personnel_page.tap_expand_advanced_settings_button_in_edit_service_personnel_page()
+    service_personnel_page.verify_advanced_settings_section_expanded()
+    service_personnel_page.enter_random_service_count_in_edit_service_personnel_page()
+    service_personnel_page.tap_confirm_button_in_edit_service_personnel_page()
+
+@then("the service personnel details should be updated successfully")
+def verify_service_personnel_details_updated(driver):
+    service_personnel_page = ServicePersonnelPage(driver)
+    assert service_personnel_page.verify_service_personnel_updated(EDIT_SERVICE_PERSONNEL_NAME), "Service Personnel details not updated successfully"
+
+@when("I delete service personnel")
+def delete_service_personnel(driver):
+    service_personnel_page = ServicePersonnelPage(driver)
+    service_personnel_page.tap_service_personnel_in_service_personnel_page(EDIT_SERVICE_PERSONNEL_NAME)
+    service_personnel_page.verify_edit_service_personnel_page()
+    service_personnel_page.tap_delete_button_in_edit_service_personnel_page()
+    service_personnel_page.verify_delete_service_personnel_alert_dialog(EDIT_SERVICE_PERSONNEL_NAME)
+    service_personnel_page.enter_delete_text_in_delete_service_personnel_alert_dialog()
+    service_personnel_page.tap_delete_button_in_delete_service_personnel_alert_dialog()
+
+@then("the service personnel should not be present in the service personnel list")
+def verify_service_personnel_not_present(driver):
+    service_personnel_page = ServicePersonnelPage(driver)
+    assert service_personnel_page.verify_service_personnel_not_present(EDIT_SERVICE_PERSONNEL_NAME), "Service Personnel still present in the list"
