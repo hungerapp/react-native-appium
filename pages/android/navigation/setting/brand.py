@@ -77,6 +77,7 @@ class BrandPage:
         branch_name_locator = self.brand_locators.BRANCH_NAME_VALUE_IN_BRANCH_SETTINGS_PAGE(branch_name)
         print(branch_name_locator)
         self.driver.find_element(*branch_name_locator).is_displayed()
+        #todo1: 這邊加個assert或外層調用加, 因為有可能找到元素存在但不可見會拋false, 這樣會導致test失敗
         return self
 
     def tap_branch_description_in_branch_information_page(self):
@@ -150,6 +151,7 @@ class BrandPage:
                 time.sleep(0.5)
                 return True
             return True
+        #todo: 2. 修正回傳值邏輯，目前不管 section_exists 是否為 True 都會回傳 True
         except NoSuchElementException:
             print("Branch Phone Toggle not found")
             return False
@@ -286,6 +288,11 @@ class BrandPage:
             random_num -= 7
         # Call the method on your locators instance
         locator = self.brand_locators.BRANCH_ADDRESS_CITY_OPTION_IN_DIALOG(random_num)
+        #todo3: 這個locator好像定位是錯誤, 是不是應該要定位縣市？
+        #todo4: 修正滾動邏輯, 建議先算出數量，再決定滾動次數, 避免有小於15得情況跳過if
+         #0-6: 第一頁，不需滾動
+         #7-13: 第二頁，滾動一次
+         #14-22: 第三頁，滾動兩次
 
         # Then use it
         self.driver.find_element(*locator).click()
