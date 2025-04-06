@@ -19,6 +19,8 @@ Feature: Service Personnel Management
     Then the service personnel details should be updated successfully
     When I delete service personnel
     Then the service personnel should not be present in the service personnel list
+    When I tap on the close button in the Service Personnel page
+    Then I should be navigated to the Branch Settings page
 
 
 

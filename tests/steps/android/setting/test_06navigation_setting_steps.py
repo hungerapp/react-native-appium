@@ -1,23 +1,39 @@
+import pytest
 from pytest_bdd import given, when, then, scenarios
 from pages.android.navigation.setting.brand import BrandPage
 from pages.android.navigation.setting.invitation_code import InvitationCodePage
+from pages.android.navigation.setting.service_appointment import ServiceAppointmentPage
 from pages.android.navigation.setting.service_personnel import ServicePersonnelPage
 from pages.shared_components.common_use import CommonUseSection
 
 scenarios('../../../../features/navigation/setting/brand.feature')
 scenarios('../../../../features/navigation/setting/invitation_code.feature')
 scenarios('../../../../features/navigation/setting/service_personnel.feature')
+scenarios('../../../../features/navigation/setting/service_appointment.feature')
 
 BRANCH_NAME = f"Robot_Test_Name_{CommonUseSection.get_current_timestamp()}"
 BRANCH_DESCRIPTION = f"Robot_Test_Description_{CommonUseSection.get_current_timestamp()}"
 BRANCH_PHONE_NUMBER = f"09{str(CommonUseSection.get_current_timestamp())[-8:]}"
 BRANCH_ADDRESS = f"地球路{str(CommonUseSection.get_current_timestamp())[-3:]}號"
-SERVICE_PERSONNEL_NAME = f"Robot_{CommonUseSection.get_current_timestamp()}"
-# SERVICE_PERSONNEL_NAME = "Robot_edit_20250331151040253"
+# SERVICE_PERSONNEL_NAME = f"Robot_{CommonUseSection.get_current_timestamp()}"
+SERVICE_PERSONNEL_NAME = "Robot_20250406215123090"
 SERVICE_PERSONNEL_INTRODUCTION = f"Robot_Test_Introduction_{CommonUseSection.get_current_timestamp()}"
-# EDIT_SERVICE_PERSONNEL_NAME = f"Robot_edit_{CommonUseSection.get_current_timestamp()}"
 EDIT_SERVICE_PERSONNEL_NAME = "Robot_edit_20250331154203197"
 EDIT_SERVICE_PERSONNEL_INTRODUCTION = f"Robot__edit_Test_Introduction_{CommonUseSection.get_current_timestamp()}"
+# SERVICE_CATEGORY_NAME = f"Robot_Category_{CommonUseSection.get_current_timestamp()}"
+SERVICE_CATEGORY_NAME = "Robot_Category_20250401022219748"
+# SERVICE_ITEM_NAME = f"Robot_{CommonUseSection.get_current_timestamp()}"
+SERVICE_ITEM_NAME = "Robot_20250402144516846"
+SERVICE_ITEM_INTRODUCTION = f"Robot_Test_Service_Item_Introduction_{CommonUseSection.get_current_timestamp()}"
+SERVICE_ITEM_CODE = f"{str(CommonUseSection.get_current_timestamp())[-2:]}"
+SUB_SERVICE_ITEM_NAME = f"Robot_Sub_Service_Item_{CommonUseSection.get_current_timestamp()}"
+EDIT_SUB_SERVICE_ITEM_NAME = f"Robot_Sub_Service_Item_{CommonUseSection.get_current_timestamp()}"
+EDIT_SERVICE_ITEM_NAME = f"Robot_Edit_Service_Item_{CommonUseSection.get_current_timestamp()}"
+EDIT_SERVICE_ITEM_CODE = f"{str(CommonUseSection.get_current_timestamp())[-2:]}"
+EDIT_SERVICE_ITEM_INTRODUCTION = f"Robot_Edit_Service_Item_Introduction_{CommonUseSection.get_current_timestamp()}"
+SERVICE_COMBINATION_NAME = f"Robot_Combination_{CommonUseSection.get_current_timestamp()}"
+SERVICE_COMBINATION_INTRODUCTION = f"Robot_Test_Combination_Introduction_{CommonUseSection.get_current_timestamp()}"
+
 
 # Scenario: Navigate to Branch Settings and Edit Branch Information
 @given("I tap the Settings button in the navigation bar")
@@ -317,13 +333,13 @@ def verify_branch_settings_page(driver):
     brand_page = BrandPage(driver)
     assert brand_page.verify_branch_settings_page(), "Branch Settings page not found"
 
-# Invitation Code Page
-# Scenario: Verify Invitation Code Management Flow
 @when("I tap on Invitation Code in the Branch Settings page")
 def tap_invitation_code_in_branch_settings_page(driver):
     invitation_code_page = InvitationCodePage(driver)
     assert invitation_code_page.tap_invitation_code_in_branch_settings_page(), "Invitation Code not found in Branch Settings page"
 
+
+# Scenario: Verify Invitation Code Management Flow
 @then("I should be navigated to the Invitation Code page")
 def verify_invitation_code_page(driver):
     invitation_code_page = InvitationCodePage(driver)
@@ -474,3 +490,606 @@ def delete_service_personnel(driver):
 def verify_service_personnel_not_present(driver):
     service_personnel_page = ServicePersonnelPage(driver)
     assert service_personnel_page.verify_service_personnel_not_present(EDIT_SERVICE_PERSONNEL_NAME), "Service Personnel still present in the list"
+
+@when("I tap on the close button in the Service Personnel page")
+def tap_close_button_in_service_personnel_page(driver):
+    service_personnel_page = ServicePersonnelPage(driver)
+    service_personnel_page.tap_close_button_in_service_personnel_page()
+
+# Scenario: Verify Service Appointment Management Flow
+@when("I tap on Service Appointment in the Branch Settings page")
+def tap_service_appointment_in_branch_settings_page(driver):
+    try:
+        service_appointment_page = ServiceAppointmentPage(driver)
+        assert service_appointment_page.tap_service_appointment_in_branch_settings_page(), "Service Appointment not found in Branch Settings page"
+    except Exception as e:
+        pytest.fail("Step [I tap on Service Appointment in the Branch Settings page] failed: " + str(e))
+
+@then("I should be navigated to the Service Appointment page")
+def verify_service_appointment_page(driver):
+    try:
+        service_appointment_page = ServiceAppointmentPage(driver)
+        assert service_appointment_page.verify_service_appointment_page(), "Service Appointment page not found"
+    except Exception as e:
+        pytest.fail("Step [I should be navigated to the Service Appointment page] failed: " + str(e))
+
+@given("I am on the Service Appointment page")
+def verify_on_service_appointment_page(driver):
+    try:
+        service_appointment_page = ServiceAppointmentPage(driver)
+        assert service_appointment_page.verify_service_appointment_page(), "Service Appointment page not found"
+    except Exception as e:
+        pytest.fail("Step [I am on the Service Appointment page] failed: " + str(e))
+
+@when("I tap the member exclusive booking link copy button")
+def tap_member_exclusive_booking_link_copy_button(driver):
+    try:
+        service_appointment_page = ServiceAppointmentPage(driver)
+        assert service_appointment_page.tap_member_exclusive_booking_link_copy_button(), \
+            "Member exclusive booking link copy button not found"
+    except Exception as e:
+        pytest.fail("Step [I tap the member exclusive booking link copy button] failed: " + str(e))
+
+@then("A copy link dialog should be displayed")
+def verify_copy_link_dialog(driver):
+    try:
+        service_appointment_page = ServiceAppointmentPage(driver)
+        assert service_appointment_page.verify_copy_link_dialog(), \
+            "Copy Link dialog not found"
+    except Exception as e:
+        pytest.fail("Step [A copy link dialog should be displayed] failed: " + str(e))
+
+@when("I tap copy link in the copy link dialog")
+def tap_copy_link_in_copy_link_dialog(driver):
+    try:
+        service_appointment_page = ServiceAppointmentPage(driver)
+        service_appointment_page.tap_copy_link_in_copy_link_dialog()
+    except Exception as e:
+        pytest.fail("Step [I tap copy link in the copy link dialog] failed: " + str(e))
+
+@then("A copy link dialog should be dismissed")
+def verify_copy_link_dialog_dismissed(driver):
+    try:
+        service_appointment_page = ServiceAppointmentPage(driver)
+        assert service_appointment_page.verify_copy_link_dialog_dismissed(), "Copy Link dialog not dismissed"
+    except Exception as e:
+        pytest.fail("Step [A copy link dialog should be dismissed] failed: " + str(e))
+
+@when("I tap the service item in the Service Appointment page")
+def tap_service_item_in_service_appointment_page(driver):
+    try:
+        service_appointment_page = ServiceAppointmentPage(driver)
+        service_appointment_page.tap_service_item_in_service_appointment_page()
+    except Exception as e:
+        pytest.fail("Step [I tap the service item in the Service Appointment page] failed: " + str(e))
+
+@then("I should be navigated to the Service item page")
+def verify_service_item_page(driver):
+    try:
+        service_appointment_page = ServiceAppointmentPage(driver)
+        assert service_appointment_page.verify_service_item_page(), "Service Item page not found"
+    except Exception as e:
+        pytest.fail("Step [I should be navigated to the Service item page] failed: " + str(e))
+
+@when("I tap the category edit button in the Service item page")
+def tap_category_edit_button_in_service_item_page(driver):
+    try:
+        service_appointment_page = ServiceAppointmentPage(driver)
+        service_appointment_page.tap_category_edit_button_in_service_item_page()
+    except Exception as e:
+        pytest.fail("Step [I tap the category edit button in the Service item page] failed: " + str(e))
+
+@then("I should be navigated to the Category page")
+def verify_category_page(driver):
+    try:
+        service_appointment_page = ServiceAppointmentPage(driver)
+        assert service_appointment_page.verify_category_page(), "Category page not found"
+    except Exception as e:
+        pytest.fail("Step [I should be navigated to the Category page] failed: " + str(e))
+
+@when("I tap the add category in the Category page")
+def tap_add_category_in_category_page(driver):
+    try:
+        service_appointment_page = ServiceAppointmentPage(driver)
+        service_appointment_page.tap_add_category_in_category_page()
+    except Exception as e:
+        pytest.fail("Step [I tap the add category in the Category page] failed: " + str(e))
+
+@then("I should be navigated to the Add Category page")
+def verify_add_category_page(driver):
+    try:
+        service_appointment_page = ServiceAppointmentPage(driver)
+        assert service_appointment_page.verify_add_category_page(), "Add Category page not found"
+    except Exception as e:
+        pytest.fail("Step [I should be navigated to the Add Category page] failed: " + str(e))
+
+@when("I add a new category in the Add Category page")
+def add_new_category_in_add_category_page(driver):
+    try:
+        service_appointment_page = ServiceAppointmentPage(driver)
+        service_appointment_page.enter_new_category_in_add_category_page(SERVICE_CATEGORY_NAME)
+        service_appointment_page.tap_confirm_button_in_add_category_page()
+    except Exception as e:
+        pytest.fail("Step [I add a new category in the Add Category page] failed: " + str(e))
+
+@then("the category is added successfully")
+def verify_category_added(driver):
+    try:
+        service_appointment_page = ServiceAppointmentPage(driver)
+        assert service_appointment_page.verify_category_added(SERVICE_CATEGORY_NAME), \
+            "Category not added successfully"
+    except Exception as e:
+        pytest.fail("Step [the category is added successfully] failed: " + str(e))
+
+@when("I tap the close button in the Category page")
+def tap_close_button_in_category_page(driver):
+    try:
+        service_appointment_page = ServiceAppointmentPage(driver)
+        service_appointment_page.tap_close_button_in_category_page()
+    except Exception as e:
+        pytest.fail("Step [I tap the close button in the Category page] failed: " + str(e))
+
+@then("the category is displayed in the Service item page")
+def verify_category_displayed_in_service_item_page(driver):
+    try:
+        service_appointment_page = ServiceAppointmentPage(driver)
+        assert service_appointment_page.verify_category_displayed_in_service_item_page(SERVICE_CATEGORY_NAME), \
+            "Category not displayed in Service Item page"
+    except Exception as e:
+        pytest.fail("Step [the category is displayed in the Service item page] failed: " + str(e))
+
+@when("I tap the add service item button in the Service item page")
+def tap_add_service_item_in_new_category_page(driver):
+    try:
+        service_appointment_page = ServiceAppointmentPage(driver)
+        service_appointment_page.tap_category_item_in_service_item_page(SERVICE_CATEGORY_NAME)
+        service_appointment_page.tap_add_service_item_in_service_item_page()
+        service_appointment_page.verify_add_service_item_page()
+        service_appointment_page.tap_close_button_in_add_service_item_page()
+    except Exception as e:
+        pytest.fail("Step [I tap the add service item button in the Service item page] failed: " + str(e))
+
+@then("I fill in the service item details")
+def fill_in_service_item_details(driver):
+    try:
+        service_appointment_page = ServiceAppointmentPage(driver)
+        service_appointment_page.tap_add_service_item_in_service_item_page()
+        service_appointment_page.enter_service_item_name_in_add_service_item_page(SERVICE_ITEM_NAME)
+        service_appointment_page.enter_service_code_in_add_service_item_page(SERVICE_ITEM_CODE)
+        service_appointment_page.is_introduction_toggle_on_in_add_service_item_page()
+        service_appointment_page.tap_introduction_in_add_service_item_page()
+        service_appointment_page.verify_service_item_introduction_dialog()
+        service_appointment_page.enter_introduction_in_introduction_dialog(SERVICE_ITEM_INTRODUCTION)
+        service_appointment_page.tap_confirm_button_in_introduction_dialog()
+        service_appointment_page.tap_service_category_in_add_service_item_page()
+        service_appointment_page.verify_service_category_dialog()
+        service_appointment_page.select_service_category(SERVICE_CATEGORY_NAME)
+        service_appointment_page.service_category_dialog_dismissed()
+        service_appointment_page.enter_service_duration_in_add_service_item_page("60")
+        service_appointment_page.enter_service_price_in_add_service_item_page("1000")
+        service_appointment_page.tap_service_display_price_toggle()
+        service_appointment_page.tap_service_display_price_toggle()
+        service_appointment_page.tap_service_display_method_in_add_service_item_page()
+        service_appointment_page.verify_service_display_method_dialog()
+        service_appointment_page.select_starting_price_in_service_display_method_dialog()
+        service_appointment_page.tap_service_display_method_in_add_service_item_page()
+        service_appointment_page.select_fixed_price_in_service_display_method_dialog()
+        service_appointment_page.tap_sub_service_type_in_add_service_item_page()
+        service_appointment_page.verify_sub_service_type_dialog()
+        service_appointment_page.select_multiple_choice_in_sub_service_type_dialog()
+        service_appointment_page.tap_sub_service_type_in_add_service_item_page()
+        service_appointment_page.select_single_choice_in_sub_service_type_dialog()
+        service_appointment_page.tap_add_sub_service_in_add_service_item_page()
+        service_appointment_page.verify_add_sub_service_dialog()
+        service_appointment_page.enter_sub_service_name_in_add_sub_service_dialog(SUB_SERVICE_ITEM_NAME)
+        service_appointment_page.enter_duration_in_add_sub_service_dialog("10")
+        service_appointment_page.enter_price_in_add_sub_service_dialog("100")
+        service_appointment_page.tap_confirm_button_in_add_sub_service_dialog()
+        service_appointment_page.tap_edit_sub_service_in_add_service_item_page(SUB_SERVICE_ITEM_NAME)
+        service_appointment_page.verify_edit_sub_service_dialog()
+        service_appointment_page.enter_sub_service_name_in_edit_sub_service_dialog(EDIT_SUB_SERVICE_ITEM_NAME)
+        service_appointment_page.enter_duration_in_edit_sub_service_dialog("20")
+        service_appointment_page.enter_price_in_edit_sub_service_dialog("200")
+        service_appointment_page.tap_confirm_button_in_edit_sub_service_dialog()
+        service_appointment_page.tap_delete_sub_service_in_add_service_item_page(EDIT_SUB_SERVICE_ITEM_NAME)
+        service_appointment_page.tap_confirm_button_in_add_service_item_page()
+    except Exception as e:
+        pytest.fail("Step [I fill in the service item details] failed: " + str(e))
+
+@then("the service item is added successfully")
+def verify_service_item_added(driver):
+    try:
+        service_appointment_page = ServiceAppointmentPage(driver)
+        service_appointment_page.tap_category_item_in_service_item_page(SERVICE_CATEGORY_NAME)
+        assert service_appointment_page.verify_service_item_added(SERVICE_ITEM_NAME), \
+            "Service Item not added successfully"
+    except Exception as e:
+        pytest.fail("Step [the service item is added successfully] failed: " + str(e))
+
+@when("I edit the service item in the Service item page")
+def edit_service_item_in_service_item_page(driver):
+    try:
+        service_appointment_page = ServiceAppointmentPage(driver)
+        service_appointment_page.tap_service_item_in_service_item_page(SERVICE_ITEM_NAME)
+        service_appointment_page.verify_edit_service_item_dialog()
+        service_appointment_page.tap_edit_service_item_in_edit_service_item_dialog()
+        service_appointment_page.verify_edit_service_item_page()
+        service_appointment_page.tap_close_button_in_edit_service_item_page()
+        service_appointment_page.tap_service_item_in_service_item_page(SERVICE_ITEM_NAME)
+        service_appointment_page.tap_edit_service_item_in_edit_service_item_dialog()
+        service_appointment_page.edit_service_item_name_in_edit_service_item_page(EDIT_SERVICE_ITEM_NAME)
+        service_appointment_page.edit_service_code_in_edit_service_item_page(EDIT_SERVICE_ITEM_CODE)
+        service_appointment_page.is_introduction_toggle_on_in_edit_service_item_page()
+        service_appointment_page.tap_introduction_in_edit_service_item_page()
+        service_appointment_page.verify_service_item_introduction_dialog()
+        service_appointment_page.enter_introduction_in_introduction_dialog(EDIT_SERVICE_ITEM_INTRODUCTION)
+        service_appointment_page.tap_confirm_button_in_introduction_dialog()
+        service_appointment_page.tap_service_category_in_edit_service_item_page()
+        service_appointment_page.verify_service_category_dialog()
+        service_appointment_page.select_service_category(SERVICE_CATEGORY_NAME)
+        service_appointment_page.service_category_dialog_dismissed()
+        service_appointment_page.enter_service_duration_in_edit_service_item_page("60")
+        service_appointment_page.enter_service_price_in_edit_service_item_page("1000")
+        service_appointment_page.tap_service_display_price_toggle()
+        service_appointment_page.tap_service_display_method_in_edit_service_item_page()
+        service_appointment_page.verify_service_display_method_dialog()
+        service_appointment_page.select_starting_price_in_service_display_method_dialog()
+        service_appointment_page.tap_service_display_method_in_edit_service_item_page()
+        service_appointment_page.select_fixed_price_in_service_display_method_dialog()
+        service_appointment_page.tap_sub_service_type_in_edit_service_item_page()
+        service_appointment_page.verify_sub_service_type_dialog()
+        service_appointment_page.select_multiple_choice_in_sub_service_type_dialog()
+        service_appointment_page.tap_confirm_button_in_edit_service_item_page()
+    except Exception as e:
+        pytest.fail("Step [I edit the service item in the Service item page] failed: " + str(e))
+
+@then("the service item is edited successfully")
+def verify_service_item_edited(driver):
+    try:
+        service_appointment_page = ServiceAppointmentPage(driver)
+        assert service_appointment_page.verify_service_item_edited(EDIT_SERVICE_ITEM_NAME), \
+            "Service Item not edited successfully"
+    except Exception as e:
+        pytest.fail("Step [the service item is edited successfully] failed: " + str(e))
+
+@when("I copy the service item in service item page")
+def copy_service_item_in_service_item_page(driver):
+    try:
+        service_appointment_page = ServiceAppointmentPage(driver)
+        service_appointment_page.tap_service_item_in_service_item_page(SERVICE_ITEM_NAME)
+        service_appointment_page.verify_edit_service_item_dialog()
+        service_appointment_page.tap_copy_service_item_in_edit_service_item_dialog()
+    except Exception as e:
+        pytest.fail("Step [I copy the service item in service item page] failed: " + str(e))
+
+@then("the service item is copied successfully")
+def verify_service_item_copied(driver):
+    try:
+        service_appointment_page = ServiceAppointmentPage(driver)
+        assert service_appointment_page.verify_service_item_copied(SERVICE_ITEM_NAME), \
+            "Service Item not copied successfully"
+    except Exception as e:
+        pytest.fail("Step [the service item is copied successfully] failed: " + str(e))
+
+@when("I delete the service item in service item page")
+def delete_service_item_in_service_item_page(driver):
+    try:
+        service_appointment_page = ServiceAppointmentPage(driver)
+        service_appointment_page.tap_service_item_in_service_item_page(EDIT_SERVICE_ITEM_NAME)
+        service_appointment_page.verify_edit_service_item_dialog()
+        service_appointment_page.tap_edit_service_item_in_edit_service_item_dialog()
+        service_appointment_page.tap_delete_service_item_in_edit_service_item_page()
+        service_appointment_page.verify_delete_service_item_alert_dialog(EDIT_SERVICE_ITEM_NAME)
+        service_appointment_page.tap_delete_button_in_delete_service_item_alert_dialog()
+    except Exception as e:
+        pytest.fail("Step [I delete the service item in service item page] failed: " + str(e))
+
+@then("the service item is deleted successfully")
+def verify_service_item_deleted(driver):
+    try:
+        service_appointment_page = ServiceAppointmentPage(driver)
+        assert service_appointment_page.verify_service_item_deleted_in_service_item_page(SERVICE_ITEM_NAME), \
+            "Service Item not deleted successfully"
+    except Exception as e:
+        pytest.fail("Step [the service item is deleted successfully] failed: " + str(e))
+
+@when("I tap delete service item in service item page")
+def tap_delete_service_item_in_service_item_page(driver):
+    try:
+        service_appointment_page = ServiceAppointmentPage(driver)
+        service_appointment_page.tap_delete_all_service_item_in_service_item_page(SERVICE_ITEM_NAME)
+    except Exception as e:
+        pytest.fail("Step [I tap delete service item in service item page] failed: " + str(e))
+
+@when("I add a new service item")
+def fill_in_service_item(driver):
+    try:
+        service_appointment_page = ServiceAppointmentPage(driver)
+        service_appointment_page.tap_add_service_item_in_service_item_page()
+        service_appointment_page.enter_service_item_name_in_add_service_item_page(SERVICE_ITEM_NAME)
+        service_appointment_page.tap_service_category_in_edit_service_item_page()
+        service_appointment_page.select_service_category(SERVICE_CATEGORY_NAME)
+        service_appointment_page.tap_confirm_button_in_edit_service_item_page()
+    except Exception as e:
+        pytest.fail("Step [I add a new service item] failed: " + str(e))
+
+@when("I Delete the service category in the Service item page")
+def delete_service_category_in_service_item_page(driver):
+    try:
+        service_appointment_page = ServiceAppointmentPage(driver)
+        service_appointment_page.tap_category_edit_button_in_service_item_page()
+        service_appointment_page.tap_delete_category_item_in_category_page(SERVICE_CATEGORY_NAME)
+        service_appointment_page.tap_delete_button_in_delete_category_item_alert_dialog()
+    except Exception as e:
+        pytest.fail("Step [I Delete the service category in the Service item page] failed: " + str(e))
+
+@then("the service category is deleted successfully")
+def verify_service_category_deleted(driver):
+    try:
+        service_appointment_page = ServiceAppointmentPage(driver)
+        assert service_appointment_page.verify_service_category_deleted_in_category_page(SERVICE_CATEGORY_NAME), "Service Category not deleted successfully"
+        service_appointment_page.tap_close_button_in_category_page()
+        service_appointment_page.verify_service_item_page()
+        assert service_appointment_page.verify_service_category_deleted_in_service_item_page(SERVICE_CATEGORY_NAME), "Service Category not deleted successfully"
+    except Exception as e:
+        pytest.fail("Step [the service category is deleted successfully] failed: " + str(e))
+
+@when("I tap the close button in the Service item page")
+def tap_close_button_in_service_item_page(driver):
+    try:
+        service_appointment_page = ServiceAppointmentPage(driver)
+        service_appointment_page.tap_close_button_in_service_item_page()
+    except Exception as e:
+        pytest.fail("Step [I tap the close button in the Service item page] failed: " + str(e))
+
+# Scenario: Verify Online Booking Management
+@then("I have added a new service personnel")
+def add_new_service_personnel(driver):
+    try:
+        service_personnel_page = ServicePersonnelPage(driver)
+        service_personnel_page.tap_service_personnel_in_branch_settings_page()
+        service_personnel_page.tap_add_service_personnel_in_service_personnel_page()
+        service_personnel_page.verify_add_service_personnel_alert_dialog()
+        service_personnel_page.tap_add_button_in_add_service_personnel_alert_dialog()
+        service_personnel_page.enter_name_in_add_service_personnel_page(SERVICE_PERSONNEL_NAME)
+        service_personnel_page.tap_confirm_button_in_add_service_personnel_page()
+        service_personnel_page.tap_close_button_in_service_personnel_page()
+    except Exception as e:
+        pytest.fail("Step [I have added a new service personnel] failed: " + str(e))
+
+@then("I have added a new service item")
+def add_new_service_item(driver):
+    try:
+        service_appointment_page = ServiceAppointmentPage(driver)
+        service_appointment_page.tap_service_appointment_in_branch_settings_page()
+        service_appointment_page.tap_service_item_in_service_appointment_page()
+        service_appointment_page.tap_add_service_item_in_service_item_page()
+        service_appointment_page.enter_service_item_name_in_add_service_item_page(SERVICE_ITEM_NAME)
+        service_appointment_page.enter_service_duration_in_add_service_item_page("60")
+        service_appointment_page.enter_service_price_in_add_service_item_page("1000")
+        service_appointment_page.tap_confirm_button_in_add_service_item_page()
+        service_appointment_page.tap_close_button_in_service_item_page()
+    except Exception as e:
+        pytest.fail("Step [I have added a new service item] failed: " + str(e))
+
+@when("I tap the online booking management button in the Service Appointment page")
+def tap_online_booking_management_button_in_service_appointment_page(driver):
+    try:
+        service_appointment_page = ServiceAppointmentPage(driver)
+        service_appointment_page.tap_online_booking_management_button_in_service_appointment_page()
+    except Exception as e:
+        pytest.fail("Step [I tap the online booking management button in the Service Appointment page] failed: " + str(e))
+
+@then("I should be navigated to the Online Booking Management page")
+def verify_online_booking_management_page(driver):
+    try:
+        service_appointment_page = ServiceAppointmentPage(driver)
+        service_appointment_page.verify_online_booking_management_page()
+    except Exception as e:
+        pytest.fail("Step [I should be navigated to the Online Booking Management page] failed: " + str(e))
+
+@when("I tap the personal online booking management in the Online Booking Management page")
+def tap_personal_online_booking_management_in_online_booking_management_page(driver):
+    try:
+        service_appointment_page = ServiceAppointmentPage(driver)
+        service_appointment_page.tap_personal_online_booking_management_in_online_booking_management_page(SERVICE_PERSONNEL_NAME)
+    except Exception as e:
+        pytest.fail("Step [I tap the personal online booking management in the Online Booking Management page] failed: " + str(e))
+
+@then("I should be navigated to the Personal Online Booking page")
+def verify_personal_online_booking_page(driver):
+    try:
+        service_appointment_page = ServiceAppointmentPage(driver)
+        service_appointment_page.verify_personal_online_booking_page(SERVICE_PERSONNEL_NAME)
+    except Exception as e:
+        pytest.fail("Step [I should be navigated to the Personal Online Booking page] failed: " + str(e))
+
+@then("I configure open days in the Open Setting tab in the Personal Online Booking page")
+def configure_open_days_in_open_setting_tab(driver):
+    try:
+        service_appointment_page = ServiceAppointmentPage(driver)
+        service_appointment_page.tap_open_setting_tab_in_personal_online_booking_page()
+        service_appointment_page.tap_open_days_in_open_setting_tab()
+        service_appointment_page.tap_random_specific_day_in_open_days()
+        service_appointment_page.tap_specific_time_in_open_days()
+        service_appointment_page.tap_random_open_months_available_in_open_days()
+        service_appointment_page.tap_confirm_button_in_open_days()
+    except Exception as e:
+        pytest.fail("Step [I configure open days in the Open Setting tab in the Personal Online Booking page] failed: " + str(e))
+
+@then("I configure latest appointment time in the Personal Online Booking page")
+def configure_latest_appointment_time_in_personal_online_booking_page(driver):
+    try:
+        service_appointment_page = ServiceAppointmentPage(driver)
+        service_appointment_page.tap_latest_appointment_time_in_personal_online_booking_page()
+        service_appointment_page.tap_random_latest_appointment_time_in_latest_appointment_time()
+    except Exception as e:
+        pytest.fail("Step [I configure latest appointment time in the Personal Online Booking page] failed: " + str(e))
+
+@then("I configure advance setting in the Personal Online Booking page")
+def configure_advance_setting_in_personal_online_booking_page(driver):
+    try:
+        service_appointment_page = ServiceAppointmentPage(driver)
+        service_appointment_page.tap_advance_setting_in_personal_online_booking_page()
+        service_appointment_page.tap_random_advance_setting_in_advance_setting()
+    except Exception as e:
+        pytest.fail("Step [I configure advance setting in the Personal Online Booking page] failed: " + str(e))
+
+@then("I configure open time in the Personal Online Booking page")
+def configure_open_time_in_personal_online_booking_page(driver):
+    try:
+        service_appointment_page = ServiceAppointmentPage(driver)
+        service_appointment_page.tap_open_time_tab_in_personal_online_booking_page()
+        service_appointment_page.tap_open_time_today_in_open_time_tab()
+        service_appointment_page.tap_display_early_morning_in_edit_open_time_page()
+        service_appointment_page.tap_random_time_in_edit_open_time_page()
+        service_appointment_page.tap_close_button_in_edit_open_time_page()
+        service_appointment_page.tap_edit_open_time_today_in_open_time_tab()
+        service_appointment_page.copy_open_time_in_edit_open_time_page()
+        service_appointment_page.tap_specific_time_in_copy_dialog_in_edit_open_time_page()
+        service_appointment_page.select_next_day_open_time_in_copy_specific_time_page()
+        service_appointment_page.tap_confirm_button_in_copy_specific_time_page()
+        service_appointment_page.copy_open_time_in_edit_open_time_page()
+        service_appointment_page.tap_date_range_in_copy_dialog_in_edit_open_time_page()
+        service_appointment_page.select_repeat_open_time_range_in_copy_range_page()
+        service_appointment_page.tap_confirm_button_in_copy_range_page()
+        service_appointment_page.tap_quick_close_button_in_edit_open_time_page()
+        service_appointment_page.tap_today_close_in_quick_close_dialog()
+        service_appointment_page.verify_today_close_dialog()
+        service_appointment_page.tap_confirm_button_in_today_close_dialog()
+        service_appointment_page.tap_quick_close_button_in_edit_open_time_page()
+        service_appointment_page.tap_range_close_in_quick_close_dialog()
+        service_appointment_page.select_range_close_in_range_close_page()
+        service_appointment_page.tap_confirm_button_in_range_close_page()
+        service_appointment_page.tap_quick_close_button_in_edit_open_time_page()
+        service_appointment_page.tap_all_close_in_quick_close_dialog()
+        service_appointment_page.verify_all_close_dialog()
+        service_appointment_page.tap_confirm_button_in_all_close_dialog()
+        service_appointment_page.tap_close_button_in_edit_open_time_page()
+    except Exception as e:
+        pytest.fail("Step [I configure open time in the Personal Online Booking page] failed: " + str(e))
+
+@then("I configure open items in the Personal Online Booking page")
+def configure_open_items_in_personal_online_booking_page(driver):
+    try:
+        service_appointment_page = ServiceAppointmentPage(driver)
+        service_appointment_page.tap_open_items_tab_in_personal_online_booking_page()
+        service_appointment_page.tap_main_service_item_in_open_items_tab()
+        service_appointment_page.tap_service_item_in_select_main_service_item_page(SERVICE_ITEM_NAME)
+        service_appointment_page.tap_confirm_button_in_select_main_service_item_page()
+        service_appointment_page.tap_online_booking_item_in_open_items_tab()
+        service_appointment_page.tap_single_choice_in_select_online_booking_item_dialog()
+        service_appointment_page.tap_additional_service_item_in_open_items_tab()
+        service_appointment_page.tap_confirm_button_in_select_additional_service_item_page()
+    except Exception as e:
+        pytest.fail("Step [I configure open items in the Personal Online Booking page] failed: " + str(e))
+
+@when("I tap the close button in the Personal Online Booking page")
+def tap_close_button_in_personal_online_booking_page(driver):
+    try:
+        service_appointment_page = ServiceAppointmentPage(driver)
+        service_appointment_page.tap_close_button_in_personal_online_booking_page()
+    except Exception as e:
+        pytest.fail("Step [I tap the close button in the Personal Online Booking page] failed: " + str(e))
+
+@when("I close the Personal Online Booking")
+def close_personal_online_booking_page(driver):
+    try:
+        service_appointment_page = ServiceAppointmentPage(driver)
+        service_appointment_page.tap_personal_online_booking_management_in_online_booking_management_page(SERVICE_PERSONNEL_NAME)
+        service_appointment_page.open_personal_online_booking_toggle()
+        service_appointment_page.tap_close_button_in_personal_online_booking_page()
+    except Exception as e:
+        pytest.fail("Step [I close the Personal Online Booking] failed: " + str(e))
+
+@then("the service personnel should be displayed in the closed online booking section in the Online Booking Management page")
+def verify_closed_online_booking_section(driver):
+    try:
+        service_appointment_page = ServiceAppointmentPage(driver)
+        service_appointment_page.tap_personal_online_booking_closed_section_expand_in_online_booking_management_page()
+        service_appointment_page.verify_personal_online_booking_closed_section_in_online_booking_management_page(SERVICE_PERSONNEL_NAME)
+    except Exception as e:
+        pytest.fail("Step [the service personnel should be displayed in the closed online booking section in the Online Booking Management page] failed: " + str(e))
+
+@when("I add service unspecified appointment combination")
+def add_service_unspecified_appointment_combination(driver):
+    try:
+        service_appointment_page = ServiceAppointmentPage(driver)
+        service_appointment_page.tap_add_unspecified_appointment_combination_in_service_appointment_page()
+        service_appointment_page.verify_add_unspecified_appointment_combination_page()
+        service_appointment_page.enter_unspecified_appointment_combination_name_in_add_unspecified_appointment_combination_page(SERVICE_COMBINATION_NAME)
+        service_appointment_page.enter_unspecified_appointment_combination_introduction_in_add_unspecified_appointment_combination_page(SERVICE_COMBINATION_INTRODUCTION)
+        service_appointment_page.tap_service_personnel_in_add_unspecified_appointment_combination_page(SERVICE_PERSONNEL_NAME)
+        service_appointment_page.tap_confirm_button_in_add_unspecified_appointment_combination_page()
+    except Exception as e:
+        pytest.fail("Step [I add service unspecified appointment combination] failed: " + str(e))
+
+@then("the service unspecified appointment combination should be added successfully")
+def verify_service_unspecified_appointment_combination_added(driver):
+    try:
+        service_appointment_page = ServiceAppointmentPage(driver)
+        service_appointment_page.verify_service_unspecified_appointment_combination_added_in_service_appointment_page(SERVICE_COMBINATION_NAME)
+    except Exception as e:
+        pytest.fail("Step [the service unspecified appointment combination should be added successfully] failed: " + str(e))
+
+@then("I edit service unspecified appointment combination")
+def edit_service_unspecified_appointment_combination(driver):
+    try:
+        service_appointment_page = ServiceAppointmentPage(driver)
+        service_appointment_page.tap_service_unspecified_appointment_combination_in_service_appointment_page(SERVICE_COMBINATION_NAME)
+        service_appointment_page.tap_open_item_setting_tab_in_edit_unspecified_appointment_combination_page()
+        service_appointment_page.tap_main_service_item_in_open_item_setting_tab_in_edit_unspecified_appointment_combination_page()
+        service_appointment_page.tap_service_item_in_select_main_service_item_page(SERVICE_ITEM_NAME)
+        service_appointment_page.tap_confirm_button_in_select_main_service_item_page()
+        service_appointment_page.tap_close_button_in_edit_unspecified_appointment_combination_page()
+    except Exception as e:
+        pytest.fail("Step [I edit service unspecified appointment combination] failed: " + str(e))
+
+@when("I Delete service unspecified appointment combination")
+def delete_service_unspecified_appointment_combination(driver):
+    try:
+        service_appointment_page = ServiceAppointmentPage(driver)
+        service_appointment_page.tap_service_unspecified_appointment_combination_in_service_appointment_page(SERVICE_COMBINATION_NAME)
+        service_appointment_page.tap_delete_button_in_edit_unspecified_appointment_combination_page(SERVICE_COMBINATION_NAME)
+    except Exception as e:
+        pytest.fail("Step [I Delete service unspecified appointment combination] failed: " + str(e))
+
+@then("the service unspecified appointment combination should be deleted successfully")
+def verify_service_unspecified_appointment_combination_deleted(driver):
+    try:
+        service_appointment_page = ServiceAppointmentPage(driver)
+        service_appointment_page.verify_service_unspecified_appointment_combination_deleted_in_service_appointment_page(SERVICE_COMBINATION_NAME)
+    except Exception as e:
+        pytest.fail("Step [the service unspecified appointment combination should be deleted successfully] failed: " + str(e))
+
+@when("I tap the close button in the Online Booking Management page")
+def tap_close_button_in_online_booking_management_page(driver):
+    try:
+        service_appointment_page = ServiceAppointmentPage(driver)
+        service_appointment_page.tap_close_button_in_online_booking_management_page()
+    except Exception as e:
+        pytest.fail("Step [I tap the close button in the Online Booking Management page] failed: " + str(e))
+
+@then("I Delete the service item")
+def delete_service_item(driver):
+    try:
+        service_appointment_page = ServiceAppointmentPage(driver)
+        service_appointment_page.tap_service_item_in_service_appointment_page()
+        service_appointment_page.tap_delete_service_item_in_service_item_page(SERVICE_ITEM_NAME)
+        service_appointment_page.tap_delete_button_in_delete_service_item_alert_dialog()
+        service_appointment_page.tap_close_button_in_service_item_page()
+        service_appointment_page.tap_back_button_in_service_appointment_page()
+    except Exception as e:
+        pytest.fail("Step [I Delete the service item] failed: " + str(e))
+
+@then("I Delete the service personnel")
+def delete_service_personnel(driver):
+    try:
+        service_personnel_page = ServicePersonnelPage(driver)
+        service_personnel_page.tap_service_personnel_in_branch_settings_page()
+        service_personnel_page.tap_delete_service_personnel_in_service_personnel_page(SERVICE_PERSONNEL_NAME)
+        service_personnel_page.enter_delete_text_in_delete_service_personnel_alert_dialog()
+        service_personnel_page.tap_delete_button_in_delete_service_personnel_alert_dialog()
+        service_personnel_page.tap_close_button_in_service_personnel_page()
+    except Exception as e:
+        pytest.fail("Step [I Delete the service personnel] failed: " + str(e))

@@ -11,6 +11,7 @@ class ServicePersonnelPageLocators:
     CLOSE_BUTTON_IN_SERVICE_PERSONNEL_PAGE = (AppiumBy.XPATH, '//*[@resource-id="xmark"]')
     ADD_SERVICE_PERSONNEL_IN_SERVICE_PERSONNEL_PAGE = (AppiumBy.XPATH, '//*[@text="新增服務人員"]')
     SERVICE_PERSONNEL_IN_SERVICE_PERSONNEL_PAGE = lambda self, text: (AppiumBy.XPATH, f'//*[@content-desc="{text}"]')
+    DELETE_SERVICE_PERSONNEL_IN_SERVICE_PERSONNEL_PAGE = lambda self, text: (AppiumBy.XPATH, f'//*[@text="{text}"]/../android.view.ViewGroup//*[@resource-id="circle-minus"]')
 
     # Add Service Personnel Alert Dialog
     DESCRIPTION_IN_ADD_SERVICE_PERSONNEL_ALERT_DIALOG = (AppiumBy.XPATH, '//*[@text="夯客的收費方式是以「服務人員數量＊方案價格」計價，新增人員可能會導致費用增加。"]')

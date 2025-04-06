@@ -18,6 +18,14 @@ class ServicePersonnelPage(CommonUseSection):
         time.sleep(2)
         return self
 
+    def tap_delete_service_personnel_in_service_personnel_page(self, service_personnel_name):
+        locator = ServicePersonnelPageLocators.DELETE_SERVICE_PERSONNEL_IN_SERVICE_PERSONNEL_PAGE(self, service_personnel_name)
+        self._scroll_to_element(locator)
+        self.driver.find_element(*locator).click()
+        time.sleep(2)
+        return self
+
+
     def verify_service_personnel_page(self):
         self.driver.find_element(*ServicePersonnelPageLocators.TITLE_IN_SERVICE_PERSONNEL_PAGE).is_displayed()
         self.driver.find_element(*ServicePersonnelPageLocators.DESCRIPTION_IN_SERVICE_PERSONNEL_PAGE).is_displayed()
@@ -265,4 +273,8 @@ class ServicePersonnelPage(CommonUseSection):
         except NoSuchElementException:
             return True
 
+    def tap_close_button_in_service_personnel_page(self):
+        self.driver.find_element(*ServicePersonnelPageLocators.CLOSE_BUTTON_IN_SERVICE_PERSONNEL_PAGE).click()
+        time.sleep(2)
+        return self
 
