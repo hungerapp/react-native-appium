@@ -1,0 +1,22 @@
+services:
+  appium-server:
+    build: ./docker/appium_server
+    ports:
+      - "4723:4723"
+    command: appium --allow-cors
+
+  # TODO: Add different test runner services for different test suites
+  # test_signin-runner:
+  #   build:
+  #     context: ./
+  #     dockerfile: ./docker/auth/Dockerfile
+  #   depends_on:
+  #     - appium-server
+  #   environment:
+  #     - APPIUM_OS=ios
+  #     - IMPLICIT_WAIT=20
+  #     - DUMMY_PASSWORD=testP@ssword
+  #     - NO_RESET=True
+  #     - AUTO_ACCEPT_ALERTS=True
+  #     - UDID=4BEC1422-4429-4EAD-B850-C296B013A210
+  #   command: pytest --alluredir=./allure-results

@@ -1,0 +1,135 @@
+name: E2E Tests
+
+on:
+  schedule:
+    - cron: "0 0 * * *" # run every day at 00:00
+  workflow_dispatch:
+    inputs:
+      tags:
+        description: "要運行的測試標籤 (例如: regression, login)"
+        required: false
+        default: ""
+      platform:
+        description: "測試平台"
+        required: true
+        type: choice
+        options:
+          - android
+          - ios
+      device_count:
+        description: "模擬器數量"
+        required: true
+        type: choice
+        options:
+          - 1
+          - 2
+          - 3
+          - 4
+        default: "1"
+      app_version:
+        description: "應用程序版本"
+        required: true
+        type: string
+        default: "latest"
+
+env:
+  PYTHON_VERSION: "3.9"
+
+jobs:
+  test:
+    name: Run E2E Tests
+    runs-on: ${{ github.event.inputs.platform == 'ios' && 'macos-latest' || 'ubuntu-latest' }}
+    strategy:
+      matrix:
+        device_count: [1, 2, 3, 4]
+      max-parallel: ${{ github.event.inputs.device_count == '1' && 1 || github.event.inputs.device_count == '2' && 2 || github.event.inputs.device_count == '3' && 3 || 4 }}
+      fail-fast: false
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download app files
+        run: |
+          mkdir -p assets
+          if [ "${{ github.event.inputs.platform }}" = "android" ]; then
+            curl -L "https://github.com/${{ github.repository }}/releases/download/${{ github.event.inputs.app_version }}/app-debug.apk" -o assets/app-debug.apk
+          else
+            curl -L "https://github.com/${{ github.repository }}/releases/download/${{ github.event.inputs.app_version }}/HotcakeBeta.app" -o assets/HotcakeBeta.app
+          fi
+
+      - name: Set up Python ${{ env.PYTHON_VERSION }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: "pip"
+
+      - name: Cache pip packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Set up environment variables
+        run: |
+          cat > .env << EOF
+          PLATFORM=${{ github.event.inputs.platform }}
+          TEST_ENV=github_actions
+          APK_PATH=./assets/app-debug.apk
+          APP_PATH=./assets/HotcakeBeta.app
+          DEVICE_COUNT=${{ github.event.inputs.device_count }}
+          EOF
+
+      - name: Run tests
+        run: |
+          if [ -n "${{ github.event.inputs.tags }}" ]; then
+            python -m pytest -v \
+              --driver Appium \
+              --variables ./env_configs/mobile.json \
+              --tags="${{ github.event.inputs.tags }}" \
+              --alluredir=allure-results \
+              -n ${{ github.event.inputs.device_count }} \
+              --dist=loadfile
+          else
+            python -m pytest -v \
+              --driver Appium \
+              --variables ./env_configs/mobile.json \
+              --alluredir=allure-results \
+              -n ${{ github.event.inputs.device_count }} \
+              --dist=loadfile
+          fi
+
+      - name: Generate Allure Report
+        uses: simple-elf/allure-report-action@master
+        if: always()
+        with:
+          allure_results: allure-results
+          allure_history: allure-history
+          keep_reports: 20
+          report_name: mobile-allure-report
+          report_title: Mobile Test Report
+          report_url: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+
+      - name: Notify on failure
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const message = `❌ 測試失敗: ${context.workflow} - ${context.job}\n\n` +
+              `測試平台: ${process.env.PLATFORM}\n` +
+              `模擬器數量: ${process.env.DEVICE_COUNT}\n` +
+              `測試標籤: ${process.env.TEST_TAGS || '全部'}\n` +
+              `詳情: ${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID}`;
+
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `測試失敗: ${context.workflow} - ${context.job}`,
+              body: message
+            });

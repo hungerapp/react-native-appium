@@ -1,0 +1,20 @@
+from appium.webdriver.common.appiumby import AppiumBy
+
+class InventoryLocators:
+    INVENTORY_MANAGEMENT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("進存貨")')
+    TAB_CONTAINER = (AppiumBy.XPATH, '//android.widget.HorizontalScrollView/android.view.ViewGroup')
+    AUTO_TEST_TAB = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("自動化測試商品")')
+    TEST_PRODUCT_1 = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("測試1")')
+    ADD_INVENTORY = (AppiumBy.ACCESSIBILITY_ID, '新增存貨')
+    INVENTORY_DATE = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("進貨日期")')
+    INVENTORY_QUANTITY = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("請輸入進貨數量")')
+    INVENTORY_PRICE = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("請輸入進貨單價")')
+    SAFETY_STOCK_LEVEL = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("安全庫存量")')
+    STOCK_REMIND_TOGGLE = (AppiumBy.ACCESSIBILITY_ID, '庫存提醒-switch-button')
+    SAFETY_STOCK_AMOUNT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("android.widget.EditText")')
+    SAVE_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("check")')
+    RETURN_TO_WAREHOUSE_ACTION = (AppiumBy.ACCESSIBILITY_ID, '退倉')
+    RETURN_TO_WAREHOUSE_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("退倉").instance(1)')
+    CONFIRM_RETURN_TO_WAREHOUSE_BUTTON = (AppiumBy.ACCESSIBILITY_ID, '退倉')
+    BACK_BUTTON = (AppiumBy.ACCESSIBILITY_ID, 'xmark')
+    INVENTORY_RECORDS = (AppiumBy.ACCESSIBILITY_ID, '進存紀錄')
