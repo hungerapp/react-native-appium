@@ -11,9 +11,10 @@ from utils.helpers import GetTestHelper
 # TODO: Move the config and options to a separate file
 config = dotenv_values(".env")
 
-noReset_bool = True if config['NO_RESET'] == 'True' else False
-platform = config['APPIUM_OS']
-auto_accept_alerts_bool = True if config['AUTO_ACCEPT_ALERTS'] == 'True' else False
+# 設置默認值
+noReset_bool = True if config.get('NO_RESET', 'True') == 'True' else False
+platform = config.get('APPIUM_OS', 'android')
+auto_accept_alerts_bool = True if config.get('AUTO_ACCEPT_ALERTS', 'True') == 'True' else False
 
 options = XCUITestOptions()
 options.platform_name = platform
@@ -25,7 +26,7 @@ if options.platform_name == 'android':
     options.automation_name = 'UiAutomator2'
     # options.set_capability('platformVersion', '34.0')
     # options.set_capability('deviceName', 'Android Emulator')
-    options.set_capability('app', config['ANDROID_APP_PATH'])
+    options.set_capability('app', config.get('ANDROID_APP_PATH'))
     options.set_capability('noReset', noReset_bool)
     options.set_capability('autoGrantPermissions', auto_accept_alerts_bool)
 
@@ -35,7 +36,7 @@ elif options.platform_name == 'ios':
     options.set_capability('platformVersion', '17.5')
     # options.set_capability('deviceName', 'iPhone 15 Pro')
     options.set_capability('simulatorStartupTimeout', '90000')
-    options.set_capability('app', config['IOS_APP_PATH'])
+    options.set_capability('app', config.get('IOS_APP_PATH'))
     # device: iPhone 15 pro
     #options.set_capability('udid', config['UDID'])
     options.set_capability('noReset', noReset_bool)
