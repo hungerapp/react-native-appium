@@ -64,9 +64,12 @@ jobs:
           cores: 2
           ram-size: 4096M
           disk-size: 20480M
-          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none -partition-size 20480
+          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none -partition-size 20480 -accel on -memory 4096 -cores 2 -no-snapshot-save -qemu -enable-kvm
           disable-animations: true
           script: echo "Emulator started"
+          emulator-boot-timeout: 900
+          force-avd-creation: true
+          target: google_apis
 
       - name: Download app files
         run: |
@@ -172,12 +175,4 @@ jobs:
             const message = `❌ 測試失敗: ${context.workflow} - ${context.job}\n\n` +
               `測試平台: ${{ github.event.inputs.platform }}\n` +
               `模擬器數量: ${{ github.event.inputs.device_count }}\n` +
-              `測試標籤: ${{ github.event.inputs.tags || '全部' }}\n` +
-              `詳情: ${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
-
-            await github.rest.issues.create({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              title: `測試失敗: ${context.workflow} - ${context.job}`,
-              body: message
-            });
+              `
