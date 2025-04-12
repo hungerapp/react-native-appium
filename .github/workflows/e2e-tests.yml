@@ -84,6 +84,7 @@ jobs:
           APK_PATH=./assets/app-debug.apk
           APP_PATH=./assets/HotcakeBeta.app
           DEVICE_COUNT=${{ github.event.inputs.device_count }}
+          NO_RESET=True
           EOF
 
       - name: Run tests
