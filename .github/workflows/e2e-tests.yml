@@ -39,11 +39,6 @@ jobs:
   test:
     name: Run E2E Tests
     runs-on: ${{ github.event.inputs.platform == 'ios' && 'macos-latest' || 'ubuntu-latest' }}
-    strategy:
-      matrix:
-        device_count: [1, 2, 3, 4]
-      max-parallel: ${{ github.event.inputs.device_count == '1' && 1 || github.event.inputs.device_count == '2' && 2 || github.event.inputs.device_count == '3' && 3 || 4 }}
-      fail-fast: false
 
     steps:
       - uses: actions/checkout@v4
