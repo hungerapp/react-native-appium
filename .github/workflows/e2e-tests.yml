@@ -85,6 +85,9 @@ jobs:
           APP_PATH=./assets/HotcakeBeta.app
           DEVICE_COUNT=${{ github.event.inputs.device_count }}
           NO_RESET=True
+          APPIUM_OS=${{ github.event.inputs.platform }}
+          AUTO_ACCEPT_ALERTS=True
+          IMPLICIT_WAIT=15
           EOF
 
       - name: Run tests
