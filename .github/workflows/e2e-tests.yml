@@ -58,18 +58,18 @@ jobs:
         if: github.event.inputs.platform == 'android'
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: 35
+          api-level: 34
           arch: arm64-v8a
           profile: pixel_7
           cores: 2
           ram-size: 4096M
-          disk-size: 20480M
-          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none -partition-size 20480 -accel on -memory 4096 -cores 2 -no-snapshot-save
+          disk-size: 10240M
+          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none -memory 4096
           disable-animations: true
           script: echo "Emulator started"
           emulator-boot-timeout: 900
           force-avd-creation: true
-          target: google_apis
+          target: google_apis_playstore
 
       - name: Download app files
         run: |
