@@ -92,16 +92,16 @@ jobs:
             python -m pytest -v \
               --driver Appium \
               --variables ./env_configs/mobile.json \
-              --tags="${{ github.event.inputs.tags }}" \
+              -k "${{ github.event.inputs.tags }}" \
               --alluredir=allure-results \
-              -n ${{ github.event.inputs.device_count }} \
+              -n="${{ github.event.inputs.device_count }}" \
               --dist=loadfile
           else
             python -m pytest -v \
               --driver Appium \
               --variables ./env_configs/mobile.json \
               --alluredir=allure-results \
-              -n ${{ github.event.inputs.device_count }} \
+              -n="${{ github.event.inputs.device_count }}" \
               --dist=loadfile
           fi
 
@@ -115,6 +115,26 @@ jobs:
           report_name: mobile-allure-report
           report_title: Mobile Test Report
           report_url: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+
+      - name: Upload Screenshots
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: test-screenshots
+          path: |
+            screenshots/
+            test-results/
+          retention-days: 30
+
+      - name: Upload Test Results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: test-results
+          path: |
+            allure-results/
+            test-output/
+          retention-days: 30
 
       - name: Notify on failure
         if: failure()
