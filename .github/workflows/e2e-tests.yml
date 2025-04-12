@@ -43,6 +43,31 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Set up Java
+        if: github.event.inputs.platform == 'android'
+        uses: actions/setup-java@v4
+        with:
+          java-version: "11"
+          distribution: "temurin"
+
+      - name: Set up Android SDK
+        if: github.event.inputs.platform == 'android'
+        uses: android-actions/setup-android@v3
+
+      - name: Start Android Emulator
+        if: github.event.inputs.platform == 'android'
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 35
+          arch: x86_64
+          profile: pixel_8a
+          cores: 2
+          ram-size: 4096M
+          disk-size: 20480M
+          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none -partition-size 20480
+          disable-animations: true
+          script: echo "Emulator started"
+
       - name: Download app files
         run: |
           mkdir -p assets
