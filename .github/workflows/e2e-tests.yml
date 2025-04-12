@@ -47,7 +47,7 @@ jobs:
         if: github.event.inputs.platform == 'android'
         uses: actions/setup-java@v4
         with:
-          java-version: "11"
+          java-version: "17"
           distribution: "temurin"
 
       - name: Set up Android SDK
@@ -109,6 +109,13 @@ jobs:
           IMPLICIT_WAIT=25
           EOF
 
+      - name: Create Test Directories
+        run: |
+          mkdir -p allure-results
+          mkdir -p allure-report
+          mkdir -p screenshots
+          mkdir -p test-results
+
       - name: Run tests
         run: |
           if [ -n "${{ github.event.inputs.tags }}" ]; then
@@ -132,7 +139,6 @@ jobs:
           allure_history: allure-history
           keep_reports: 20
           report_name: mobile-allure-report
-          report_title: Mobile Test Report
           report_url: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
 
       - name: Upload Screenshots
@@ -141,8 +147,10 @@ jobs:
         with:
           name: test-screenshots
           path: |
-            screenshots/
-            test-results/
+            allure-results/**/attachments/*
+            allure-results/**/*.png
+            allure-results/**/*.jpg
+            allure-results/**/*.jpeg
           retention-days: 30
 
       - name: Upload Test Results
