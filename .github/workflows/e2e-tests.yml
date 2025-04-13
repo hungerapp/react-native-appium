@@ -67,6 +67,21 @@ jobs:
           mkdir -p screenshots
           mkdir -p test-results
 
+      - name: Install Appium and Drivers
+        if: github.event.inputs.platform == 'android'
+        run: |
+          npm install -g appium
+          appium --version
+          npm install -g appium-uiautomator2-driver
+          appium driver install uiautomator2
+          appium driver list
+
+      - name: Start Appium Server
+        if: github.event.inputs.platform == 'android'
+        run: |
+          appium --allow-insecure chromedriver_autodownload &
+          sleep 10
+
       - name: Set up environment variables
         run: |
           cat > .env << EOF
@@ -85,19 +100,10 @@ jobs:
           NO_RESET=True
           AUTO_ACCEPT_ALERTS=True
           IMPLICIT_WAIT=25
+          APPIUM_SERVER_URL=http://localhost:4723
+          PLATFORM_NAME=Android
+          AUTOMATION_NAME=UiAutomator2
           EOF
-
-      - name: Install Appium
-        if: github.event.inputs.platform == 'android'
-        run: |
-          npm install -g appium
-          appium --version
-
-      - name: Start Appium Server
-        if: github.event.inputs.platform == 'android'
-        run: |
-          appium &
-          sleep 10
 
       - name: Run tests
         if: github.event.inputs.platform == 'android'
