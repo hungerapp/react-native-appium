@@ -65,76 +65,6 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Start Android Emulator
-        if: github.event.inputs.platform == 'android'
-        uses: reactivecircus/android-emulator-runner@v2
-        with:
-          api-level: 33
-          arch: arm64-v8a
-          profile: pixel_7
-          cores: 2
-          ram-size: 4096M
-          disk-size: 10240M
-          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -no-snapshot -no-snapshot-save -no-snapshot-load -writable-system
-          disable-animations: true
-          script: |
-            echo "Starting ADB server..."
-            adb kill-server
-            sleep 5
-            adb start-server
-            echo "Waiting for emulator boot to complete..."
-            boot_completed=""
-            boot_animation=""
-            retry=0
-            while [[ ("$boot_completed" != "1" || "$boot_animation" != "stopped") && $retry -lt 30 ]]; do
-              echo "Retry #$retry: waiting for emulator to boot..."
-              boot_completed=$(adb -s emulator-5554 shell getprop sys.boot_completed 2>/dev/null | tr -d '\r')
-              boot_animation=$(adb -s emulator-5554 shell getprop init.svc.bootanim 2>/dev/null | tr -d '\r')
-              echo "Boot completed: $boot_completed, Boot animation: $boot_animation"
-              sleep 10
-              ((retry++))
-            done
-            if [[ "$boot_completed" != "1" || "$boot_animation" != "stopped" ]]; then
-              echo "❌ Emulator failed to boot in time"
-              adb devices
-              exit 1
-            fi
-            echo "✅ Emulator booted successfully"
-            echo "Disabling screen timeout..."
-            adb -s emulator-5554 shell settings put system screen_off_timeout 2147483647
-            adb devices
-          emulator-boot-timeout: 2400
-          force-avd-creation: true
-          target: google_apis_playstore
-          avd-name: test
-          emulator-port: 5554
-          disable-spellchecker: false
-          disable-linux-hw-accel: true
-          enable-hw-keyboard: false
-          channel: stable
-
-      - name: Download app files
-        run: |
-          mkdir -p assets
-          if [ "${{ github.event.inputs.platform }}" = "android" ]; then
-            curl -L "https://github.com/${{ github.repository }}/releases/download/${{ github.event.inputs.app_version }}/app-debug.apk" -o assets/app-debug.apk
-          else
-            curl -L "https://github.com/${{ github.repository }}/releases/download/${{ github.event.inputs.app_version }}/HotcakeBeta.app" -o assets/HotcakeBeta.app
-          fi
-
-      - name: Set up environment variables
-        run: |
-          cat > .env << EOF
-          TEST_ENV=github_actions
-          APPIUM_OS=${{ github.event.inputs.platform }}
-          ANDROID_APP_PATH=./assets/app-debug.apk
-          IOS_APP_PATH=./assets/HotcakeBeta.app
-          DEVICE_COUNT=${{ github.event.inputs.device_count }}
-          NO_RESET=True
-          AUTO_ACCEPT_ALERTS=True
-          IMPLICIT_WAIT=25
-          EOF
-
       - name: Create Test Directories
         run: |
           mkdir -p allure-results
@@ -142,19 +72,42 @@ jobs:
           mkdir -p screenshots
           mkdir -p test-results
 
-      - name: Run tests
+      - name: Set up environment variables
         run: |
-          if [ -n "${{ github.event.inputs.tags }}" ]; then
-            python -m pytest -v \
-              -k "${{ github.event.inputs.tags }}" \
-              --alluredir=allure-results \
-              -n="${{ github.event.inputs.device_count }}" \
-              --dist=loadfile
+          cat > .env << EOF
+          TEST_ENV=github_actions
+          APPIUM_OS=${{ github.event.inputs.platform }}
+          BROWSERSTACK_USERNAME=${{ secrets.BROWSERSTACK_USERNAME }}
+          BROWSERSTACK_ACCESS_KEY=${{ secrets.BROWSERSTACK_ACCESS_KEY }}
+          BROWSERSTACK_APP_ID=${{ secrets.BROWSERSTACK_APP_ID }}
+          BROWSERSTACK_DEVICE_NAME=Google Pixel 7
+          BROWSERSTACK_OS_VERSION=14.0
+          BROWSERSTACK_PROJECT_NAME=App E2E Tests
+          BROWSERSTACK_BUILD_NAME=GitHub Actions Build
+          BROWSERSTACK_SESSION_NAME=E2E Test Session
+          DEVICE_COUNT=${{ github.event.inputs.device_count }}
+          NO_RESET=True
+          AUTO_ACCEPT_ALERTS=True
+          IMPLICIT_WAIT=25
+          EOF
+
+      - name: Run tests
+        if: github.event.inputs.platform == 'android'
+        run: |
+          echo "Running Android E2E tests..."
+
+          # 安裝 BrowserStack 本地測試工具
+          curl -L https://www.browserstack.com/browserstack-local/BrowserStackLocal-linux-x64.zip -o BrowserStackLocal.zip
+          unzip BrowserStackLocal.zip
+          ./BrowserStackLocal --key $BROWSERSTACK_ACCESS_KEY --daemon start
+
+          # 運行測試
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ -n "${{ github.event.inputs.tags }}" ]; then
+            echo "Running manual trigger with tag: ${{ github.event.inputs.tags }}"
+            python -m pytest -v -k "${{ github.event.inputs.tags }}"
           else
-            python -m pytest -v \
-              --alluredir=allure-results \
-              -n="${{ github.event.inputs.device_count }}" \
-              --dist=loadfile
+            echo "Running all tests (scheduled or manual without tag)"
+            python -m pytest -v
           fi
 
       - name: Upload Screenshots
