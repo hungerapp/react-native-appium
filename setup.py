@@ -32,7 +32,7 @@ if is_ci:
         options = UiAutomator2Options()
         options.platform_name = 'Android'
         options.automation_name = 'UiAutomator2'
-        options.device = config.get('BROWSERSTACK_DEVICE_NAME', 'Google Pixel 7')
+        options.deviceName = config.get('BROWSERSTACK_DEVICE_NAME', 'Google Pixel 7')
         options.os_version = config.get('BROWSERSTACK_OS_VERSION', '14.0')
         options.app = config.get('BROWSERSTACK_APP_ID')
         options.set_capability('bstack:options', browserstack_options)
@@ -40,7 +40,7 @@ if is_ci:
         options = XCUITestOptions()
         options.platform_name = 'iOS'
         options.automation_name = 'XCUITest'
-        options.device = config.get('BROWSERSTACK_DEVICE_NAME', 'iPhone 15 Pro')
+        options.deviceName = config.get('BROWSERSTACK_DEVICE_NAME', 'iPhone 15 Pro')
         options.os_version = config.get('BROWSERSTACK_OS_VERSION', '17.5')
         options.app = config.get('BROWSERSTACK_APP_ID')
         options.set_capability('bstack:options', browserstack_options)
