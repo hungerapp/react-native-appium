@@ -1,4 +1,4 @@
-name: UB - E2E Tests
+name: BrowserStack - E2E Tests
 
 on:
   schedule:
@@ -26,11 +26,6 @@ on:
           - 3
           - 4
         default: "1"
-      app_version:
-        description: "應用程序版本"
-        required: true
-        type: string
-        default: "latest"
 
 env:
   PYTHON_VERSION: "3.9"
@@ -90,6 +85,19 @@ jobs:
           AUTO_ACCEPT_ALERTS=True
           IMPLICIT_WAIT=25
           EOF
+
+      - name: Install Appium
+        if: github.event.inputs.platform == 'android'
+        run: |
+          npm install -g appium
+          appium --version
+
+      - name: Start Appium Server
+        if: github.event.inputs.platform == 'android'
+        run: |
+          appium --log-level error --log-timestamp --local-timezone &
+          sleep 10
+          curl -s http://127.0.0.1:4723/status | grep '"status":0'
 
       - name: Run tests
         if: github.event.inputs.platform == 'android'
