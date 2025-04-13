@@ -17,7 +17,7 @@ on:
           - android
           - ios
       device_count:
-        description: "模擬器數量"
+        description: "並行設備數量"
         required: true
         type: choice
         options:
@@ -29,6 +29,7 @@ on:
 
 env:
   PYTHON_VERSION: "3.9"
+  IS_CI: "true"
 
 jobs:
   test:
@@ -38,17 +39,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
-      - name: Set up Java
-        if: github.event.inputs.platform == 'android'
-        uses: actions/setup-java@v4
-        with:
-          java-version: "17"
-          distribution: "temurin"
-
-      - name: Set up Android SDK
-        if: github.event.inputs.platform == 'android'
-        uses: android-actions/setup-android@v3
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -67,31 +57,17 @@ jobs:
           mkdir -p screenshots
           mkdir -p test-results
 
-      - name: Install Appium and Drivers
-        if: github.event.inputs.platform == 'android'
-        run: |
-          npm install -g appium
-          appium --version
-          npm install -g appium-uiautomator2-driver
-          appium driver install uiautomator2
-          appium driver list
-
-      - name: Start Appium Server
-        if: github.event.inputs.platform == 'android'
-        run: |
-          appium --allow-insecure chromedriver_autodownload &
-          sleep 10
-
       - name: Set up environment variables
         run: |
           cat > .env << EOF
           TEST_ENV=github_actions
+          IS_CI=true
           APPIUM_OS=${{ github.event.inputs.platform }}
           BROWSERSTACK_USERNAME=${{ secrets.BROWSERSTACK_USERNAME }}
           BROWSERSTACK_ACCESS_KEY=${{ secrets.BROWSERSTACK_ACCESS_KEY }}
           BROWSERSTACK_APP_ID=${{ secrets.BROWSERSTACK_APP_ID }}
-          BROWSERSTACK_DEVICE_NAME=Google Pixel 7
-          BROWSERSTACK_OS_VERSION=14.0
+          BROWSERSTACK_DEVICE_NAME=${{ github.event.inputs.platform == 'android' && 'Google Pixel 7' || 'iPhone 15 Pro' }}
+          BROWSERSTACK_OS_VERSION=${{ github.event.inputs.platform == 'android' && '14.0' || '17.5' }}
           BROWSERSTACK_PROJECT_NAME=App E2E Tests
           BROWSERSTACK_BUILD_NAME=GitHub Actions Build
           BROWSERSTACK_SESSION_NAME=E2E Test Session
@@ -100,17 +76,15 @@ jobs:
           NO_RESET=True
           AUTO_ACCEPT_ALERTS=True
           IMPLICIT_WAIT=25
-          APPIUM_SERVER_URL=http://localhost:4723
-          PLATFORM_NAME=Android
-          AUTOMATION_NAME=UiAutomator2
+          PLATFORM_NAME=${{ github.event.inputs.platform == 'android' && 'Android' || 'iOS' }}
+          AUTOMATION_NAME=${{ github.event.inputs.platform == 'android' && 'UiAutomator2' || 'XCUITest' }}
           EOF
 
       - name: Run tests
-        if: github.event.inputs.platform == 'android'
         run: |
-          echo "Running Android E2E tests..."
+          echo "Running ${{ github.event.inputs.platform }} E2E tests..."
 
-          # 安裝 BrowserStack 本地測試工具
+          # 安裝並啟動 BrowserStack 本地測試工具
           curl -L https://www.browserstack.com/browserstack-local/BrowserStackLocal-linux-x64.zip -o BrowserStackLocal.zip
           unzip BrowserStackLocal.zip
           ./BrowserStackLocal --key ${{ secrets.BROWSERSTACK_ACCESS_KEY }} --daemon start
@@ -154,7 +128,7 @@ jobs:
           script: |
             const message = `❌ 測試失敗: ${context.workflow} - ${context.job}\n\n` +
               `測試平台: ${{ github.event.inputs.platform }}\n` +
-              `模擬器數量: ${{ github.event.inputs.device_count }}\n` +
+              `設備數量: ${{ github.event.inputs.device_count }}\n` +
               `測試標籤: ${{ github.event.inputs.tags || '全部' }}\n` +
               `詳情: ${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
 
@@ -178,7 +152,7 @@ jobs:
       - name: Download test results
         uses: actions/download-artifact@v4
         with:
-          name: allure-results
+          name: test-results
           path: allure-results
 
       - name: Generate Allure Report

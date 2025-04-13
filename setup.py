@@ -15,67 +15,82 @@ config = dotenv_values(".env")
 noReset_bool = True if config.get('NO_RESET', 'True') == 'True' else False
 platform = config.get('APPIUM_OS', 'android')
 auto_accept_alerts_bool = True if config.get('AUTO_ACCEPT_ALERTS', 'True') == 'True' else False
+is_ci = config.get('IS_CI', 'false').lower() == 'true'
 
-options = XCUITestOptions()
-options.platform_name = platform
-options.set_capability('language', 'zh')
-options.set_capability('locale', 'TW')
+# 根據環境選擇配置
+if is_ci:
+    # BrowserStack 配置
+    if platform == 'android':
+        options = UiAutomator2Options()
+        options.platform_name = platform
+        options.automation_name = 'UiAutomator2'
+        options.app = config.get('BROWSERSTACK_APP_ID')
+        options.device = config.get('BROWSERSTACK_DEVICE_NAME', 'Google Pixel 7')
+        options.os_version = config.get('BROWSERSTACK_OS_VERSION', '14.0')
+        options.project = config.get('BROWSERSTACK_PROJECT_NAME', 'App E2E Tests')
+        options.build = config.get('BROWSERSTACK_BUILD_NAME', 'GitHub Actions Build')
+        options.name = config.get('BROWSERSTACK_SESSION_NAME', 'E2E Test Session')
+    else:  # iOS
+        options = XCUITestOptions()
+        options.platform_name = platform
+        options.automation_name = 'XCUITest'
+        options.app = config.get('BROWSERSTACK_APP_ID')
+        options.device = config.get('BROWSERSTACK_DEVICE_NAME', 'iPhone 15 Pro')
+        options.os_version = config.get('BROWSERSTACK_OS_VERSION', '17.5')
+        options.project = config.get('BROWSERSTACK_PROJECT_NAME', 'App E2E Tests')
+        options.build = config.get('BROWSERSTACK_BUILD_NAME', 'GitHub Actions Build')
+        options.name = config.get('BROWSERSTACK_SESSION_NAME', 'E2E Test Session')
+    appium_server_url = config.get('BROWSERSTACK_HUB_URL', 'https://hub-cloud.browserstack.com/wd/hub')
+else:
+    # 本地配置
+    if platform == 'android':
+        options = UiAutomator2Options()
+        options.platform_name = platform
+        options.automation_name = 'UiAutomator2'
+        options.set_capability('language', 'zh')
+        options.set_capability('locale', 'TW')
+        options.set_capability('app', config.get('ANDROID_APP_PATH'))
+        options.set_capability('noReset', noReset_bool)
+        options.set_capability('autoGrantPermissions', auto_accept_alerts_bool)
+    else:  # iOS
+        options = XCUITestOptions()
+        options.platform_name = platform
+        options.automation_name = 'XCUITest'
+        options.set_capability('language', 'zh')
+        options.set_capability('locale', 'TW')
+        options.set_capability('platformVersion', '17.5')
+        options.set_capability('simulatorStartupTimeout', '90000')
+        options.set_capability('app', config.get('IOS_APP_PATH'))
+        options.set_capability('noReset', noReset_bool)
+        options.set_capability('autoAcceptAlerts', auto_accept_alerts_bool)
+        options.set_capability('autoFillPassword', False)
+    appium_server_url = config.get('APPIUM_SERVER_URL', 'http://127.0.0.1:4723')
 
-if options.platform_name == 'android':
-    #options = UiAutomator2Options()
-    options.automation_name = 'UiAutomator2'
-    # options.set_capability('platformVersion', '34.0')
-    # options.set_capability('deviceName', 'Android Emulator')
-    options.set_capability('app', config.get('ANDROID_APP_PATH'))
-    options.set_capability('noReset', noReset_bool)
-    options.set_capability('autoGrantPermissions', auto_accept_alerts_bool)
-
-elif options.platform_name == 'ios':
-    #options = XCUITestOptions()
-    options.automation_name = 'XCUITest'
-    options.set_capability('platformVersion', '17.5')
-    # options.set_capability('deviceName', 'iPhone 15 Pro')
-    options.set_capability('simulatorStartupTimeout', '90000')
-    options.set_capability('app', config.get('IOS_APP_PATH'))
-    # device: iPhone 15 pro
-    #options.set_capability('udid', config['UDID'])
-    options.set_capability('noReset', noReset_bool)
-    options.set_capability('autoAcceptAlerts', auto_accept_alerts_bool)
-    #options.set_capability('useNewWDA', False)
-    # autoFillPassword works only above iOS 16.4 
-    options.set_capability('autoFillPassword', False)
-    
-   
-
-
-
-appium_server_url = 'http://127.0.0.1:4723'
-
-
+# 本地設備配置（僅在非 CI 環境中使用）
 '''
-ANDROID_DEVICES = [
-    {
-        'name': 'device1',
-        'port': 4723,
-        'udid': 'emulator-5554',
-        'systemPort': 8200,
-    },
-    {
-        'name': 'device2',
-        'port': 4724,
-        'udid': 'emulator-5556',
-        'systemPort': 8201,
-    },
-    {
-        'name': 'device3',
-        'port': 4725,
-        'udid': 'emulator-5558',
-        'systemPort': 8202,
-    }
-]
+if not is_ci and platform == 'android':
+    ANDROID_DEVICES = [
+        {
+            'name': 'device1',
+            'port': 4723,
+            'udid': 'emulator-5554',
+            'systemPort': 8200,
+        },
+        {
+            'name': 'device2',
+            'port': 4724,
+            'udid': 'emulator-5556',
+            'systemPort': 8201,
+        },
+        {
+            'name': 'device3',
+            'port': 4725,
+            'udid': 'emulator-5558',
+            'systemPort': 8202,
+        }
+    ]
 '''
 
-#@pytest.mark.usefixtures("method", "auth_path")
 class AppiumSetup(unittest.TestCase):
     def setUp(self) -> Remote:
         # Setting global variables
@@ -92,17 +107,13 @@ class AppiumSetup(unittest.TestCase):
         self.helper = GetTestHelper(self.driver)
         return self.driver
     
-    
-    
     def screen_shot(self, name: str):
         self.driver.save_screenshot(f'{name}-{time.time()}.png')
-
 
     def tearDown(self) -> None:
         if self.driver:
             self.driver.quit()
-        time.sleep(10) 
-    
+            time.sleep(10)
 
 if __name__ == '__main__':
     unittest.main()
