@@ -23,7 +23,6 @@ if is_ci:
     browserstack_options = {
         'userName': config.get('BROWSERSTACK_USERNAME'),
         'accessKey': config.get('BROWSERSTACK_ACCESS_KEY'),
-        'app': config.get('BROWSERSTACK_APP_ID'),
         'projectName': config.get('BROWSERSTACK_PROJECT_NAME', 'App E2E Tests'),
         'buildName': config.get('BROWSERSTACK_BUILD_NAME', 'GitHub Actions Build'),
         'sessionName': config.get('BROWSERSTACK_SESSION_NAME', 'E2E Test Session'),
@@ -35,6 +34,7 @@ if is_ci:
         options.automation_name = 'UiAutomator2'
         options.device = config.get('BROWSERSTACK_DEVICE_NAME', 'Google Pixel 7')
         options.os_version = config.get('BROWSERSTACK_OS_VERSION', '14.0')
+        options.app = config.get('BROWSERSTACK_APP_ID')
         options.set_capability('bstack:options', browserstack_options)
     else:  # iOS
         options = XCUITestOptions()
@@ -42,6 +42,7 @@ if is_ci:
         options.automation_name = 'XCUITest'
         options.device = config.get('BROWSERSTACK_DEVICE_NAME', 'iPhone 15 Pro')
         options.os_version = config.get('BROWSERSTACK_OS_VERSION', '17.5')
+        options.app = config.get('BROWSERSTACK_APP_ID')
         options.set_capability('bstack:options', browserstack_options)
     appium_server_url = config.get('BROWSERSTACK_HUB_URL', 'https://hub-cloud.browserstack.com/wd/hub')
 else:
