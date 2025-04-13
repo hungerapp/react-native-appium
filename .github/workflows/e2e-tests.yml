@@ -75,12 +75,23 @@ jobs:
           cores: 2
           ram-size: 4096M
           disk-size: 10240M
-          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none -memory 4096
+          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none -memory 4096 -accel off -no-snapshot -no-snapshot-save -no-snapshot-load
           disable-animations: true
-          script: echo "Emulator started"
-          emulator-boot-timeout: 900
+          script: |
+            echo "Starting ADB server..."
+            adb start-server
+            echo "Waiting for ADB server to be ready..."
+            sleep 10
+            echo "Emulator started"
+          emulator-boot-timeout: 1200
           force-avd-creation: true
           target: google_apis_playstore
+          avd-name: test
+          emulator-port: 5554
+          disable-spellchecker: false
+          disable-linux-hw-accel: true
+          enable-hw-keyboard: false
+          channel: stable
 
       - name: Download app files
         run: |
