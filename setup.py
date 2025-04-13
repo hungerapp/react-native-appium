@@ -28,6 +28,7 @@ if is_ci:
         'sessionName': config.get('BROWSERSTACK_SESSION_NAME', 'E2E Test Session'),
         'deviceName': config.get('BROWSERSTACK_DEVICE_NAME', 'Google Pixel 7'),
         'osVersion': config.get('BROWSERSTACK_OS_VERSION', '13.0'),
+        'interactiveDebugging': True,
     }
 
     if platform == 'android':
