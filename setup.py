@@ -26,14 +26,14 @@ if is_ci:
         'projectName': config.get('BROWSERSTACK_PROJECT_NAME', 'App E2E Tests'),
         'buildName': config.get('BROWSERSTACK_BUILD_NAME', 'GitHub Actions Build'),
         'sessionName': config.get('BROWSERSTACK_SESSION_NAME', 'E2E Test Session'),
+        'deviceName': config.get('BROWSERSTACK_DEVICE_NAME', 'Google Pixel 7'),
+        'osVersion': config.get('BROWSERSTACK_OS_VERSION', '14.0'),
     }
 
     if platform == 'android':
         options = UiAutomator2Options()
         options.platform_name = 'Android'
         options.automation_name = 'UiAutomator2'
-        options.deviceName = config.get('BROWSERSTACK_DEVICE_NAME', 'Google Pixel 7')
-        options.os_version = config.get('BROWSERSTACK_OS_VERSION', '14.0')
         options.app = config.get('BROWSERSTACK_APP_ID')
         options.set_capability('bstack:options', browserstack_options)
     else:  # iOS
