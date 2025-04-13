@@ -80,6 +80,7 @@ jobs:
           BROWSERSTACK_PROJECT_NAME=App E2E Tests
           BROWSERSTACK_BUILD_NAME=GitHub Actions Build
           BROWSERSTACK_SESSION_NAME=E2E Test Session
+          BROWSERSTACK_HUB_URL=https://hub-cloud.browserstack.com/wd/hub
           DEVICE_COUNT=${{ github.event.inputs.device_count }}
           NO_RESET=True
           AUTO_ACCEPT_ALERTS=True
@@ -95,9 +96,8 @@ jobs:
       - name: Start Appium Server
         if: github.event.inputs.platform == 'android'
         run: |
-          appium --log-level error --log-timestamp --local-timezone &
+          appium &
           sleep 10
-          curl -s http://127.0.0.1:4723/status | grep '"status":0'
 
       - name: Run tests
         if: github.event.inputs.platform == 'android'
@@ -107,7 +107,7 @@ jobs:
           # 安裝 BrowserStack 本地測試工具
           curl -L https://www.browserstack.com/browserstack-local/BrowserStackLocal-linux-x64.zip -o BrowserStackLocal.zip
           unzip BrowserStackLocal.zip
-          ./BrowserStackLocal --key $BROWSERSTACK_ACCESS_KEY --daemon start
+          ./BrowserStackLocal --key ${{ secrets.BROWSERSTACK_ACCESS_KEY }} --daemon start
 
           # 運行測試
           if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ -n "${{ github.event.inputs.tags }}" ]; then
