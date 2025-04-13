@@ -75,25 +75,41 @@ jobs:
           cores: 2
           ram-size: 4096M
           disk-size: 10240M
-          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none -memory 4096 -accel off -no-snapshot -no-snapshot-save -no-snapshot-load -writable-system
+          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -no-snapshot -no-snapshot-save -no-snapshot-load -writable-system
           disable-animations: true
           script: |
             echo "Starting ADB server..."
             adb kill-server
-            sleep 2
+            sleep 5
             adb start-server
-            echo "Waiting for ADB server to be ready..."
-            sleep 10
-            echo "Checking ADB devices..."
+            echo "Waiting for emulator boot to complete..."
+            boot_completed=""
+            boot_animation=""
+            retry=0
+            while [[ ("$boot_completed" != "1" || "$boot_animation" != "stopped") && $retry -lt 30 ]]; do
+              echo "Retry #$retry: waiting for emulator to boot..."
+              boot_completed=$(adb -s emulator-5554 shell getprop sys.boot_completed 2>/dev/null | tr -d '\r')
+              boot_animation=$(adb -s emulator-5554 shell getprop init.svc.bootanim 2>/dev/null | tr -d '\r')
+              echo "Boot completed: $boot_completed, Boot animation: $boot_animation"
+              sleep 10
+              ((retry++))
+            done
+            if [[ "$boot_completed" != "1" || "$boot_animation" != "stopped" ]]; then
+              echo "❌ Emulator failed to boot in time"
+              adb devices
+              exit 1
+            fi
+            echo "✅ Emulator booted successfully"
+            echo "Disabling screen timeout..."
+            adb -s emulator-5554 shell settings put system screen_off_timeout 2147483647
             adb devices
-            echo "Emulator started"
-          emulator-boot-timeout: 1800
+          emulator-boot-timeout: 2400
           force-avd-creation: true
           target: google_apis_playstore
           avd-name: test
           emulator-port: 5554
           disable-spellchecker: false
-          disable-linux-hw-accel: true
+          disable-linux-hw-accel: false
           enable-hw-keyboard: false
           channel: stable
 
