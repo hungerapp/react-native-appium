@@ -10,8 +10,9 @@ on:
         required: false
         default: ""
       platform:
-        description: "測試平台"
+        description: "測試平台 (android/ios)"
         required: true
+        default: "android"
         type: choice
         options:
           - android
@@ -29,19 +30,15 @@ on:
 
 env:
   PYTHON_VERSION: "3.9"
-  IS_CI: "true"
 
 jobs:
-  test:
-    name: Run E2E Tests
+  run-tests:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v3
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - name: Set up Python ${{ env.PYTHON_VERSION }}
+        uses: actions/setup-python@v4
         with:
           python-version: ${{ env.PYTHON_VERSION }}
 
@@ -67,7 +64,7 @@ jobs:
           BROWSERSTACK_ACCESS_KEY=${{ secrets.BROWSERSTACK_ACCESS_KEY }}
           BROWSERSTACK_APP_ID=${{ secrets.BROWSERSTACK_APP_ID }}
           BROWSERSTACK_DEVICE_NAME=${{ github.event.inputs.platform == 'android' && 'Google Pixel 7' || 'iPhone 15 Pro' }}
-          BROWSERSTACK_OS_VERSION=${{ github.event.inputs.platform == 'android' && '14.0' || '17.5' }}
+          BROWSERSTACK_OS_VERSION=${{ github.event.inputs.platform == 'android' && '13.0' || '17.5' }}
           BROWSERSTACK_PROJECT_NAME=App E2E Tests
           BROWSERSTACK_BUILD_NAME=GitHub Actions Build
           BROWSERSTACK_SESSION_NAME=E2E Test Session
@@ -98,33 +95,26 @@ jobs:
             python -m pytest -v
           fi
 
-      - name: Upload Screenshots
+      - name: Upload screenshots
         uses: actions/upload-artifact@v4
-        if: failure()
+        if: always()
         with:
-          name: test-screenshots
-          path: |
-            allure-results/**/attachments/*
-            allure-results/**/*.png
-            allure-results/**/*.jpg
-            allure-results/**/*.jpeg
-          retention-days: 30
+          name: screenshots
+          path: screenshots/
+          retention-days: 5
 
-      - name: Upload Test Results
+      - name: Upload test results
         uses: actions/upload-artifact@v4
         if: always()
         with:
           name: test-results
-          path: |
-            allure-results/
-            test-output/
-          retention-days: 30
+          path: allure-results/
+          retention-days: 5
 
       - name: Notify on failure
         if: failure()
         uses: actions/github-script@v7
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const message = `❌ 測試失敗: ${context.workflow} - ${context.job}\n\n` +
               `測試平台: ${{ github.event.inputs.platform }}\n` +
@@ -141,7 +131,7 @@ jobs:
 
   generate-report:
     name: Generate Allure Report
-    needs: test
+    needs: run-tests
     runs-on: ubuntu-latest
     if: always()
 

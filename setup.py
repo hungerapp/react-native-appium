@@ -27,7 +27,7 @@ if is_ci:
         'buildName': config.get('BROWSERSTACK_BUILD_NAME', 'GitHub Actions Build'),
         'sessionName': config.get('BROWSERSTACK_SESSION_NAME', 'E2E Test Session'),
         'deviceName': config.get('BROWSERSTACK_DEVICE_NAME', 'Google Pixel 7'),
-        'osVersion': config.get('BROWSERSTACK_OS_VERSION', '14.0'),
+        'osVersion': config.get('BROWSERSTACK_OS_VERSION', '13.0'),
     }
 
     if platform == 'android':
