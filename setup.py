@@ -20,26 +20,29 @@ is_ci = config.get('IS_CI', 'false').lower() == 'true'
 # 根據環境選擇配置
 if is_ci:
     # BrowserStack 配置
+    browserstack_options = {
+        'userName': config.get('BROWSERSTACK_USERNAME'),
+        'accessKey': config.get('BROWSERSTACK_ACCESS_KEY'),
+        'app': config.get('BROWSERSTACK_APP_ID'),
+        'projectName': config.get('BROWSERSTACK_PROJECT_NAME', 'App E2E Tests'),
+        'buildName': config.get('BROWSERSTACK_BUILD_NAME', 'GitHub Actions Build'),
+        'sessionName': config.get('BROWSERSTACK_SESSION_NAME', 'E2E Test Session'),
+    }
+
     if platform == 'android':
         options = UiAutomator2Options()
-        options.platform_name = platform
+        options.platform_name = 'Android'
         options.automation_name = 'UiAutomator2'
-        options.app = config.get('BROWSERSTACK_APP_ID')
         options.device = config.get('BROWSERSTACK_DEVICE_NAME', 'Google Pixel 7')
         options.os_version = config.get('BROWSERSTACK_OS_VERSION', '14.0')
-        options.project = config.get('BROWSERSTACK_PROJECT_NAME', 'App E2E Tests')
-        options.build = config.get('BROWSERSTACK_BUILD_NAME', 'GitHub Actions Build')
-        options.name = config.get('BROWSERSTACK_SESSION_NAME', 'E2E Test Session')
+        options.set_capability('bstack:options', browserstack_options)
     else:  # iOS
         options = XCUITestOptions()
-        options.platform_name = platform
+        options.platform_name = 'iOS'
         options.automation_name = 'XCUITest'
-        options.app = config.get('BROWSERSTACK_APP_ID')
         options.device = config.get('BROWSERSTACK_DEVICE_NAME', 'iPhone 15 Pro')
         options.os_version = config.get('BROWSERSTACK_OS_VERSION', '17.5')
-        options.project = config.get('BROWSERSTACK_PROJECT_NAME', 'App E2E Tests')
-        options.build = config.get('BROWSERSTACK_BUILD_NAME', 'GitHub Actions Build')
-        options.name = config.get('BROWSERSTACK_SESSION_NAME', 'E2E Test Session')
+        options.set_capability('bstack:options', browserstack_options)
     appium_server_url = config.get('BROWSERSTACK_HUB_URL', 'https://hub-cloud.browserstack.com/wd/hub')
 else:
     # 本地配置
@@ -101,7 +104,7 @@ class AppiumSetup(unittest.TestCase):
 
         self.driver = Remote(appium_server_url, options=options)
         #self.driver.switch_to.context('NATIVE_APP')
-        self.driver.implicitly_wait(config['IMPLICIT_WAIT'] or 25)
+        self.driver.implicitly_wait(int(config.get('IMPLICIT_WAIT', '25')))
         
         # Initialize  TestHelper
         self.helper = GetTestHelper(self.driver)
