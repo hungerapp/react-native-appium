@@ -3,6 +3,8 @@ import os
 import requests
 import subprocess
 import time
+import allure
+
 from dotenv import load_dotenv
 
 # load .env file
@@ -164,6 +166,17 @@ def pytest_runtest_makereport(item, call):
     outcome = yield
     rep = outcome.get_result()
     setattr(item, f"rep_{rep.when}", rep)
+
+    if rep.when == "call" and rep.failed:
+        try:
+            driver = item.funcargs['driver']
+            allure.attach(
+                driver.get_screenshot_as_png(),
+                name=f"screenshot_{item.name}",
+                attachment_type=allure.attachment_type.PNG
+            )
+        except Exception as e:
+            print(f"Failed to take screenshot: {e}")
 
 @pytest.fixture(autouse=True)        
 def clean_app_state(request):
