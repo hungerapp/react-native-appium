@@ -169,20 +169,27 @@ def pytest_runtest_makereport(item, call):
 
     if rep.when == "call" and rep.failed:
         try:
-            # 安全地獲取 driver 實例
             driver = item.funcargs.get('driver')
             if driver is not None:
-                # 獲取截圖並附加到 Allure 報告
-                screenshot = driver.get_screenshot_as_png()
-                if screenshot:
-                    allure.attach(
-                        screenshot,
-                        name=f"screenshot_{item.name}",
-                        attachment_type=allure.attachment_type.PNG
-                    )
-                    print(f"Screenshot attached to Allure report for test: {item.name}")
-                else:
-                    print(f"Failed to get screenshot for test: {item.name}")
+                # make sure the artifacts/screenshots directory exists
+                os.makedirs('artifacts/screenshots', exist_ok=True)
+                
+                # generate the screenshot file name
+                timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+                screenshot_path = f"artifacts/screenshots/{item.name}_{timestamp}.png"
+                
+                # save the screenshot to the file
+                driver.save_screenshot(screenshot_path)
+                print(f"Screenshot saved to: {screenshot_path}")
+                
+                # if you want to display the screenshot in the Allure report, uncomment the following code
+                # screenshot = driver.get_screenshot_as_png()
+                # if screenshot:
+                #     allure.attach(
+                #         screenshot,
+                #         name=f"screenshot_{item.name}",
+                #         attachment_type=allure.attachment_type.PNG
+                #     )
             else:
                 print(f"No driver instance found for test: {item.name}")
         except Exception as e:
