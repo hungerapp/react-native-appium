@@ -29,6 +29,7 @@ if is_ci:
         'deviceName': config.get('BROWSERSTACK_DEVICE_NAME', 'Google Pixel 7'),
         'osVersion': config.get('BROWSERSTACK_OS_VERSION', '13.0'),
         'interactiveDebugging': True,
+        'autoGrantPermissions': True,  
     }
 
     if platform == 'android':
@@ -36,6 +37,7 @@ if is_ci:
         options.platform_name = 'Android'
         options.automation_name = 'UiAutomator2'
         options.app = config.get('BROWSERSTACK_APP_ID')
+        options.set_capability('autoGrantPermissions', True)  
         options.set_capability('bstack:options', browserstack_options)
     else:  # iOS
         options = XCUITestOptions()
@@ -44,6 +46,7 @@ if is_ci:
         options.deviceName = config.get('BROWSERSTACK_DEVICE_NAME', 'iPhone 15 Pro')
         options.os_version = config.get('BROWSERSTACK_OS_VERSION', '17.5')
         options.app = config.get('BROWSERSTACK_APP_ID')
+        options.set_capability('autoAcceptAlerts', True) 
         options.set_capability('bstack:options', browserstack_options)
     appium_server_url = config.get('BROWSERSTACK_HUB_URL', 'https://hub-cloud.browserstack.com/wd/hub')
 else:
@@ -107,6 +110,11 @@ class AppiumSetup(unittest.TestCase):
         self.driver = Remote(appium_server_url, options=options)
         #self.driver.switch_to.context('NATIVE_APP')
         self.driver.implicitly_wait(int(config.get('IMPLICIT_WAIT', '25')))
+        
+        # Save BrowserStack session ID if running in CI
+        if is_ci:
+            with open('browserstack_session_id.txt', 'w') as f:
+                f.write(self.driver.session_id)
         
         # Initialize  TestHelper
         self.helper = GetTestHelper(self.driver)
