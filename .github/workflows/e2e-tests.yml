@@ -6,11 +6,12 @@ on:
   workflow_dispatch:
     inputs:
       tags:
-        description: "要運行的測試標籤 (例如: regression, login)"
-        required: true
+        description: "要運行的測試標籤 (例如: regression, smoke)"
+        required: false
         type: choice
         options:
           - "regression"
+          - "smoke"
       platform:
         description: "測試平台 (android/ios)"
         required: true
