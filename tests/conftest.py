@@ -169,14 +169,24 @@ def pytest_runtest_makereport(item, call):
 
     if rep.when == "call" and rep.failed:
         try:
-            driver = item.funcargs['driver']
-            allure.attach(
-                driver.get_screenshot_as_png(),
-                name=f"screenshot_{item.name}",
-                attachment_type=allure.attachment_type.PNG
-            )
+            # 安全地獲取 driver 實例
+            driver = item.funcargs.get('driver')
+            if driver is not None:
+                # 獲取截圖並附加到 Allure 報告
+                screenshot = driver.get_screenshot_as_png()
+                if screenshot:
+                    allure.attach(
+                        screenshot,
+                        name=f"screenshot_{item.name}",
+                        attachment_type=allure.attachment_type.PNG
+                    )
+                    print(f"Screenshot attached to Allure report for test: {item.name}")
+                else:
+                    print(f"Failed to get screenshot for test: {item.name}")
+            else:
+                print(f"No driver instance found for test: {item.name}")
         except Exception as e:
-            print(f"Failed to take screenshot: {e}")
+            print(f"Failed to take screenshot: {str(e)}")
 
 @pytest.fixture(autouse=True)        
 def clean_app_state(request):
