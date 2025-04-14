@@ -189,7 +189,7 @@ jobs:
             const skipped = stats.skipped;
 
             // 構建 Slack 消息
-            const platform = '${{ github.event.inputs.platform || "android" }}';
+            const platform = '${{ github.event.inputs.platform != '' && github.event.inputs.platform || 'android' }}';
             const message = {
               blocks: [
                 {
