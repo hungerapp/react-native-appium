@@ -165,6 +165,90 @@ jobs:
         run: |
           allure generate allure-results --clean -o allure-report
 
+      - name: Send test results to Slack
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+
+            // 讀取 Allure 報告的統計數據
+            const summaryJson = fs.readFileSync('allure-report/widgets/summary.json', 'utf8');
+            const summary = JSON.parse(summaryJson);
+
+            // 計算測試時間
+            const totalDurationSeconds = summary.time.duration / 1000;
+            const minutes = Math.floor(totalDurationSeconds / 60);
+            const seconds = Math.floor(totalDurationSeconds % 60);
+
+            // 獲取統計數據
+            const stats = summary.statistic;
+            const total = stats.total;
+            const passed = stats.passed;
+            const failed = stats.failed;
+            const skipped = stats.skipped;
+
+            // 構建 Slack 消息
+            const platform = '${{ github.event.inputs.platform || "android" }}';
+            const message = {
+              blocks: [
+                {
+                  type: "header",
+                  text: {
+                    type: "plain_text",
+                    text: `${platform.toUpperCase()} APP自動化測試結果 🤖`,
+                    emoji: true
+                  }
+                },
+                {
+                  type: "section",
+                  fields: [
+                    {
+                      type: "mrkdwn",
+                      text: `*總數:* ${total}`
+                    },
+                    {
+                      type: "mrkdwn",
+                      text: `*通過:* ${passed} ✅`
+                    },
+                    {
+                      type: "mrkdwn",
+                      text: `*失敗:* ${failed} ❌`
+                    },
+                    {
+                      type: "mrkdwn",
+                      text: `*跳過-開發中:* ${skipped} ⏩`
+                    }
+                  ]
+                },
+                {
+                  type: "section",
+                  text: {
+                    type: "mrkdwn",
+                    text: `*執行總時間:* ${minutes}分 ${seconds}秒 ⏱️`
+                  }
+                },
+                {
+                  type: "section",
+                  text: {
+                    type: "mrkdwn",
+                    text: `*GitHub Actions 記錄:* ${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID}\n*Allure 報告:* https://${process.env.GITHUB_REPOSITORY_OWNER}.github.io/${process.env.GITHUB_REPOSITORY.split('/')[1]}/`
+                  }
+                }
+              ]
+            };
+
+            // 發送到 Slack
+            const webhook_url = '${{ secrets.SLACK_WEBHOOK_URL }}';
+            await github.request({
+              method: 'POST',
+              url: webhook_url,
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              data: message
+            });
+
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
