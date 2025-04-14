@@ -89,25 +89,17 @@ jobs:
           # 運行測試
           if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ -n "${{ github.event.inputs.tags }}" ]; then
             echo "Running manual trigger with tag: ${{ github.event.inputs.tags }}"
-            python -m pytest -v -k "${{ github.event.inputs.tags }}"
+            python -m pytest -v -k "${{ github.event.inputs.tags }}" --alluredir=allure-results
           else
             echo "Running all tests (scheduled or manual without tag)"
-            python -m pytest -v
+            python -m pytest -v --alluredir=allure-results
           fi
 
-      - name: Upload screenshots
-        uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: screenshots
-          path: screenshots/
-          retention-days: 5
-
       - name: Upload test results
-        uses: actions/upload-artifact@v4
         if: always()
+        uses: actions/upload-artifact@v4
         with:
-          name: test-results
+          name: allure-results
           path: allure-results/
           retention-days: 5
 
@@ -142,8 +134,13 @@ jobs:
       - name: Download test results
         uses: actions/download-artifact@v4
         with:
-          name: test-results
-          path: allure-results
+          name: allure-results
+          path: allure-results/
+
+      - name: List downloaded files
+        run: |
+          echo "Contents of allure-results directory:"
+          ls -la allure-results/
 
       - name: Generate Allure Report
         uses: simple-elf/allure-report-action@master
