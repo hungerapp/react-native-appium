@@ -28,8 +28,7 @@ if is_ci:
         'sessionName': config.get('BROWSERSTACK_SESSION_NAME', 'E2E Test Session'),
         'deviceName': config.get('BROWSERSTACK_DEVICE_NAME', 'Google Pixel 7'),
         'osVersion': config.get('BROWSERSTACK_OS_VERSION', '13.0'),
-        'interactiveDebugging': True,
-        'autoGrantPermissions': True,  
+        'interactiveDebugging': True
     }
 
     if platform == 'android':
@@ -37,7 +36,7 @@ if is_ci:
         options.platform_name = 'Android'
         options.automation_name = 'UiAutomator2'
         options.app = config.get('BROWSERSTACK_APP_ID')
-        options.set_capability('autoGrantPermissions', True)  
+        options.set_capability('autoGrantPermissions', True) 
         options.set_capability('bstack:options', browserstack_options)
     else:  # iOS
         options = XCUITestOptions()
