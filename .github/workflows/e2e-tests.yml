@@ -1,8 +1,8 @@
 name: BrowserStack - E2E Tests
 
 on:
-  schedule:
-    - cron: "0 0 * * *" # run every day at 00:00
+  # schedule:
+  #   - cron: "0 0 * * *" # run every day at 00:00
   workflow_dispatch:
     inputs:
       tags:
@@ -193,33 +193,39 @@ jobs:
             const message = {
               blocks: [
                 {
-                  type: "header",
+                  type: "section",
                   text: {
-                    type: "plain_text",
-                    text: `${platform.toUpperCase()} APP自動化測試結果 🤖`,
-                    emoji: true
+                    type: "mrkdwn",
+                    text: `*${platform.toUpperCase()} APP自動化測試結果 🤖*`
                   }
                 },
                 {
                   type: "section",
-                  fields: [
-                    {
-                      type: "mrkdwn",
-                      text: `*總數:* ${total}`
-                    },
-                    {
-                      type: "mrkdwn",
-                      text: `*通過:* ${passed} ✅`
-                    },
-                    {
-                      type: "mrkdwn",
-                      text: `*失敗:* ${failed} ❌`
-                    },
-                    {
-                      type: "mrkdwn",
-                      text: `*跳過-開發中:* ${skipped} ⏩`
-                    }
-                  ]
+                  text: {
+                    type: "mrkdwn",
+                    text: `*總數:* ${total} 📊`
+                  }
+                },
+                {
+                  type: "section",
+                  text: {
+                    type: "mrkdwn",
+                    text: `*通過:* ${passed} ✅`
+                  }
+                },
+                {
+                  type: "section",
+                  text: {
+                    type: "mrkdwn",
+                    text: `*失敗:* ${failed} ❌`
+                  }
+                },
+                {
+                  type: "section",
+                  text: {
+                    type: "mrkdwn",
+                    text: `*跳過-開發中:* ${skipped} ⏩`
+                  }
                 },
                 {
                   type: "section",
@@ -232,7 +238,14 @@ jobs:
                   type: "section",
                   text: {
                     type: "mrkdwn",
-                    text: `*GitHub Actions 記錄:* ${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID}\n*Allure 報告:* https://${process.env.GITHUB_REPOSITORY_OWNER}.github.io/${process.env.GITHUB_REPOSITORY.split('/')[1]}/`
+                    text: `*GitHub Actions 記錄:*\n${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID}`
+                  }
+                },
+                {
+                  type: "section",
+                  text: {
+                    type: "mrkdwn",
+                    text: `*Allure 報告:*\nhttps://${process.env.GITHUB_REPOSITORY_OWNER}.github.io/${process.env.GITHUB_REPOSITORY.split('/')[1]}/`
                   }
                 }
               ]
