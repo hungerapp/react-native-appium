@@ -7,8 +7,10 @@ on:
     inputs:
       tags:
         description: "要運行的測試標籤 (例如: regression, login)"
-        required: false
-        default: ""
+        required: true
+        type: choice
+        options:
+          - "regression"
       platform:
         description: "測試平台 (android/ios)"
         required: true
@@ -59,27 +61,27 @@ jobs:
           cat > .env << EOF
           TEST_ENV=github_actions
           IS_CI=true
-          APPIUM_OS=${{ github.event.inputs.platform }}
+          APPIUM_OS=${{ github.event.inputs.platform || 'android' }}
           BROWSERSTACK_USERNAME=${{ secrets.BROWSERSTACK_USERNAME }}
           BROWSERSTACK_ACCESS_KEY=${{ secrets.BROWSERSTACK_ACCESS_KEY }}
           BROWSERSTACK_APP_ID=${{ secrets.BROWSERSTACK_APP_ID }}
-          BROWSERSTACK_DEVICE_NAME=${{ github.event.inputs.platform == 'android' && 'Google Pixel 7' || 'iPhone 15 Pro' }}
-          BROWSERSTACK_OS_VERSION=${{ github.event.inputs.platform == 'android' && '13.0' || '17.5' }}
+          BROWSERSTACK_DEVICE_NAME=${{ (github.event.inputs.platform || 'android') == 'android' && 'Google Pixel 7' || 'iPhone 15 Pro' }}
+          BROWSERSTACK_OS_VERSION=${{ (github.event.inputs.platform || 'android') == 'android' && '13.0' || '17.5' }}
           BROWSERSTACK_PROJECT_NAME=App E2E Tests
           BROWSERSTACK_BUILD_NAME=GitHub Actions Build
           BROWSERSTACK_SESSION_NAME=E2E Test Session
           BROWSERSTACK_HUB_URL=https://hub-cloud.browserstack.com/wd/hub
-          DEVICE_COUNT=${{ github.event.inputs.device_count }}
+          DEVICE_COUNT=${{ github.event.inputs.device_count || '1' }}
           NO_RESET=True
           AUTO_ACCEPT_ALERTS=True
           IMPLICIT_WAIT=25
-          PLATFORM_NAME=${{ github.event.inputs.platform == 'android' && 'Android' || 'iOS' }}
-          AUTOMATION_NAME=${{ github.event.inputs.platform == 'android' && 'UiAutomator2' || 'XCUITest' }}
+          PLATFORM_NAME=${{ (github.event.inputs.platform || 'android') == 'android' && 'Android' || 'iOS' }}
+          AUTOMATION_NAME=${{ (github.event.inputs.platform || 'android') == 'android' && 'UiAutomator2' || 'XCUITest' }}
           EOF
 
       - name: Run tests
         run: |
-          echo "Running ${{ github.event.inputs.platform }} E2E tests..."
+          echo "Running ${{ github.event.inputs.platform || 'android' }} E2E tests..."
 
           # 安裝並啟動 BrowserStack 本地測試工具
           curl -L https://www.browserstack.com/browserstack-local/BrowserStackLocal-linux-x64.zip -o BrowserStackLocal.zip
@@ -91,8 +93,8 @@ jobs:
             echo "Running manual trigger with tag: ${{ github.event.inputs.tags }}"
             python -m pytest -v -k "${{ github.event.inputs.tags }}" --alluredir=allure-results
           else
-            echo "Running all tests (scheduled or manual without tag)"
-            python -m pytest -v --alluredir=allure-results
+            echo "Running scheduled tests with default settings"
+            python -m pytest -v tests/steps/android/ --alluredir=allure-results
           fi
 
       - name: Upload test results
@@ -109,8 +111,8 @@ jobs:
         with:
           script: |
             const message = `❌ 測試失敗: ${context.workflow} - ${context.job}\n\n` +
-              `測試平台: ${{ github.event.inputs.platform }}\n` +
-              `設備數量: ${{ github.event.inputs.device_count }}\n` +
+              `測試平台: ${{ github.event.inputs.platform || 'android' }}\n` +
+              `設備數量: ${{ github.event.inputs.device_count || '1' }}\n` +
               `測試標籤: ${{ github.event.inputs.tags || '全部' }}\n` +
               `詳情: ${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
 
