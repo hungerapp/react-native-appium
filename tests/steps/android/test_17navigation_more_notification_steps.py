@@ -14,7 +14,7 @@ scenarios('../../../features/navigation/more/notification.feature')
 # [NOTIFICATION AND MESSAGES]
 @allure.feature('Notification and Messages')
 @allure.story('Notification and Messages Management')
-@pytest.mark.navigation
+@pytest.mark.navigation_more_notification
 @pytest.mark.run(order=85)
 @given('I click on notifications and messages')
 def tap_on_notification(driver):

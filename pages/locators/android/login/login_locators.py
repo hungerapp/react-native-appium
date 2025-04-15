@@ -11,7 +11,7 @@ class LoginLocators:
       TERMS_AND_CONDITIONS_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("服務條款")')
       TC_BACK_BUTTON = (AppiumBy.ACCESSIBILITY_ID, '返回夯客APP')
       PRIVACY_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("隱私權政策")')
-      PRIVACY_BACK_BUTTON = (AppiumBy.ACCESSIBILITY_ID, '返回夯客APP')
+      PRIVACY_BACK_BUTTON = (AppiumBy.XPATH, '//android.widget.TextView[@text="返回夯客APP"]')
       LOGIN_BUTTON = (AppiumBy.ACCESSIBILITY_ID, '開始使用')
       EMAIL_INPUT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("android.widget.EditText")')
       LOGIN_CANCEL_BUTTON = (AppiumBy.ACCESSIBILITY_ID, 'xmark')

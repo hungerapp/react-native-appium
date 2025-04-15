@@ -14,7 +14,7 @@ scenarios('../../../features/navigation/more/allow_appointment.feature')
 # [ALLOW APPOINTMENT SETTINGS] ACCESS_RESERVATION_SETTINGS
 @allure.feature('Allow Appointment')
 @allure.story('Allow Appointment - Access Reservation Settings')
-@pytest.mark.navigation
+@pytest.mark.navigation_more_allow_appointment
 @pytest.mark.run(order=89)
 @given('I click on the more option in the bottom navigation bar')
 def click_more_option(driver):
@@ -52,7 +52,7 @@ def enter_quantity_selection(driver):
 # [ALLOW APPOINTMENT SETTINGS] OPEN_TIME_MANAGEMENT
 @allure.feature('Allow Appointment')
 @allure.story('Allow Appointment - Open Time Management')
-@pytest.mark.navigation
+@pytest.mark.navigation_more_allow_appointment
 @pytest.mark.run(order=90)
 @when('I click on the open time tab')
 def click_open_time_tab(driver):
@@ -84,7 +84,7 @@ def edit_open_time_and_quick_close(driver):
 # [ALLOW APPOINTMENT SETTINGS] OPEN_ITEMS_MANAGEMENT
 @allure.feature('Allow Appointment')
 @allure.story('Allow Appointment - Open Items Management')
-@pytest.mark.navigation
+@pytest.mark.navigation_more_allow_appointment
 @pytest.mark.run(order=91)
 @when('I click on the open items tab')
 def click_open_items_tab(driver):

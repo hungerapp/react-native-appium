@@ -12,7 +12,7 @@ scenarios('../../../features/navigation/cs.feature')
 @allure.feature('Customer Service')
 @allure.story('Message Interaction')
 @pytest.mark.run(order=55)  
-@pytest.mark.navigation
+@pytest.mark.navigation_cs
 @given('I click on the Customer Service option in the navigation bar')
 def click_cs_option(driver):
     cs_page = CSPage(driver)
@@ -46,7 +46,7 @@ def enter_message(driver):
 @allure.feature('Customer Service')
 @allure.story('Hyperlink Navigation')
 @pytest.mark.run(order=56)
-@pytest.mark.navigation
+@pytest.mark.navigation_cs
 @then('I tap on the follow Hotcake Instagram hyperlink')
 def tap_instagram_link(driver):
     cs_page = CSPage(driver)

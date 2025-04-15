@@ -14,7 +14,7 @@ scenarios('../../../features/navigation/more/tutorial_guide.feature')
 # [TUTORIAL GUIDE]
 @allure.feature('Tutorial Guide')
 @allure.story('Tutorial Guide - Opening the User Guide')
-@pytest.mark.navigation
+@pytest.mark.navigation_more_tutorial_guide
 @pytest.mark.run(order=93)
 @given('I click on the tutorial guide')
 def click_tutorial_guide(driver):

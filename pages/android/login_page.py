@@ -28,6 +28,7 @@ class LoginPage:
       
   def click_contact_cs_button(self):
       self.driver.find_element(*self.login_locators.CONTACT_CS_BUTTON).click()
+      time.sleep(1)
       self.driver.find_element(*self.login_locators.CONTACT_CS_BACK_BUTTON).click()
 
       
