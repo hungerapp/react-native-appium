@@ -44,6 +44,7 @@ def select_service_person(driver):
 def select_service(driver):
     create_page = CreateAppointmentPage(driver)
     create_page.select_service()
+    create_page.save_service1_button()
     
 @then('I change service time and service person')
 def change_service_time_and_service_person(driver):
@@ -51,15 +52,15 @@ def change_service_time_and_service_person(driver):
     create_page.change_service_time_and_service_person()
     
 
-@then('I input the note in the note section')
-def input_note(driver):
-    create_page = CreateAppointmentPage(driver)
-    create_page.note_input()
-
 @then('I select a valid appointment time')
 def select_appointment_time(driver):
     create_page = CreateAppointmentPage(driver)
     create_page.select_appointment_time()
+    
+@then('I input the note in the note section')
+def input_note(driver):
+    create_page = CreateAppointmentPage(driver)
+    create_page.note_input()
 
 @then('I click create appointment and should see the appointment created successfully')
 def click_create_button(driver):
@@ -89,7 +90,7 @@ def select_service_person(driver):
 def select_service(driver):
     create_page = CreateAppointmentPage(driver)
     create_page.select_service()
-    
+    create_page.save_service1_button()
 
 @then('I select a valid appointment time')
 def select_appointment_time(driver):
@@ -143,23 +144,19 @@ def select_service_person(driver):
 def select_service(driver):
     create_page = CreateAppointmentPage(driver)
     create_page.select_service()
+    create_page.save_service1_button()
     
-@then('I add one more service')
-def add_one_more_service(driver):
-    create_page = CreateAppointmentPage(driver)
-    create_page.add_service()
     
 @then('I select a valid appointment time')
 def select_appointment_time(driver):
     create_page = CreateAppointmentPage(driver)
     create_page.select_appointment_time()
 
-
-@then('I click one more service button')
-def click_one_more_service(driver):
+@then('I add one more service')
+def add_one_more_service(driver):
     create_page = CreateAppointmentPage(driver)
-    create_page.click_one_more_service()    
-
+    create_page.click_one_more_service()
+    
 @then('I delete one service')
 def delete_one_service(driver):
     create_page = CreateAppointmentPage(driver)
@@ -204,21 +201,19 @@ def select_service_person_existing(driver):
 def select_service_existing(driver):
     create_page = CreateAppointmentPage(driver)
     create_page.select_service()
-
+    create_page.save_service1_button()
+    
 @then('I select a valid appointment time')
 def select_appointment_time_existing(driver):
-    """Select appointment time for existing contact"""
     create_page = CreateAppointmentPage(driver)
     create_page.select_appointment_time()
 
 @then('I click create appointment and should see the appointment created successfully')
 def click_create_button_existing(driver):
-    """Click create appointment button for existing contact"""
     create_page = CreateAppointmentPage(driver)
     create_page.click_create_button()
 
  
-    
     
 
 # Scenario: Show error for invalid phone number format
