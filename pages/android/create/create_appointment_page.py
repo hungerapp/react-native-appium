@@ -4,7 +4,7 @@ import string
 
 from appium.webdriver.common.appiumby import AppiumBy
 from selenium.common.exceptions import NoSuchElementException
-
+from utils.logger import logger
 
 from pages.shared_components.common_use import CommonUseSection
 from pages.locators.android.create.create_appointment_locators import CreateAppointmentLocators
@@ -74,6 +74,7 @@ class CreateAppointmentPage(CommonUseSection):
       
     def select_service2_person(self):
         """Select second service person"""
+        time.sleep(0.5)
         self.driver.find_element(*self.create_appointment_locators.SERVICE2_PERSON).click()
         self.driver.find_element(*self.create_appointment_locators.SERVICE_PAGE_TOGGLE_SWITCH).click()
         self.driver.find_element(*self.create_appointment_locators.SERVICE_OTHER_PERSON).click()
@@ -89,27 +90,22 @@ class CreateAppointmentPage(CommonUseSection):
         """
         
         try:
-            num_to_select = 2
-            selected_options = random.sample(list(self.create_appointment_locators.SUB_SERVICE_OPTIONS.values()), num_to_select)
+            # Randomly select two options
+            selected_keys = random.sample(list(self.create_appointment_locators.SUB_SERVICE_OPTIONS.keys()), 2)
             
-            for description in selected_options:
+            # Click selected options
+            for key in selected_keys:
+                option_locator = self.create_appointment_locators.SUB_SERVICE_OPTIONS[key]
                 try:
-                    option_locator = (AppiumBy.ANDROID_UIAUTOMATOR, f'new UiSelector().description("{description}")')
-                    option_element = self.driver.find_element(*option_locator)
-                    option_element.click()
+                    self.driver.find_element(*option_locator).click()
                 except NoSuchElementException:
                     continue
             
             # Click save button for sub-service
             sub_save_button = self.driver.find_element(*self.create_appointment_locators.SUB_SERVICE_SAVE_BTN)
-            if sub_save_button.is_displayed():
-                sub_save_button.click()
-            else:
-                print("Sub-service save button is not visible or enabled")
-            return True
+            sub_save_button.click()
             
         except Exception as e:
-            print(f"Error handling sub-services: {str(e)}")
             return False
 
     def select_service(self):
@@ -121,6 +117,7 @@ class CreateAppointmentPage(CommonUseSection):
         5. Handle sub-services if modal appears
         """
         # Click service selection button and wait for page to load
+        time.sleep(1)
         self.driver.find_element(*self.create_appointment_locators.SERVICE).click()
 
         try:
@@ -159,23 +156,28 @@ class CreateAppointmentPage(CommonUseSection):
         try:
             service1 = self.driver.find_element(*self.create_appointment_locators.SERVICE_OPTION1)
             service4 = self.driver.find_element(*self.create_appointment_locators.SERVICE_OPTION4)
-
+            
             service4.click()
-            time.sleep(0.5)
+            time.sleep(1)
             self.handle_sub_services()
             
-            service1.click()
-
-            # Click save button
             time.sleep(1)
-            save_button = self.driver.find_element(*self.create_appointment_locators.SAVE_SERVICE_BTN)
-            save_button.click()
-
+            service1.click()
+            
         except Exception as e:
             print(f"Error selecting services: {str(e)}")
 
         return self
-      
+    
+    def save_service1_button(self):
+        save_button = self.driver.find_element(*self.create_appointment_locators.SAVE_SERVICE1_BTN)
+        save_button.click()
+        return self
+    
+    def save_service2_button(self):
+        save_button = self.driver.find_element(*self.create_appointment_locators.SAVE_SERVICE2_BTN)
+        save_button.click()
+        return self
   
     def change_service_time_and_service_person(self):
         """Randomly change service time and quantity"""
@@ -202,13 +204,18 @@ class CreateAppointmentPage(CommonUseSection):
         
     def note_input(self):
         """Input random note with mixed characters"""
-        time.sleep(2)
+        time.sleep(1)
         self.driver.find_element(*self.create_appointment_locators.NOTE_INPUT).click()
         
-       
+        time.sleep(0.5)
+        # randomly click quick select 2 options
+        options = list(self.create_appointment_locators.QUICK_SELECT_NOTE_CONTENT.keys())
+        for option in random.sample(options, 2):
+            self.driver.find_element(*self.create_appointment_locators.QUICK_SELECT_NOTE_CONTENT[option]).click()
+            time.sleep(0.5)
+        
         characters = string.ascii_letters + string.digits + string.punctuation + "夯客測試開發"
-        random_note = ''.join(random.choices(characters, k=30))
-      
+        random_note = ''.join(random.choices(characters, k=10))
         note_input_field = self.driver.find_element(*self.create_appointment_locators.NOTE_CONTENT_INPUT)
         note_input_field.click()
         time.sleep(0.5)
@@ -216,29 +223,23 @@ class CreateAppointmentPage(CommonUseSection):
         note_modal_input_field.click()
         note_modal_input_field.send_keys(random_note)
         
-        time.sleep(0.5)
         self.driver.find_element(*self.create_appointment_locators.MODAL_NOTE_SAVE_BTN).click()
         self.driver.find_element(*self.create_appointment_locators.NOTE_CONTENT_SAVE_BTN).click()
         
         return self
-      
-    def add_service(self):
-        """Add one more service"""
-        self.driver.find_element(*self.create_appointment_locators.ADD_ONE_MORE_SERVICE).click()
-        return self
-      
+    
     
     def click_one_more_service(self):
+        time.sleep(1)
         add_service_element = self.driver.find_element(*self.create_appointment_locators.ADD_ONE_MORE_SERVICE)
         if add_service_element.is_displayed():
                 add_service_element.click()
         
-        time.sleep(2)
     
     def one_more_service(self):
-        
         self.select_service2_person()
         self.select_service()
+        self.save_service2_button()
         return self
 
     def delete_service(self):
@@ -345,11 +346,10 @@ class CreateAppointmentPage(CommonUseSection):
                     time.sleep(1)
                     
                     save_btn = self.driver.find_element(*self.create_appointment_locators.SAVE_TIME_BTN)
-                    if save_btn.is_displayed():
-                        save_btn.click()
-                        try:
-                            self.driver.find_element(*self.create_appointment_locators.SELECT_BUSY_TIME).click()
-                        except:
+                    save_btn.click()
+                    try:
+                        self.driver.find_element(*self.create_appointment_locators.SELECT_BUSY_TIME).click()
+                    except:
                             print("Unable to select time slot")
                 else:
                     print("No available time slots found")
@@ -393,6 +393,7 @@ class CreateAppointmentPage(CommonUseSection):
     
     
     def click_create_button(self):
+        time.sleep(0.5)
         self.driver.find_element(*self.create_appointment_locators.CONFIRM_CREATE_BUTTON).click()
         return self
 
@@ -485,4 +486,5 @@ class CreateAppointmentPage(CommonUseSection):
             pass
         return self
 
+   
    
