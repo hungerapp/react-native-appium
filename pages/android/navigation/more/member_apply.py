@@ -84,7 +84,7 @@ class MemberApplyPage(CommonUseSection):
         self.driver.find_element(*self.member_apply_locators.DISCOUNT_TYPE_BLOCK).click()
         
         selected_option = random.choice(self.member_apply_locators.DISCOUNT_OPTIONS)
-        self.driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR, f'new UiSelector().text("{selected_option}")').click()
+        self.driver.find_element(AppiumBy.ACCESSIBILITY_ID, f'{selected_option}').click()
            
         if selected_option == self.member_apply_locators.DISCOUNT_OPTIONS[0]:
             discount_amount = str(random.randint(10, 1000))
@@ -103,7 +103,7 @@ class MemberApplyPage(CommonUseSection):
         self.driver.find_element(*self.member_apply_locators.USAGE_PERIOD).click()
         
         selected_usage = random.choice(self.member_apply_locators.USAGE_OPTIONS)
-        self.driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR, f'new UiSelector().text("{selected_usage}")').click()
+        self.driver.find_element(AppiumBy.ACCESSIBILITY_ID, f'{selected_usage}').click()
         
         # no limit
         if selected_usage == self.member_apply_locators.USAGE_OPTIONS[0]:
@@ -263,6 +263,10 @@ class MemberApplyPage(CommonUseSection):
         # usage period section
         self.usage_period_section()
         
+        # scroll down again
+        self.driver.swipe(start_x=500, start_y=1800, end_x=500, end_y=300, duration=800)
+        time.sleep(1)
+        
         # other section
         self.other_section()
         
@@ -376,8 +380,8 @@ class MemberApplyPage(CommonUseSection):
         return self
     
     def add_document(self):
-        self.driver.find_element(*self.member_apply_locators.ADD_DOCUMENT_BUTTON).click()
         time.sleep(0.5)
+        self.driver.find_element(*self.member_apply_locators.ADD_DOCUMENT_BUTTON).click()
         
         # member auto sign toggle
         self.driver.find_element(*self.member_apply_locators.MEMBER_AUTO_SIGN_TOGGLE).click()
@@ -393,7 +397,7 @@ class MemberApplyPage(CommonUseSection):
         
 
         selected_option = random.choice(self.member_apply_locators.ADD_TEXT_PROBLEM_OPTIONS)
-        self.driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR, f'new UiSelector().text("{selected_option}")').click()
+        self.driver.find_element(AppiumBy.ACCESSIBILITY_ID, f'{selected_option}').click()
   
         if selected_option == self.member_apply_locators.ADD_TEXT_PROBLEM_OPTIONS[0]:
             # add text paragraph
@@ -409,7 +413,7 @@ class MemberApplyPage(CommonUseSection):
             self.option_type_question_section()
              
         self.driver.find_element(*self.member_apply_locators.CUSTOMER_NEED_TO_SIGN_TOGGLE).click()    
-        self.driver.find_element(*self.member_apply_locators.SAVE_BUTTON).click()
+        self.driver.find_element(*self.member_apply_locators.DOCUMENT_SAVE_BUTTON).click()
         
         return self
     
@@ -419,7 +423,7 @@ class MemberApplyPage(CommonUseSection):
         time.sleep(0.5)
             
         selected_option = random.choice(self.member_apply_locators.OPTION_TYPE_OPTIONS)
-        self.driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR, f'new UiSelector().text("{selected_option}")').click()
+        self.driver.find_element(AppiumBy.ACCESSIBILITY_ID, f'{selected_option}').click()
             
             
         if selected_option == self.member_apply_locators.OPTION_TYPE_OPTIONS[0] or selected_option == self.member_apply_locators.OPTION_TYPE_OPTIONS[1]:
@@ -433,7 +437,7 @@ class MemberApplyPage(CommonUseSection):
             time.sleep(0.5)
                 
             # click save button
-            self.driver.find_element(*self.member_apply_locators.SAVE_BUTTON).click()
+            self.driver.find_element(*self.member_apply_locators.ADD_NEW_QUESTION_SAVE_BUTTON).click()
              
                 
         else:
@@ -448,11 +452,11 @@ class MemberApplyPage(CommonUseSection):
         self.driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR, f'new UiSelector().text("{selected_option}")').click()
             
         # click save button
-        self.driver.find_element(*self.member_apply_locators.SAVE_BUTTON).click()
+        self.driver.find_element(*self.member_apply_locators.DOCUMENT_SAVE_BUTTON).click()
     
     def edit_preview_share_document(self):
         # Scroll down to continue editing
-        for _ in range(3):
+        for _ in range(7):
             self.driver.swipe(
                  start_x=500,
                  start_y=1800,
@@ -475,7 +479,7 @@ class MemberApplyPage(CommonUseSection):
             # edit document
             self.driver.find_element(*self.member_apply_locators.MEMBER_AUTO_SIGN_TOGGLE).click()
             self.driver.find_element(*self.member_apply_locators.CUSTOMER_NEED_TO_SIGN_TOGGLE).click()
-            self.driver.find_element(*self.member_apply_locators.SAVE_BUTTON).click()
+            self.driver.find_element(*self.member_apply_locators.DOCUMENT_SAVE_BUTTON).click()
         elif selected_option == self.member_apply_locators.EDIT_DOCUMENT_OPTIONS[1]:
             # preview document
             time.sleep(0.5)
@@ -511,7 +515,7 @@ class MemberApplyPage(CommonUseSection):
         return self
     
     def edit_and_reactivate_disabled_document(self):
-        time.sleep(1.5)
+        time.sleep(2)
         self.driver.find_element(*self.member_apply_locators.RANDOMLY_EDIT_DISABLE_DOCUMENT_BUTTON).click()
         self.driver.find_element(*self.member_apply_locators.MEMBER_AUTO_SIGN_TOGGLE).click()
         
@@ -542,7 +546,7 @@ class MemberApplyPage(CommonUseSection):
         time.sleep(0.5)
         
         # click save button
-        self.driver.find_element(*self.member_apply_locators.SAVE_BUTTON).click()
+        self.driver.find_element(*self.member_apply_locators.BONUS_POINT_RATIO_SAVE_BUTTON).click()
         return self
 
 
@@ -582,7 +586,7 @@ class MemberApplyPage(CommonUseSection):
         self.driver.find_element(*self.member_apply_locators.MEMBER_INPUT_TOGGLE).click()
         
         # click save button
-        self.driver.find_element(*self.member_apply_locators.SAVE_BUTTON).click()
+        self.driver.find_element(*self.member_apply_locators.EDIT_FIELD_SAVE_BUTTON).click()
         
         # click edit confirm button
         self.driver.find_element(*self.member_apply_locators.EDIT_CONFIRM_BUTTON).click()

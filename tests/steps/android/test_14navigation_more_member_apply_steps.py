@@ -139,7 +139,7 @@ def tap_document_management(driver):
 def add_document(driver):
     member_apply_page = MemberApplyPage(driver)
     member_apply_page.add_document()
-
+  
 @then('I can edit, preview, and share a document')
 def edit_preview_share_document(driver):
     member_apply_page = MemberApplyPage(driver)

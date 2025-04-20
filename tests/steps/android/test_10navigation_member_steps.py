@@ -276,7 +276,7 @@ def select_tickets_for_sending(driver):
 @then('I return to member passport page')
 def return_to_member_passport(driver):
     member_page = MemberPage(driver)
-    member_page.return_to_member_passport()
+    member_page.ticket_page_return_to_member_passport()
 
 
 

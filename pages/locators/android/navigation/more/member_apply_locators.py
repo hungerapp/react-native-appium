@@ -6,7 +6,7 @@ class MemberApplyLocators:
       
       # VOUCHER SECTION
       MEMBER_APPLY = (AppiumBy.ANDROID_UIAUTOMATOR,'new UiSelector().textContains("會員應用")')
-      VOUCHER_MANAGEMENT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("票券管理")')
+      VOUCHER_MANAGEMENT = (AppiumBy.ACCESSIBILITY_ID, '票券管理, 提供多種類型的票券設定，可應用於折價券、堂數券、點數券等票券形式')
       DELETE_CONFIRM_BUTTON = (AppiumBy.ACCESSIBILITY_ID, '刪除')
       
       
@@ -23,14 +23,14 @@ class MemberApplyLocators:
       AUTO_DISCOUNT_TOGGLE = (AppiumBy.ACCESSIBILITY_ID, '結帳時自動折扣-switch-button')
       DISCOUNT_TYPE_BLOCK = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("折扣類型")')
       
-      DISCOUNT_OPTIONS = ["現金", "折數"]
+      DISCOUNT_OPTIONS = ["現金-popup-option", "折數-popup-option"]
       
       DISCOUNT_AMOUNT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("0")')
       DISCOUNT_AMOUNT_INPUT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("請輸入折扣金額")')
       DISCOUNT_PERCENTAGE_LIST = ["95", "90", "85", "80", "75", "70", "65", "60", "50"]
       DISCOUNT_PERCENTAGE_INPUT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("請輸入折數")')
-      USAGE_PERIOD = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(3)')
-      USAGE_OPTIONS = ["不限期", "天數", "到期時間"]
+      USAGE_PERIOD = (AppiumBy.ACCESSIBILITY_ID, '使用期限')
+      USAGE_OPTIONS = ["不限期-popup-option", "天數-popup-option", "到期時間-popup-option"]
       USAGE_PERIOD_TIME_INPUT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("請輸入天數")')
       USAGE_PERIOD_CHOOSE_TIME = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("選擇日期")')
       INCLUDE_PERFORMANCE_TOGGLE = (AppiumBy.ACCESSIBILITY_ID, '核銷時計入業績-switch-button')
@@ -43,7 +43,7 @@ class MemberApplyLocators:
       
       
       # BONUS POINT VOUCHER LOCATORS
-      BONUS_POINT_TAB = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("紅利點數兌換券")')
+      BONUS_POINT_TAB = (AppiumBy.ACCESSIBILITY_ID, 'category-1')
       OPEN_TO_CHANGE_TOGGLE = (AppiumBy.ACCESSIBILITY_ID, '開放兌換-switch-button')
       ADD_BONUS_POINT_VOUCHER_BUTTON = (AppiumBy.ACCESSIBILITY_ID, '新增紅利點數兌換券')
       BONUS_POINT_TITLE_INPUT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("請輸入票券名稱")')
@@ -58,7 +58,7 @@ class MemberApplyLocators:
       
       
       # MEMBERSHIP GIFT TAB LOCATORS
-      MEMBERSHIP_GIFT_TAB = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("入會禮")')
+      MEMBERSHIP_GIFT_TAB = (AppiumBy.ACCESSIBILITY_ID, 'category-2')
       ADD_MEMBERSHIP_GIFT_VOUCHER_BUTTON = (AppiumBy.ACCESSIBILITY_ID, '新增入會禮')
       EDIT_MEMBERSHIP_GIFT_VOUCHER_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("pen-to-square").instance(1)')
       DELETE_MEMBERSHIP_GIFT_VOUCHER_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("刪除票券")')
@@ -66,7 +66,7 @@ class MemberApplyLocators:
       
       
       # BIRTHDAY GIFT TAB LOCATORS
-      BIRTHDAY_GIFT_TAB = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("生日禮")')
+      BIRTHDAY_GIFT_TAB = (AppiumBy.ACCESSIBILITY_ID, 'category-3')
       ADD_BIRTHDAY_GIFT_VOUCHER_BUTTON = (AppiumBy.ACCESSIBILITY_ID, '新增生日禮')
       EDIT_BIRTHDAY_GIFT_VOUCHER_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("pen-to-square").instance(1)')
       DELETE_BIRTHDAY_GIFT_VOUCHER_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("刪除票券")')
@@ -78,7 +78,7 @@ class MemberApplyLocators:
       
       ####################### DOCUMENT MANAGEMENT #######################
       DOCUMENT_MANAGEMENT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("文件管理")')
-      ADD_DOCUMENT_BUTTON = (AppiumBy.ACCESSIBILITY_ID, '新增文件')
+      ADD_DOCUMENT_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("新增文件")')
       MEMBER_AUTO_SIGN_TOGGLE = (AppiumBy.ACCESSIBILITY_ID, '會員自行簽署與填寫-switch-button')
       DOCUMENT_NAME_INPUT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("請輸入文件標題")')
       ADD_TEXT_PARAGRAPH_BUTTON = (AppiumBy.ACCESSIBILITY_ID, '新增文字段落、問題')
@@ -87,17 +87,18 @@ class MemberApplyLocators:
       ADD_TEXT_PARAGRAPH_SAVE_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(1)')
       NEW_PROBLEM_INPUT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("請輸入題目名稱")')
       OPTION_TYPE_SECTION = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("選項類型")')
-      OPTION_TYPE_OPTIONS = ["單選", "複選", "簡答"]
+      OPTION_TYPE_OPTIONS = ["單選-popup-option", "複選-popup-option", "簡答-popup-option"]
       QUESTION_TYPE_SECTION = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("填答類型")')
       QUESTION_TYPE_OPTIONS = ["必填", "選填"]
       NEW_OPTION = (AppiumBy.ACCESSIBILITY_ID, '新增選項')
       NEW_OPTION_INPUT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("請輸入選項")')
+      ADD_NEW_QUESTION_SAVE_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("check").instance(1)')
       CUSTOMER_NEED_TO_SIGN_TOGGLE = (AppiumBy.ACCESSIBILITY_ID, '顧客需簽名-switch-button')
-      SAVE_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("check")')
+      DOCUMENT_SAVE_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("check")')
       EDIT_DOCUMENT_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("circle-ellipsis").instance(9)')
       EDIT_DOCUMENT_OPTIONS = ["編輯文件", "預覽文件", "分享文件連結", "簽署紀錄"]
-      PREVIEW_DOCUMENT_BACK_BUTTON = (AppiumBy.ACCESSIBILITY_ID, 'xmark')
-      SIGN_RECORD_BACK_BUTTON = (AppiumBy.ACCESSIBILITY_ID, 'xmark')
+      PREVIEW_DOCUMENT_BACK_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("xmark").instance(1)')
+      SIGN_RECORD_BACK_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("xmark").instance(1)')
       SHARE_DOCUMENT_COPY_BUTTON = (AppiumBy.ACCESSIBILITY_ID, '複製')
       
       DISABLE_TAB = (AppiumBy.ACCESSIBILITY_ID, '已停用')
@@ -105,7 +106,7 @@ class MemberApplyLocators:
       DISABLE_DOCUMENT_CONFIRM_BUTTON = (AppiumBy.ACCESSIBILITY_ID, '停用')
       REACTIVATE_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("arrows-repeat").instance(0)')
       REACTIVATE_CONFIRM_BUTTON = (AppiumBy.ACCESSIBILITY_ID, '啟用')
-      RANDOMLY_EDIT_DISABLE_DOCUMENT_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("pen-to-square").instance(1)')
+      RANDOMLY_EDIT_DISABLE_DOCUMENT_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("pen-to-square").instance(2)')
       REACTIVATE_DOCUMENT_BUTTON = (AppiumBy.ACCESSIBILITY_ID, '重新啟用')
       
       ##################################
@@ -130,6 +131,7 @@ class MemberApplyLocators:
       ADD_NEW_COLUMN_BUTTON = (AppiumBy.ACCESSIBILITY_ID, '新增')
       EDIT_FIELD_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("pen-to-square").instance(5)')
       EDIT_CONFIRM_BUTTON = (AppiumBy.ACCESSIBILITY_ID, '編輯')
+      EDIT_FIELD_SAVE_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("check")')
       DELETE_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("circle-minus").instance(5)')
       DELETE_INPUT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("android.widget.EditText")')
       RETURN_TO_CALENDAR_BUTTON = (AppiumBy.ACCESSIBILITY_ID, '回到行事曆')

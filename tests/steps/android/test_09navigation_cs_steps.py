@@ -62,7 +62,7 @@ def tap_help_center_link(driver):
     cs_page = CSPage(driver)
     cs_page.tap_help_center_link()
 
-@then('I tap on the 1-on-1 Meeting hyperlink')
-def tap_meeting_link(driver):
+@then('I click back button to go back to calendar page')
+def click_back_button(driver):
     cs_page = CSPage(driver)
-    cs_page.meeting_link()
+    cs_page.click_back_button()

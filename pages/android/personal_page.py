@@ -484,7 +484,10 @@ class PersonalPage(CommonUseSection):
   def update_account_information_and_save_settings(self):
     
       try:  
-            self.select_random_date()
+            # click birthday field to open date picker
+            self.driver.find_element(*self.personal_page_locators.BIRTHDAY_FIELD).click()
+            self.swipe_calendar_component()
+            
             self.clear_and_input_name()
             self.select_random_gender()
             self.input_phone_number(valid=True)

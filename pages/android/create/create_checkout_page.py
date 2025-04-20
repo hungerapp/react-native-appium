@@ -49,14 +49,14 @@ class CreateCheckoutPage(CommonUseSection):
            # change performance personnel
            self.driver.find_element(*self.create_checkout_locators.PERFORMANCE_PERSONNEL).click()
            time.sleep(1)
-           self.driver.find_element(*self.create_checkout_locators.PERFORMANCE_CHANGE_PERSONNEL).click()
+           self.driver.find_element(*self.create_checkout_locators.PERFORMANCE_CHANGE_PERSONNEL_SALLY).click()
            self.driver.find_element(*self.create_checkout_locators.SALES_OWNER_SAVE_BUTTON).click()
         else:
            # select sales owner
            time.sleep(0.5)
            self.driver.find_element(*self.create_checkout_locators.DESIGNATED_APPOINTMENT_TOGGLE).click()
            time.sleep(0.5)
-           self.driver.find_element(*self.create_checkout_locators.SALES_OWNER_SELECT).click()
+           self.driver.find_element(*self.create_checkout_locators.SALES_OWNER_SELECT_QA_TESTER).click()
            self.driver.find_element(*self.create_checkout_locators.SALES_OWNER_SAVE_BUTTON).click()
     
         return self
@@ -104,7 +104,7 @@ class CreateCheckoutPage(CommonUseSection):
             selected_options = random.sample(self.create_checkout_locators.TEST_PRODUCT_OPTIONS, 2)
             
             for option in selected_options:
-                service = self.driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR, option)
+                service = self.driver.find_element(AppiumBy.ACCESSIBILITY_ID, option)
                 service.click()
                 time.sleep(0.5)
                 
@@ -143,9 +143,6 @@ class CreateCheckoutPage(CommonUseSection):
         search_input = self.driver.find_element(*self.create_checkout_locators.MEMBER_SEARCH)
         search_input.click()
         search_input.send_keys(phone_number)
-        time.sleep(3)
-        result = self.driver.find_element(*self.create_checkout_locators.MEMBER_SEARCH_RESULT)
-        result.click()
     
         
     def click_search_result(self):
@@ -158,6 +155,14 @@ class CreateCheckoutPage(CommonUseSection):
         except Exception as e:
             print(f"點擊搜尋結果時發生錯誤: {str(e)}")
             raise
+        
+    def click_non_selected_member_section(self):
+        self.driver.find_element(*self.create_checkout_locators.NON_SELECTED_MEMBER_SECTION).click()
+    
+    def add_new_member(self):
+         self.driver.find_element(*self.create_checkout_locators.ADD_MEMBER_BUTTON).click()
+         time.sleep(1)
+         self.new_member()
 
     def delete_selected_member(self):
         self.driver.find_element(*self.create_checkout_locators.DELETE_MEMBER_BUTTON).click()
@@ -166,7 +171,7 @@ class CreateCheckoutPage(CommonUseSection):
         self.driver.find_element(*self.create_checkout_locators.NON_SELECTED_MEMBER_SECTION).click()
         
     def clear_all_items(self):
-        time.sleep(0.5)
+        time.sleep(1)
         self.driver.find_element(*self.create_checkout_locators.ITEM_SECTION).click()
         time.sleep(0.5)
         self.driver.find_element(*self.create_checkout_locators.SELECT_ITEM_BTN).click()
@@ -182,12 +187,12 @@ class CreateCheckoutPage(CommonUseSection):
     def ticket_section(self):
         self.driver.find_element(*self.create_checkout_locators.TICKET_SECTION).click()
         
-    def adjust_item(self, add_new_member=False):
+    def adjust_item(self, existing_member=False):
         self.update_items_amount()
         time.sleep(0.5)
         self.update_items_quantity()
         time.sleep(0.5)
-        self.add_new_discount(add_new_member)
+        self.add_new_discount(existing_member)
         time.sleep(0.5)
         self.remove_item()
 
@@ -208,29 +213,35 @@ class CreateCheckoutPage(CommonUseSection):
         total_amount_text = self.driver.find_element(*TOTAL_AMOUNT).text
         total_amount = int(total_amount_text.replace(",", ""))
 
-        min_amount = int(total_amount * 1.1) if is_above_price else 10
-        max_amount = int(total_amount * 1.9) if is_above_price else int(total_amount * 0.9)
-
-
-        cash_amount = random.randint(min_amount, max_amount)
+        if is_above_price:
+            cash_amount = total_amount + random.randint(10, 20000)
+        else:
+            if total_amount <= 1:
+                cash_amount = 1
+            else:
+                min_amount = min(10, total_amount - 1)
+                if min_amount < 1:
+                    min_amount = 1
+                cash_amount = random.randint(min_amount, total_amount - 1)
 
         # adjust the cash amount
         self.driver.find_element(*self.create_checkout_locators.CASH_SECTION['edit_btn']).click()
         self.driver.find_element(*self.create_checkout_locators.COMMON_BUTTONS['clear']).click()
+        time.sleep(0.5)
         self.driver.find_element(*self.create_checkout_locators.CASH_SECTION['input_field']).send_keys(str(cash_amount))
         self.driver.find_element(*self.create_checkout_locators.COMMON_BUTTONS['confirm']).click()
 
-
         error_element = self.driver.find_element(*self.create_checkout_locators.PAYMENT_ERROR_MESSAGE(is_above_price))
         error_text = error_element.text.strip()
-        diff = int(error_text.split("NT$")[1].strip().replace(",", ""))
+        diff = error_text.split("NT$")[1].strip().replace(",", "")
 
         time.sleep(0.5)
 
         if is_above_price:
             self.driver.find_element(*self.create_checkout_locators.CASH_SECTION['edit_btn']).click()
             self.driver.find_element(*self.create_checkout_locators.COMMON_BUTTONS['clear']).click()
-            self.driver.find_element(*self.create_checkout_locators.CASH_SECTION['input_field']).send_keys(str(total_amount))
+            restore_amount = cash_amount - int(diff)
+            self.driver.find_element(*self.create_checkout_locators.CASH_SECTION['input_field']).send_keys(str(restore_amount))
             self.driver.find_element(*self.create_checkout_locators.COMMON_BUTTONS['confirm']).click()
         else:
             self.driver.find_element(*self.create_checkout_locators.CREDIT_CARD_SECTION['edit_btn']).click()
@@ -301,7 +312,6 @@ class CreateCheckoutPage(CommonUseSection):
         self.change_performance_posting_date()
         self.select_sales_owner(is_performance_change=True)
         self.change_total_sales_performance()
-        time.sleep(1)
         self.driver.find_element(*self.create_checkout_locators.TOTAL_PERFORMANCE_CONFIRM_BUTTON).click()
         
     def change_performance_posting_date(self):
@@ -327,7 +337,12 @@ class CreateCheckoutPage(CommonUseSection):
         })
     
     def change_total_sales_performance(self):
-        self.driver.find_element(*self.create_checkout_locators.SALES_PERFORMANCE_EDIT_ICON).click()
+        # due to the edit icon is not stable, so we need to try to click the icon
+        time.sleep(0.5)
+        try:
+            self.driver.find_element(*self.create_checkout_locators.SALES_PERFORMANCE_EDIT1_ICON).click()
+        except NoSuchElementException:
+            self.driver.find_element(*self.create_checkout_locators.SALES_PERFORMANCE_EDIT2_ICON).click()
         time.sleep(1)
         self.driver.find_element(*self.create_checkout_locators.COMMON_BUTTONS['clear']).click()
         random_amount = random.randint(1, 1000)
@@ -339,10 +354,17 @@ class CreateCheckoutPage(CommonUseSection):
         self.driver.find_element(*self.create_checkout_locators.BONUS_POINTS).click()
         time.sleep(1)
     
+        bonus_points_input = random.choice([True, False])
+        if bonus_points_input:
+            random_amount = random.randint(10, 100)
+            self.driver.find_element(*self.create_checkout_locators.BONUS_POINTS_INPUT_FIELD).click()
+            self.driver.find_element(*self.create_checkout_locators.BONUS_POINTS_INPUT_FIELD).clear()
+            self.driver.find_element(*self.create_checkout_locators.BONUS_POINTS_INPUT_FIELD).send_keys(str(random_amount))
+        else:
+            random_option = random.choice(self.create_checkout_locators.BONUS_POINTS_QUICK_SELECT_OPTIONS)
+            self.driver.find_element(*random_option).click()
         
-        random_option = random.choice(self.create_checkout_locators.BONUS_POINTS_QUICK_SELECT_OPTIONS)
-        self.driver.find_element(*random_option).click()
-    
+        time.sleep(0.5)
         self.driver.find_element(*self.create_checkout_locators.BONUS_POINTS_CONFIRM_BUTTON).click()
         return self
         
@@ -467,7 +489,7 @@ class CreateCheckoutPage(CommonUseSection):
     
     def enter_deposit_amount(self):
         self.driver.find_element(*self.create_checkout_locators.DEPOSIT_AMOUNT_INPUT).click()
-        random_amount = str(random.randint(1, 99998))
+        random_amount = str(random.randint(1, 10000))
         self.driver.find_element(*self.create_checkout_locators.DEPOSIT_AMOUNT_INPUT).send_keys(random_amount)
         time.sleep(0.5)
         self.driver.find_element(*self.create_checkout_locators.COMMON_BUTTONS['clear']).click()

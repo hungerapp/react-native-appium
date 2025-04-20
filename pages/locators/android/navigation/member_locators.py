@@ -24,86 +24,84 @@ class Member_Locators:
       }
     
       # Member page functions
-      MEMBER_PAGE_FUNCTIONS = {
-        'add_member': (AppiumBy.ACCESSIBILITY_ID, '新增會員'),
-        'apply_filters': (AppiumBy.ACCESSIBILITY_ID, '會員篩選'),
-        'check_scheduling_records': (AppiumBy.ACCESSIBILITY_ID, '排程記錄'),
-        'search_member': (AppiumBy.ACCESSIBILITY_ID, '搜尋'),
-        'sent_tag': (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().description("已發送").instance(0)'),
-        'member_filer_back': (AppiumBy.ACCESSIBILITY_ID, 'xmark'),
-        'passport_return_button': (AppiumBy.ACCESSIBILITY_ID, 'xmark'),
-        'scheduling_records_back': (AppiumBy.ACCESSIBILITY_ID, 'xmark')
-      }
-    
+      ADD_MEMBER = (AppiumBy.ACCESSIBILITY_ID, '新增會員')
+      APPLY_FILTERS = (AppiumBy.ACCESSIBILITY_ID, '會員篩選')
+      CHECK_SCHEDULING_RECORDS = (AppiumBy.ACCESSIBILITY_ID, '排程記錄')
+      SEARCH_MEMBER = (AppiumBy.ACCESSIBILITY_ID, '搜尋')
+      SENT_TAG = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().description("已發送").instance(0)')
+      MEMBER_FILER_BACK = (AppiumBy.ACCESSIBILITY_ID, 'xmark')
+      PASSPORT_RETURN_BUTTON = (AppiumBy.ACCESSIBILITY_ID, 'xmark')
+      SCHEDULING_RECORDS_BACK = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("xmark").instance(1)')
+      
+      # Member filter section
       MEMBER_FILTER_SECTIONS = {
-        'member_tag': (AppiumBy.ACCESSIBILITY_ID, '會員標籤, 無'),
-        'birthday_month': (AppiumBy.ACCESSIBILITY_ID, '生日月份, 無'),
-        'sign': (AppiumBy.ACCESSIBILITY_ID, '星座, 無'),
-        'age': (AppiumBy.ACCESSIBILITY_ID, '年齡, 無'),
+        'member_tag': (AppiumBy.ACCESSIBILITY_ID, '會員標籤-multi-select-field'),
+        'birthday_month': (AppiumBy.ACCESSIBILITY_ID, '生日月份-multi-select-field'),
+        'sign': (AppiumBy.ACCESSIBILITY_ID, '星座-multi-select-field'),
+        'age': (AppiumBy.ACCESSIBILITY_ID, '年齡-multi-select-field'),
         'save_button': (AppiumBy.XPATH, '(//com.horcrux.svg.GroupView)[2]')
       }
     
-      DELETE_CONDITION = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().description("排除條件, 黑名單, 評分低於4.0")')
-      DELETE_CONDITION_SAVE_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(9)')
+      DELETE_CONDITION = (AppiumBy.ACCESSIBILITY_ID, '排除條件-multi-select-field')
     
       MEMBER_FILTER_OPTIONS = {
         'member_tag': [
-          (AppiumBy.ACCESSIBILITY_ID, '全部選取'),
-          (AppiumBy.ACCESSIBILITY_ID, '社區熟客'),
-          (AppiumBy.ACCESSIBILITY_ID, '老闆朋友'),
-          (AppiumBy.ACCESSIBILITY_ID, '敏感型客人'),
-          (AppiumBy.ACCESSIBILITY_ID, '口碑介紹客')
+          (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("全部選取")'),
+          (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("社區熟客")'),
+          (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("老闆朋友")'),
+          (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("敏感型客人")'),
+          (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("口碑介紹客")')
         ],
         'birthday_month': [
-          (AppiumBy.ACCESSIBILITY_ID, '全部選取'),
-          (AppiumBy.ACCESSIBILITY_ID, '1月'),
-          (AppiumBy.ACCESSIBILITY_ID, '2月'),
-          (AppiumBy.ACCESSIBILITY_ID, '3月'),
-          (AppiumBy.ACCESSIBILITY_ID, '4月'),
-          (AppiumBy.ACCESSIBILITY_ID, '5月'),
-          (AppiumBy.ACCESSIBILITY_ID, '6月'),
-          (AppiumBy.ACCESSIBILITY_ID, '7月'),
-          (AppiumBy.ACCESSIBILITY_ID, '8月'),
-          (AppiumBy.ACCESSIBILITY_ID, '9月'),
-          (AppiumBy.ACCESSIBILITY_ID, '10月'),
-          (AppiumBy.ACCESSIBILITY_ID, '11月')
+          (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("全部選取")'),
+          (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("1月")'),
+          (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("2月")'),
+          (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("3月")'),
+          (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("4月")'),
+          (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("5月")'),
+          (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("6月")'),
+          (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("7月")'),
+          (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("8月")'),
+          (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("9月")'),
+          (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("10月")'),
+          (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("11月")')
         ],
         'sign' : [
-          (AppiumBy.ACCESSIBILITY_ID, '全部選取'),
-          (AppiumBy.ACCESSIBILITY_ID, '牡羊座 (3/21 ~ 4/19)'),
-          (AppiumBy.ACCESSIBILITY_ID, '金牛座 (4/20 ~ 5/20)'),
-          (AppiumBy.ACCESSIBILITY_ID, '雙子座 (5/21 ~ 6/20)'),
-          (AppiumBy.ACCESSIBILITY_ID, '巨蟹座 (6/21 ~ 7/22)'),
-          (AppiumBy.ACCESSIBILITY_ID, '獅子座 (7/23 ~ 8/22)'),
-          (AppiumBy.ACCESSIBILITY_ID, '處女座 (8/23 ~ 9/22)'),
-          (AppiumBy.ACCESSIBILITY_ID, '天秤座 (9/23 ~ 10/22)'),
-          (AppiumBy.ACCESSIBILITY_ID, '天蠍座 (10/23 ~ 11/21)'),
-          (AppiumBy.ACCESSIBILITY_ID, '射手座 (11/22 ~ 12/21)'),
-          (AppiumBy.ACCESSIBILITY_ID, '摩羯座 (12/22 ~ 1/19)'),
-          (AppiumBy.ACCESSIBILITY_ID, '水瓶座 (1/20 ~ 2/18)')
+          (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("全部選取")'),
+          (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("牡羊座 (3/21 ~ 4/19)")'),
+          (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("金牛座 (4/20 ~ 5/20)")'),
+          (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("雙子座 (5/21 ~ 6/20)")'),
+          (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("巨蟹座 (6/21 ~ 7/22)")'),
+          (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("獅子座 (7/23 ~ 8/22)")'),
+          (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("處女座 (8/23 ~ 9/22)")'),
+          (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("天秤座 (9/23 ~ 10/22)")'),
+          (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("天蠍座 (10/23 ~ 11/21)")'),
+          (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("射手座 (11/22 ~ 12/21)")'),
+          (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("摩羯座 (12/22 ~ 1/19)")'),
+          (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("水瓶座 (1/20 ~ 2/18)")')
         ],
         'age' : [
           #(AppiumBy.ACCESSIBILITY_ID, '全部選取'),
-          (AppiumBy.ACCESSIBILITY_ID, '15歲以下'),
-          (AppiumBy.ACCESSIBILITY_ID, '16~20歲'),
-          (AppiumBy.ACCESSIBILITY_ID, '21~25歲'),
-          (AppiumBy.ACCESSIBILITY_ID, '26~30歲'),
-          (AppiumBy.ACCESSIBILITY_ID, '31~35歲'),
-          (AppiumBy.ACCESSIBILITY_ID, '36~40歲'),
-          (AppiumBy.ACCESSIBILITY_ID, '41~45歲'),
-          (AppiumBy.ACCESSIBILITY_ID, '46~50歲'),
-          (AppiumBy.ACCESSIBILITY_ID, '51~55歲'),
-          (AppiumBy.ACCESSIBILITY_ID, '56~60歲'),
-          (AppiumBy.ACCESSIBILITY_ID, '61~65歲')
+          (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("15歲以下")'),
+          (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("16~20歲")'),
+          (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("21~25歲")'),
+          (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("26~30歲")'),
+          (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("31~35歲")'),
+          (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("36~40歲")'),
+          (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("41~45歲")'),
+          (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("46~50歲")'),
+          (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("51~55歲")'),
+          (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("56~60歲")'),
+          (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("61~65歲")')
         ],
         'amount' : [
-          (AppiumBy.ACCESSIBILITY_ID, '累計至今'),
-          (AppiumBy.ACCESSIBILITY_ID, '近60天'),
-          (AppiumBy.ACCESSIBILITY_ID, '近90天'),
-          (AppiumBy.ACCESSIBILITY_ID, '近180天'),
-          (AppiumBy.ACCESSIBILITY_ID, '近360天'),
-          (AppiumBy.ACCESSIBILITY_ID, '今年累計'),
-          (AppiumBy.ACCESSIBILITY_ID, '去年累計'),
+          (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("累計至今")'),
+          (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("近60天")'),
+          (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("近90天")'),
+          (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("近180天")'),
+          (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("近360天")'),
+          (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("今年累計")'),
+          (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("去年累計")'),
         ]
       }
       
@@ -141,17 +139,14 @@ class Member_Locators:
       }
     
       # Cost amount menu
-      COST_AMOUNT_MENU = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(5)')
+      COST_AMOUNT_MENU = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("caret-down").instance(0)')
     
       # Come amount menu
-      COME_AMOUNT_MENU = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(6)')
+      COME_AMOUNT_MENU = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("caret-down").instance(1)')
     
       FILTER_BUTTON = (AppiumBy.ACCESSIBILITY_ID, '進行篩選')
       RESET_BUTTON = (AppiumBy.ACCESSIBILITY_ID, '重置條件')
     
-    
-      # return to member page button
-      RETURN_TO_MEMBER_PAGE = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(0)')
     
       # Search elements
       SEARCH_ELEMENTS = {
@@ -181,30 +176,31 @@ class Member_Locators:
     
       CUSTOMIZE_TAGS = [
         #(AppiumBy.ACCESSIBILITY_ID, "全部選取"),
-        (AppiumBy.ACCESSIBILITY_ID, "社區熟客"),
-        (AppiumBy.ACCESSIBILITY_ID, "老闆朋友"),
-        (AppiumBy.ACCESSIBILITY_ID, "敏感型客人"),
-        (AppiumBy.ACCESSIBILITY_ID, "口碑介紹客")
+        (AppiumBy.ACCESSIBILITY_ID, "checkbox-multiple-option-0"),
+        (AppiumBy.ACCESSIBILITY_ID, "checkbox-multiple-option-1"),
+        (AppiumBy.ACCESSIBILITY_ID, "checkbox-multiple-option-2"),
+        (AppiumBy.ACCESSIBILITY_ID, "checkbox-multiple-option-3")
       ]
     
       MANAGE_CUSTOM_TAG = (AppiumBy.ACCESSIBILITY_ID, '管理自訂標籤')
-    
-      CUSTOM_TAGS_FUNCTIONS = {
-        'add_tag': (AppiumBy.ACCESSIBILITY_ID, '新增標籤'),
-        'edit_tag': (AppiumBy.XPATH, '(//android.view.ViewGroup[@resource-id="pen-to-square"])[5]/com.horcrux.svg.SvgView/com.horcrux.svg.GroupView/com.horcrux.svg.PathView'),
-        'delete_tag': (AppiumBy.XPATH, '(//android.view.ViewGroup[@resource-id="circle-minus"])[5]/com.horcrux.svg.SvgView/com.horcrux.svg.GroupView/com.horcrux.svg.PathView'),
-        'save_new_tag': (AppiumBy.XPATH, '//android.view.ViewGroup[@resource-id="check"]/com.horcrux.svg.SvgView/com.horcrux.svg.GroupView/com.horcrux.svg.PathView'),
-        'error_msg': (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text(" 此欄位為必填。")'),
-        'confirm_delete': (AppiumBy.ACCESSIBILITY_ID, '刪除'),
-      }
+      
+      # Custom tag FUNCTIONS
+      CUSTOM_TAG_ADD_TAG = (AppiumBy.ACCESSIBILITY_ID, '新增標籤')
+      CUSTOM_TAG_EDIT_TAG = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("pen-to-square").instance(4)')
+      CUSTOM_TAG_DELETE_TAG = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("circle-minus").instance(4)')
+      CUSTOM_TAG_SAVE_NEW_TAG = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("check")')
+      CUSTOM_TAG_ERROR_MSG = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text(" 此欄位為必填。")')
+      CUSTOM_TAG_CONFIRM_DELETE = (AppiumBy.ACCESSIBILITY_ID, '刪除')
+      
+
     
       SELECT_MEMBER_CONFIRM = (AppiumBy.XPATH, '(//android.view.ViewGroup[@resource-id="check"])[1]/com.horcrux.svg.SvgView/com.horcrux.svg.GroupView/com.horcrux.svg.PathView')
       MEMBER_PASSPORT_TITLE = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("會員護照")')
       
       
       PASSPORT_TABS = {
-        'billing_tab': (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("帳單")'),
-        'info_tab': (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("資訊")'),
+        'billing_tab': (AppiumBy.ACCESSIBILITY_ID, '帳單'),
+        'info_tab': (AppiumBy.ACCESSIBILITY_ID, '資訊'),
         'reserve_tab': (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("預約")'),
       }
     
@@ -218,52 +214,56 @@ class Member_Locators:
         'delete_checkout_again_option': (AppiumBy.ACCESSIBILITY_ID, '刪除並重新結帳')
       }
     
-      TOP_UP_SECTION = {
-        'top_up_section': (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("儲值金")'),
-        'edit_top_up_icon': (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(1)'),
-        'input_top_up_amount': (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("請輸入數值")'),
-        'increase_button': (AppiumBy.ACCESSIBILITY_ID, '增加'),
-        'decrease_button': (AppiumBy.ACCESSIBILITY_ID, '扣除'),
-        'confirm_button': (AppiumBy.ACCESSIBILITY_ID, '確定'),
-        'top_up_button': (AppiumBy.ACCESSIBILITY_ID, '儲值')
-      }
+      # Top-up balance section
+      TOP_UP_SECTION = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("儲值金")')
+      EDIT_TOP_UP_ICON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("pen-to-square")')
+      INPUT_TOP_UP_AMOUNT = (AppiumBy.ACCESSIBILITY_ID, 'undefined-text-input')
+      INCREASE_BUTTON = (AppiumBy.ACCESSIBILITY_ID, '增加')
+      DECREASE_BUTTON = (AppiumBy.ACCESSIBILITY_ID, '扣除')
+      BALANCE_CONFIRM_BUTTON = (AppiumBy.ACCESSIBILITY_ID, '確定')
+      TOP_UP_BUTTON = (AppiumBy.ACCESSIBILITY_ID, '儲值')
+     
+      # Bonus points section
+      BONUS_POINTS_SECTION = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("紅利點數")')
     
-      BONUS_POINTS_SECTION = {
-        'bonus_points_section': (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("紅利點數")')
-      }
-    
-      TICKETS_SECTION = {
-        'tickets_section': (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("票券")'),
-        'sell_ticket_button': (AppiumBy.ACCESSIBILITY_ID, '販售票券'),
-        'ticket': (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("自動化測試票券")'),
-        'use_button': (AppiumBy.ACCESSIBILITY_ID, '使用'),
-        'plus_button': (AppiumBy.XPATH, '//android.view.ViewGroup[@resource-id="plus"]/com.horcrux.svg.SvgView/com.horcrux.svg.GroupView/com.horcrux.svg.PathView'),
-        'input_field': (AppiumBy.XPATH, '//android.widget.EditText'),
-        'save_button': (AppiumBy.ACCESSIBILITY_ID, '確定'),
-        'cancel_button': (AppiumBy.ACCESSIBILITY_ID, '取消'),
-        'history_tab': (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("歷史紀錄")'),
-        'gift_ticket_button': (AppiumBy.ACCESSIBILITY_ID, '贈送票券')
-      }
-    
-    
-      EDIT_SECTION = {
-        'edit_info_icon': (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("基本資訊")'),
-        'input': (AppiumBy.XPATH, '//android.widget.EditText'),
-        'edit_save': (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(1)'),
-        'edit_custom_info_icon': (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("自訂欄位")'),
-        'edit_member_description_icon': (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("會員描述")'),
-        'confirm_button': (AppiumBy.ACCESSIBILITY_ID, '確定'),
-        'cancel_button': (AppiumBy.ACCESSIBILITY_ID, '取消'),
-        'option_input': (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textMatches("^自動化測試.*")'),
-        'fourth_question_input': (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textMatches("^自動化測試.*")'),
-        'friend_input': (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("自動化測試")'),
-        'member_description_input': (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("自動化測試")'),
-        'modal_save_button': (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(1)')
-      }
+      # Tickets section
+      TICKETS_SECTION = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("票券")')
+      SELL_TICKET_BUTTON = (AppiumBy.ACCESSIBILITY_ID, '販售票券')
+      TICKET = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("自動化測試票券")')
+      USE_BUTTON = (AppiumBy.ACCESSIBILITY_ID, '使用')
+      PLUS_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("plus")')
+      INPUT_FIELD = (AppiumBy.ACCESSIBILITY_ID, 'undefined-number-field-input')
+      SAVE_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("check").instance(0)')
+      TICKET_PAGE_RETURN_BUTTON = (AppiumBy.ACCESSIBILITY_ID, 'xmark')
+      HISTORY_TAB = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("歷史紀錄")')
+      GIFT_TICKET_BUTTON = (AppiumBy.ACCESSIBILITY_ID, '贈送票券')
       
-      SINGLE_CHOICE = ['官網', 'IG', 'FB']
+
+    
+      # Edit section below member passport page
+      EDIT_INFO_ICON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("基本資訊")')
+      EDIT_BASIC_INFO_CHOOSE_DATE_FIELD = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("chevron-right")')
+      OTHER_NAME_INPUT = (AppiumBy.ACCESSIBILITY_ID, '別名-text-input')
+      INPUT = (AppiumBy.XPATH, '//android.widget.EditText')
+      EDIT_SAVE = (AppiumBy.ACCESSIBILITY_ID, 'check')
+      EDIT_CUSTOM_INFO_ICON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("自訂欄位")')
+      EDIT_MEMBER_DESCRIPTION_ICON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("會員描述")')
+      CONFIRM_BUTTON = (AppiumBy.ACCESSIBILITY_ID, '確定')
+      CANCEL_BUTTON = (AppiumBy.ACCESSIBILITY_ID, '取消')
+      OPTION_INPUT = (AppiumBy.ACCESSIBILITY_ID, '簡答 / 選填 / 僅商家可見-textarea-field')
+      SIMPLE_ANSWER_INPUT = (AppiumBy.ANDROID_UIAUTOMATOR, 'textMatches("簡答 / 選填 / 僅商家可見")')
+      FOURTH_QUESTION_INPUT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("簡答 / 選填 / 僅商家可見-textarea-field").instance(1)')
+      FRIEND_INPUT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("自動化測試")')
+      MEMBER_DESCRIPTION_INPUT = (AppiumBy.ACCESSIBILITY_ID, '會員描述-textarea-field')
+      MODAL_SAVE_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(1)')
+      CUSTOM_MODAL_SAVE_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("check").instance(0)')
+      MEMBER_DESCRIPTION_MODAL_SAVE_BUTTON = (AppiumBy.ACCESSIBILITY_ID, 'check')
       
-      MUSIC_CHOICE = ['民謠', '搖滾', '流行']
+
+
+      SINGLE_CHOICE = ['checkbox-single-option-0', 'checkbox-single-option-1', 'checkbox-single-option-2']
+      
+      MUSIC_CHOICE = ['checkbox-multiple-option-0', 'checkbox-multiple-option-1', 'checkbox-multiple-option-2']
     
       BOTTOM_NAVIGATION = {
         'send_message_icon': (AppiumBy.ACCESSIBILITY_ID, '發送訊息'),
@@ -293,40 +293,41 @@ class Member_Locators:
       }
     
     
-      MORE_OPTIONS_FUNCTIONS = {
-        'add_new_appointment': (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("新增預約")'),
-        'quick_checkout': (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("快速結帳")'),
-        'member_tags': (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("會員標籤")'),
-        'link_account': (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("綁定帳號")'),
-        'line_section': (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Beck")'),
-        'send_line_message_btn': (AppiumBy.ACCESSIBILITY_ID, '發送 LINE 訊息'),
-        'input_message_content': (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("請輸入訊息內容")'),
-        'input_modal': (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("輸入內容")'),
-        'modal_save_button': (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(1)'),
-        'use_message_template': (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("使用訊息範本")'),
-        'manage_message_template': (AppiumBy.ACCESSIBILITY_ID, '管理訊息範本'),
-        'add_new_message_template_button': (AppiumBy.ACCESSIBILITY_ID, '新增訊息範本'),
-        'title_input': (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("請輸入範本名稱")'),
-        'content_input': (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("請輸入範本內容")'),
-        'edit_tag': (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(30)'),
-        'error_msg': (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("此欄位為必填。")'),
-        'save_button': (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(3)'),
-        'delete_tag': (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(29)'),
-        'confirm': (AppiumBy.ACCESSIBILITY_ID, '確定'),
-        'confirm_delete': (AppiumBy.ACCESSIBILITY_ID, '刪除'),
-        'message_save_button': (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(1)'),
-        'add_to_blacklist': (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("加入黑名單")'),
-        'remove_from_blacklist': (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("移出黑名單")'),
-        'deposit_title': (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("儲值金")'),
-        'selct_item_button': (AppiumBy.ACCESSIBILITY_ID, '選擇商品'),
-        'select_ticket_button': (AppiumBy.ACCESSIBILITY_ID, '選擇票券'),
-      }
+      # Link account
+      LINK_ACCOUNT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("綁定帳號")')
+      LINE_SECTION = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Beck")')
+      ADD_NEW_APPOINTMENT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("新增預約")')
+      QUICK_CHECKOUT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("快速結帳")')
+      MEMBER_TAGS = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("會員標籤")')
+      SEND_LINE_MESSAGE_BTN = (AppiumBy.ACCESSIBILITY_ID, '發送 LINE 訊息')
+      INPUT_MESSAGE_CONTENT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("請輸入訊息內容")')
+      INPUT_MODAL = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("輸入內容")')
+      MODAL_SAVE_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(1)')
+      USE_MESSAGE_TEMPLATE = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("使用訊息範本")')
+      MANAGE_MESSAGE_TEMPLATE = (AppiumBy.ACCESSIBILITY_ID, '管理訊息範本')
+      ADD_NEW_MESSAGE_TEMPLATE_BUTTON = (AppiumBy.ACCESSIBILITY_ID, '新增訊息範本')
+      TITLE_INPUT = (AppiumBy.ACCESSIBILITY_ID, '範本名稱-text-input')
+      CONTENT_INPUT = (AppiumBy.ACCESSIBILITY_ID, '範本內容-textarea-field')
+      EDIT_TAG = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(30)')
+      ERROR_MSG = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("此欄位為必填。")')
+      SAVE_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("check").instance(2)')
+      DELETE_TAG = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("circle-minus").instance(8)')
+      CONFIRM = (AppiumBy.ACCESSIBILITY_ID, '確定')
+      CONFIRM_DELETE = (AppiumBy.ACCESSIBILITY_ID, '刪除')
+      MESSAGE_SAVE_BUTTON = (AppiumBy.ACCESSIBILITY_ID, 'check')
+      ADD_TO_BLACKLIST = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("加入黑名單")')
+      REMOVE_FROM_BLACKLIST = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("移出黑名單")')
+      DEPOSIT_TITLE = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("儲值金")')
+      SELECT_ITEM_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("選擇商品")')
+      ADD_NEW_MESSAGE_TEMPLATE_SAVE_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("check").instance(2)')
+      SELECT_TICKET_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("選擇票券")')
+      
     
       MESSAGE_TEMPLATE_OPTIONS = [
-        (AppiumBy.ACCESSIBILITY_ID, '美甲保固, 感謝你的到來，美甲項目我們提供7天的保固期，若有掉甲、缺色，請重新預約與我們聯繫\nhunger Salon團隊敬上'),
-        (AppiumBy.ACCESSIBILITY_ID, '關懷, 你好，好久不見。上次做的服務，還滿意嗎？歡迎你再次來訪，我們會盡全力打造你的美麗！\n\n上次做的服務，還滿意嗎？'),
-        (AppiumBy.ACCESSIBILITY_ID, '我是名字很長很長很長很長很長很長很長很長很長的範本, 一段內容一段內容一段內容一段內容一段內容一段內容一段內容一段內容\n\n一段內容一段內容一段內容一段內容\n\n一段內容一段內容一段內容一段內容一段內容一段內容一段內容一段內容'),
-        (AppiumBy.ACCESSIBILITY_ID, 'ok, okletsgo')
+        (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("美甲保固")'),
+        (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("關懷")'),
+        (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("我是名字很長")'),
+        (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("ok")')
       ]
     
       

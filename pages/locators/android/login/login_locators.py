@@ -13,7 +13,7 @@ class LoginLocators:
       PRIVACY_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("隱私權政策")')
       PRIVACY_BACK_BUTTON = (AppiumBy.XPATH, '//android.widget.TextView[@text="返回夯客APP"]')
       LOGIN_BUTTON = (AppiumBy.ACCESSIBILITY_ID, '開始使用')
-      EMAIL_INPUT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("android.widget.EditText")')
+      EMAIL_INPUT = (AppiumBy.ACCESSIBILITY_ID, 'undefined-text-input')
       LOGIN_CANCEL_BUTTON = (AppiumBy.ACCESSIBILITY_ID, 'xmark')
       EMAIL_NEXT_BUTTON = (AppiumBy.ACCESSIBILITY_ID, '下一步')
       ERROR_UNREGISTERED_WINDOW_TITLE = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("沒有此帳號")')
