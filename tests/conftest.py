@@ -1,5 +1,5 @@
-import pytest
 import os
+import pytest
 import requests
 import subprocess
 import time
@@ -95,9 +95,12 @@ def pytest_sessionfinish(session):
             
             allure_report_path = 'allure-report'
             
-            # Get the Webhook URL
-            webhook_url = "https://hooks.slack.com/services/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"
-            print(f"使用 Webhook URL: {webhook_url}")
+            # Get the Webhook URL from GitHub secrets
+            webhook_url = "${{ secrets.SLACK_WEBHOOK_URL }}"
+            if not webhook_url:
+                print("Warning: SLACK_WEBHOOK_URL not set")
+                return
+            print("Slack webhook URL configured")
             
             # Generate Allure report
             subprocess.run(['allure', 'generate', 'allure-results', '-o', allure_report_path, '--clean'], check=True)
