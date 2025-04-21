@@ -5,15 +5,13 @@ from appium.webdriver.common.appiumby import AppiumBy
 from selenium.common.exceptions import NoSuchElementException
 from pages.shared_components.common_use import CommonUseSection
 from pages.locators.android.navigation.setting.service_persionnel_locators import ServicePersonnelPageLocators
+from selenium.common.exceptions import NoSuchElementException, StaleElementReferenceException
 
 class ServicePersonnelPage(CommonUseSection):
     def __init__(self, driver):
         super().__init__(driver)
         self.driver = driver
-        self.common_use = CommonUseSection(driver)
         self.service_personnel = None
-        #todo: 用super()初始化父類會設置 self.driver = driver, 這邊可以刪除
-        #todo: 直接繼承commonusersection可以不用 self.common_use = CommonUseSection(driver), 這邊可以刪除
 
     def tap_service_personnel_in_branch_settings_page(self):
         self.driver.find_element(*ServicePersonnelPageLocators.SERVICE_PERSONNEL_IN_BRANCH_SETTING_PAGE).click()
@@ -143,10 +141,8 @@ class ServicePersonnelPage(CommonUseSection):
             timeout: Timeout in seconds for element searches
 
         Returns:
-            bool: True if element found, False otherwise
+            bool: True if an the element found, False otherwise
         """
-        from selenium.common.exceptions import NoSuchElementException, StaleElementReferenceException
-        #todo: 這邊的import要不要移到最上面？
 
         try:
             # Try finding the element first without scrolling

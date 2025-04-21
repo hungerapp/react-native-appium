@@ -138,25 +138,18 @@ class BrandPage:
             return False
 
     def is_branch_phone_toggle_on(self):
-        """Check if branch phone toggle is on; turn it on if section is not visible."""
+        """Check if the branch phone toggle is on; turn it on if the section is not visible."""
         try:
-            try:
-                section_element = self.driver.find_element(*self.brand_locators.BRANCH_PHONE_INFO_SECTION_IN_BRANCH_BRAND_INFO_PAGE)
-                section_exists = section_element.is_displayed()
-            except NoSuchElementException:
-                section_exists = False
+            section_element = self.driver.find_element(*self.brand_locators.BRANCH_PHONE_INFO_SECTION_IN_BRANCH_BRAND_INFO_PAGE)
+            section_exists = section_element.is_displayed()
             toggle = self.driver.find_element(*self.brand_locators.BRANCH_PHONE_TOGGLE_IN_BRANCH_BRAND_INFO_PAGE)
             if not section_exists:
                 toggle.click()
                 time.sleep(0.5)
                 return True
             return True
-        #todo: 2. 修正回傳值邏輯，目前不管 section_exists 是否為 True 都會回傳 True
         except NoSuchElementException:
             print("Branch Phone Toggle not found")
-            return False
-        except Exception as e:
-            print(f"Error checking branch phone toggle: {e}")
             return False
 
     def verify_branch_phone_turn_off(self):
