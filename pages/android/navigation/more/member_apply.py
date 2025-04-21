@@ -437,22 +437,29 @@ class MemberApplyPage(CommonUseSection):
             time.sleep(0.5)
                 
             # click save button
-            self.driver.find_element(*self.member_apply_locators.ADD_NEW_QUESTION_SAVE_BUTTON).click()
+            try:
+                self.driver.find_element(*self.member_apply_locators.ADD_NEW_QUESTION2_SAVE_BUTTON).click()
+            except:
+                self.driver.find_element(*self.member_apply_locators.ADD_NEW_QUESTION1_SAVE_BUTTON).click()
              
                 
         else:
             pass
             
         # CLICK QUESTION TYPE SECTION
+        time.sleep(1)
         question_type_section = self.driver.find_element(*self.member_apply_locators.QUESTION_TYPE_SECTION)
         question_type_section.click()
-        time.sleep(0.5)
+        
             
         selected_option = random.choice(self.member_apply_locators.QUESTION_TYPE_OPTIONS)
-        self.driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR, f'new UiSelector().text("{selected_option}")').click()
+        self.driver.find_element(AppiumBy.ACCESSIBILITY_ID, f'{selected_option}').click()
             
         # click save button
-        self.driver.find_element(*self.member_apply_locators.DOCUMENT_SAVE_BUTTON).click()
+        try:
+            self.driver.find_element(*self.member_apply_locators.ADD_NEW_QUESTION2_SAVE_BUTTON).click()
+        except:
+            self.driver.find_element(*self.member_apply_locators.ADD_NEW_QUESTION_SAVE_BUTTON).click()
     
     def edit_preview_share_document(self):
         # Scroll down to continue editing
@@ -478,7 +485,9 @@ class MemberApplyPage(CommonUseSection):
         if selected_option == self.member_apply_locators.EDIT_DOCUMENT_OPTIONS[0]:
             # edit document
             self.driver.find_element(*self.member_apply_locators.MEMBER_AUTO_SIGN_TOGGLE).click()
-            self.driver.find_element(*self.member_apply_locators.CUSTOMER_NEED_TO_SIGN_TOGGLE).click()
+            random_input = ''.join(random.choices(string.ascii_letters + string.digits + "!@#$%^&*()_+", k=5)) + "自動化測試"
+            self.driver.find_element(*self.member_apply_locators.EDIT_DOCUMENT_TITLE_INPUT).clear()
+            self.driver.find_element(*self.member_apply_locators.EDIT_DOCUMENT_TITLE_INPUT).send_keys(random_input)
             self.driver.find_element(*self.member_apply_locators.DOCUMENT_SAVE_BUTTON).click()
         elif selected_option == self.member_apply_locators.EDIT_DOCUMENT_OPTIONS[1]:
             # preview document
@@ -496,10 +505,14 @@ class MemberApplyPage(CommonUseSection):
         return self
     
     def disable_document(self):
-        time.sleep(1)
-        self.driver.find_element(*self.member_apply_locators.DISABLE_DOCUMENT_BUTTON).click()
-        time.sleep(0.5)
-        self.driver.find_element(*self.member_apply_locators.DISABLE_DOCUMENT_CONFIRM_BUTTON).click()
+        time.sleep(2)
+        disable_document_button = self.driver.find_element(*self.member_apply_locators.DISABLE_DOCUMENT_BUTTON)
+        if disable_document_button.is_displayed():
+            disable_document_button.click()
+            time.sleep(0.5)
+            self.driver.find_element(*self.member_apply_locators.DISABLE_DOCUMENT_CONFIRM_BUTTON).click()
+        else:
+            print("Disable Document is not displayed")
         return self
     
     def click_disabled_tab(self):

@@ -80,6 +80,7 @@ class MemberApplyLocators:
       DOCUMENT_MANAGEMENT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("文件管理")')
       ADD_DOCUMENT_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("新增文件")')
       MEMBER_AUTO_SIGN_TOGGLE = (AppiumBy.ACCESSIBILITY_ID, '會員自行簽署與填寫-switch-button')
+      CUSTOMER_NEED_TO_SIGN_TOGGLE = (AppiumBy.ACCESSIBILITY_ID, '顧客需簽名-switch-button')
       DOCUMENT_NAME_INPUT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("請輸入文件標題")')
       ADD_TEXT_PARAGRAPH_BUTTON = (AppiumBy.ACCESSIBILITY_ID, '新增文字段落、問題')
       ADD_TEXT_PROBLEM_OPTIONS = ["新增文字段落", "新增問題"]
@@ -88,12 +89,14 @@ class MemberApplyLocators:
       NEW_PROBLEM_INPUT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("請輸入題目名稱")')
       OPTION_TYPE_SECTION = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("選項類型")')
       OPTION_TYPE_OPTIONS = ["單選-popup-option", "複選-popup-option", "簡答-popup-option"]
-      QUESTION_TYPE_SECTION = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("填答類型")')
-      QUESTION_TYPE_OPTIONS = ["必填", "選填"]
+      QUESTION_TYPE_SECTION = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("填答類型")')
+      QUESTION_TYPE_OPTIONS = ["必填-popup-option", "選填-popup-option"]
       NEW_OPTION = (AppiumBy.ACCESSIBILITY_ID, '新增選項')
-      NEW_OPTION_INPUT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("請輸入選項")')
-      ADD_NEW_QUESTION_SAVE_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("check").instance(1)')
-      CUSTOMER_NEED_TO_SIGN_TOGGLE = (AppiumBy.ACCESSIBILITY_ID, '顧客需簽名-switch-button')
+      NEW_OPTION_INPUT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("請輸入選項")')
+      ADD_NEW_QUESTION1_SAVE_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("check").instance(1)')
+      ADD_NEW_QUESTION2_SAVE_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("check").instance(2)')
+      ADD_NEW_QUESTION_SAVE_BUTTON = (AppiumBy.ACCESSIBILITY_ID, 'check')
+      EDIT_DOCUMENT_TITLE_INPUT = (AppiumBy.ACCESSIBILITY_ID, '文件標題-text-input')
       DOCUMENT_SAVE_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("check")')
       EDIT_DOCUMENT_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("circle-ellipsis").instance(9)')
       EDIT_DOCUMENT_OPTIONS = ["編輯文件", "預覽文件", "分享文件連結", "簽署紀錄"]
@@ -101,7 +104,7 @@ class MemberApplyLocators:
       SIGN_RECORD_BACK_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("xmark").instance(1)')
       SHARE_DOCUMENT_COPY_BUTTON = (AppiumBy.ACCESSIBILITY_ID, '複製')
       
-      DISABLE_TAB = (AppiumBy.ACCESSIBILITY_ID, '已停用')
+      DISABLE_TAB = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("已停用")')
       DISABLE_DOCUMENT_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("circle-minus").instance(9)')
       DISABLE_DOCUMENT_CONFIRM_BUTTON = (AppiumBy.ACCESSIBILITY_ID, '停用')
       REACTIVATE_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("arrows-repeat").instance(0)')
