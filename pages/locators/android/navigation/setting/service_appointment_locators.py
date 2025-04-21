@@ -14,7 +14,7 @@ class ServiceAppointmentPageLocators:
     SERVICE_ITEM_IN_SERVICE_APPOINTMENT_PAGE = (AppiumBy.XPATH, '//*[@content-desc="服務項目(價目表), 價目表是預約、結帳的計算基礎"]')
     ONLINE_BOOKING_MANAGEMENT_IN_SERVICE_APPOINTMENT_PAGE = (AppiumBy.XPATH, '//*[@content-desc="網路預約管理, 設定服務人員和不指定預約組合的開放時間與開放項目，讓會員透過網路就能完成預約"]')
     BOOKING_ISSUE_AND_NOTES_IN_SERVICE_APPOINTMENT_PAGE = (AppiumBy.XPATH, '//*[@content-desc="預約問題與備註, 讓會員預約時可以填寫問題與備註"]')
-    BOOKING_PRECAUTIONS_IN_SERVICE_APPOINTMENT_PAGE = (AppiumBy.XPATH, '//*[@content-desc="預約注意事項, 讓會員了解你的預約規範"]')
+    SERVICE_APPOINTMENT_BOOKING_NOTES_IN_SERVICE_APPOINTMENT = (AppiumBy.XPATH, '//*[@content-desc="預約注意事項, 讓會員了解你的預約規範"]')
     DEPOSIT_MANAGEMENT_IN_SERVICE_APPOINTMENT_PAGE = (AppiumBy.XPATH, '//*[@content-desc="定金管理, 依據會員狀態、預約期間，設定每一筆預約的定金"]')
     ADVANCED_SETTINGS_IN_SERVICE_APPOINTMENT_PAGE = (AppiumBy.XPATH, '//*[@content-desc="進階功能, 預約限制、預約後緩衝時間、營業結束時間、設備管理等進階設定"]')
     BACK_TO_CALENDER_BUTTON_IN_SERVICE_APPOINTMENT_PAGE = (AppiumBy.XPATH, '//android.widget.TextView[@text="回到行事曆"]')
@@ -292,6 +292,170 @@ class ServiceAppointmentPageLocators:
     DESCRIPTION_IN_DELETE_SERVICE_UNSPECIFIED_APPOINTMENT_COMBINATION_ALERT_DIALOG_IN_EDIT_SERVICE_UNSPECIFIED_APPOINTMENT_COMBINATION_PAGE = lambda  self, text: (AppiumBy.XPATH, f'//*[@text="確定要刪除 {text}？"]')
     CANCEL_BUTTON_IN_DELETE_SERVICE_UNSPECIFIED_APPOINTMENT_COMBINATION_ALERT_DIALOG_IN_EDIT_SERVICE_UNSPECIFIED_APPOINTMENT_COMBINATION_PAGE = (AppiumBy.XPATH, '//*[@content-desc="取消"]')
     DELETE_BUTTON_IN_DELETE_SERVICE_UNSPECIFIED_APPOINTMENT_COMBINATION_ALERT_DIALOG_IN_EDIT_SERVICE_UNSPECIFIED_APPOINTMENT_COMBINATION_PAGE = (AppiumBy.XPATH, '//*[@content-desc="刪除"]')
+
+    # Booking Issue and Note page
+    TITLE_IN_BOOKING_ISSUE_AND_NOTE_PAGE = (AppiumBy.XPATH, '//*[@text="預約問題與備註"]')
+    CLOSE_BUTTON_IN_BOOKING_ISSUE_AND_NOTE_PAGE = (AppiumBy.XPATH, '//*[@resource-id="xmark"]')
+    DISPLAY_NOTE_TOGGLE_IN_BOOKING_ISSUE_AND_NOTE_PAGE = (AppiumBy.XPATH, '//*[@resource-id="顯示備註-switch-button"]')
+    DISPLAY_NOTE_DESCRIPTION_IN_BOOKING_ISSUE_AND_NOTE_PAGE = (AppiumBy.XPATH, '//*[@text="開啟後，顧客可以在網路預約時填寫備註。"]')
+    ISSUE_DESCRIPTION_IN_BOOKING_ISSUE_AND_NOTE_PAGE = (AppiumBy.XPATH, '//*[@text="可以設定常用的問題，讓顧客在網路預約時填寫。 "]')
+    ADD_ISSUE_IN_BOOKING_ISSUE_AND_NOTE_PAGE = (AppiumBy.XPATH, '//*[@text="新增問題"]')
+    ISSUE_IN_BOOKING_ISSUE_AND_NOTE_PAGE = lambda  self, text: (AppiumBy.XPATH, f'//*[@text="{text}"]')
+    ISSUE_EDIT_IN_BOOKING_ISSUE_AND_NOTE_PAGE = lambda  self, text: (AppiumBy.XPATH, f'//*[@text="{text}"]/../android.view.ViewGroup//*[@resource-id="pen-to-square"]')
+    ISSUE_DELETE_IN_BOOKING_ISSUE_AND_NOTE_PAGE = lambda  self, text: (AppiumBy.XPATH, f'//*[@text="{text}"]/../android.view.ViewGroup//*[@resource-id="circle-minus"]')
+    # Delete Issue Alert Dialog in Booking Issue and Note Page
+    TITLE_IN_DELETE_ISSUE_ALERT_DIALOG_IN_BOOKING_ISSUE_AND_NOTE_PAGE = (AppiumBy.XPATH, '//*[@text="刪除問題"]')
+    DESCRIPTION_IN_DELETE_ISSUE_ALERT_DIALOG_IN_BOOKING_ISSUE_AND_NOTE_PAGE = (AppiumBy.XPATH, '//*[@text="刪除問題將清除會員已填寫的資料，確定要刪除此問題？"]"]')
+    CANCEL_BUTTON_IN_DELETE_ISSUE_ALERT_DIALOG_IN_BOOKING_ISSUE_AND_NOTE_PAGE = (AppiumBy.XPATH, '//*[@content-desc="取消"]')
+    DELETE_BUTTON_IN_DELETE_ISSUE_ALERT_DIALOG_IN_BOOKING_ISSUE_AND_NOTE_PAGE = (AppiumBy.XPATH, '//*[@content-desc="刪除"]')
+    # Add Issue Page
+    TITLE_IN_ADD_ISSUE_PAGE = (AppiumBy.XPATH, '//*[@text="新增問題"]')
+    CLOSE_BUTTON_IN_ADD_ISSUE_PAGE = (AppiumBy.XPATH, '//*[@resource-id="xmark"]')
+    CONFIRM_BUTTON_IN_ADD_ISSUE_PAGE = (AppiumBy.XPATH, '//*[@resource-id="check"]')
+    DISPLAY_ISSUE_TOGGLE_IN_ADD_ISSUE_PAGE = (AppiumBy.XPATH, '//*[@resource-id="顯示問題-switch-button"]')
+    DISPLAY_ISSUE_DESCRIPTION_IN_ADD_ISSUE_PAGE = (AppiumBy.XPATH, '//*[@text="開啟後，顧客可以在網路預約時填寫問題。"]')
+    ISSUE_CONTENT_IN_ADD_ISSUE_PAGE = (AppiumBy.XPATH, '//*[@text="開啟後，顧客可以在網路預約時填寫問題。"]/../android.view.ViewGroup//android.view.ViewGroup//android.view.ViewGroup//android.widget.TextView')
+    ISSUE_TYPE_IN_ADD_ISSUE_PAGE = (AppiumBy.XPATH, '//*[@content-desc="問題類型"]')
+    ANSWER_TYPE_IN_ADD_ISSUE_PAGE = (AppiumBy.XPATH, '//*[@content-desc="填答類型"]')
+    ADD_OPTION_IN_ADD_ISSUE_PAGE = (AppiumBy.XPATH, '//*[@text="新增問題選項"]')
+    # Issue Type Dialog in Add Issue Page
+    SINGLE_CHOICE_IN_ISSUE_TYPE_DIALOG = (AppiumBy.XPATH, '//*[@resource-id="modal-surface"]//*[@text="單選"]')
+    MULTIPLE_CHOICE_IN_ISSUE_TYPE_DIALOG = (AppiumBy.XPATH, '//*[@resource-id="modal-surface"]//*[@text="複選"]')
+    SHORT_ANSWER_IN_ISSUE_TYPE_DIALOG = (AppiumBy.XPATH, '//*[@resource-id="modal-surface"]//*[@text="簡答"]')
+    # ANSWER TYPE Dialog in Add Issue Page
+    REQUIRED_IN_ANSWER_TYPE_DIALOG = (AppiumBy.XPATH, '//*[@resource-id="modal-surface"]//*[@text="必填"]')
+    OPTIONAL_IN_ANSWER_TYPE_DIALOG = (AppiumBy.XPATH, '//*[@resource-id="modal-surface"]//*[@text="選填"]')
+    # Add Issue Option Dialog in Add Issue Page
+    TITLE_IN_ADD_ISSUE_OPTION_DIALOG = (AppiumBy.XPATH, '//*[@resource-id="modal-surface"]//*[@text="新增問題選項"]')
+    CLOSE_BUTTON_IN_ADD_ISSUE_OPTION_DIALOG = (AppiumBy.XPATH, '//*[@resource-id="新增問題選項-close-button"]')
+    CONFIRM_BUTTON_IN_ADD_ISSUE_OPTION_DIALOG = (AppiumBy.XPATH, '//*[@resource-id="新增問題選項-modal-right-button "]')
+    OPTION_CONTENT_FIELD_IN_ADD_ISSUE_OPTION_DIALOG = (AppiumBy.XPATH, '//*[@resource-id="modal-surface"]//android.widget.EditText')
+    # Issue Content Dialog in Add Issue Page
+    TITLE_IN_ISSUE_CONTENT_DIALOG = (AppiumBy.XPATH, '//*[@text="問題內容"]')
+    CLOSE_BUTTON_IN_ISSUE_CONTENT_DIALOG = (AppiumBy.XPATH, '//*[@resource-id="問題內容-close-button"]')
+    CONFIRM_BUTTON_IN_ISSUE_CONTENT_DIALOG = (AppiumBy.XPATH, '//*[@resource-id="circle-check"]')
+    CLEAR_BUTTON_IN_ISSUE_CONTENT_DIALOG = (AppiumBy.XPATH, '//*[@text="清除"]')
+    ISSUE_CONTENT_FIELD_IN_ISSUE_CONTENT_DIALOG = (AppiumBy.XPATH, '//*[@text="問題內容"]/../android.widget.EditText')
+
+    # Service Appointment Booking Note page
+    TITLE_IN_SERVICE_APPOINTMENT_BOOKING_NOTE_PAGE = (AppiumBy.XPATH, '//*[@text="預約注意事項"]')
+    CLOSE_BUTTON_IN_SERVICE_APPOINTMENT_BOOKING_NOTE_PAGE = (AppiumBy.XPATH, '//*[@resource-id="xmark"]')
+    DISPLAY_NOTE_TOGGLE_IN_SERVICE_APPOINTMENT_BOOKING_NOTE_PAGE = (AppiumBy.XPATH, '//*[@resource-id="預約注意事項-switch-button"]')
+    DESCRIPTION_IN_SERVICE_APPOINTMENT_BOOKING_NOTE_PAGE = (AppiumBy.XPATH, '//*[@text="開啟此功能後，顧客在進行網路預約時將顯示預約注意事項。"]')
+    CONFIRM_BUTTON_IN_SERVICE_APPOINTMENT_BOOKING_NOTE_PAGE = (AppiumBy.XPATH, '//*[@resource-id="check"]')
+    ADD_NOTE_IN_SERVICE_APPOINTMENT_BOOKING_NOTE_PAGE = (AppiumBy.XPATH, '//*[@text="開啟此功能後，顧客在進行網路預約時將顯示預約注意事項。"]/../android.view.ViewGroup//android.view.ViewGroup//android.view.ViewGroup//android.view.ViewGroup//android.widget.TextView')
+    # Add Note Dialog in Service Appointment Booking Note Page
+    CLOSE_BUTTON_IN_ADD_NOTE_DIALOG_IN_SERVICE_APPOINTMENT_BOOKING_NOTE_PAGE = (AppiumBy.XPATH, '//*[@resource-id="預約注意事項-close-button"]')
+    CONFIRM_BUTTON_IN_ADD_NOTE_DIALOG_IN_SERVICE_APPOINTMENT_BOOKING_NOTE_PAGE = (AppiumBy.XPATH, '//*[@resource-id="circle-check"]')
+    NOTE_CONTENT_FIELD_IN_ADD_NOTE_DIALOG_IN_SERVICE_APPOINTMENT_BOOKING_NOTE_PAGE = (AppiumBy.XPATH, '//*[@resource-id="預約注意事項-close-button"]/../android.widget.EditText')
+    CLEAR_BUTTON_IN_ADD_NOTE_DIALOG_IN_SERVICE_APPOINTMENT_BOOKING_NOTE_PAGE = (AppiumBy.XPATH, '//*[@content-desc="清除"]')
+
+    # Deposit Management Page
+    TITLE_IN_DEPOSIT_MANAGEMENT_PAGE = (AppiumBy.XPATH, '//*[@text="定金管理"]')
+    CLOSE_BUTTON_IN_DEPOSIT_MANAGEMENT_PAGE = (AppiumBy.XPATH, '//*[@resource-id="xmark"]')
+    DESCRIPTION_IN_DEPOSIT_MANAGEMENT_PAGE = (AppiumBy.XPATH, '//*[@text="系統會依照「預約日期」作為定金收取判斷，若日期不符合定金設定，將預設不收取定金。"]')
+    GENERAL_DATE_IN_DEPOSIT_MANAGEMENT_PAGE = (AppiumBy.XPATH, '//*[@text="一般日期"]')
+    SPECIAL_DATE_IN_DEPOSIT_MANAGEMENT_PAGE = (AppiumBy.XPATH, '//*[@text="特定日期區間"]')
+    # General Date Page
+    TITLE_IN_GENERAL_DATE_PAGE = (AppiumBy.XPATH, '//*[@text="一般日期"]')
+    CLOSE_BUTTON_IN_GENERAL_DATE_PAGE = (AppiumBy.XPATH, '//*[@resource-id="xmark"]')
+    CONFIRM_BUTTON_IN_GENERAL_DATE_PAGE = (AppiumBy.XPATH, '//*[@resource-id="check"]')
+    GENERAL_DATE_TOGGLE_IN_GENERAL_DATE_PAGE = (AppiumBy.XPATH, '//*[@resource-id="定金模式：一般日期-switch-button"]')
+    GENERAL_DATE_TOGGLE_DESCRIPTION_IN_GENERAL_DATE_PAGE = (AppiumBy.XPATH, '//*[@text="開啟此功能後，可在建立預約時向顧客收取款項。"]')
+    DEFAULT_MEMBER_STATUS_IN_GENERAL_DATE_PAGE = (AppiumBy.XPATH, '//*[@content-desc="會員預設狀態"]')
+    SERVICE_REQUIRING_PAYMENT_IN_GENERAL_DATE_PAGE = (AppiumBy.XPATH, '//*[@content-desc="需要收款的服務項目"]')
+    PAYMENT_METHOD_IN_GENERAL_DATE_PAGE = (AppiumBy.XPATH, '//*[@content-desc="收款方式"]')
+    DEPOSIT_AMOUNT_IN_GENERAL_DATE_PAGE = (AppiumBy.XPATH, '//*[@content-desc="收款金額"]')
+    AUTO_CANCEL_UNPAID_IN_GENERAL_DATE_PAGE = (AppiumBy.XPATH, '//*[@content-desc="未付款自動取消"]')
+    PAYMENT_INSTRUCTIONS_IN_GENERAL_DATE_PAGE = (AppiumBy.XPATH, '//*[@text="付款說明"]/../android.view.ViewGroup//android.widget.TextView')
+    PAYMENT_DESCRIPTION_IN_GENERAL_DATE_PAGE = (AppiumBy.XPATH, '//*[@text="如何收取"]')
+    # Default Member Status page
+    CLOSE_BUTTON_IN_DEFAULT_MEMBER_STATUS_PAGE = (AppiumBy.XPATH, '//*[@text="會員預設狀態"]/../*[@resource-id="xmark"]')
+    CONFIRM_BUTTON_IN_DEFAULT_MEMBER_STATUS_PAGE = (AppiumBy.XPATH, '//*[@text="會員預設狀態"]/../*[@resource-id="check"]')
+    DEFAULT_MEMBER_STATUS_IN_DEFAULT_MEMBER_STATUS_PAGE = (AppiumBy.XPATH, '//*[@text="來訪數即「已報到次數」，若未執行報到則不會進行計算。"]/../*[@resource-id="會員預設狀態-fake-field"]')
+    # Default Member Status Dialog in Default Member Status Page
+    CHARGE_IN_DEFAULT_MEMBER_STATUS_PAGE = (AppiumBy.XPATH, '//android.widget.ScrollView//*[@text="收取"]')
+    NO_CHARGE_IN_DEFAULT_MEMBER_STATUS_PAGE = (AppiumBy.XPATH, '//android.widget.ScrollView//*[@text="不收取"]')
+    EVERY_VIST_IN_DEFAULT_MEMBER_STATUS_PAGE = (AppiumBy.XPATH, '//*[@text="全部收取"]')
+    NO_CHARGE_AFTER_3_VISITS_IN_DEFAULT_MEMBER_STATUS_PAGE = (AppiumBy.XPATH, '//*[@text="來訪3次，下次不收取"]')
+    NO_CHARGE_AFTER_2_VISITS_IN_DEFAULT_MEMBER_STATUS_PAGE = (AppiumBy.XPATH, '//*[@text="來訪2次，下次不收取"]')
+    NO_CHARGE_AFTER_1_VISITS_IN_DEFAULT_MEMBER_STATUS_PAGE = (AppiumBy.XPATH, '//*[@text="來訪1次，下次不收取"]')
+    NEW_MEMBER_MUST_PAY_IN_DEFAULT_MEMBER_STATUS_PAGE = (AppiumBy.XPATH, '//*[@text="新客強制收取 (尚未來過)"]')
+    # Service Requiring Payment Page
+    TITLE_IN_SERVICE_REQUIRING_PAYMENT_PAGE = (AppiumBy.XPATH, '//*[@text="需要收款的服務項目"]')
+    CLOSE_BUTTON_IN_SERVICE_REQUIRING_PAYMENT_PAGE = (AppiumBy.XPATH, '//*[@resource-id="xmark"]')
+    CONFIRM_BUTTON_IN_SERVICE_REQUIRING_PAYMENT_PAGE = (AppiumBy.XPATH, '//*[@resource-id="check"]')
+    SPECIFIC_SERVICE_ITEM_IN_SERVICE_REQUIRING_PAYMENT_PAGE = (AppiumBy.XPATH, '//*[@content-desc="指定服務項目"]')
+    # Select_Service Item in Service Requiring Payment Page
+    SELECT_SERVICE_ITEM_IN_SERVICE_REQUIRING_PAYMENT_PAGE = (AppiumBy.XPATH, '//*[@content-desc="選擇服務項目"]')
+    # Specific Service Item Dialog in Service Requiring Payment Page
+    ALL_SERVICE_ITEM_IN_SPECIFIC_SERVICE_ITEM_DIALOG_IN_SERVICE_REQUIRING_PAYMENT_PAGE = (AppiumBy.XPATH, '//*[@resource-id="modal-surface"]//*[@text="全部服務"]')
+    SPECIFIC_SERVICE_ITEM_IN_SPECIFIC_SERVICE_ITEM_DIALOG_IN_SERVICE_REQUIRING_PAYMENT_PAGE = (AppiumBy.XPATH, '//*[@resource-id="modal-surface"]//*[@text="指定服務"]')
+    # Select Service Item Page
+    CLOSE_BUTTON_IN_SELECT_SERVICE_ITEM_PAGE = (AppiumBy.XPATH, '//*[@resource-id="xmark"]')
+    CONFIRM_BUTTON_IN_SELECT_SERVICE_ITEM_PAGE = (AppiumBy.XPATH, '//*[@resource-id="check"]')
+    SERVICE_ITEM_CATEGORY_IN_SELECT_SERVICE_ITEM_PAGE = lambda  self, text: (AppiumBy.XPATH, f'//*[@text="{text}"]')
+    SERVICE_ITEM_IN_SELECT_SERVICE_ITEM_PAGE = lambda  self, text: (AppiumBy.XPATH, f'//*[@text="{text}"]')
+    # Payment Method Page
+    BANK_TRANSFER_TOGGLE_IN_PAYMENT_METHOD_PAGE = (AppiumBy.XPATH, '//*[@resource-id="銀行匯款-switch-button"]')
+    STORE_TRANSFER_TOGGLE_IN_PAYMENT_METHOD_PAGE = (AppiumBy.XPATH, '//*[@resource-id="儲值金-switch-button"]')
+    CREDIT_CARD_TOGGLE_IN_PAYMENT_METHOD_PAGE = (AppiumBy.XPATH, '//*[@resource-id="信用卡-switch-button"]')
+    LINE_PAY_TOGGLE_IN_PAYMENT_METHOD_PAGE = (AppiumBy.XPATH, '//*[@resource-id="LINE Pay-switch-button"]')
+    CLOSE_BUTTON_IN_PAYMENT_METHOD_PAGE = (AppiumBy.XPATH, '//*[@resource-id="xmark"]')
+    CONFIRM_BUTTON_IN_PAYMENT_METHOD_PAGE = (AppiumBy.XPATH, '//*[@resource-id="check"]')
+    # Bank Info
+    BAND_CODE_IN_PAYMENT_METHOD_PAGE = (AppiumBy.XPATH, '//*[@text="收款銀行"]/../android.view.ViewGroup')
+    BAND_ACCOUNT_FIELD_IN_PAYMENT_METHOD_PAGE = (AppiumBy.XPATH, '//*[@text="收款帳號"]/../android.widget.EditText')
+    BAND_CODE_ITEM_IN_PAYMENT_METHOD_PAGE = lambda  self, text: (AppiumBy.XPATH, f'//android.widget.ScrollView//android.view.ViewGroup//android.view.ViewGroup[{text}]')
+    # Deposit Amount Page
+    CONFIRM_BUTTON_IN_DEPOSIT_AMOUNT_PAGE = (AppiumBy.XPATH, '//*[@resource-id="check"]')
+    DEPOSIT_AMOUNT_METHOD_IN_DEPOSIT_AMOUNT_PAGE = (AppiumBy.XPATH, '//*[@content-desc="計價方式"]')
+    # Deposit Amount Method Dialog in Deposit Amount Page
+    FIXED_AMOUNT_IN_DEPOSIT_AMOUNT_METHOD_DIALOG_IN_DEPOSIT_AMOUNT_PAGE = (AppiumBy.XPATH, '//*[@resource-id="modal-surface"]//*[@text="固定金額"]')
+    PERCENTAGE_IN_DEPOSIT_AMOUNT_METHOD_DIALOG_IN_DEPOSIT_AMOUNT_PAGE = (AppiumBy.XPATH, '//*[@resource-id="modal-surface"]//*[@text="比例"]')
+    #Fixed Amount
+    DEPOSIT_AMOUNT_FIELD_IN_DEPOSIT_AMOUNT_PAGE = (AppiumBy.XPATH, '//*[@text="元"]/../android.widget.EditText')
+    # Percentage
+    MINIMUM_DEPOSIT_AMOUNT_IN_DEPOSIT_AMOUNT_PAGE = (AppiumBy.XPATH, '//*[@text="元"]/../android.widget.EditText')
+    PERCENTAGE_DEPOSIT_AMOUNT_IN_DEPOSIT_AMOUNT_PAGE = lambda  self, text: (AppiumBy.XPATH, f'//*[@text="{text}%"]')
+    # Auto Cancel Unpaid Page
+    CLOSE_BUTTON_IN_AUTO_CANCEL_UNPAID_PAGE = (AppiumBy.XPATH, '//*[@resource-id="xmark"]')
+    CONFIRM_BUTTON_IN_AUTO_CANCEL_UNPAID_PAGE = (AppiumBy.XPATH, '//*[@resource-id="check"]')
+    DO_NOT_CANCEL_IN_AUTO_CANCEL_UNPAID_PAGE = (AppiumBy.XPATH, '//*[@text="不自動取消"]')
+    AFTER_1_HOUR_CANCEL_IN_AUTO_CANCEL_UNPAID_PAGE = (AppiumBy.XPATH, '//*[@text="1 小時"]')
+    # Payment Instructions Dialog in Deposit Management Page
+    CONFIRM_BUTTON_IN_PAYMENT_INSTRUCTIONS_DIALOG_IN_DEPOSIT_MANAGEMENT_PAGE = (AppiumBy.XPATH, '//*[@resource-id="circle-check"]')
+    PAYMENT_INSTRUCTIONS_FIELD_IN_PAYMENT_INSTRUCTIONS_DIALOG_IN_DEPOSIT_MANAGEMENT_PAGE = (AppiumBy.XPATH, '//*[@text="付款說明"]/../android.widget.EditText')
+    # Special Date Page
+    TITLE_IN_SPECIAL_DATE_PAGE = (AppiumBy.XPATH, '//*[@text="特定日期區間"]')
+    CLOSE_BUTTON_IN_SPECIAL_DATE_PAGE = (AppiumBy.XPATH, '//*[@resource-id="xmark"]')
+    CONFIRM_BUTTON_IN_SPECIAL_DATE_PAGE = (AppiumBy.XPATH, '//*[@resource-id="check"]')
+    SPECIAL_DATE_TOGGLE_IN_SPECIAL_DATE_PAGE = (AppiumBy.XPATH, '//*[@resource-id="定金模式：特定日期區間-switch-button"]')
+    CHARGE_DURATION_IN_SPECIAL_DATE_PAGE = (AppiumBy.XPATH, '//*[@content-desc="收款期間"]')
+    SPECIAL_DATE_TOGGLE_DESCRIPTION_IN_SPECIAL_DATE_PAGE = (AppiumBy.XPATH, '//*[@text="開啟此功能後，可在建立預約時，於特定日期區間向顧客收取款項。"]')
+    DEFAULT_MEMBER_STATUS_IN_SPECIAL_DATE_PAGE = (AppiumBy.XPATH, '//*[@content-desc="會員預設狀態"]')
+    SERVICE_REQUIRING_PAYMENT_IN_SPECIAL_DATE_PAGE = (AppiumBy.XPATH, '//*[@content-desc="需要收款的服務項目"]')
+    PAYMENT_METHOD_IN_SPECIAL_DATE_PAGE = (AppiumBy.XPATH, '//*[@content-desc="收款方式"]')
+    DEPOSIT_AMOUNT_IN_SPECIAL_DATE_PAGE = (AppiumBy.XPATH, '//*[@content-desc="收款金額"]')
+    AUTO_CANCEL_UNPAID_IN_SPECIAL_DATE_PAGE = (AppiumBy.XPATH, '//*[@content-desc="未付款自動取消"]')
+    PAYMENT_INSTRUCTIONS_IN_SPECIAL_DATE_PAGE = (AppiumBy.XPATH, '//*[@text="付款說明"]/../android.view.ViewGroup//android.widget.TextView')
+    PAYMENT_DESCRIPTION_IN_SPECIAL_DATE_PAGE = (AppiumBy.XPATH, '//*[@text="如何收取"]')
+    # Charge Duration Page
+    CONFIRM_BUTTON_IN_CHARGE_DURATION_PAGE = (AppiumBy.XPATH, '//*[@text="新增特定日期區間"]/../*[@resource-id="check"]')
+    ADD_CHARGE_DURATION_IN_CHARGE_DURATION_PAGE = (AppiumBy.XPATH, '//*[@text="新增特定日期區間"]')
+    # Select Service Item in Charge Duration Page
+    DURATION_NAME_FIELD_IN_ADD_CHARGE_DURATION_PAGE = (AppiumBy.XPATH, '//*[@text="區間名稱"]/../android.widget.EditText')
+    START_DATE_IN_ADD_CHARGE_DURATION_PAGE = (AppiumBy.XPATH, '//*[@content-desc="開始日期"]')
+    END_DATE_IN_ADD_CHARGE_DURATION_PAGE = (AppiumBy.XPATH, '//*[@content-desc="結束日期"]')
+    CONFIRM_BUTTON_IN_ADD_CHARGE_DURATION_PAGE = (AppiumBy.XPATH, '//*[@resource-id="check"]')
+
+
+
+
+
+
+
+
 
 
 

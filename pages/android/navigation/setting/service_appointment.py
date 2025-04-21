@@ -26,7 +26,7 @@ class ServiceAppointmentPage(CommonUseSection):
         self.driver.find_element(*ServiceAppointmentPageLocators.SERVICE_ITEM_IN_SERVICE_APPOINTMENT_PAGE)
         self.driver.find_element(*ServiceAppointmentPageLocators.ONLINE_BOOKING_MANAGEMENT_IN_SERVICE_APPOINTMENT_PAGE)
         self.driver.find_element(*ServiceAppointmentPageLocators.BOOKING_ISSUE_AND_NOTES_IN_SERVICE_APPOINTMENT_PAGE)
-        self.driver.find_element(*ServiceAppointmentPageLocators.BOOKING_PRECAUTIONS_IN_SERVICE_APPOINTMENT_PAGE)
+        self.driver.find_element(*ServiceAppointmentPageLocators.SERVICE_APPOINTMENT_BOOKING_NOTES_IN_SERVICE_APPOINTMENT)
         self.driver.find_element(*ServiceAppointmentPageLocators.DEPOSIT_MANAGEMENT_IN_SERVICE_APPOINTMENT_PAGE)
         self.driver.find_element(*ServiceAppointmentPageLocators.ADVANCED_SETTINGS_IN_SERVICE_APPOINTMENT_PAGE)
         self.driver.find_element(*ServiceAppointmentPageLocators.BACK_TO_CALENDER_BUTTON_IN_SERVICE_APPOINTMENT_PAGE)
@@ -1056,9 +1056,352 @@ class ServiceAppointmentPage(CommonUseSection):
         time.sleep(2)
         return self
 
+    def tap_booking_issue_and_note_button_in_service_appointment_page(self):
+        self.driver.find_element(*ServiceAppointmentPageLocators.BOOKING_ISSUE_AND_NOTES_IN_SERVICE_APPOINTMENT_PAGE).click()
+        time.sleep(2)
+        return self
 
+    def verify_booking_issue_and_note_page(self):
+        self.driver.find_element(*ServiceAppointmentPageLocators.TITLE_IN_BOOKING_ISSUE_AND_NOTE_PAGE).is_displayed()
+        self.driver.find_element(*ServiceAppointmentPageLocators.CLOSE_BUTTON_IN_BOOKING_ISSUE_AND_NOTE_PAGE).is_displayed()
+        self.driver.find_element(*ServiceAppointmentPageLocators.DISPLAY_NOTE_TOGGLE_IN_BOOKING_ISSUE_AND_NOTE_PAGE).is_displayed()
+        self.driver.find_element(*ServiceAppointmentPageLocators.DISPLAY_NOTE_DESCRIPTION_IN_BOOKING_ISSUE_AND_NOTE_PAGE).is_displayed()
+        self.driver.find_element(*ServiceAppointmentPageLocators.ISSUE_DESCRIPTION_IN_BOOKING_ISSUE_AND_NOTE_PAGE).is_displayed()
+        self.driver.find_element(*ServiceAppointmentPageLocators.ADD_ISSUE_IN_BOOKING_ISSUE_AND_NOTE_PAGE).is_displayed()
+        return self
 
+    def tap_add_booking_issue_in_booking_issue_and_note_page(self):
+        self.driver.find_element(*ServiceAppointmentPageLocators.ADD_ISSUE_IN_BOOKING_ISSUE_AND_NOTE_PAGE).click()
+        time.sleep(2)
+        return self
 
+    def verify_add_booking_issue_page(self):
+        self.driver.find_element(*ServiceAppointmentPageLocators.TITLE_IN_ADD_ISSUE_PAGE).is_displayed()
+        self.driver.find_element(*ServiceAppointmentPageLocators.CLOSE_BUTTON_IN_ADD_ISSUE_PAGE).is_displayed()
+        self.driver.find_element(*ServiceAppointmentPageLocators.CONFIRM_BUTTON_IN_ADD_ISSUE_PAGE).is_displayed()
+        self.driver.find_element(*ServiceAppointmentPageLocators.DISPLAY_ISSUE_TOGGLE_IN_ADD_ISSUE_PAGE).is_displayed()
+        self.driver.find_element(*ServiceAppointmentPageLocators.DISPLAY_ISSUE_DESCRIPTION_IN_ADD_ISSUE_PAGE).is_displayed()
+        self.driver.find_element(*ServiceAppointmentPageLocators.ISSUE_CONTENT_IN_ADD_ISSUE_PAGE).is_displayed()
+        self.driver.find_element(*ServiceAppointmentPageLocators.ISSUE_TYPE_IN_ADD_ISSUE_PAGE).is_displayed()
+        self.driver.find_element(*ServiceAppointmentPageLocators.ANSWER_TYPE_IN_ADD_ISSUE_PAGE).is_displayed()
+        return self
+
+    def enter_booking_issue_content_in_add_booking_issue_page(self, booking_issue_content):
+        self.driver.find_element(*ServiceAppointmentPageLocators.ISSUE_CONTENT_IN_ADD_ISSUE_PAGE).click()
+        time.sleep(1)
+        self.driver.find_element(*ServiceAppointmentPageLocators.ISSUE_CONTENT_FIELD_IN_ISSUE_CONTENT_DIALOG).send_keys(booking_issue_content)
+        self.driver.find_element(*ServiceAppointmentPageLocators.CONFIRM_BUTTON_IN_ISSUE_CONTENT_DIALOG).click()
+        return self
+
+    def tap_issue_type_in_add_booking_issue_page(self):
+        self.driver.find_element(*ServiceAppointmentPageLocators.ISSUE_TYPE_IN_ADD_ISSUE_PAGE).click()
+        time.sleep(1)
+        return self
+
+    def select_issue_type_short_answer_in_issue_type_dialog(self):
+        self.driver.find_element(*ServiceAppointmentPageLocators.SHORT_ANSWER_IN_ISSUE_TYPE_DIALOG).click()
+        time.sleep(1)
+        return self
+
+    def enter_issue_option_in_add_booking_issue_option_dialog(self, issue_option):
+        self.driver.find_element(*ServiceAppointmentPageLocators.ADD_OPTION_IN_ADD_ISSUE_PAGE).click()
+        time.sleep(1)
+        self.driver.find_element(*ServiceAppointmentPageLocators.OPTION_CONTENT_FIELD_IN_ADD_ISSUE_OPTION_DIALOG).send_keys(issue_option)
+        self.driver.find_element(*ServiceAppointmentPageLocators.CONFIRM_BUTTON_IN_ADD_ISSUE_OPTION_DIALOG).click()
+        time.sleep(2)
+        return self
+
+    def tap_confirm_button_in_add_booking_issue_page(self):
+        self.driver.find_element(*ServiceAppointmentPageLocators.CONFIRM_BUTTON_IN_ADD_ISSUE_PAGE).click()
+        time.sleep(2)
+        return self
+
+    def select_issue_type_single_choice_in_issue_type_dialog(self):
+        self.driver.find_element(*ServiceAppointmentPageLocators.SINGLE_CHOICE_IN_ISSUE_TYPE_DIALOG).click()
+        time.sleep(1)
+        return self
+
+    def select_issue_type_multiple_choice_in_issue_type_dialog(self):
+        self.driver.find_element(*ServiceAppointmentPageLocators.MULTIPLE_CHOICE_IN_ISSUE_TYPE_DIALOG).click()
+        time.sleep(1)
+        return self
+
+    def tap_display_issue_to_in_add_booking_issue_page(self):
+        self.driver.find_element(*ServiceAppointmentPageLocators.DISPLAY_ISSUE_TOGGLE_IN_ADD_ISSUE_PAGE).click()
+        time.sleep(1)
+        return self
+
+    def tap_delete_booking_issue_in_booking_issue_and_note_page(self, booking_issue_name):
+        deleted_count = 0
+        while True:
+            try:
+                elements = self.driver.find_elements(*ServiceAppointmentPageLocators.ISSUE_DELETE_IN_BOOKING_ISSUE_AND_NOTE_PAGE(self,booking_issue_name))
+                if len(elements) == 0:
+                    break
+                elements[0].click()
+                time.sleep(1)
+                self.driver.find_element(*ServiceAppointmentPageLocators.DELETE_BUTTON_IN_DELETE_ISSUE_ALERT_DIALOG_IN_BOOKING_ISSUE_AND_NOTE_PAGE).click()
+                time.sleep(2)
+                deleted_count += 1
+            except Exception as e:
+                print(f"An error occurred: {e}")
+                break
+        return self
+
+    def tap_close_button_in_booking_issue_and_note_page(self):
+        self.driver.find_element(*ServiceAppointmentPageLocators.CLOSE_BUTTON_IN_BOOKING_ISSUE_AND_NOTE_PAGE).click()
+        time.sleep(2)
+        return self
+
+    def tap_service_appointment_note_in_service_appointment_page(self):
+        self.driver.find_element(*ServiceAppointmentPageLocators.SERVICE_APPOINTMENT_BOOKING_NOTES_IN_SERVICE_APPOINTMENT).click()
+        time.sleep(2)
+        return self
+
+    def verify_service_appointment_note_page(self):
+        self.driver.find_element(*ServiceAppointmentPageLocators.TITLE_IN_SERVICE_APPOINTMENT_BOOKING_NOTE_PAGE).is_displayed()
+        self.driver.find_element(*ServiceAppointmentPageLocators.CLOSE_BUTTON_IN_SERVICE_APPOINTMENT_BOOKING_NOTE_PAGE).is_displayed()
+        self.driver.find_element(*ServiceAppointmentPageLocators.DISPLAY_NOTE_TOGGLE_IN_SERVICE_APPOINTMENT_BOOKING_NOTE_PAGE).is_displayed()
+        self.driver.find_element(*ServiceAppointmentPageLocators.DESCRIPTION_IN_SERVICE_APPOINTMENT_BOOKING_NOTE_PAGE).is_displayed()
+        self.driver.find_element(*ServiceAppointmentPageLocators.CONFIRM_BUTTON_IN_SERVICE_APPOINTMENT_BOOKING_NOTE_PAGE).is_displayed()
+        return self
+
+    def tap_display_note_toggle_in_service_appointment_note_page(self):
+        self.driver.find_element(*ServiceAppointmentPageLocators.DISPLAY_NOTE_TOGGLE_IN_SERVICE_APPOINTMENT_BOOKING_NOTE_PAGE).click()
+        time.sleep(1)
+        return self
+
+    def enter_service_appointment_note_in_add_note_dialog(self, service_appointment_note):
+        self.driver.find_element(*ServiceAppointmentPageLocators.ADD_NOTE_IN_SERVICE_APPOINTMENT_BOOKING_NOTE_PAGE).click()
+        time.sleep(1)
+        self.driver.find_element(*ServiceAppointmentPageLocators.NOTE_CONTENT_FIELD_IN_ADD_NOTE_DIALOG_IN_SERVICE_APPOINTMENT_BOOKING_NOTE_PAGE).send_keys(service_appointment_note)
+        self.driver.find_element(*ServiceAppointmentPageLocators.CONFIRM_BUTTON_IN_ADD_NOTE_DIALOG_IN_SERVICE_APPOINTMENT_BOOKING_NOTE_PAGE).click()
+        time.sleep(2)
+        return self
+
+    def tap_confirm_button_in_service_appointment_note_page(self):
+        self.driver.find_element(*ServiceAppointmentPageLocators.CONFIRM_BUTTON_IN_SERVICE_APPOINTMENT_BOOKING_NOTE_PAGE).click()
+        time.sleep(2)
+        return self
+
+    def tap_deposit_management_button_in_service_appointment_page(self):
+        self.driver.find_element(*ServiceAppointmentPageLocators.DEPOSIT_MANAGEMENT_IN_SERVICE_APPOINTMENT_PAGE).click()
+        time.sleep(2)
+        return self
+
+    def verify_deposit_management_page(self):
+        self.driver.find_element(*ServiceAppointmentPageLocators.TITLE_IN_DEPOSIT_MANAGEMENT_PAGE).is_displayed()
+        self.driver.find_element(*ServiceAppointmentPageLocators.DESCRIPTION_IN_DEPOSIT_MANAGEMENT_PAGE).is_displayed()
+        self.driver.find_element(*ServiceAppointmentPageLocators.CLOSE_BUTTON_IN_DEPOSIT_MANAGEMENT_PAGE).is_displayed()
+        self.driver.find_element(*ServiceAppointmentPageLocators.GENERAL_DATE_IN_DEPOSIT_MANAGEMENT_PAGE).is_displayed()
+        self.driver.find_element(*ServiceAppointmentPageLocators.SPECIAL_DATE_IN_DEPOSIT_MANAGEMENT_PAGE).is_displayed()
+        return self
+
+    def tap_general_date_deposit_in_deposit_management_page(self):
+        self.driver.find_element(*ServiceAppointmentPageLocators.GENERAL_DATE_IN_DEPOSIT_MANAGEMENT_PAGE).click()
+        time.sleep(2)
+        return self
+
+    def tap_general_date_toggle_open_in_add_general_date_deposit_page(self):
+        try:
+            self.driver.find_element(*ServiceAppointmentPageLocators.PAYMENT_DESCRIPTION_IN_GENERAL_DATE_PAGE)
+        except NoSuchElementException:
+            self.driver.find_element(*ServiceAppointmentPageLocators.GENERAL_DATE_TOGGLE_IN_GENERAL_DATE_PAGE).click()
+        time.sleep(1)
+        return self
+
+    def default_member_status_every_vist_in_add_general_date_deposit_page(self):
+        self.driver.find_element(*ServiceAppointmentPageLocators.DEFAULT_MEMBER_STATUS_IN_GENERAL_DATE_PAGE).click()
+        time.sleep(2)
+        self.driver.find_element(*ServiceAppointmentPageLocators.DEFAULT_MEMBER_STATUS_IN_DEFAULT_MEMBER_STATUS_PAGE).click()
+        time.sleep(1)
+        self.driver.find_element(*ServiceAppointmentPageLocators.CHARGE_IN_DEFAULT_MEMBER_STATUS_PAGE).click()
+        time.sleep(1)
+        self.driver.find_element(*ServiceAppointmentPageLocators.EVERY_VIST_IN_DEFAULT_MEMBER_STATUS_PAGE).click()
+        time.sleep(1)
+        self.driver.find_element(*ServiceAppointmentPageLocators.CONFIRM_BUTTON_IN_DEFAULT_MEMBER_STATUS_PAGE).click()
+        time.sleep(2)
+        return self
+
+    def payment_method_all_open_in_add_general_date_deposit_page(self):
+        self.driver.find_element(*ServiceAppointmentPageLocators.PAYMENT_METHOD_IN_GENERAL_DATE_PAGE).click()
+        time.sleep(1)
+        self.driver.find_element(*ServiceAppointmentPageLocators.BANK_TRANSFER_TOGGLE_IN_PAYMENT_METHOD_PAGE).click()
+        time.sleep(1)
+        self.driver.find_element(*ServiceAppointmentPageLocators.STORE_TRANSFER_TOGGLE_IN_PAYMENT_METHOD_PAGE).click()
+        time.sleep(1)
+        self.driver.find_element(*ServiceAppointmentPageLocators.CREDIT_CARD_TOGGLE_IN_PAYMENT_METHOD_PAGE).click()
+        time.sleep(1)
+        self.driver.find_element(*ServiceAppointmentPageLocators.LINE_PAY_TOGGLE_IN_PAYMENT_METHOD_PAGE).click()
+        time.sleep(1)
+        self.driver.find_element(*ServiceAppointmentPageLocators.BAND_CODE_IN_PAYMENT_METHOD_PAGE).click()
+        time.sleep(1)
+        random_num = random.randint(1, 5)
+        print(f"Random number: {random_num}")
+        self._scroll_to_element(ServiceAppointmentPageLocators.BAND_CODE_ITEM_IN_PAYMENT_METHOD_PAGE(self, random_num))
+        self.driver.find_element(*ServiceAppointmentPageLocators.BAND_CODE_ITEM_IN_PAYMENT_METHOD_PAGE(self, random_num)).click()
+        time.sleep(1)
+        self.driver.find_element(*ServiceAppointmentPageLocators.BAND_ACCOUNT_FIELD_IN_PAYMENT_METHOD_PAGE).send_keys("123467890123456")
+        self.driver.find_element(*ServiceAppointmentPageLocators.CONFIRM_BUTTON_IN_PAYMENT_METHOD_PAGE).click()
+        time.sleep(2)
+        return self
+
+    def deposit_amount_percentage_in_add_general_date_deposit_page(self):
+        self.driver.find_element(*ServiceAppointmentPageLocators.DEPOSIT_AMOUNT_IN_GENERAL_DATE_PAGE).click()
+        time.sleep(1)
+        self.driver.find_element(*ServiceAppointmentPageLocators.DEPOSIT_AMOUNT_METHOD_IN_DEPOSIT_AMOUNT_PAGE).click()
+        time.sleep(1)
+        self.driver.find_element(*ServiceAppointmentPageLocators.PERCENTAGE_IN_DEPOSIT_AMOUNT_METHOD_DIALOG_IN_DEPOSIT_AMOUNT_PAGE).click()
+        time.sleep(1)
+        self.driver.find_element(*ServiceAppointmentPageLocators.MINIMUM_DEPOSIT_AMOUNT_IN_DEPOSIT_AMOUNT_PAGE).send_keys("100")
+        self.driver.find_element(*ServiceAppointmentPageLocators.PERCENTAGE_DEPOSIT_AMOUNT_IN_DEPOSIT_AMOUNT_PAGE(self, "50")).click()
+        time.sleep(1)
+        self.driver.find_element(*ServiceAppointmentPageLocators.CONFIRM_BUTTON_IN_DEPOSIT_AMOUNT_PAGE).click()
+        time.sleep(2)
+        return self
+
+    def auto_cancel_after_1_hour_in_add_general_date_deposit_page(self):
+        self.driver.find_element(*ServiceAppointmentPageLocators.AUTO_CANCEL_UNPAID_IN_GENERAL_DATE_PAGE).click()
+        time.sleep(1)
+        self.driver.find_element(*ServiceAppointmentPageLocators.AFTER_1_HOUR_CANCEL_IN_AUTO_CANCEL_UNPAID_PAGE).click()
+        time.sleep(1)
+        self.driver.find_element(*ServiceAppointmentPageLocators.CONFIRM_BUTTON_IN_AUTO_CANCEL_UNPAID_PAGE).click()
+        time.sleep(2)
+        return self
+
+    def enter_payment_instruction_in_add_general_date_deposit_page(self, payment_instruction):
+        self.driver.find_element(*ServiceAppointmentPageLocators.PAYMENT_INSTRUCTIONS_IN_GENERAL_DATE_PAGE).click()
+        time.sleep(1)
+        self.driver.find_element(*ServiceAppointmentPageLocators.PAYMENT_INSTRUCTIONS_FIELD_IN_PAYMENT_INSTRUCTIONS_DIALOG_IN_DEPOSIT_MANAGEMENT_PAGE).send_keys(payment_instruction)
+        self.driver.find_element(*ServiceAppointmentPageLocators.CONFIRM_BUTTON_IN_PAYMENT_INSTRUCTIONS_DIALOG_IN_DEPOSIT_MANAGEMENT_PAGE).click()
+        time.sleep(2)
+        return self
+
+    def tap_confirm_button_in_add_general_date_deposit_page(self):
+        self.driver.find_element(*ServiceAppointmentPageLocators.CONFIRM_BUTTON_IN_GENERAL_DATE_PAGE).click()
+        time.sleep(2)
+        return self
+
+    def tap_specific_date_deposit_in_deposit_management_page(self):
+        self.driver.find_element(*ServiceAppointmentPageLocators.SPECIAL_DATE_IN_DEPOSIT_MANAGEMENT_PAGE).click()
+        time.sleep(2)
+        return self
+
+    def tap_specific_date_toggle_open_in_add_specific_date_deposit_page(self):
+        try:
+            self.driver.find_element(*ServiceAppointmentPageLocators.PAYMENT_DESCRIPTION_IN_SPECIAL_DATE_PAGE)
+        except NoSuchElementException:
+            self.driver.find_element(*ServiceAppointmentPageLocators.GENERAL_DATE_TOGGLE_IN_GENERAL_DATE_PAGE).click()
+        time.sleep(1)
+        return self
+
+    def charge_duration_in_add_specific_date_deposit_page(self, duration_name):
+        self.driver.find_element(*ServiceAppointmentPageLocators.CHARGE_DURATION_IN_SPECIAL_DATE_PAGE).click()
+        time.sleep(1)
+        self.driver.find_element(*ServiceAppointmentPageLocators.ADD_CHARGE_DURATION_IN_CHARGE_DURATION_PAGE).click()
+        time.sleep(1)
+        self.driver.find_element(*ServiceAppointmentPageLocators.DURATION_NAME_FIELD_IN_ADD_CHARGE_DURATION_PAGE).send_keys(duration_name)
+        today = datetime.now()
+        start_date = today.strftime("%d")
+        start_date = str(int(start_date))
+        end_date = today + timedelta(days=7)
+        end_date = end_date.strftime("%d")
+        end_date = str(int(end_date))
+        print(f"Start date: {start_date}")
+        print(f"End date: {end_date}")
+        self.driver.find_element(*ServiceAppointmentPageLocators.START_DATE_IN_ADD_CHARGE_DURATION_PAGE).click()
+        self.driver.find_element(*ServiceAppointmentPageLocators.START_DATE_IN_RANGE_DATE_DIALOG(self, start_date)).click()
+        time.sleep(1)
+        start_date = today.strftime("%Y/%m/%d")
+        self.driver.find_element(*ServiceAppointmentPageLocators.START_DATE_VALUE_IN_RANGE_DATE_DIALOG(self, start_date)).is_displayed()
+        self.driver.find_element(*ServiceAppointmentPageLocators.CONFIRM_BUTTON_IN_CHARGE_DURATION_PAGE).click()
+        time.sleep(1)
+        self.driver.find_element(*ServiceAppointmentPageLocators.END_DATE_IN_ADD_CHARGE_DURATION_PAGE).click()
+        self.driver.find_element(*ServiceAppointmentPageLocators.END_DATE_IN_RANGE_DATE_DIALOG(self, end_date)).click()
+        time.sleep(1)
+        end_date = today + timedelta(days=7)
+        end_date = end_date.strftime("%Y/%m/%d")
+        self.driver.find_element(*ServiceAppointmentPageLocators.END_DATE_VALUE_IN_RANGE_DATE_DIALOG(self, end_date)).is_displayed()
+        self.driver.find_element(*ServiceAppointmentPageLocators.CONFIRM_BUTTON_IN_CHARGE_DURATION_PAGE).click()
+        time.sleep(1)
+        self.driver.find_element(*ServiceAppointmentPageLocators.CONFIRM_BUTTON_IN_ADD_CHARGE_DURATION_PAGE).click()
+        time.sleep(2)
+        self.driver.find_element(*ServiceAppointmentPageLocators.CONFIRM_BUTTON_IN_CHARGE_DURATION_PAGE).click()
+        time.sleep(2)
+        return self
+
+    def default_member_status_every_vist_in_add_specific_date_deposit_page(self):
+        self.driver.find_element(*ServiceAppointmentPageLocators.DEFAULT_MEMBER_STATUS_IN_SPECIAL_DATE_PAGE).click()
+        time.sleep(1)
+        self.driver.find_element(*ServiceAppointmentPageLocators.DEFAULT_MEMBER_STATUS_IN_DEFAULT_MEMBER_STATUS_PAGE).click()
+        time.sleep(1)
+        self.driver.find_element(*ServiceAppointmentPageLocators.CHARGE_IN_DEFAULT_MEMBER_STATUS_PAGE).click()
+        time.sleep(1)
+        self.driver.find_element(*ServiceAppointmentPageLocators.EVERY_VIST_IN_DEFAULT_MEMBER_STATUS_PAGE).click()
+        time.sleep(1)
+        self.driver.find_element(*ServiceAppointmentPageLocators.CONFIRM_BUTTON_IN_DEFAULT_MEMBER_STATUS_PAGE).click()
+        time.sleep(2)
+        return self
+
+    def payment_method_all_open_in_add_specific_date_deposit_page(self):
+        self.driver.find_element(*ServiceAppointmentPageLocators.PAYMENT_METHOD_IN_SPECIAL_DATE_PAGE).click()
+        time.sleep(1)
+        self.driver.find_element(*ServiceAppointmentPageLocators.BANK_TRANSFER_TOGGLE_IN_PAYMENT_METHOD_PAGE).click()
+        time.sleep(1)
+        self.driver.find_element(*ServiceAppointmentPageLocators.STORE_TRANSFER_TOGGLE_IN_PAYMENT_METHOD_PAGE).click()
+        time.sleep(1)
+        self.driver.find_element(*ServiceAppointmentPageLocators.CREDIT_CARD_TOGGLE_IN_PAYMENT_METHOD_PAGE).click()
+        time.sleep(1)
+        self.driver.find_element(*ServiceAppointmentPageLocators.LINE_PAY_TOGGLE_IN_PAYMENT_METHOD_PAGE).click()
+        time.sleep(1)
+        self.driver.find_element(*ServiceAppointmentPageLocators.BAND_CODE_IN_PAYMENT_METHOD_PAGE).click()
+        time.sleep(1)
+        random_num = random.randint(1, 5)
+        print(f"Random number: {random_num}")
+        self._scroll_to_element(ServiceAppointmentPageLocators.BAND_CODE_ITEM_IN_PAYMENT_METHOD_PAGE(self, random_num))
+        self.driver.find_element(*ServiceAppointmentPageLocators.BAND_CODE_ITEM_IN_PAYMENT_METHOD_PAGE(self, random_num)).click()
+        time.sleep(1)
+        self.driver.find_element(*ServiceAppointmentPageLocators.BAND_ACCOUNT_FIELD_IN_PAYMENT_METHOD_PAGE).send_keys("123467890123456")
+        self.driver.find_element(*ServiceAppointmentPageLocators.CONFIRM_BUTTON_IN_PAYMENT_METHOD_PAGE).click()
+        time.sleep(2)
+        return self
+
+    def deposit_amount_percentage_in_add_specific_date_deposit_page(self):
+        self.driver.find_element(*ServiceAppointmentPageLocators.DEPOSIT_AMOUNT_IN_SPECIAL_DATE_PAGE).click()
+        time.sleep(1)
+        self.driver.find_element(*ServiceAppointmentPageLocators.DEPOSIT_AMOUNT_METHOD_IN_DEPOSIT_AMOUNT_PAGE).click()
+        time.sleep(1)
+        self.driver.find_element(*ServiceAppointmentPageLocators.PERCENTAGE_IN_DEPOSIT_AMOUNT_METHOD_DIALOG_IN_DEPOSIT_AMOUNT_PAGE).click()
+        time.sleep(1)
+        self.driver.find_element(*ServiceAppointmentPageLocators.MINIMUM_DEPOSIT_AMOUNT_IN_DEPOSIT_AMOUNT_PAGE).send_keys("100")
+        self.driver.find_element(*ServiceAppointmentPageLocators.PERCENTAGE_DEPOSIT_AMOUNT_IN_DEPOSIT_AMOUNT_PAGE(self, "80")).click()
+        time.sleep(1)
+        self.driver.find_element(*ServiceAppointmentPageLocators.CONFIRM_BUTTON_IN_DEPOSIT_AMOUNT_PAGE).click()
+        time.sleep(2)
+        return self
+
+    def auto_cancel_after_1_hour_in_add_specific_date_deposit_page(self):
+        self.driver.find_element(*ServiceAppointmentPageLocators.AUTO_CANCEL_UNPAID_IN_SPECIAL_DATE_PAGE).click()
+        time.sleep(1)
+        self.driver.find_element(*ServiceAppointmentPageLocators.AFTER_1_HOUR_CANCEL_IN_AUTO_CANCEL_UNPAID_PAGE).click()
+        time.sleep(1)
+        self.driver.find_element(*ServiceAppointmentPageLocators.CONFIRM_BUTTON_IN_AUTO_CANCEL_UNPAID_PAGE).click()
+        time.sleep(2)
+        return self
+
+    def enter_payment_instruction_in_add_specific_date_deposit_page(self, payment_instruction):
+        self._scroll_to_element(ServiceAppointmentPageLocators.PAYMENT_INSTRUCTIONS_IN_SPECIAL_DATE_PAGE)
+        self.driver.find_element(*ServiceAppointmentPageLocators.PAYMENT_INSTRUCTIONS_IN_SPECIAL_DATE_PAGE).click()
+        time.sleep(1)
+        self.driver.find_element(*ServiceAppointmentPageLocators.PAYMENT_INSTRUCTIONS_FIELD_IN_PAYMENT_INSTRUCTIONS_DIALOG_IN_DEPOSIT_MANAGEMENT_PAGE).send_keys(payment_instruction)
+        self.driver.find_element(*ServiceAppointmentPageLocators.CONFIRM_BUTTON_IN_PAYMENT_INSTRUCTIONS_DIALOG_IN_DEPOSIT_MANAGEMENT_PAGE).click()
+        time.sleep(2)
+        return self
+
+    def tap_confirm_button_in_add_specific_date_deposit_page(self):
+        self.driver.find_element(*ServiceAppointmentPageLocators.CONFIRM_BUTTON_IN_SPECIAL_DATE_PAGE).click()
+        time.sleep(2)
+        return self
 
 
 

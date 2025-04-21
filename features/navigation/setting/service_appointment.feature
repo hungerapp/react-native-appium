@@ -79,9 +79,43 @@ Feature: Service Appointment Management
 
   @regression @booking_issue_and_note @service_appointment_page
   Scenario: Verify Booking Issue and Note
-      Given I am on the Branch Settings page
-      When I tap on Service Appointment in the Branch Settings page
-      Then I should be navigated to the Service Appointment page
+    Given I am on the Branch Settings page
+    When I tap on Service Appointment in the Branch Settings page
+    Then I should be navigated to the Service Appointment page
+    When I tap the booking issue and note button in the Service Appointment page
+    Then I should be navigated to the Booking Issue and Note page
+    Then Add a short answer booking issue and set it to hidden
+    Then Add a single choice booking issue and set it to hidden
+    Then Add a multiple choice booking issue and set it to hidden
+    Then Add a short answer booking issue and set it to visible
+    Then Add a single choice booking issue and set it to visible
+    Then Add a multiple choice booking issue and set it to visible
+    Then Delete booking issue
+    When I tap the close button in the Booking Issue and Note page
+    Then I should be navigated to the Service Appointment page
+
+  @regression @service_appointment_note @service_appointment_page
+  Scenario: Verify Service Appointment Note
+    Given I am on the Service Appointment page
+    When I tap the service appointment note in the ServiceAppointment page
+    Then I should be navigated to the Service Appointment Note page
+    Then I add a new service appointment note
+    Then I should be navigated to the Service Appointment page
+
+  @regression @deposit_management @service_appointment_page @daily_deposit_management @ios @web
+    Scenario: Verify Deposit Management
+#        Given I am on the Service Appointment page
+#        When I tap the deposit management button in the Service Appointment page
+#        Then I should be navigated to the Deposit Management page
+        Then I add a general date deposit
+        Then I add a specific date deposit
+
+
+
+
+
+
+
 
 
 

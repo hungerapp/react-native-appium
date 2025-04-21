@@ -33,6 +33,12 @@ EDIT_SERVICE_ITEM_CODE = f"{str(CommonUseSection.get_current_timestamp())[-2:]}"
 EDIT_SERVICE_ITEM_INTRODUCTION = f"Robot_Edit_Service_Item_Introduction_{CommonUseSection.get_current_timestamp()}"
 SERVICE_COMBINATION_NAME = f"Robot_Combination_{CommonUseSection.get_current_timestamp()}"
 SERVICE_COMBINATION_INTRODUCTION = f"Robot_Test_Combination_Introduction_{CommonUseSection.get_current_timestamp()}"
+BOOKING_ISSUE_NAME = f"Robot_Test_Booking_Issue_{CommonUseSection.get_current_timestamp()}"
+BOOKING_ISSUE_OPTION_NAME_1 = f"Robot_Test_Booking_Issue_Option_{CommonUseSection.get_current_timestamp()}"
+BOOKING_ISSUE_OPTION_NAME_2 = f"Robot_Test_Booking_Issue_Option_{CommonUseSection.get_current_timestamp()}"
+SERVICE_APPOINTMENT_NOTE = f"Robot_Test_Service_Appointment_Note_{CommonUseSection.get_current_timestamp()}"
+PAYMENT_INSTRUCTION = f"Robot_Test_Payment_Instruction_{CommonUseSection.get_current_timestamp()}"
+DURATION_NAME = f"Robot_Test_Duration_{CommonUseSection.get_current_timestamp()}"
 
 
 # Scenario: Navigate to Branch Settings and Edit Branch Information
@@ -1093,3 +1099,192 @@ def delete_service_personnel(driver):
         service_personnel_page.tap_close_button_in_service_personnel_page()
     except Exception as e:
         pytest.fail("Step [I Delete the service personnel] failed: " + str(e))
+
+@when("I tap the booking issue and note button in the Service Appointment page")
+def tap_booking_issue_and_note_button_in_service_appointment_page(driver):
+    try:
+        service_appointment_page = ServiceAppointmentPage(driver)
+        service_appointment_page.tap_booking_issue_and_note_button_in_service_appointment_page()
+    except Exception as e:
+        pytest.fail("Step [I tap the booking issue and note button in the Service Appointment page] failed: " + str(e))
+
+@then("I should be navigated to the Booking Issue and Note page")
+def verify_booking_issue_and_note_page(driver):
+    try:
+        service_appointment_page = ServiceAppointmentPage(driver)
+        service_appointment_page.verify_booking_issue_and_note_page()
+    except Exception as e:
+        pytest.fail("Step [I should be navigated to the Booking Issue and Note page] failed: " + str(e))
+
+@then("Add a short answer booking issue and set it to hidden")
+def add_new_booking_issue(driver):
+    try:
+        service_appointment_page = ServiceAppointmentPage(driver)
+        service_appointment_page.tap_add_booking_issue_in_booking_issue_and_note_page()
+        service_appointment_page.verify_add_booking_issue_page()
+        service_appointment_page.enter_booking_issue_content_in_add_booking_issue_page(BOOKING_ISSUE_NAME)
+        service_appointment_page.tap_issue_type_in_add_booking_issue_page()
+        service_appointment_page.select_issue_type_short_answer_in_issue_type_dialog()
+        service_appointment_page.tap_confirm_button_in_add_booking_issue_page()
+    except Exception as e:
+        pytest.fail("Step [I add a new booking issue] failed: " + str(e))
+
+@then("Add a single choice booking issue and set it to hidden")
+def add_single_choice_booking_issue(driver):
+    try:
+        service_appointment_page = ServiceAppointmentPage(driver)
+        service_appointment_page.tap_add_booking_issue_in_booking_issue_and_note_page()
+        service_appointment_page.enter_booking_issue_content_in_add_booking_issue_page(BOOKING_ISSUE_NAME)
+        service_appointment_page.tap_issue_type_in_add_booking_issue_page()
+        service_appointment_page.select_issue_type_single_choice_in_issue_type_dialog()
+        service_appointment_page.enter_issue_option_in_add_booking_issue_option_dialog(BOOKING_ISSUE_OPTION_NAME_1)
+        service_appointment_page.enter_issue_option_in_add_booking_issue_option_dialog(BOOKING_ISSUE_OPTION_NAME_2)
+        service_appointment_page.tap_confirm_button_in_add_booking_issue_page()
+    except Exception as e:
+        pytest.fail("Step [I add a single choice booking issue] failed: " + str(e))
+
+@then("Add a multiple choice booking issue and set it to hidden")
+def add_multiple_choice_booking_issue(driver):
+    try:
+        service_appointment_page = ServiceAppointmentPage(driver)
+        service_appointment_page.tap_add_booking_issue_in_booking_issue_and_note_page()
+        service_appointment_page.enter_booking_issue_content_in_add_booking_issue_page(BOOKING_ISSUE_NAME)
+        service_appointment_page.tap_issue_type_in_add_booking_issue_page()
+        service_appointment_page.select_issue_type_multiple_choice_in_issue_type_dialog()
+        service_appointment_page.enter_issue_option_in_add_booking_issue_option_dialog(BOOKING_ISSUE_OPTION_NAME_1)
+        service_appointment_page.enter_issue_option_in_add_booking_issue_option_dialog(BOOKING_ISSUE_OPTION_NAME_2)
+        service_appointment_page.tap_confirm_button_in_add_booking_issue_page()
+    except Exception as e:
+        pytest.fail("Step [I add a multiple choice booking issue] failed: " + str(e))
+
+@then("Add a short answer booking issue and set it to visible")
+def add_visible_booking_issue(driver):
+    try:
+        service_appointment_page = ServiceAppointmentPage(driver)
+        service_appointment_page.tap_add_booking_issue_in_booking_issue_and_note_page()
+        service_appointment_page.tap_display_issue_to_in_add_booking_issue_page()
+        service_appointment_page.enter_booking_issue_content_in_add_booking_issue_page(BOOKING_ISSUE_NAME)
+        service_appointment_page.tap_issue_type_in_add_booking_issue_page()
+        service_appointment_page.select_issue_type_short_answer_in_issue_type_dialog()
+        service_appointment_page.tap_confirm_button_in_add_booking_issue_page()
+    except Exception as e:
+        pytest.fail("Step [I add a short answer booking issue and set it to visible] failed: " + str(e))
+
+@then("Add a single choice booking issue and set it to visible")
+def add_visible_single_choice_booking_issue(driver):
+    try:
+        service_appointment_page = ServiceAppointmentPage(driver)
+        service_appointment_page.tap_add_booking_issue_in_booking_issue_and_note_page()
+        service_appointment_page.tap_display_issue_to_in_add_booking_issue_page()
+        service_appointment_page.enter_booking_issue_content_in_add_booking_issue_page(BOOKING_ISSUE_NAME)
+        service_appointment_page.tap_issue_type_in_add_booking_issue_page()
+        service_appointment_page.select_issue_type_single_choice_in_issue_type_dialog()
+        service_appointment_page.enter_issue_option_in_add_booking_issue_option_dialog(BOOKING_ISSUE_OPTION_NAME_1)
+        service_appointment_page.enter_issue_option_in_add_booking_issue_option_dialog(BOOKING_ISSUE_OPTION_NAME_2)
+        service_appointment_page.tap_confirm_button_in_add_booking_issue_page()
+    except Exception as e:
+        pytest.fail("Step [I add a single choice booking issue and set it to visible] failed: " + str(e))
+
+@then("Add a multiple choice booking issue and set it to visible")
+def add_visible_multiple_choice_booking_issue(driver):
+    try:
+        service_appointment_page = ServiceAppointmentPage(driver)
+        service_appointment_page.tap_add_booking_issue_in_booking_issue_and_note_page()
+        service_appointment_page.tap_display_issue_to_in_add_booking_issue_page()
+        service_appointment_page.enter_booking_issue_content_in_add_booking_issue_page(BOOKING_ISSUE_NAME)
+        service_appointment_page.tap_issue_type_in_add_booking_issue_page()
+        service_appointment_page.select_issue_type_multiple_choice_in_issue_type_dialog()
+        service_appointment_page.enter_issue_option_in_add_booking_issue_option_dialog(BOOKING_ISSUE_OPTION_NAME_1)
+        service_appointment_page.enter_issue_option_in_add_booking_issue_option_dialog(BOOKING_ISSUE_OPTION_NAME_2)
+        service_appointment_page.tap_confirm_button_in_add_booking_issue_page()
+    except Exception as e:
+        pytest.fail("Step [I add a multiple choice booking issue and set it to visible] failed: " + str(e))
+
+@then("Delete booking issue")
+def delete_booking_issue(driver):
+    try:
+        service_appointment_page = ServiceAppointmentPage(driver)
+        service_appointment_page.tap_delete_booking_issue_in_booking_issue_and_note_page(BOOKING_ISSUE_NAME)
+    except Exception as e:
+        pytest.fail("Step [I delete booking issue] failed: " + str(e))
+
+@when("I tap the close button in the Booking Issue and Note page")
+def tap_close_button_in_booking_issue_and_note_page(driver):
+    try:
+        service_appointment_page = ServiceAppointmentPage(driver)
+        service_appointment_page.tap_close_button_in_booking_issue_and_note_page()
+    except Exception as e:
+        pytest.fail("Step [I tap the close button in the Booking Issue and Note page] failed: " + str(e))
+
+@when("I tap the service appointment note in the ServiceAppointment page")
+def tap_service_appointment_note_in_service_appointment_page(driver):
+    try:
+        service_appointment_page = ServiceAppointmentPage(driver)
+        service_appointment_page.tap_service_appointment_note_in_service_appointment_page()
+    except Exception as e:
+        pytest.fail("Step [I tap the service appointment note in the ServiceAppointment page] failed: " + str(e))
+
+@then("I should be navigated to the Service Appointment Note page")
+def verify_service_appointment_note_page(driver):
+    try:
+        service_appointment_page = ServiceAppointmentPage(driver)
+        service_appointment_page.verify_service_appointment_note_page()
+    except Exception as e:
+        pytest.fail("Step [I should be navigated to the Service Appointment Note page] failed: " + str(e))
+
+@then("I add a new service appointment note")
+def add_new_service_appointment_note(driver):
+    try:
+        service_appointment_page = ServiceAppointmentPage(driver)
+        service_appointment_page.tap_display_note_toggle_in_service_appointment_note_page()
+        service_appointment_page.enter_service_appointment_note_in_add_note_dialog(SERVICE_APPOINTMENT_NOTE)
+        service_appointment_page.tap_confirm_button_in_service_appointment_note_page()
+    except Exception as e:
+        pytest.fail("Step [I add a new service appointment note] failed: " + str(e))
+
+@when("I tap the deposit management button in the Service Appointment page")
+def tap_deposit_management_button_in_service_appointment_page(driver):
+    try:
+        service_appointment_page = ServiceAppointmentPage(driver)
+        service_appointment_page.tap_deposit_management_button_in_service_appointment_page()
+    except Exception as e:
+        pytest.fail("Step [I tap the deposit management button in the Service Appointment page] failed: " + str(e))
+
+@then("I should be navigated to the Deposit Management page")
+def verify_deposit_management_page(driver):
+    try:
+        service_appointment_page = ServiceAppointmentPage(driver)
+        service_appointment_page.verify_deposit_management_page()
+    except Exception as e:
+        pytest.fail("Step [I should be navigated to the Deposit Management page] failed: " + str(e))
+
+@then("I add a general date deposit")
+def add_general_date_deposit(driver):
+    try:
+        service_appointment_page = ServiceAppointmentPage(driver)
+        service_appointment_page.tap_general_date_deposit_in_deposit_management_page()
+        service_appointment_page.tap_general_date_toggle_open_in_add_general_date_deposit_page()
+        service_appointment_page.default_member_status_every_vist_in_add_general_date_deposit_page()
+        service_appointment_page.payment_method_all_open_in_add_general_date_deposit_page()
+        service_appointment_page.deposit_amount_percentage_in_add_general_date_deposit_page()
+        service_appointment_page.auto_cancel_after_1_hour_in_add_general_date_deposit_page()
+        service_appointment_page.enter_payment_instruction_in_add_general_date_deposit_page(PAYMENT_INSTRUCTION)
+        service_appointment_page.tap_confirm_button_in_add_general_date_deposit_page()
+    except Exception as e:
+        pytest.fail("Step [I add a general date deposit] failed: " + str(e))
+
+@then("I add a specific date deposit")
+def add_specific_date_deposit(driver):
+    try:
+        service_appointment_page = ServiceAppointmentPage(driver)
+        service_appointment_page.tap_specific_date_deposit_in_deposit_management_page()
+        service_appointment_page.tap_specific_date_toggle_open_in_add_specific_date_deposit_page()
+        service_appointment_page.charge_duration_in_add_specific_date_deposit_page(DURATION_NAME)
+        service_appointment_page.default_member_status_every_vist_in_add_specific_date_deposit_page()
+        service_appointment_page.payment_method_all_open_in_add_specific_date_deposit_page()
+        service_appointment_page.deposit_amount_percentage_in_add_specific_date_deposit_page()
+        service_appointment_page.auto_cancel_after_1_hour_in_add_specific_date_deposit_page()
+        service_appointment_page.enter_payment_instruction_in_add_specific_date_deposit_page(PAYMENT_INSTRUCTION)
+        service_appointment_page.tap_confirm_button_in_add_specific_date_deposit_page()
+    except Exception as e:
+        pytest.fail("Step [I add a specific date deposit] failed: " + str(e))
