@@ -31,15 +31,15 @@ def redirect_to_changelog_page_and_back(driver):
     notification_page = NotificationPage(driver)
     notification_page.redirect_and_back()
     
-@when('I click on any notification')
+@when('I on the notification page')
 def click_any_notification(driver):
     notification_page = NotificationPage(driver)
-    notification_page.click_any_notification()
+    notification_page.on_notification_page()
     
-@then('I should be successfully redirected to the corresponding page')
-def redirect_to_corresponding_page_and_return(driver):
+@then('I can see the notification below')
+def see_notification(driver):
     notification_page = NotificationPage(driver)
-    notification_page.redirect_and_back()
+    notification_page.see_notification()
     
 @when('I click the mark all as read button')
 def click_mark_all_as_read_button(driver):

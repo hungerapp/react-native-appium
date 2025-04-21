@@ -123,7 +123,7 @@ class AllowAppointmentPage():
                 slot.click()
                 time.sleep(0.5)
                 
-            self.driver.find_element(*self.open_appointment_locators.CLOSE_BUTTON).click()
+            self.driver.find_element(*self.open_appointment_locators.OPEN_TIME_CLOSE_BUTTON).click()
             time.sleep(0.5)
         except:
             print("No add new open time button found")
@@ -142,8 +142,12 @@ class AllowAppointmentPage():
         
     
     def click_edit_then_copy_today(self):
-        self.driver.find_element(*self.open_appointment_locators.EDIT_OPEN_TIME_BUTTON).click()
-        time.sleep(0.5)
+        try:
+            self.driver.find_element(*self.open_appointment_locators.EDIT_OPEN_TIME2_BUTTON).click()
+            time.sleep(0.5)
+        except:
+            self.driver.find_element(*self.open_appointment_locators.EDIT_OPEN_TIME1_BUTTON).click()
+            time.sleep(0.5)
         
         # click copy today button
         self.driver.find_element(*self.open_appointment_locators.COPY_TODAY_BUTTON).click()
@@ -195,6 +199,7 @@ class AllowAppointmentPage():
                 time.sleep(0.5)
             
             # click end date again
+            time.sleep(1.5)
             random.choice(dates).click()
         
             # click outside to close the date window
@@ -221,7 +226,7 @@ class AllowAppointmentPage():
             self.driver.find_element(*self.open_appointment_locators.CONFIRM_BUTTON).click()
         
         time.sleep(1)
-        self.driver.find_element(*self.open_appointment_locators.CLOSE_BUTTON).click()
+        self.driver.find_element(*self.open_appointment_locators.EDIT_OPEN_TIME_CLOSE_BUTTON).click()
         return self
     
     

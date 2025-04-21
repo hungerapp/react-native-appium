@@ -16,12 +16,7 @@ scenarios('../../../features/navigation/more/allow_appointment.feature')
 @allure.story('Allow Appointment - Access Reservation Settings')
 @pytest.mark.navigation_more_allow_appointment
 @pytest.mark.run(order=89)
-@given('I click on the more option in the bottom navigation bar')
-def click_more_option(driver):
-    allow_appointment_page = AllowAppointmentPage(driver)
-    allow_appointment_page.click_more_option()
-    
-@when('I click on the allow appointment settings')
+@given('I click on the allow appointment settings')
 def click_allow_appointment_settings(driver):
     allow_appointment_page = AllowAppointmentPage(driver)
     allow_appointment_page.click_allow_appointment_settings()

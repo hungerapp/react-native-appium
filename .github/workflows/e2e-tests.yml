@@ -1,8 +1,8 @@
 name: BrowserStack - E2E Tests
 
 on:
-  # schedule:
-  #   - cron: "0 0 * * *" # run every day at 00:00
+  schedule:
+    - cron: "0 0 * * *" # run every day at 00:00
   workflow_dispatch:
     inputs:
       tags:

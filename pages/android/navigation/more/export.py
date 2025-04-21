@@ -13,8 +13,8 @@ class ExportPage(CommonUseSection):
         self.export_locators = ExportLocators()
         
     def click_export_available_time_slots(self):
+        time.sleep(1)
         self.driver.find_element(*self.export_locators.EXPORT_AVAILABLE_TIME_SLOTS).click()
-        time.sleep(0.5)
         return self
     
     def select_a_staff_member(self):
@@ -96,10 +96,10 @@ class ExportPage(CommonUseSection):
         time.sleep(0.5)
         return self
     
+    
     def return_to_calendar_page(self):
-        for _ in range(2):
-            self.driver.find_element(*self.export_locators.BACK_BUTTON).click()
-            time.sleep(0.5)
+        self.driver.find_element(*self.export_locators.EXPORT_MONTH_CALENDAR_BACK_BUTTON).click()
+        self.driver.find_element(*self.export_locators.BACK_BUTTON).click()
         return self
         
         

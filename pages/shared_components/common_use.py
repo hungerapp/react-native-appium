@@ -32,14 +32,14 @@ class CommonUseSection:
     SERVICE_TAB_CONTAINER = (AppiumBy.XPATH, "//android.widget.HorizontalScrollView/android.view.ViewGroup")
     AUTO_TEST_TAB = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("自動化測試服物分類")')
     SERVICE_ITEMS = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("測試服務")')
-    SAVE_SERVICE_BTN = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(1)')
+    SAVE_SERVICE_BTN = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("check").instance(0)')
     SERVICE_OPTION1 = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("測試服務1")')
     SERVICE_OPTION4 = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("測試服務4")')
-    SUB_SERVICE_SAVE_BTN = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(1)')
+    SUB_SERVICE_SAVE_BTN = (AppiumBy.ACCESSIBILITY_ID, '選擇子服務-modal-right-button ')
     SUB_SERVICE_OPTIONS = {
-            "option1": "附加服務1, +30 分鐘 / +NT$500",
-            "option2": "附加服務2, +30 分鐘 / +NT$500",
-            "option3": "附加服務3, +30 分鐘 / +NT$500"
+        '附加服務1': (AppiumBy.ACCESSIBILITY_ID, 'checkbox-multiple-option-0'),
+        '附加服務2': (AppiumBy.ACCESSIBILITY_ID, 'checkbox-multiple-option-1'),
+        '附加服務3': (AppiumBy.ACCESSIBILITY_ID, 'checkbox-multiple-option-2'),
       }
     
     
@@ -383,10 +383,10 @@ class CommonUseSection:
             time.sleep(0.5)
             self.handle_sub_services()
             
+            time.sleep(2)
             service1.click()
 
             # Click save button
-            time.sleep(1)
             save_button = self.driver.find_element(*self.SAVE_SERVICE_BTN)
             save_button.click()
 
@@ -404,27 +404,22 @@ class CommonUseSection:
         """
         
         try:
-            num_to_select = 2
-            selected_options = random.sample(list(self.SUB_SERVICE_OPTIONS.values()), num_to_select)
+            # Randomly select two options
+            selected_keys = random.sample(list(self.SUB_SERVICE_OPTIONS.keys()), 2)
             
-            for description in selected_options:
+            # Click selected options
+            for key in selected_keys:
+                option_locator = self.SUB_SERVICE_OPTIONS[key]
                 try:
-                    option_locator = (AppiumBy.ANDROID_UIAUTOMATOR, f'new UiSelector().description("{description}")')
-                    option_element = self.driver.find_element(*option_locator)
-                    option_element.click()
+                    self.driver.find_element(*option_locator).click()
                 except NoSuchElementException:
                     continue
             
             # Click save button for sub-service
             sub_save_button = self.driver.find_element(*self.SUB_SERVICE_SAVE_BTN)
-            if sub_save_button.is_displayed():
-                sub_save_button.click()
-            else:
-                print("Sub-service save button is not visible or enabled")
-            return True
+            sub_save_button.click()
             
         except Exception as e:
-            print(f"Error handling sub-services: {str(e)}")
             return False
 
     
