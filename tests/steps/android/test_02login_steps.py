@@ -26,6 +26,7 @@ TEST_INVALID_VER = '123456'
 
 # Scenario: Select language
 @allure.feature('Select Language and click contact cs')
+@allure.story('Select Language and click contact cs')
 @pytest.mark.run(order=2)
 @pytest.mark.login
 @given('the app is launched')
@@ -59,6 +60,7 @@ def verify_contact_cs_page(driver):
 
 # Scenario: Click terms and conditions
 @allure.feature('Click Terms and Conditions')
+@allure.story('Click Terms and Conditions')
 @pytest.mark.run(order=3)
 @pytest.mark.login
 @when('I click terms and conditions button')
@@ -103,8 +105,9 @@ def verify_invalid_email_error(driver):
     login_page.click_login_cancel_button()
 
 
-
+# Scenario: Login Unregistered Email
 @allure.feature('Login Unregistered Email')
+@allure.story('Login Unregistered Email')
 @pytest.mark.run(order=5)
 @pytest.mark.login
 @when('the user enters an unregistered email')
@@ -120,6 +123,7 @@ def verify_unregistered_email_error(driver):
 
 
 # Scenario: Unsuccessful login with invalid verification code
+@allure.feature('Unsuccessful login with invalid verification code')
 @allure.story('Unsuccessful login with invalid verification code')
 @pytest.mark.run(order=6)
 @pytest.mark.login
@@ -137,6 +141,7 @@ def verify_invalid_ver_code_error(driver):
     
 
 # Scenario: Modify email from verification code page
+@allure.feature('Modify email from verification code page')
 @allure.story('Modify email from verification code page')
 @pytest.mark.run(order=7)
 @pytest.mark.login
@@ -159,6 +164,7 @@ def verify_verification_code_page(driver):
 
 
 # Scenario: Successful login
+@allure.feature('Successful login')
 @allure.story('Successful login')
 @pytest.mark.run(order=8)
 @pytest.mark.login

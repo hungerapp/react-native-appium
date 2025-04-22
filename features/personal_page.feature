@@ -61,7 +61,9 @@ Feature: Personal Page
   
   @regression @empty_phone_number 
   Scenario: Verify empty phone number error
-    Given I am on the acc setting page
+    Given I am on the personal page
+    When I click settings icon
+    Then I click account settings option
     Then I input empty phone number and get error message
 
   @regression @personal_page_invalid_phone_number 

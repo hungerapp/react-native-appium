@@ -174,7 +174,7 @@ def click_account_settings_option(driver):
 def input_empty_name(driver):
     personal_page = PersonalPage(driver)
     personal_page.get_empty_name_error_message()
-
+    personal_page.cancel_account_settings()
 
 
 # Account Settings for empty phone number
@@ -182,10 +182,20 @@ def input_empty_name(driver):
 @allure.story('Account Settings for empty phone number')
 @pytest.mark.run(order=15)
 @pytest.mark.personal
-@given('I am on the acc setting page')
-def on_acc_setting_page(driver):
+@given('I am on the personal page')
+def login_to_personal_page(driver):
     pass
-  
+
+@when('I click settings icon')
+def click_settings_icon(driver):
+    personal_page = PersonalPage(driver)
+    personal_page.click_setting_icon()
+
+@then('I click account settings option')
+def click_account_settings_option(driver):
+    personal_page = PersonalPage(driver)
+    personal_page.click_account_settings()
+
 @then('I input empty phone number and get error message')
 def input_empty_phone_number(driver):
     personal_page = PersonalPage(driver)

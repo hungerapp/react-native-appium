@@ -29,10 +29,7 @@ class LoginPage:
   def click_contact_cs_button(self):
       self.driver.find_element(*self.login_locators.CONTACT_CS_BUTTON).click()
       time.sleep(1)
-      try:
-          self.driver.find_element(*self.login_locators.CONTACT_CS_BACK_BUTTON).click()
-      except:
-          self.driver.back()
+      self.driver.back()
 
       
   def click_terms_and_conditions_button(self):
@@ -148,6 +145,7 @@ class LoginPage:
             return None
        
   def click_login_cancel_button(self):
+       time.sleep(1)
        login_button_cancel = self.driver.find_element(*self.login_locators.LOGIN_CANCEL_BUTTON)
        login_button_cancel.click()
        
