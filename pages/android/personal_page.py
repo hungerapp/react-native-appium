@@ -361,8 +361,6 @@ class PersonalPage(CommonUseSection):
 
   def clear_and_input_name(self):
     try:
-        time.sleep(2)  
-        
         name_field = self.driver.find_element(*self.personal_page_locators.NAME_INPUT)
         if name_field.is_displayed():
             print(f"Found name input field, current text: {name_field.text}") 
@@ -375,6 +373,7 @@ class PersonalPage(CommonUseSection):
             
             # input new text
             random_name = self.generate_random_name()
+            time.sleep(2)
             name_field.send_keys(random_name)
             
             print(f"Successfully input new name: {random_name}")
@@ -440,9 +439,9 @@ class PersonalPage(CommonUseSection):
         else:
             # Generate an invalid phone number
             phone_number = f"{random.randint(10000, 99999)}"
-            
-        phone_field_clear = self.driver.find_element(*self.personal_page_locators.PHONE_INPUT_CLEAR)
-        phone_field_clear.send_keys(phone_number)
+        
+        time.sleep(1)
+        phone_field.send_keys(phone_number)
         return phone_number
     except Exception as e:
         print(f"Input phone number error: {str(e)}")
@@ -482,8 +481,8 @@ class PersonalPage(CommonUseSection):
             self.driver.find_element(*self.personal_page_locators.BIRTHDAY_FIELD).click()
             self.swipe_calendar_component()
             
-            self.clear_and_input_name()
             self.select_random_gender()
+            self.clear_and_input_name()
             self.input_phone_number(valid=True)
             self.save_account_settings()
             
