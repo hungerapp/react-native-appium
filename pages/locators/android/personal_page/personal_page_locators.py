@@ -67,14 +67,7 @@ class PersonalPageLocators:
       
       
       # Locators for account settings page
-      NAME_INPUT = [
-        (AppiumBy.XPATH, "//android.widget.EditText"),  # 通用的 EditText
-        (AppiumBy.CLASS_NAME, "android.widget.EditText"),  # 使用 class name
-        (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Ann")'),  # 使用 UiSelector
-        (AppiumBy.XPATH, "//android.widget.EditText[contains(@text, 'Ann')]"),
-        (AppiumBy.XPATH, '//android.widget.EditText[@text="Ann"]'),
-        (AppiumBy.XPATH, "//android.widget.EditText[@text='請輸入姓名']")# 包含特定文本
-      ]
+      NAME_INPUT = (AppiumBy.ACCESSIBILITY_ID, '姓名-text-input')
   
       GENDER_OPTIONS = {
       "男": (AppiumBy.ACCESSIBILITY_ID, "男"),
@@ -86,7 +79,7 @@ class PersonalPageLocators:
       BIRTHDAY_FIELD = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("生日")')
       CALENDAR_WINDOW = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("android:id/pickers")')
       CONFIRM_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("android:id/button1")')
-      PHONE_INPUT_INITIAL = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textMatches("\\d{9}")')
+      PHONE_INPUT_INITIAL = (AppiumBy.ACCESSIBILITY_ID, '電話-text-input')
       PHONE_INPUT_CLEAR = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("請輸入電話")')
       EMPTY_PHONE_ERROR_MESSAGE = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text(" 此欄位為必填。")')
       INVALID_PHONE_ERROR_MESSAGE = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("格式錯誤")')

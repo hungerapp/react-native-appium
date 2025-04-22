@@ -64,7 +64,7 @@ Feature: Personal Page
     Given I am on the acc setting page
     Then I input empty phone number and get error message
 
-  @regression @invalid_phone_number 
+  @regression @personal_page_invalid_phone_number 
   Scenario: Verify invalid phone number error
     Given I am on the personal page
     When I click settings icon

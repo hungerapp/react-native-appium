@@ -357,35 +357,30 @@ class PersonalPage(CommonUseSection):
   def generate_random_name(self):
     """Generate random name"""
     random_suffix = ''.join(random.choices(string.ascii_letters + string.digits, k=4))
-    return f"Ann{random_suffix}"
+    return f"QAtest{random_suffix}"
 
   def clear_and_input_name(self):
     try:
         time.sleep(2)  
         
-        for locator_strategy, locator_value in self.personal_page_locators.NAME_INPUT:
-            try:
-                name_field = self.driver.find_element(locator_strategy, locator_value)
-                if name_field.is_displayed():
-                    print(f"Found name input field, current text: {name_field.text}") 
-                    
-                    # click input field
-                    name_field.click()
-                    
-                    # clear existing text
-                    name_field.clear()
-                    
-                    # input new text
-                    random_name = self.generate_random_name()
-                    name_field.send_keys(random_name)
-                    
-                    print(f"Successfully input new name: {random_name}")
-                    return random_name
-            except Exception as e:
-                print(f"Failed to locate strategy: {str(e)}")
-                continue
+        name_field = self.driver.find_element(*self.personal_page_locators.NAME_INPUT)
+        if name_field.is_displayed():
+            print(f"Found name input field, current text: {name_field.text}") 
+            
+            # click input field
+            name_field.click()
+            
+            # clear existing text
+            name_field.clear()
+            
+            # input new text
+            random_name = self.generate_random_name()
+            name_field.send_keys(random_name)
+            
+            print(f"Successfully input new name: {random_name}")
+            return random_name
                 
-        raise NoSuchElementException("Not found name input field")
+        raise NoSuchElementException("Name input field is not visible")
         
     except Exception as e:
         print(f"Error inputting name: {str(e)}")
@@ -393,28 +388,25 @@ class PersonalPage(CommonUseSection):
         
   def get_empty_name_error_message(self):
         """Get empty name error message"""
-        for locator_strategy, locator_value in self.personal_page_locators.NAME_INPUT:
-            try:
-                name_field = self.driver.find_element(locator_strategy, locator_value)
-                if name_field.is_displayed():
-                    print(f"Found name input field, current text: {name_field.text}")
-                    
-                    # click input field
-                    name_field.click()
-                    
-                    # clear existing text
-                    name_field.clear()
-                    
-                    error_msg = self.driver.find_element(*self.personal_page_locators.EMPTY_NAME_ERROR_MESSAGE)
-                    assert error_msg.text == " 此欄位為必填。", "Empty name error message is not correct"
-                    return error_msg.text
-                  
-            except Exception as e:
-                print(f"Failed to locate strategy: {str(e)}")
-                continue
+        try:
+            name_field = self.driver.find_element(*self.personal_page_locators.NAME_INPUT)
+            if name_field.is_displayed():
+                print(f"Found name input field, current text: {name_field.text}")
                 
-        raise NoSuchElementException("Not found name input field")
-
+                # click input field
+                name_field.click()
+                
+                # clear existing text
+                name_field.clear()
+                
+                error_msg = self.driver.find_element(*self.personal_page_locators.EMPTY_NAME_ERROR_MESSAGE)
+                assert error_msg.text == " 此欄位為必填。", "Empty name error message is not correct"
+                return error_msg.text
+              
+        except Exception as e:
+            print(f"Failed to locate name input field: {str(e)}")
+            raise
+                
   def _perform_random_swipe(self, start_x, start_y, max_offset=50):
     """執行隨機滑動"""
     try:
@@ -457,7 +449,8 @@ class PersonalPage(CommonUseSection):
         raise
   def get_empty_phone_error_message(self):
         """Get error message"""
-
+        
+        time.sleep(1)
         phone_field = self.driver.find_element(*self.personal_page_locators.PHONE_INPUT_INITIAL)
         phone_field.click()
         phone_field.clear()

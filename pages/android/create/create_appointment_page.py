@@ -294,68 +294,58 @@ class CreateAppointmentPage(CommonUseSection):
             )
             
           
-            time_xpath = '//android.widget.TextView[@text="預約時間"]'
-            time_element = self.driver.find_element(AppiumBy.XPATH, time_xpath)
+            time_element = self.driver.find_element(AppiumBy.ACCESSIBILITY_ID, '預約時間')
+            time_element.click()
             
-            if time_element and time_element.is_displayed():
-                location = time_element.location
-                size = time_element.size
-                click_x = location['x'] + (size['width'] // 2)
-                click_y = location['y'] + (size['height'] // 2)
-                
-                self.driver.tap([(click_x, click_y)], 500)
-                time.sleep(2)
-                
-                # click date block
-                date_block = self.driver.find_element(*self.create_appointment_locators.DATE_BLOCK)  
-                date_block.click()
+            time.sleep(2)
+            
+            # click date block
+            date_block = self.driver.find_element(*self.create_appointment_locators.DATE_BLOCK)  
+            date_block.click()
+            time.sleep(1)
+            
+            # select random date
+            direction = random.choice(['left', 'right'])
+            if direction == 'left':
+                arrow = self.driver.find_element(*self.create_appointment_locators.LEFT_DATE_ARROW)
+            else:
+                arrow = self.driver.find_element(*self.create_appointment_locators.RIGHT_DATE_ARROW)
+            arrow.click()
+            
+            dates = self.driver.find_elements(AppiumBy.XPATH, '//android.view.ViewGroup[@content-desc="一, 二, 三, 四, 五, 六, 日"]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup')
+      
+            random.choice(dates).click()
+            
+            # Control page (left, right, today button)
+
+            today_button = self.driver.find_element(*self.create_appointment_locators.TODAY_TIME_BUTTON)
+            left_arrow = self.driver.find_element(*self.create_appointment_locators.LEFT_TIME_ARROW)
+            right_arrow = self.driver.find_element(*self.create_appointment_locators.RIGHT_TIME_ARROW)
+
+            buttons = [today_button, left_arrow, right_arrow]
+
+
+            random_buttons = random.sample(buttons, 2)
+            for button in random_buttons:
+                button.click()
+                time.sleep(0.5)
+            
+            
+            
+            time_slots = self.driver.find_elements(*self.create_appointment_locators.TIME_SLOTS)
+            if time_slots:
+                random_slot = random.choice(time_slots)
+                random_slot.click()
                 time.sleep(1)
                 
-                # select random date
-                direction = random.choice(['left', 'right'])
-                if direction == 'left':
-                    arrow = self.driver.find_element(*self.create_appointment_locators.LEFT_DATE_ARROW)
-                else:
-                    arrow = self.driver.find_element(*self.create_appointment_locators.RIGHT_DATE_ARROW)
-                arrow.click()
-                
-                dates = self.driver.find_elements(AppiumBy.XPATH, '//android.view.ViewGroup[@content-desc="一, 二, 三, 四, 五, 六, 日"]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup')
-      
-                random.choice(dates).click()
-                
-                # Control page (left, right, today button)
-
-                today_button = self.driver.find_element(*self.create_appointment_locators.TODAY_TIME_BUTTON)
-                left_arrow = self.driver.find_element(*self.create_appointment_locators.LEFT_TIME_ARROW)
-                right_arrow = self.driver.find_element(*self.create_appointment_locators.RIGHT_TIME_ARROW)
-
-                buttons = [today_button, left_arrow, right_arrow]
-
-
-                random_buttons = random.sample(buttons, 2)
-                for button in random_buttons:
-                    button.click()
-                    time.sleep(0.5)
-                
-                
-                
-                time_slots = self.driver.find_elements(*self.create_appointment_locators.TIME_SLOTS)
-                if time_slots:
-                    random_slot = random.choice(time_slots)
-                    random_slot.click()
-                    time.sleep(1)
-                    
-                    save_btn = self.driver.find_element(*self.create_appointment_locators.SAVE_TIME_BTN)
-                    save_btn.click()
-                    try:
-                        self.driver.find_element(*self.create_appointment_locators.SELECT_BUSY_TIME).click()
-                    except:
-                            print("Unable to select time slot")
-                else:
-                    print("No available time slots found")
+                save_btn = self.driver.find_element(*self.create_appointment_locators.SAVE_TIME_BTN)
+                save_btn.click()
+                try:
+                    self.driver.find_element(*self.create_appointment_locators.SELECT_BUSY_TIME).click()
+                except:
+                        print("Unable to select time slot")
             else:
-                print("Time picker element is not visible")
-        
+                print("No available time slots found")
         except Exception as e:
             print(f"Error selecting appointment time: {str(e)}")
         
