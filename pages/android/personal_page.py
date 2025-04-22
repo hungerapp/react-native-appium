@@ -95,6 +95,7 @@ class PersonalPage(CommonUseSection):
             try:
                 element = self.driver.find_element(*branch_info["locator"])
                 if element.is_displayed():
+                    time.sleep(2)
                     element.click()
                     visited_branches.add(branch_info["name"])
                  

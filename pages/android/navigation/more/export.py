@@ -80,10 +80,7 @@ class ExportPage(CommonUseSection):
         
         # click outside to close the date window
         size = self.driver.get_window_size()
-        self.driver.execute_script('mobile: clickGesture', {
-            'x': int(size['width'] * 0.5),  
-            'y': int(size['height'] * 0.9)   
-        })
+        self.tap_at_coordinates(int(size['width'] * 0.5), int(size['height'] * 0.9))
         
         # click save button
         self.driver.find_element(*self.export_locators.SAVE_BUTTON).click()

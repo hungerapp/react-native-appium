@@ -68,6 +68,7 @@ class LoginPage:
           pass
 
   def enter_ver_code(self, ver_code):
+      time.sleep(1)
       self.driver.find_element(*self.login_locators.VER_CODE_INPUT).send_keys(ver_code)
       self.driver.find_element(*self.login_locators.VER_SUBMIT_BUTTON).click()
 
