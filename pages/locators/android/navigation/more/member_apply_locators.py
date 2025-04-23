@@ -37,7 +37,7 @@ class MemberApplyLocators:
       INPUT_PERFORMANCE_AMOUNT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("請輸入業績金額")')
       OTHER_TICKET_TRANSFER_TOGGLE = (AppiumBy.ACCESSIBILITY_ID, '票券轉贈-switch-button')
       ADD_NEW_VOUCHER_SAVE_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("check")')
-      EDIT_GENERAL_VOUCHER_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("pen-to-square").instance(9)')
+      EDIT_GENERAL_VOUCHER_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("pen-to-square").instance(5)')
       DELETE_GENERAL_VOUCHER_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("刪除票券")')
       
       
@@ -62,6 +62,7 @@ class MemberApplyLocators:
       ADD_MEMBERSHIP_GIFT_VOUCHER_BUTTON = (AppiumBy.ACCESSIBILITY_ID, '新增入會禮')
       EDIT_MEMBERSHIP_GIFT_VOUCHER_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("pen-to-square").instance(1)')
       DELETE_MEMBERSHIP_GIFT_VOUCHER_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("刪除票券")')
+      RIGHT_ARROW = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("arrow-right")') 
       
       
       
@@ -117,7 +118,7 @@ class MemberApplyLocators:
       
       
       ######## BONUS POINT RATIO MANAGEMENT ########
-      BONUS_POINTS = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("紅利點數")')
+      BONUS_POINTS = (AppiumBy.ACCESSIBILITY_ID, '紅利點數, 設定結帳時自動發送的比例')
       BONUS_POINT_RATIO_SECTION = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("贈點比例")')
       CHECKOUT_AUTO_SEND_TOGGLE = (AppiumBy.ACCESSIBILITY_ID, '結帳自動贈點-switch-button')
       BONUS_POINT_RATIO_INPUT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("android.widget.EditText")')

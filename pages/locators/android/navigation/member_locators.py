@@ -126,16 +126,16 @@ class Member_Locators:
       }
     
       INPUT_AMOUNT = {
-        'min_cost_amount': (AppiumBy.XPATH, '(//android.widget.EditText[@text="最小值"])[1]'),
-        'max_cost_amount': (AppiumBy.XPATH, '(//android.widget.EditText[@text="最大值"])[1]'),
-        'min_come_amount': (AppiumBy.XPATH, '(//android.widget.EditText[@text="最小值"])[2]'),
-        'max_come_amount': (AppiumBy.XPATH, '(//android.widget.EditText[@text="最大值"])[2]'),
-        'min_top_up_remaining': (AppiumBy.XPATH, '(//android.widget.EditText[@text="最小值"])[3]'),
-        'max_top_up_remaining': (AppiumBy.XPATH, '(//android.widget.EditText[@text="最大值"])[3]'),
-        'min_join_date': (AppiumBy.XPATH, '(//android.widget.EditText[@text="最小值"])[4]'),
-        'max_join_date': (AppiumBy.XPATH, '(//android.widget.EditText[@text="最大值"])[4]'),
-        'min_last_visit_date': (AppiumBy.XPATH, '(//android.widget.EditText[@text="最小值"])[5]'),
-        'max_last_visit_date': (AppiumBy.XPATH, '(//android.widget.EditText[@text="最大值"])[5]'),
+        'min_cost_amount': (AppiumBy.XPATH, '(//android.widget.EditText[@content-desc="undefined-text-input"])[1]'),
+        'max_cost_amount': (AppiumBy.XPATH, '(//android.widget.EditText[@content-desc="undefined-text-input"])[2]'),
+        'min_come_amount': (AppiumBy.XPATH, '(//android.widget.EditText[@content-desc="undefined-text-input"])[3]'),
+        'max_come_amount': (AppiumBy.XPATH, '(//android.widget.EditText[@content-desc="undefined-text-input"])[4]'),
+        'min_top_up_remaining': (AppiumBy.XPATH, '(//android.widget.EditText[@content-desc="undefined-text-input"])[5]'),
+        'max_top_up_remaining': (AppiumBy.XPATH, '(//android.widget.EditText[@content-desc="undefined-text-input"])[6]'),
+        'min_join_date': (AppiumBy.XPATH, '(//android.widget.EditText[@content-desc="undefined-text-input"])[7]'),
+        'max_join_date': (AppiumBy.XPATH, '(//android.widget.EditText[@content-desc="undefined-text-input"])[8]'),
+        'min_last_visit_date': (AppiumBy.XPATH, '(//android.widget.EditText[@content-desc="undefined-text-input"])[9]'),
+        'max_last_visit_date': (AppiumBy.XPATH, '(//android.widget.EditText[@content-desc="undefined-text-input"])[10]'),
       }
     
       # Cost amount menu
@@ -147,7 +147,9 @@ class Member_Locators:
       FILTER_BUTTON = (AppiumBy.ACCESSIBILITY_ID, '進行篩選')
       RESET_BUTTON = (AppiumBy.ACCESSIBILITY_ID, '重置條件')
     
-    
+      MEMBER_FILTER_BACK_TO_FILTER_MODAL_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("xmark").instance(2)')
+      MEMBER_FILTER_BACK_TO_MEMBER_PAGE_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("xmark").instance(1)')
+      
       # Search elements
       SEARCH_ELEMENTS = {
         'input': (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("搜尋")'),
@@ -255,10 +257,13 @@ class Member_Locators:
       FOURTH_QUESTION_INPUT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("簡答 / 選填 / 僅商家可見-textarea-field").instance(1)')
       FRIEND_INPUT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("自動化測試")')
       MEMBER_DESCRIPTION_INPUT = (AppiumBy.ACCESSIBILITY_ID, '會員描述-textarea-field')
-      MODAL_SAVE_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(1)')
+      TEMPLATE_CONTENT_MODAL_SAVE_BUTTON = (AppiumBy.ACCESSIBILITY_ID, 'circle-check')
       CUSTOM_MODAL_SAVE_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("check").instance(0)')
-      MEMBER_DESCRIPTION_MODAL_SAVE_BUTTON = (AppiumBy.ACCESSIBILITY_ID, 'check')
-      
+      MEMBER_DESCRIPTION_MODAL_SAVE_BUTTON = (AppiumBy.ACCESSIBILITY_ID, 'circle-check')
+      GIVE_US_FEEDBACK_MODAL_SAVE_BUTTON = (AppiumBy.ACCESSIBILITY_ID, 'circle-check')
+      FOURTH_QUESTION_MODAL_SAVE_BUTTON = (AppiumBy.ACCESSIBILITY_ID, 'circle-check')
+      MEMBER_DESCRIPTION_SAVE_BUTTON = (AppiumBy.ACCESSIBILITY_ID, 'check')
+      LINK_ACCOUNT_MESSAGE_MODAL_SAVE_BUTTON = (AppiumBy.ACCESSIBILITY_ID, 'circle-check')
 
 
       SINGLE_CHOICE = ['checkbox-single-option-0', 'checkbox-single-option-1', 'checkbox-single-option-2']
@@ -302,7 +307,6 @@ class Member_Locators:
       SEND_LINE_MESSAGE_BTN = (AppiumBy.ACCESSIBILITY_ID, '發送 LINE 訊息')
       INPUT_MESSAGE_CONTENT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("請輸入訊息內容")')
       INPUT_MODAL = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("輸入內容")')
-      MODAL_SAVE_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(1)')
       USE_MESSAGE_TEMPLATE = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("使用訊息範本")')
       MANAGE_MESSAGE_TEMPLATE = (AppiumBy.ACCESSIBILITY_ID, '管理訊息範本')
       ADD_NEW_MESSAGE_TEMPLATE_BUTTON = (AppiumBy.ACCESSIBILITY_ID, '新增訊息範本')

@@ -5,6 +5,8 @@ import subprocess
 import time
 import allure
 
+from screenshot_hooks import pytest_runtest_makereport 
+
 from dotenv import load_dotenv
 
 # load .env file
@@ -28,6 +30,7 @@ def driver():
 
 def pytest_configure(config):
     """Configure test collection and markers"""
+    logger.info("Configuring pytest")
     config.addinivalue_line("markers", "onboarding: Mark test as onboarding")
     config.addinivalue_line("markers", "login: login related tests run on port 4723")
     config.addinivalue_line("markers", "personal: personal related tests run on 4724")
@@ -37,7 +40,7 @@ def pytest_configure(config):
     
     if not config.args:
         platform = os.getenv('APPIUM_OS', 'android').lower()
-        print(f"Configuring test collection for platform: {platform}")
+        logger.info(f"Configuring test collection for platform: {platform}")
         
         if platform == 'ios':
             config.args = ['tests/steps/ios']
@@ -55,7 +58,7 @@ def pytest_bdd_apply_tag(tag, function):
 def pytest_collection_modifyitems(items):
     """Filter tests based on the platform specified in .env"""
     platform = os.getenv('APPIUM_OS', 'android').lower()
-    print(f"Running tests for platform: {platform}")
+    logger.info(f"Running tests for platform: {platform}")
     
     filtered_items = []
     for item in items:
@@ -66,7 +69,7 @@ def pytest_collection_modifyitems(items):
             filtered_items.append(item)
     
     items[:] = filtered_items
-    print(f"Filtered test count: {len(filtered_items)}")
+    logger.info(f"Filtered test count: {len(filtered_items)}")
 
 def pytest_sessionfinish(session):
     """
@@ -162,41 +165,6 @@ def pytest_sessionfinish(session):
         print(f"Error processing and sending report: {str(e)}")
         import traceback
         print(traceback.format_exc())
-
-@pytest.hookimpl(tryfirst=True, hookwrapper=True)
-def pytest_runtest_makereport(item, call):
-    """Hook to capture test results."""
-    outcome = yield
-    rep = outcome.get_result()
-    setattr(item, f"rep_{rep.when}", rep)
-
-    if rep.when == "call" and rep.failed:
-        try:
-            driver = item.funcargs.get('driver')
-            if driver is not None:
-                # make sure the artifacts/screenshots directory exists
-                os.makedirs('artifacts/screenshots', exist_ok=True)
-                
-                # generate the screenshot file name
-                timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-                screenshot_path = f"artifacts/screenshots/{item.name}_{timestamp}.png"
-                
-                # save the screenshot to the file
-                driver.save_screenshot(screenshot_path)
-                print(f"Screenshot saved to: {screenshot_path}")
-                
-                # if you want to display the screenshot in the Allure report, uncomment the following code
-                # screenshot = driver.get_screenshot_as_png()
-                # if screenshot:
-                #     allure.attach(
-                #         screenshot,
-                #         name=f"screenshot_{item.name}",
-                #         attachment_type=allure.attachment_type.PNG
-                #     )
-            else:
-                print(f"No driver instance found for test: {item.name}")
-        except Exception as e:
-            print(f"Failed to take screenshot: {str(e)}")
 
 @pytest.fixture(autouse=True)        
 def clean_app_state(request):

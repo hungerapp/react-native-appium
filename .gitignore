@@ -170,3 +170,9 @@ allure-report/
 
 # screen recording
 screen_records/
+
+# screenshot
+screenshots/
+
+# test execution log
+test_execution.log

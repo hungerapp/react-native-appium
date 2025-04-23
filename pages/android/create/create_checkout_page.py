@@ -143,6 +143,7 @@ class CreateCheckoutPage(CommonUseSection):
         search_input = self.driver.find_element(*self.create_checkout_locators.MEMBER_SEARCH)
         search_input.click()
         search_input.send_keys(phone_number)
+        self.click_search_result()
     
         
     def click_search_result(self):
@@ -307,8 +308,8 @@ class CreateCheckoutPage(CommonUseSection):
         time.sleep(0.5)
         
     def adjust_sales_performance(self):
-        self.driver.find_element(*self.create_checkout_locators.SALES_PERFORMANCE).click()
         time.sleep(1)
+        self.driver.find_element(*self.create_checkout_locators.SALES_PERFORMANCE).click()
         self.change_performance_posting_date()
         self.select_sales_owner(is_performance_change=True)
         self.change_total_sales_performance()

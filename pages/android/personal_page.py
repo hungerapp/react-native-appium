@@ -376,9 +376,12 @@ class PersonalPage(CommonUseSection):
             time.sleep(2)
             name_field.send_keys(random_name)
             
+            # hide keyboard after input
+            self.driver.hide_keyboard()
+            
             print(f"Successfully input new name: {random_name}")
             return random_name
-                
+            
         raise NoSuchElementException("Name input field is not visible")
         
     except Exception as e:

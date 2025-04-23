@@ -96,7 +96,7 @@ class CommonUseSection:
     ADD_NEW_MEMBER_CHOOSE_DATE_FIELD = (AppiumBy.ACCESSIBILITY_ID, '生日, 選填, 請選擇')
     MEMBER_DESCRIPTION_INPUT = (AppiumBy.ACCESSIBILITY_ID, '會員描述-textarea-field')
     MEMBER_DESCRIPTION_MODAL_INPUT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("輸入內容")')
-    MEMBER_DESCRIPTION_MODAL_SAVE_BUTTON = (AppiumBy.XPATH, '(//com.horcrux.svg.SvgView)[2]')
+    MEMBER_DESCRIPTION_MODAL_SAVE_BUTTON = (AppiumBy.ACCESSIBILITY_ID, 'circle-check')
     ADD_NEW_MEMBER_TOGGLE = (AppiumBy.ACCESSIBILITY_ID, '是否加入黑名單-switch-button')
    
     SAVE_NEW_MEMBER_BUTTON = (AppiumBy.ACCESSIBILITY_ID, 'check')

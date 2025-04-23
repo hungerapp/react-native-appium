@@ -30,7 +30,7 @@ class CreateCheckoutLocators:
       NON_SELECTED_MEMBER_SECTION = (AppiumBy.ACCESSIBILITY_ID, '尚未選擇會員')
       CLEAR_INPUT_SEARCH = (AppiumBy.ACCESSIBILITY_ID, 'undefined-text-input')
       MEMBER_SEARCH = (AppiumBy.ACCESSIBILITY_ID, 'undefined-text-input')
-      MEMBER_SEARCH_RESULT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().descriptionContains("972 205690")')
+      MEMBER_SEARCH_RESULT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("+886 972 205690")')
       MEMBER_SEARCH_NOT_FOUND = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("查無資料")')
       ADD_MEMBER_BUTTON = (AppiumBy.ACCESSIBILITY_ID, 'user-plus')
       DELETE_MEMBER_BUTTON = (AppiumBy.ACCESSIBILITY_ID, 'trash-can')
@@ -45,7 +45,7 @@ class CreateCheckoutLocators:
       }
       COMMON_BUTTONS = {
         'clear': (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("清除")'),
-        'confirm': (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(1)')
+        'confirm': (AppiumBy.ACCESSIBILITY_ID, 'circle-check')
       }
       PAYMENT_ERROR_MESSAGE = lambda self, is_above: (
         AppiumBy.ANDROID_UIAUTOMATOR,
@@ -60,9 +60,9 @@ class CreateCheckoutLocators:
       CHECKOUT_SECTION = {
        'record_content': (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("請輸入內容")'),
        'content_input': (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("輸入內容")'),
-       'save_button': (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(1)'),
+       'save_button': (AppiumBy.ACCESSIBILITY_ID, 'circle-check'),
        'clear_button': (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("清除")'),
-       'cancel_button': (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(0)'),
+       'cancel_button': (AppiumBy.ACCESSIBILITY_ID, '結帳記錄（僅商家可見）-close-button'),
        'window_leave_button': (AppiumBy.ACCESSIBILITY_ID, '離開')
       }
       CANCEL_RECORD = (AppiumBy.XPATH, "//android.view.View[@content-desc='取消']")

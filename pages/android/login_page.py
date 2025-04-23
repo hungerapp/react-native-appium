@@ -27,9 +27,13 @@ class LoginPage:
       #driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value='開始使用').click()
       
   def click_contact_cs_button(self):
+      time.sleep(1)
       self.driver.find_element(*self.login_locators.CONTACT_CS_BUTTON).click()
       time.sleep(1)
-      self.driver.back()
+      try:
+          self.driver.find_element(*self.login_locators.CONTACT_CS_BACK_BUTTON).click()
+      except:
+          self.driver.back()
 
       
   def click_terms_and_conditions_button(self):

@@ -60,9 +60,9 @@ class AllowAppointmentPage():
         self.driver.find_element(*self.open_appointment_locators.LATEST_RESERVATION_TIME).click()
         time.sleep(0.5)
         
+        time.sleep(1)
         latest_reservation_time_option = random.choice(self.open_appointment_locators.LATEST_RESERVATION_TIME_OPTION)
         self.driver.find_element(*latest_reservation_time_option).click()
-        time.sleep(1)
         
         return self
     
@@ -86,8 +86,8 @@ class AllowAppointmentPage():
     
     ##### OPEN TIME MANAGEMENT #####
     def click_open_time_tab(self):
+        time.sleep(1)
         self.driver.find_element(*self.open_appointment_locators.OPEN_TIME_TAB).click()
-        time.sleep(0.5)
         
         return self
     
@@ -190,7 +190,7 @@ class AllowAppointmentPage():
         
             # click end date block
             self.driver.find_element(*self.open_appointment_locators.END_DATE_BLOCK).click()
-            time.sleep(1)
+            time.sleep(2)
         
             # click right arrow multiple times
             clicks = random.randint(1, 5)
@@ -199,7 +199,7 @@ class AllowAppointmentPage():
                 time.sleep(0.5)
             
             # click end date again
-            time.sleep(1.5)
+            time.sleep(2)
             random.choice(dates).click()
         
             # click outside to close the date window
@@ -225,7 +225,7 @@ class AllowAppointmentPage():
         else:
             self.driver.find_element(*self.open_appointment_locators.CONFIRM_BUTTON).click()
         
-        time.sleep(1)
+        time.sleep(2)
         self.driver.find_element(*self.open_appointment_locators.EDIT_OPEN_TIME_CLOSE_BUTTON).click()
         return self
     

@@ -3,6 +3,10 @@ import random
 import string
 
 from appium.webdriver.common.appiumby import AppiumBy
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.actions import interaction
+from selenium.webdriver.common.actions.action_builder import ActionBuilder
+from selenium.webdriver.common.actions.pointer_input import PointerInput
 
 from pages.locators.android.navigation.more.member_apply_locators import MemberApplyLocators
 from pages.shared_components.common_use import CommonUseSection
@@ -18,23 +22,23 @@ class MemberApplyPage(CommonUseSection):
         return self
 
     def tap_voucher_management(self):
+        time.sleep(1)
         self.driver.find_element(*self.member_apply_locators.VOUCHER_MANAGEMENT).click()
-        time.sleep(0.5)
         return self
 
     def switch_to_bonus_point_tab(self):
+        time.sleep(1)
         self.driver.find_element(*self.member_apply_locators.BONUS_POINT_TAB).click()
-        time.sleep(0.5)
         return self
 
     def switch_to_membership_gift_tab(self):
+        time.sleep(1)
         self.driver.find_element(*self.member_apply_locators.MEMBERSHIP_GIFT_TAB).click()
-        time.sleep(0.5)
         return self
 
     def switch_to_birthday_gift_tab(self):
+        time.sleep(1)
         self.driver.find_element(*self.member_apply_locators.BIRTHDAY_GIFT_TAB).click()
-        time.sleep(0.5)
         return self
 
     def add_general_voucher(self):
@@ -99,6 +103,10 @@ class MemberApplyPage(CommonUseSection):
         time.sleep(1)
         
     def usage_period_section(self):
+        # scroll to the bottom of the page to continue doing the next step
+        self.driver.swipe(start_x=500, start_y=1800, end_x=500, end_y=300, duration=800)
+        time.sleep(1)
+        
         # usage period section
         self.driver.find_element(*self.member_apply_locators.USAGE_PERIOD).click()
         
@@ -117,9 +125,13 @@ class MemberApplyPage(CommonUseSection):
         else:
             self.driver.find_element(*self.member_apply_locators.USAGE_PERIOD_CHOOSE_TIME).click()
             time.sleep(1)
-            self.choose_date()
+            self.add_gift_voucher_choose_date()
             
     def performance_setting_section(self):
+        # scroll to the bottom of the page to find the created voucher
+        self.driver.swipe(start_x=500, start_y=2000, end_x=500, end_y=200, duration=800)
+        time.sleep(1)
+        
         # performance setting section
         self.driver.find_element(*self.member_apply_locators.INCLUDE_PERFORMANCE_TOGGLE).click()
         time.sleep(0.5)
@@ -128,6 +140,10 @@ class MemberApplyPage(CommonUseSection):
         self.driver.find_element(*self.member_apply_locators.INPUT_PERFORMANCE_AMOUNT).send_keys(performance_amount)
 
     def other_section(self):
+        # scroll to the bottom of the page to find the created voucher
+        self.driver.swipe(start_x=500, start_y=2000, end_x=500, end_y=200, duration=800)
+        time.sleep(1)
+        
         # other section
         self.driver.find_element(*self.member_apply_locators.OTHER_TICKET_TRANSFER_TOGGLE).click()
         time.sleep(0.5)
@@ -166,8 +182,8 @@ class MemberApplyPage(CommonUseSection):
         return self
 
     def add_bonus_point_voucher(self):
+        time.sleep(1)
         self.driver.find_element(*self.member_apply_locators.ADD_BONUS_POINT_VOUCHER_BUTTON).click()
-        time.sleep(0.5)
         
         # open to change toggle
         self.driver.find_element(*self.member_apply_locators.OPEN_TO_CHANGE_TOGGLE).click()
@@ -238,8 +254,8 @@ class MemberApplyPage(CommonUseSection):
       
       
     def add_membership_gift_voucher(self):
+        time.sleep(1)
         self.driver.find_element(*self.member_apply_locators.ADD_MEMBERSHIP_GIFT_VOUCHER_BUTTON).click()
-        time.sleep(0.5)
         
         
         # enter membership gift title
@@ -268,9 +284,11 @@ class MemberApplyPage(CommonUseSection):
         time.sleep(1)
         
         # other section
+        time.sleep(0.5)
         self.other_section()
         
         # performance setting section
+        time.sleep(0.5)
         self.performance_setting_section()
         
         # save button
@@ -306,8 +324,8 @@ class MemberApplyPage(CommonUseSection):
       
       
     def add_birthday_gift_voucher(self):
+        time.sleep(1)
         self.driver.find_element(*self.member_apply_locators.ADD_BIRTHDAY_GIFT_VOUCHER_BUTTON).click()
-        time.sleep(0.5)
         
         # enter birthday gift title
         birthday_gift_title = ''.join(random.choices(string.ascii_letters + string.digits + "!@#$%^&*()_+", k=5)) + "自動化測試"
@@ -375,12 +393,12 @@ class MemberApplyPage(CommonUseSection):
 ####### DOCUMENT MANAGEMENT #######
 
     def tap_document_management(self):
+        time.sleep(1)
         self.driver.find_element(*self.member_apply_locators.DOCUMENT_MANAGEMENT).click()
-        time.sleep(0.5)
         return self
     
     def add_document(self):
-        time.sleep(0.5)
+        time.sleep(2)
         self.driver.find_element(*self.member_apply_locators.ADD_DOCUMENT_BUTTON).click()
         
         # member auto sign toggle
@@ -542,8 +560,8 @@ class MemberApplyPage(CommonUseSection):
 ####### BONUS POINT RATIO MANAGEMENT #######
 
     def tap_bonus_points(self):
+        time.sleep(2)
         self.driver.find_element(*self.member_apply_locators.BONUS_POINTS).click()
-        time.sleep(0.5)
         return self
 
     def set_bonus_point_ratio(self):
@@ -566,13 +584,13 @@ class MemberApplyPage(CommonUseSection):
 ####### CUSTOM MEMBERSHIP REGISTRATION #######
 
     def tap_custom_membership_registration_fields(self):
+        time.sleep(1)
         self.driver.find_element(*self.member_apply_locators.CUSTOM_MEMBERSHIP_REGISTRATION_FIELDS).click()
-        time.sleep(0.5)
         return self
     
     def add_new_field(self):
-        self.driver.find_element(*self.member_apply_locators.ADD_NEW_FIELD_BUTTON).click()
         time.sleep(0.5)
+        self.driver.find_element(*self.member_apply_locators.ADD_NEW_FIELD_BUTTON).click()
         
         # open to member input toggle
         self.driver.find_element(*self.member_apply_locators.MEMBER_INPUT_TOGGLE).click()
@@ -592,8 +610,8 @@ class MemberApplyPage(CommonUseSection):
         
     
     def edit_and_delete_field(self):
-        self.driver.find_element(*self.member_apply_locators.EDIT_FIELD_BUTTON).click()
         time.sleep(0.5)
+        self.driver.find_element(*self.member_apply_locators.EDIT_FIELD_BUTTON).click()
         
         # click open to member input toggle
         self.driver.find_element(*self.member_apply_locators.MEMBER_INPUT_TOGGLE).click()
@@ -618,6 +636,30 @@ class MemberApplyPage(CommonUseSection):
         time.sleep(0.5)
         return self
         
+    def add_gift_voucher_choose_date(self):
+        # click right arrow multiple times
+        clicks = random.randint(1, 5)
+        for _ in range(clicks):
+            self.driver.find_element(*self.member_apply_locators.RIGHT_ARROW).click()
+            time.sleep(0.5)
+    
+        dates = self.driver.find_elements(AppiumBy.XPATH, '//android.view.ViewGroup[@content-desc="一, 二, 三, 四, 五, 六, 日"]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup')
+    
+        random.choice(dates).click()
+    
+        # click outside to close the date window
+        size = self.driver.get_window_size()
+        x = int(size['width'] * 0.5)
+        y = int(size['height'] * 0.9)
+        
+        # 使用 W3C Actions API 進行點擊
+        actions = ActionChains(self.driver)
+        actions.w3c_actions = ActionBuilder(self.driver, mouse=PointerInput(interaction.POINTER_TOUCH, "touch"))
+        actions.w3c_actions.pointer_action.move_to_location(x, y)
+        actions.w3c_actions.pointer_action.pointer_down()
+        actions.w3c_actions.pointer_action.pause(0.1)
+        actions.w3c_actions.pointer_action.release()
+        actions.perform()
         
         
         

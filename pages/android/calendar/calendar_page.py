@@ -14,8 +14,8 @@ class CalendarPage:
 
     
     def open_month_selection(self):
-        self.driver.find_element(*self.calendar_locators.DATE_SELECTOR).click()
         time.sleep(2)
+        self.driver.find_element(*self.calendar_locators.DATE_SELECTOR).click()
 
     def change_month_display_mode(self):
         clicks_arrow = random.randint(1, 4)

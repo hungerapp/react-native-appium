@@ -24,7 +24,7 @@ TEST_VER = '5556666'
 TEST_INVALID_VER = '123456'
 
 
-# Scenario: Select language
+# Scenario: Select language and click contact cs
 @allure.feature('Select Language and click contact cs')
 @allure.story('Select Language and click contact cs')
 @pytest.mark.run(order=2)
@@ -33,25 +33,23 @@ TEST_INVALID_VER = '123456'
 def login_page_loaded(driver):
     #driver.execute_script('mobile: alert', {'action': 'accept', 'buttonLabel': 'Allow'})
     assert driver is not None, "App failed to launch"
+    
+@then('I can see the login page displayed')
+def continue_to_login_page(driver):
+    login_page = LoginPage(driver)
+    login_page.continue_to_login_page()
 
-@when('I select my language and click sure button')
+@then('I can select my language and click sure button')
 def select_language(driver):
     login_page = LoginPage(driver)
     login_page.select_language()
     
-@then('I can save the language setting and continue to the login page')
-def continue_to_login_page(driver):
-    login_page = LoginPage(driver)
-    login_page.continue_to_login_page()
     
-@when('I click contact cs button')
+@then('I can click contact cs button and go back to the login page')
 def click_contact_cs_button(driver):
     login_page = LoginPage(driver)
     login_page.click_contact_cs_button()
     
-@then('I can see the contact cs page')
-def verify_contact_cs_page(driver):
-    pass
     
     
     

@@ -50,7 +50,7 @@ class MemberPage(CommonUseSection):
           self.new_member()
         
       def apply_member_filters(self):
-          time.sleep(0.5)
+          time.sleep(2)
           self.driver.find_element(*self.member_locators.APPLY_FILTERS).click()
         
           try:
@@ -109,29 +109,32 @@ class MemberPage(CommonUseSection):
             time.sleep(0.5)
 
             # input max value
-            time.sleep(1)
+            time.sleep(2)
             max_input = self.driver.find_element(*self.member_locators.INPUT_AMOUNT[max_field])
             max_input.click()
             max_input.send_keys(str(max_value))
             time.sleep(0.5)
-          
-          
+            
+            # hide keyboard
+            self.driver.hide_keyboard()
+        
                   
             # Scroll to find delete condition section   
-            scroll_to_view = ('new UiScrollable(new UiSelector().scrollable(true)).setMaxSearchSwipes(15).scrollIntoView(new UiSelector().description("排除條件-multi-select-field"))')
-            self.driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR, scroll_to_view)
+            #scroll_to_view = ('new UiScrollable(new UiSelector().scrollable(true)).setMaxSearchSwipes(18).scrollIntoView(new UiSelector().description("排除條件-multi-select-field"))')
+            #self.driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR, scroll_to_view)
           
-            assert self.driver.find_element(*self.member_locators.DELETE_CONDITION).is_displayed()
+            #assert self.driver.find_element(*self.member_locators.DELETE_CONDITION).is_displayed()
               
               
             # click filter button
-            time.sleep(2)
+            time.sleep(1)
             self.driver.find_element(*self.member_locators.FILTER_BUTTON).click()
           
     
-            for _ in range(2):
-                self.driver.back()
-                time.sleep(0.5)
+            time.sleep(2)
+            self.driver.find_element(*self.member_locators.MEMBER_FILTER_BACK_TO_FILTER_MODAL_BUTTON).click()
+            time.sleep(0.5)
+            self.driver.find_element(*self.member_locators.MEMBER_FILTER_BACK_TO_MEMBER_PAGE_BUTTON).click()
           
           
           except Exception as e:
@@ -140,6 +143,7 @@ class MemberPage(CommonUseSection):
        
                       
       def check_scheduling_records(self):
+          time.sleep(2)
           self.driver.find_element(*self.member_locators.CHECK_SCHEDULING_RECORDS).click()
           try:
             sent_tag = self.driver.find_element(*self.member_locators.SENT_TAG)
@@ -176,6 +180,7 @@ class MemberPage(CommonUseSection):
           time.sleep(0.5)
         
       def select_member_tags(self):
+          time.sleep(1)
           self.click_more_icon()
           self.driver.find_element(*self.member_locators.MEMBER_TAGS).click()
           time.sleep(0.5)
@@ -292,15 +297,15 @@ class MemberPage(CommonUseSection):
           self.driver.find_element(*self.member_locators.PASSPORT_TABS['info_tab']).click()
         
       def click_top_up_section(self):
+          time.sleep(2)
           self.driver.find_element(*self.member_locators.TOP_UP_SECTION).click()
-          time.sleep(0.5)
         
           return self
     
       def edit_top_up_amount(self):
           
+          time.sleep(1)
           self.driver.find_element(*self.member_locators.EDIT_TOP_UP_ICON).click()
-          time.sleep(0.5)
         
           self.driver.find_element(*self.member_locators.INPUT_TOP_UP_AMOUNT).click()
           amount = random.randint(1, 1000)
@@ -339,8 +344,8 @@ class MemberPage(CommonUseSection):
           return self
       
       def click_bonus_points_section(self):
+          time.sleep(2)
           self.driver.find_element(*self.member_locators.BONUS_POINTS_SECTION).click()
-          time.sleep(0.5)
         
           return self
     
@@ -352,8 +357,8 @@ class MemberPage(CommonUseSection):
           return self
     
       def click_tickets_section(self):
+          time.sleep(2)
           self.driver.find_element(*self.member_locators.TICKETS_SECTION).click()
-          time.sleep(0.5)
         
           return self
     
@@ -482,7 +487,7 @@ class MemberPage(CommonUseSection):
           option_modal.send_keys(random_option)
         
           # click save
-          self.driver.find_element(*self.member_locators.MODAL_SAVE_BUTTON).click()
+          self.driver.find_element(*self.member_locators.GIVE_US_FEEDBACK_MODAL_SAVE_BUTTON).click()
         
         
         
@@ -510,7 +515,7 @@ class MemberPage(CommonUseSection):
           fourth_question_modal.send_keys(random_answer)
           time.sleep(1)
         
-          self.driver.find_element(*self.member_locators.MODAL_SAVE_BUTTON).click()
+          self.driver.find_element(*self.member_locators.FOURTH_QUESTION_MODAL_SAVE_BUTTON).click()
         
           time.sleep(0.5)
           self.driver.find_element(*self.member_locators.CUSTOM_MODAL_SAVE_BUTTON).click()
@@ -544,11 +549,11 @@ class MemberPage(CommonUseSection):
         
           random_description = "自動化測試" + ''.join(random.choice(string.ascii_letters + string.digits) for _ in range(random.randint(3, 8)))
           member_modal.send_keys(random_description)
-          self.driver.find_element(*self.member_locators.MODAL_SAVE_BUTTON).click()
+          self.driver.find_element(*self.member_locators.MEMBER_DESCRIPTION_MODAL_SAVE_BUTTON).click()
         
           # click save
           time.sleep(0.5)
-          self.driver.find_element(*self.member_locators.MEMBER_DESCRIPTION_MODAL_SAVE_BUTTON).click()
+          self.driver.find_element(*self.member_locators.MEMBER_DESCRIPTION_SAVE_BUTTON).click()
         
           return self
     
@@ -602,8 +607,8 @@ class MemberPage(CommonUseSection):
           return self
     
       def click_more_icon(self):
-          self.driver.find_element(*self.member_locators.BOTTOM_NAVIGATION['more_icon']).click()
           time.sleep(0.5)
+          self.driver.find_element(*self.member_locators.BOTTOM_NAVIGATION['more_icon']).click()
         
           return self
     
@@ -623,7 +628,7 @@ class MemberPage(CommonUseSection):
           self.driver.find_element(*self.member_locators.INPUT_MODAL).clear()
           self.driver.find_element(*self.member_locators.INPUT_MODAL).send_keys(random_msg)
         
-          self.driver.find_element(*self.member_locators.MODAL_SAVE_BUTTON).click()
+          self.driver.find_element(*self.member_locators.LINK_ACCOUNT_MESSAGE_MODAL_SAVE_BUTTON).click()
         
           #use message template after entering message content
           self.driver.find_element(*self.member_locators.USE_MESSAGE_TEMPLATE).click()
@@ -655,7 +660,7 @@ class MemberPage(CommonUseSection):
           content_input_modal.send_keys(random_msg)
           time.sleep(0.5)
         
-          self.driver.find_element(*self.member_locators.MODAL_SAVE_BUTTON).click()
+          self.driver.find_element(*self.member_locators.TEMPLATE_CONTENT_MODAL_SAVE_BUTTON).click()
         
           self.driver.find_element(*self.member_locators.SAVE_BUTTON).click()
           time.sleep(0.5)

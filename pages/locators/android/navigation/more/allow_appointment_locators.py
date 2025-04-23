@@ -34,9 +34,11 @@ class AllowAppointmentLocators:
     LATEST_RESERVATION_TIME_OPTION = [
       (AppiumBy.ACCESSIBILITY_ID, "不限制 (0分鐘前)"),
       (AppiumBy.ACCESSIBILITY_ID, "30分鐘前"),
-      (AppiumBy.ACCESSIBILITY_ID, "1天前 (當天不開放預約)"),
-      (AppiumBy.ACCESSIBILITY_ID, "2天前"),
-      (AppiumBy.ACCESSIBILITY_ID, "1週前"),
+      (AppiumBy.ACCESSIBILITY_ID, "60分鐘前"),
+      (AppiumBy.ACCESSIBILITY_ID, "90分鐘前"),
+      (AppiumBy.ACCESSIBILITY_ID, "120分鐘前"),
+      (AppiumBy.ACCESSIBILITY_ID, "180分鐘前"),
+      (AppiumBy.ACCESSIBILITY_ID, "1天前 (當天不開放預約)")
     ]
     
     # expand advanced settings
@@ -83,7 +85,7 @@ class AllowAppointmentLocators:
     
     START_SECTION = (AppiumBy.ACCESSIBILITY_ID, '從')
     END_DATE_BLOCK = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("結束日期")')
-    RIGHT_ARROW = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("arrow-right")')
+    RIGHT_ARROW = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("arrow-right").instance(1)')
     
     # save button
     SAVE_BUTTON = (AppiumBy.ACCESSIBILITY_ID, 'check')
