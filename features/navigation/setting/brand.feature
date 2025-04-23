@@ -78,5 +78,7 @@ Feature: Brand Management in Branch Settings
         And I tap on the confirm button
         Then I should see the Branch Settings page
 
+        # TODO: Add Subscription Plan Management
+
 
 
