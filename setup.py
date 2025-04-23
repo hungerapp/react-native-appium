@@ -26,11 +26,9 @@ if is_ci:
         'projectName': config.get('BROWSERSTACK_PROJECT_NAME', 'App E2E Tests'),
         'buildName': config.get('BROWSERSTACK_BUILD_NAME', 'GitHub Actions Build'),
         'sessionName': config.get('BROWSERSTACK_SESSION_NAME', 'E2E Test Session'),
-        'deviceName': config.get('BROWSERSTACK_DEVICE_NAME', 'Google Pixel 7'),
-        'osVersion': config.get('BROWSERSTACK_OS_VERSION', '13.0'),
+        'deviceName': config.get('BROWSERSTACK_DEVICE_NAME', 'Google Pixel 8'),
+        'osVersion': config.get('BROWSERSTACK_OS_VERSION', '14.0'),
         'interactiveDebugging': True,
-        'disableWindowAnimation': True,
-        'uiautomator2ServerInstallTimeout': 60000,
     }
 
     if platform == 'android':
@@ -40,6 +38,8 @@ if is_ci:
         options.app = config.get('BROWSERSTACK_APP_ID')
         options.set_capability('autoGrantPermissions', True) 
         options.set_capability('bstack:options', browserstack_options)
+        options.set_capability('disableWindowAnimation', True)
+        options.set_capability('uiautomator2ServerInstallTimeout', 60000)
     else:  # iOS
         options = XCUITestOptions()
         options.platform_name = 'iOS'
@@ -49,6 +49,8 @@ if is_ci:
         options.app = config.get('BROWSERSTACK_APP_ID')
         options.set_capability('autoAcceptAlerts', True) 
         options.set_capability('bstack:options', browserstack_options)
+        options.set_capability('disableWindowAnimation', True)
+        options.set_capability('simulatorStartupTimeout', 60000)
     appium_server_url = config.get('BROWSERSTACK_HUB_URL', 'https://hub-cloud.browserstack.com/wd/hub')
 else:
     # 本地配置
