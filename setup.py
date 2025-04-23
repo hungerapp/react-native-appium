@@ -29,7 +29,7 @@ if is_ci:
         'sessionName': config.get('BROWSERSTACK_SESSION_NAME', 'E2E Test Session'),
         'deviceName': config.get('BROWSERSTACK_DEVICE_NAME', 'Google Pixel 9'),
         'osVersion': config.get('BROWSERSTACK_OS_VERSION', '15.0'),
-        'interactiveDebugging': True,
+        'interactiveDebugging': True
     }
 
     if platform == 'android':
