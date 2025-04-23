@@ -66,8 +66,8 @@ jobs:
           BROWSERSTACK_USERNAME=${{ secrets.BROWSERSTACK_USERNAME }}
           BROWSERSTACK_ACCESS_KEY=${{ secrets.BROWSERSTACK_ACCESS_KEY }}
           BROWSERSTACK_APP_ID=${{ (github.event.inputs.platform || 'android') == 'android' && secrets.BROWSERSTACK_ANDROID_APP_ID || secrets.BROWSERSTACK_IOS_APP_ID }}
-          BROWSERSTACK_DEVICE_NAME=${{ (github.event.inputs.platform || 'android') == 'android' && 'Google Pixel 8' || 'iPhone 15 Pro' }}
-          BROWSERSTACK_OS_VERSION=${{ (github.event.inputs.platform || 'android') == 'android' && '14.0' || '17.5' }}
+          BROWSERSTACK_DEVICE_NAME=${{ (github.event.inputs.platform || 'android') == 'android' && 'Google Pixel 9' || 'iPhone 15 Pro' }}
+          BROWSERSTACK_OS_VERSION=${{ (github.event.inputs.platform || 'android') == 'android' && '15.0' || '17.5' }}
           BROWSERSTACK_PROJECT_NAME=App E2E Tests
           BROWSERSTACK_BUILD_NAME=GitHub Actions Build
           BROWSERSTACK_SESSION_NAME=E2E Test Session

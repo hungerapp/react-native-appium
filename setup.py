@@ -1,6 +1,7 @@
 import time
 import pytest
 import unittest
+import os
 from dotenv import dotenv_values
 from appium.webdriver import Remote
 from appium.options.android import UiAutomator2Options
@@ -26,8 +27,8 @@ if is_ci:
         'projectName': config.get('BROWSERSTACK_PROJECT_NAME', 'App E2E Tests'),
         'buildName': config.get('BROWSERSTACK_BUILD_NAME', 'GitHub Actions Build'),
         'sessionName': config.get('BROWSERSTACK_SESSION_NAME', 'E2E Test Session'),
-        'deviceName': config.get('BROWSERSTACK_DEVICE_NAME', 'Google Pixel 8'),
-        'osVersion': config.get('BROWSERSTACK_OS_VERSION', '14.0'),
+        'deviceName': config.get('BROWSERSTACK_DEVICE_NAME', 'Google Pixel 9'),
+        'osVersion': config.get('BROWSERSTACK_OS_VERSION', '15.0'),
         'interactiveDebugging': True,
     }
 
@@ -114,6 +115,11 @@ class AppiumSetup(unittest.TestCase):
         self.auto_accept_alerts_bool = auto_accept_alerts_bool
         self.noReset_bool = noReset_bool
         self.platform = platform
+
+        # Create screenshots directory only in local environment
+        if not is_ci:
+            screenshots_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), "screenshots")
+            os.makedirs(screenshots_dir, exist_ok=True)
 
         self.driver = Remote(appium_server_url, options=options)
         #self.driver.switch_to.context('NATIVE_APP')

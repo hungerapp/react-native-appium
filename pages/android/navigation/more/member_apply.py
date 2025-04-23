@@ -121,6 +121,8 @@ class MemberApplyPage(CommonUseSection):
             self.driver.find_element(*self.member_apply_locators.USAGE_PERIOD_TIME_INPUT).click()
             time.sleep(1)
             self.driver.find_element(*self.member_apply_locators.USAGE_PERIOD_TIME_INPUT).send_keys(str(random.randint(1, 30)))
+            # close keyboard
+            self.driver.hide_keyboard()
         # expire time
         else:
             self.driver.find_element(*self.member_apply_locators.USAGE_PERIOD_CHOOSE_TIME).click()
