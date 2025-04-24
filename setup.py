@@ -46,11 +46,7 @@ if is_ci:
         options.set_capability('newCommandTimeout', 300)
         options.set_capability('androidInstallTimeout', 90000)
         options.set_capability('adbExecTimeout', 60000)
-        # 性能優化設置
-        options.set_capability('skipServerInstallation', True)
-        options.set_capability('skipDeviceInitialization', True)
-        options.set_capability('ignoreUnimportantViews', True)
-        options.set_capability('disableAndroidWatchers', True)
+    
     else:  # iOS
         options = XCUITestOptions()
         options.platform_name = 'iOS'
