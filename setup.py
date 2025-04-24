@@ -27,8 +27,8 @@ if is_ci:
         'projectName': config.get('BROWSERSTACK_PROJECT_NAME', 'App E2E Tests'),
         'buildName': config.get('BROWSERSTACK_BUILD_NAME', 'GitHub Actions Build'),
         'sessionName': config.get('BROWSERSTACK_SESSION_NAME', 'E2E Test Session'),
-        'deviceName': config.get('BROWSERSTACK_DEVICE_NAME', 'Google Pixel 9'),
-        'osVersion': config.get('BROWSERSTACK_OS_VERSION', '15.0'),
+        'deviceName': config.get('BROWSERSTACK_DEVICE_NAME', 'Google Pixel 8'),
+        'osVersion': config.get('BROWSERSTACK_OS_VERSION', '14.0'),
         'interactiveDebugging': True
     }
 
