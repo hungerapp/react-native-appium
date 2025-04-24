@@ -297,7 +297,7 @@ class CreateAppointmentPage(CommonUseSection):
             time_element = self.driver.find_element(AppiumBy.ACCESSIBILITY_ID, '預約時間')
             time_element.click()
             
-            time.sleep(2)
+            time.sleep(5)
             
             # click date block
             date_block = self.driver.find_element(*self.create_appointment_locators.DATE_BLOCK)  
