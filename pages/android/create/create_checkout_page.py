@@ -6,7 +6,10 @@ import math
 
 from appium.webdriver.common.appiumby import AppiumBy
 from selenium.webdriver.common.action_chains import ActionChains
-from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import NoSuchElementException, TimeoutException
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from utils.logger import logger
 
 from pages.shared_components.common_use import CommonUseSection
 from pages.locators.android.create.create_checkout_locators import CreateCheckoutLocators
@@ -19,15 +22,26 @@ class CreateCheckoutPage(CommonUseSection):
 
     def click_create_checkout(self):
         try:
-          time.sleep(2.5)
-          create_button = self.driver.find_element(*self.create_checkout_locators.CREATE_BTN)
-          if create_button.is_displayed() and create_button.is_enabled():
-              create_button.click()
-          time.sleep(0.5)
-          self.driver.find_element(*self.create_checkout_locators.CREATE_CHECKOUT_OPTION).click()
+            wait = WebDriverWait(self.driver, 15)
+            create_button = wait.until(
+                EC.element_to_be_clickable(self.create_checkout_locators.CREATE_BTN)
+            )
+            create_button.click()
+            
+            checkout_option = wait.until(
+                EC.element_to_be_clickable(self.create_checkout_locators.CREATE_CHECKOUT_OPTION)
+            )
+            checkout_option.click()
+            
+            logger.info("Successfully clicked create checkout button and option")
                     
-        except NoSuchElementException:
-          raise NoSuchElementException("Unable to find create checkout button after multiple attempts")
+        except TimeoutException:
+            logger.error("Timeout waiting for create checkout button or option to be clickable")
+            self.driver.save_screenshot('screenshots/create_checkout_error.png')
+            raise NoSuchElementException("Unable to find create checkout button or option after waiting")
+        except Exception as e:
+            logger.error(f"Error clicking create checkout: {str(e)}")
+            raise
       
         return self
       
@@ -236,7 +250,7 @@ class CreateCheckoutPage(CommonUseSection):
         error_text = error_element.text.strip()
         diff = error_text.split("NT$")[1].strip().replace(",", "")
 
-        time.sleep(0.5)
+        time.sleep(2)
 
         if is_above_price:
             self.driver.find_element(*self.create_checkout_locators.CASH_SECTION['edit_btn']).click()
@@ -332,10 +346,18 @@ class CreateCheckoutPage(CommonUseSection):
         
         # click outside to close the date window
         size = self.driver.get_window_size()
-        self.driver.execute_script('mobile: clickGesture', {
-            'x': int(size['width'] * 0.5),  
-            'y': int(size['height'] * 0.9)   
+        tap_x = int(size['width'] * 0.5)
+        tap_y = int(size['height'] * 0.9)
+        
+        # Method 1: Using W3C Actions API (preferred method for newer Appium versions)
+        self.driver.execute_script('mobile: longClickGesture', {
+            'x': tap_x,
+            'y': tap_y,
+            'duration': 100
         })
+        
+        # Method 2: Alternative - use tap coordinates method
+        # self.driver.tap([(tap_x, tap_y)], 100)
     
     def change_total_sales_performance(self):
         # due to the edit icon is not stable, so we need to try to click the icon

@@ -519,32 +519,37 @@ class CommonUseSection:
         time.sleep(1)
         self.driver.find_element(*self.AUTO_TEST_COUPON).click()
         
-        self.driver.find_element(*self.SELECT_TICKET_ICON).click()
-        time.sleep(1.5)
+        try:
+            self.driver.find_element(*self.SELECT_TICKET_ICON).click()
+
+            time.sleep(1.5)
         
-        # Get window size for swipe calculation
-        window_size = self.driver.get_window_size()
-        start_x = window_size['width'] * 0.5
-        start_y = window_size['height'] * 0.7
-        end_y = window_size['height'] * 0.6
+            # Get window size for swipe calculation
+            window_size = self.driver.get_window_size()
+            start_x = window_size['width'] * 0.5
+            start_y = window_size['height'] * 0.7
+            end_y = window_size['height'] * 0.6
         
-        # Select random quantity (1-17)
-        random_quantity = random.randint(1, 17)
+            # Select random quantity (1-17)
+            random_quantity = random.randint(1, 17)
         
-        # Perform small swipe gesture
-        self.driver.swipe(start_x, start_y, start_x, end_y, duration=500)
-        time.sleep(1)
+            # Perform small swipe gesture
+            self.driver.swipe(start_x, start_y, start_x, end_y, duration=500)
+            time.sleep(1)
         
-        self.driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR, f'new UiSelector().text("{random_quantity}")').click()
-        time.sleep(0.5)
+            self.driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR, f'new UiSelector().text("{random_quantity}")').click()
+            time.sleep(0.5)
         
-        # Input amount
-        amount_input = self.driver.find_element(*self.QUANTITY_INPUT)
-        amount_input.click()
-        random_amount = str(random.randint(1, 100))
-        amount_input.clear()
-        amount_input.send_keys(random_amount)
+            # Input amount
+            amount_input = self.driver.find_element(*self.QUANTITY_INPUT)
+            amount_input.click()
+            random_amount = str(random.randint(1, 100))
+            amount_input.clear()
+            amount_input.send_keys(random_amount)
             
+        except Exception as e:
+            print(f"Error handling coupon tab: {str(e)}")
+            raise
     
     def new_member(self):
         

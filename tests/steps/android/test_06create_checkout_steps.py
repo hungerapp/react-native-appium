@@ -204,7 +204,7 @@ def delete_and_readd_member(driver):
 @then('I add new discount for the item')
 def add_new_discount(driver):
     checkout_page = CreateCheckoutPage(driver)
-    checkout_page.add_new_discount()
+    checkout_page.add_new_discount(existing_member=False)
 
 @then('I select a payment method above the item price and validate errors')
 def select_payment_above_price(driver):
