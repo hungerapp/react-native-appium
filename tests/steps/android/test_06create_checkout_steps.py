@@ -430,23 +430,20 @@ def clear_and_reselect_tickets(driver):
     checkout_page = CreateCheckoutPage(driver)
     checkout_page.clear_all_tickets()
     checkout_page.select_ticket()
-    checkout_page.adjust_item(existing_member=True)
+    checkout_page.adjust_item()
 
-@then('I delete the member information and re-search for an existing member')
-def delete_and_search_existing_member(driver):
+@then('I delete the member information and re-add new member')
+def delete_and_add_new_member(driver):
     checkout_page = CreateCheckoutPage(driver)
     checkout_page.delete_selected_member()
-    checkout_page.search_existing_member(TEST_VALID_PHONE_NUMBER)
+    checkout_page.click_non_selected_member_section()
+    checkout_page.add_new_member()
     
-@then('I click the search result')
-def click_search_result(driver):
-    checkout_page = CreateCheckoutPage(driver)
-    checkout_page.click_search_result() 
     
 @then('I add new discount for the item')
 def add_new_discount(driver):
     checkout_page = CreateCheckoutPage(driver)
-    checkout_page.add_new_discount()
+    checkout_page.add_new_discount(existing_member=False)
 
 @then('I select a payment method and change it above the item price and validate errors')
 def select_payment_above_price(driver):

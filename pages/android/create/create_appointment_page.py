@@ -298,7 +298,7 @@ class CreateAppointmentPage(CommonUseSection):
           
             time_element = self.driver.find_element(AppiumBy.ACCESSIBILITY_ID, '預約時間')
             time_element.click()
-            time.sleep(10)
+            time.sleep(20)
             
             # Add WebDriverWait to wait for the modal to fully render
             try:
@@ -308,12 +308,13 @@ class CreateAppointmentPage(CommonUseSection):
                 logger.info("Appointment time modal fully rendered")
             except TimeoutException:
                 logger.error("Timeout waiting for appointment time modal to render")
-                # Take a screenshot if modal doesn't appear
-                self.driver.save_screenshot('screenshots/modal_load_error.png')
                 raise
             
             # click date block
             date_block = self.driver.find_element(*self.create_appointment_locators.DATE_BLOCK)  
+            WebDriverWait(self.driver, 15).until(
+                EC.element_to_be_clickable(date_block)
+            )
             date_block.click()
             time.sleep(1)
             

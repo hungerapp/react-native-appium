@@ -22,6 +22,7 @@ class CreateCheckoutPage(CommonUseSection):
 
     def click_create_checkout(self):
         try:
+            time.sleep(1)
             wait = WebDriverWait(self.driver, 15)
             create_button = wait.until(
                 EC.element_to_be_clickable(self.create_checkout_locators.CREATE_BTN)
@@ -37,7 +38,6 @@ class CreateCheckoutPage(CommonUseSection):
                     
         except TimeoutException:
             logger.error("Timeout waiting for create checkout button or option to be clickable")
-            self.driver.save_screenshot('screenshots/create_checkout_error.png')
             raise NoSuchElementException("Unable to find create checkout button or option after waiting")
         except Exception as e:
             logger.error(f"Error clicking create checkout: {str(e)}")
@@ -245,7 +245,10 @@ class CreateCheckoutPage(CommonUseSection):
         time.sleep(0.5)
         self.driver.find_element(*self.create_checkout_locators.CASH_SECTION['input_field']).send_keys(str(cash_amount))
         self.driver.find_element(*self.create_checkout_locators.COMMON_BUTTONS['confirm']).click()
-
+        
+        WebDriverWait(self.driver, 10).until(
+            EC.presence_of_element_located(self.create_checkout_locators.PAYMENT_ERROR_MESSAGE(is_above_price))
+        )
         error_element = self.driver.find_element(*self.create_checkout_locators.PAYMENT_ERROR_MESSAGE(is_above_price))
         error_text = error_element.text.strip()
         diff = error_text.split("NT$")[1].strip().replace(",", "")

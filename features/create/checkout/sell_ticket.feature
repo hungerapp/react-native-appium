@@ -51,8 +51,7 @@ Feature: Ticket Checkout Process
     Then I select a sales performance owner  
     Then I select a ticket and view the ticket info for sell
     Then I clear all selections and reselect them  
-    Then I delete the member information and re-search for an existing member
-    Then I click the search result
+    Then I delete the member information and re-add new member
     Then I add new discount for the item
     Then I select a payment method and change it above the item price and validate errors
     Then I input checkout record content and cancel it
