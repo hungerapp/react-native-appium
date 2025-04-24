@@ -19,7 +19,7 @@ class CreateCheckoutPage(CommonUseSection):
 
     def click_create_checkout(self):
         try:
-          time.sleep(1)
+          time.sleep(2.5)
           create_button = self.driver.find_element(*self.create_checkout_locators.CREATE_BTN)
           if create_button.is_displayed() and create_button.is_enabled():
               create_button.click()
