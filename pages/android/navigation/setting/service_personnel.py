@@ -66,6 +66,7 @@ class ServicePersonnelPage:
         return self
 
     def verify_service_personnel_name(self, service_personnel_name):
+        self.common_actions.scroll_to_element(*self.service_personnel_page_locators.DELETE_SERVICE_PERSONNEL_BUTTON_IN_SERVICE_PERSONNEL_PAGE(service_personnel_name))
         self.common_actions.is_element_visible(*self.service_personnel_page_locators.DELETE_SERVICE_PERSONNEL_BUTTON_IN_SERVICE_PERSONNEL_PAGE(service_personnel_name))
         self.common_actions.is_element_visible(*self.service_personnel_page_locators.EDIT_SERVICE_PERSONNEL_BUTTON_IN_SERVICE_PERSONNEL_PAGE(service_personnel_name))
         return self
@@ -79,6 +80,7 @@ class ServicePersonnelPage:
         self.common_actions.send_keys_to_element(*self.service_personnel_page_locators.DELETE_FIELD_IN_DELETE_SERVICE_PERSONNEL_DIALOG, "Delete")
         self.common_actions.wait_for_element_clickable(*self.service_personnel_page_locators.DELETE_BUTTON_IN_DELETE_SERVICE_PERSONNEL_DIALOG)
         self.common_actions.click_element(*self.service_personnel_page_locators.DELETE_BUTTON_IN_DELETE_SERVICE_PERSONNEL_DIALOG)
+        self.common_actions.wait_for_element_disappear(*self.service_personnel_page_locators.DELETE_FIELD_IN_DELETE_SERVICE_PERSONNEL_DIALOG)
         return self
 
 
