@@ -3,7 +3,9 @@ import random
 import string
 
 from appium.webdriver.common.appiumby import AppiumBy
-from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import NoSuchElementException, TimeoutException
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from utils.logger import logger
 
 from pages.shared_components.common_use import CommonUseSection
@@ -297,7 +299,17 @@ class CreateAppointmentPage(CommonUseSection):
             time_element = self.driver.find_element(AppiumBy.ACCESSIBILITY_ID, '預約時間')
             time_element.click()
             
-            time.sleep(5)
+            # Add WebDriverWait to wait for the modal to fully render
+            try:
+                WebDriverWait(self.driver, 15).until(
+                    EC.visibility_of_element_located(self.create_appointment_locators.DATE_BLOCK)
+                )
+                logger.info("Appointment time modal fully rendered")
+            except TimeoutException:
+                logger.error("Timeout waiting for appointment time modal to render")
+                # Take a screenshot if modal doesn't appear
+                self.driver.save_screenshot('screenshots/modal_load_error.png')
+                raise
             
             # click date block
             date_block = self.driver.find_element(*self.create_appointment_locators.DATE_BLOCK)  
