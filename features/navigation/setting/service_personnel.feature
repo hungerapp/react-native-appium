@@ -1,26 +1,31 @@
 Feature: Service Personnel Management
+    As a Merchant User
+    I want to manage service personnel
+    So that I can maintain service staff information
 
-  @regression @service_personnel_in_branch_settings_page @service_personnel_page
-  Scenario: Verify Service Personnel Management Flow
-    Given I am on the Branch Settings page
-    When I tap on Service Personnel in the Branch Settings page
-    Then I should be navigated to the Service Personnel page
-    When I tap on Add Service Personnel in the Service Personnel page
-    Then the Add Service Personnel Alert Dialog is displayed
-    When I tap on the Cancel button in the Add Service Personnel Alert Dialog
-    Then the Add Service Personnel Alert Dialog is dismissed
-    When I tap on Add Service Personnel in the Service Personnel page
-    Then the Add Service Personnel Alert Dialog is displayed
-    When I tap on the Add button in the Add Service Personnel Alert Dialog
-    Then I should be navigated to the Add Service Personnel Page
-    When I add a new service personnel
-    Then a new service personnel should be successfully added on the Service Personnel page
-    When I edit service personnel
-    Then the service personnel details should be updated successfully
-    When I delete service personnel
-    Then the service personnel should not be present in the service personnel list
-    When I tap on the close button in the Service Personnel page
-    Then I should be navigated to the Branch Settings page
+    @regression @service_personnel_add
+    Scenario: Successfully add new service personnel
+        Given I am on the Service Personnel page
+        When I tap on Add Service Personnel button
+        Then I should see the service personnel Modal
+        When I enter "Robot Leif" in the Name field
+        And I select color "3" from the Color list
+        And I enter "robot_introduction" in the Introduction field
+        And I enter "3" in the Simultaneous Service Count field
+        And I tap on the Confirm button in service personnel modal
+        Then I should see the Service Personnel page
+        And I should see "Robot Leif" in the Service Personnel list
+
+    @regression @service_personnel_delete
+    Scenario: Successfully delete service personnel
+        Given I am on the Service Personnel page
+        And I should see "Robot Leif" in the Service Personnel list
+        When I delete "Robot Leif" from the Service Personnel list
+        Then I should see the Service Personnel page
+
+
+
+
 
 
 
