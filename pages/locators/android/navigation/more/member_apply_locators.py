@@ -26,12 +26,12 @@ class MemberApplyLocators:
       DISCOUNT_OPTIONS = ["現金-popup-option", "折數-popup-option"]
       
       DISCOUNT_AMOUNT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("0")')
-      DISCOUNT_AMOUNT_INPUT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("請輸入折扣金額")')
+      DISCOUNT_AMOUNT_INPUT = (AppiumBy.ACCESSIBILITY_ID, '折扣金額-text-input')
       DISCOUNT_PERCENTAGE_LIST = ["95", "90", "85", "80", "75", "70", "65", "60", "50"]
-      DISCOUNT_PERCENTAGE_INPUT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("請輸入折數")')
+      DISCOUNT_PERCENTAGE_INPUT = (AppiumBy.ACCESSIBILITY_ID, '折數-text-input')
       USAGE_PERIOD = (AppiumBy.ACCESSIBILITY_ID, '使用期限')
       USAGE_OPTIONS = ["不限期-popup-option", "天數-popup-option", "到期時間-popup-option"]
-      USAGE_PERIOD_TIME_INPUT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("請輸入天數")')
+      USAGE_PERIOD_TIME_INPUT = (AppiumBy.ACCESSIBILITY_ID, '天數-text-input')
       USAGE_PERIOD_CHOOSE_TIME = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("選擇日期")')
       INCLUDE_PERFORMANCE_TOGGLE = (AppiumBy.ACCESSIBILITY_ID, '核銷時計入業績-switch-button')
       INPUT_PERFORMANCE_AMOUNT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("請輸入業績金額")')
@@ -51,7 +51,7 @@ class MemberApplyLocators:
       BONUS_POINT_CONTENT_INPUT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("輸入內容")')
       BONUS_POINT_CONTENT_INPUT_SAVE_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(1)')
       REQUIRED_AMOUNT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("0")')
-      REQUIRED_AMOUNT_INPUT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("請輸入兌換所需紅利點數")')
+      REQUIRED_AMOUNT_INPUT = (AppiumBy.ACCESSIBILITY_ID, '兌換所需紅利點數-text-input')
       EDIT_BONUS_POINT_VOUCHER_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("pen-to-square").instance(1)')
       DELETE_BONUS_POINT_VOUCHER_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("刪除票券")')
     
@@ -94,9 +94,10 @@ class MemberApplyLocators:
       QUESTION_TYPE_OPTIONS = ["必填-popup-option", "選填-popup-option"]
       NEW_OPTION = (AppiumBy.ACCESSIBILITY_ID, '新增選項')
       NEW_OPTION_INPUT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("請輸入選項")')
-      ADD_NEW_QUESTION1_SAVE_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("check").instance(1)')
-      ADD_NEW_QUESTION2_SAVE_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("check").instance(2)')
-      ADD_NEW_QUESTION_SAVE_BUTTON = (AppiumBy.ACCESSIBILITY_ID, 'check')
+      ADD_CUSTOM_COLUMN_NEW_QUESTION_SAVE_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("check").instance(1)')
+      ADD_DOCUMENT_ADD_NEW_QUESTION_SAVE_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("check").instance(1)')
+      ADD_NEW_DOCUMENT_SAVE_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("check")')
+      ADD_NEW_COLUMN_SAVE_BUTTON = (AppiumBy.ACCESSIBILITY_ID, 'check')
       EDIT_DOCUMENT_TITLE_INPUT = (AppiumBy.ACCESSIBILITY_ID, '文件標題-text-input')
       DOCUMENT_SAVE_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("check")')
       EDIT_DOCUMENT_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("circle-ellipsis").instance(9)')
@@ -118,10 +119,10 @@ class MemberApplyLocators:
       
       
       ######## BONUS POINT RATIO MANAGEMENT ########
-      BONUS_POINTS = (AppiumBy.ACCESSIBILITY_ID, '紅利點數, 設定結帳時自動發送的比例')
+      BONUS_POINTS = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("紅利點數")')
       BONUS_POINT_RATIO_SECTION = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("贈點比例")')
       CHECKOUT_AUTO_SEND_TOGGLE = (AppiumBy.ACCESSIBILITY_ID, '結帳自動贈點-switch-button')
-      BONUS_POINT_RATIO_INPUT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("android.widget.EditText")')
+      BONUS_POINT_RATIO_INPUT = (AppiumBy.ACCESSIBILITY_ID, 'undefined-text-input')
       BONUS_POINT_RATIO_SAVE_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("check")')
       ##################################
       

@@ -118,11 +118,10 @@ class MemberApplyPage(CommonUseSection):
             pass
         # days
         elif selected_usage == self.member_apply_locators.USAGE_OPTIONS[1]:
-            self.driver.find_element(*self.member_apply_locators.USAGE_PERIOD_TIME_INPUT).click()
-            time.sleep(1)
-            self.driver.find_element(*self.member_apply_locators.USAGE_PERIOD_TIME_INPUT).send_keys(str(random.randint(1, 30)))
-            # close keyboard
-            self.driver.hide_keyboard()
+            random_days = str(random.randint(1, 30))
+            input_field = self.driver.find_element(*self.member_apply_locators.USAGE_PERIOD_TIME_INPUT)
+            input_field.send_keys(random_days)
+            
         # expire time
         else:
             self.driver.find_element(*self.member_apply_locators.USAGE_PERIOD_CHOOSE_TIME).click()
@@ -140,6 +139,8 @@ class MemberApplyPage(CommonUseSection):
         
         performance_amount = str(random.randint(10, 1000))
         self.driver.find_element(*self.member_apply_locators.INPUT_PERFORMANCE_AMOUNT).send_keys(performance_amount)
+        
+        self.driver.hide_keyboard()
 
     def other_section(self):
         # scroll to the bottom of the page to find the created voucher
@@ -430,14 +431,14 @@ class MemberApplyPage(CommonUseSection):
             self.driver.find_element(*self.member_apply_locators.NEW_PROBLEM_INPUT).send_keys(random_input)
             time.sleep(0.5)
             
-            self.option_type_question_section()
+            self.option_type_question_section(is_add_document_question_save_button=True)
              
         self.driver.find_element(*self.member_apply_locators.CUSTOMER_NEED_TO_SIGN_TOGGLE).click()    
         self.driver.find_element(*self.member_apply_locators.DOCUMENT_SAVE_BUTTON).click()
         
         return self
     
-    def option_type_question_section(self):
+    def option_type_question_section(self, is_add_document_question_save_button=None):
         option_type_section = self.driver.find_element(*self.member_apply_locators.OPTION_TYPE_SECTION)
         option_type_section.click()
         time.sleep(0.5)
@@ -456,30 +457,38 @@ class MemberApplyPage(CommonUseSection):
             self.driver.find_element(*self.member_apply_locators.NEW_OPTION_INPUT).send_keys(random_option)
             time.sleep(0.5)
                 
-            # click save button
-            try:
-                self.driver.find_element(*self.member_apply_locators.ADD_NEW_QUESTION2_SAVE_BUTTON).click()
-            except:
-                self.driver.find_element(*self.member_apply_locators.ADD_NEW_QUESTION1_SAVE_BUTTON).click()
-             
+            if is_add_document_question_save_button:
+              self.driver.find_element(*self.member_apply_locators.ADD_DOCUMENT_ADD_NEW_QUESTION_SAVE_BUTTON).click()
+              
+              # CLICK QUESTION TYPE SECTION
+              time.sleep(1)
+              question_type_section = self.driver.find_element(*self.member_apply_locators.QUESTION_TYPE_SECTION)
+              question_type_section.click()
+        
+              selected_option = random.choice(self.member_apply_locators.QUESTION_TYPE_OPTIONS)
+              self.driver.find_element(AppiumBy.ACCESSIBILITY_ID, f'{selected_option}').click()
+            
+              self.driver.find_element(*self.member_apply_locators.ADD_DOCUMENT_ADD_NEW_QUESTION_SAVE_BUTTON).click()
+            else:
+              # add custom column save button locator
+              self.driver.find_element(*self.member_apply_locators.ADD_CUSTOM_COLUMN_NEW_QUESTION_SAVE_BUTTON).click()
+              
+              # CLICK QUESTION TYPE SECTION
+              time.sleep(1)
+              question_type_section = self.driver.find_element(*self.member_apply_locators.QUESTION_TYPE_SECTION)
+              question_type_section.click()
+        
+              selected_option = random.choice(self.member_apply_locators.QUESTION_TYPE_OPTIONS)
+              self.driver.find_element(AppiumBy.ACCESSIBILITY_ID, f'{selected_option}').click()
+            
+              self.driver.find_element(*self.member_apply_locators.ADD_NEW_COLUMN_SAVE_BUTTON).click()
                 
         else:
-            pass
-            
-        # CLICK QUESTION TYPE SECTION
-        time.sleep(1)
-        question_type_section = self.driver.find_element(*self.member_apply_locators.QUESTION_TYPE_SECTION)
-        question_type_section.click()
-        
-            
-        selected_option = random.choice(self.member_apply_locators.QUESTION_TYPE_OPTIONS)
-        self.driver.find_element(AppiumBy.ACCESSIBILITY_ID, f'{selected_option}').click()
-            
-        # click save button
-        try:
-            self.driver.find_element(*self.member_apply_locators.ADD_NEW_QUESTION2_SAVE_BUTTON).click()
-        except:
-            self.driver.find_element(*self.member_apply_locators.ADD_NEW_QUESTION_SAVE_BUTTON).click()
+            if is_add_document_question_save_button:
+                self.driver.find_element(*self.member_apply_locators.ADD_DOCUMENT_ADD_NEW_QUESTION_SAVE_BUTTON).click()
+            else:
+                self.driver.find_element(*self.member_apply_locators.ADD_NEW_COLUMN_SAVE_BUTTON).click()
+        return self
     
     def edit_preview_share_document(self):
         # Scroll down to continue editing
@@ -603,7 +612,7 @@ class MemberApplyPage(CommonUseSection):
         time.sleep(0.5)
         
         # option type & question type section
-        self.option_type_question_section()
+        self.option_type_question_section(is_add_document_question_save_button=False)
         
         # click add new field button
         self.driver.find_element(*self.member_apply_locators.ADD_NEW_COLUMN_BUTTON).click()

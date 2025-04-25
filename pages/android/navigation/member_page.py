@@ -254,14 +254,14 @@ class MemberPage(CommonUseSection):
           return self
       
       def tap_billing_tab(self):
-          time.sleep(0.5)
+          time.sleep(2)
           self.driver.find_element(*self.member_locators.PASSPORT_TABS['billing_tab']).click()
     
           return self
     
       def tap_view_details(self):
-          self.driver.find_element(*self.member_locators.BILLING_FUNCTIONS['view_details']).click()
           time.sleep(0.5)
+          self.driver.find_element(*self.member_locators.BILLING_FUNCTIONS['view_details']).click()
         
           self.driver.find_element(*self.member_locators.BILLING_FUNCTIONS['expand_details']).click()
           time.sleep(1.5)
@@ -434,8 +434,8 @@ class MemberPage(CommonUseSection):
           return self
       
       def ticket_page_return_to_member_passport(self):
+          time.sleep(1)
           self.driver.find_element(*self.member_locators.TICKET_PAGE_RETURN_BUTTON).click()
-          time.sleep(0.5)
           return self
       
       def edit_basic_info(self):
@@ -696,8 +696,8 @@ class MemberPage(CommonUseSection):
         
         
       def return_to_calendar_page(self):
-          self.driver.find_element(*self.member_locators.MEMBER_PASSPORT_TITLE).click()
-          time.sleep(1) 
+          time.sleep(1)
+          self.driver.find_element(*self.member_locators.MEMBER_PASSPORT_TITLE).click() 
           for _ in range(3):
               self.driver.back()
               time.sleep(0.5)

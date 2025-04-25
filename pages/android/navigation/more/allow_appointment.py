@@ -211,8 +211,8 @@ class AllowAppointmentPage():
             
     
     def quick_close(self):
+        time.sleep(1)
         self.driver.find_element(*self.open_appointment_locators.QUICK_CLOSE_BUTTON).click()
-        time.sleep(0.5)
         
         quick_close_option = random.choice(self.open_appointment_locators.QUICK_CLOSE_BUTTON_OPTIONS)
         self.driver.find_element(AppiumBy.ACCESSIBILITY_ID, f'{quick_close_option}').click()
@@ -312,9 +312,10 @@ class AllowAppointmentPage():
         return self
     
     def return_to_calendar_page(self):
+        time.sleep(1)
         for _ in range(2):
             self.driver.find_element(*self.open_appointment_locators.CLOSE_BUTTON).click()
-            time.sleep(0.5)
+            time.sleep(1.5)
         return self
         
     
