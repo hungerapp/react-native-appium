@@ -30,7 +30,6 @@ if is_ci:
         'deviceName': config.get('BROWSERSTACK_DEVICE_NAME', 'Google Pixel 8'),
         'osVersion': config.get('BROWSERSTACK_OS_VERSION', '14.0'),
         'interactiveDebugging': True,
-        'disableAnimation': False,
         'debug': True,
         'networkLogs': True,
         'appiumLogs': True,
@@ -46,6 +45,7 @@ if is_ci:
         options.set_capability('autoGrantPermissions', True) 
         options.set_capability('bstack:options', browserstack_options)
         # BrowserStack 特定配置
+        options.set_capability('disableAnimation', False)
         options.set_capability('uiautomator2ServerInstallTimeout', 60000)
         options.set_capability('androidDeviceReadyTimeout', 60)
         options.set_capability('newCommandTimeout', 300)
@@ -62,6 +62,7 @@ if is_ci:
         options.set_capability('autoAcceptAlerts', True) 
         options.set_capability('bstack:options', browserstack_options)
         options.set_capability('simulatorStartupTimeout', 60000)
+        options.set_capability('disableAnimation', False)
     appium_server_url = config.get('BROWSERSTACK_HUB_URL', 'https://hub-cloud.browserstack.com/wd/hub')
 else:
     # 本地配置
