@@ -295,9 +295,6 @@ class CreateAppointmentPage(CommonUseSection):
                 500
             )
             
-            time.sleep(10)
-            
-            # add webdriverwait to wait for the modal to fully render
             WebDriverWait(self.driver, 10).until(
                 EC.element_to_be_clickable((AppiumBy.ACCESSIBILITY_ID, '預約時間'))
             )
