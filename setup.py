@@ -40,7 +40,7 @@ if is_ci:
         options.set_capability('autoGrantPermissions', True) 
         options.set_capability('bstack:options', browserstack_options)
         # BrowserStack 特定配置
-        options.set_capability('disableWindowAnimation', True)
+        options.set_capability('disableAnimation', False) 
         options.set_capability('uiautomator2ServerInstallTimeout', 60000)
         options.set_capability('androidDeviceReadyTimeout', 60)
         options.set_capability('newCommandTimeout', 300)
@@ -56,7 +56,7 @@ if is_ci:
         options.app = config.get('BROWSERSTACK_APP_ID')
         options.set_capability('autoAcceptAlerts', True) 
         options.set_capability('bstack:options', browserstack_options)
-        options.set_capability('disableWindowAnimation', False)
+        options.set_capability('disableAnimation', False)
         options.set_capability('simulatorStartupTimeout', 60000)
     appium_server_url = config.get('BROWSERSTACK_HUB_URL', 'https://hub-cloud.browserstack.com/wd/hub')
 else:
