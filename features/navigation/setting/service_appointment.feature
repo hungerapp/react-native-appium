@@ -1,129 +1,53 @@
-Feature: Service Appointment Management
+Feature: Service Appointment Settings
+  As a merchant user
+  I want to manage service appointment settings
+  So that I can provide better booking experience for customers
 
-  @regression @branch_settings_management_navigation_to_service_appointment @branch_settings_page @service_appointment_page
-  Scenario: Navigate to Service Appointment Management
-      Given I am on the Branch Settings page
-      When I tap on Service Appointment in the Branch Settings page
-      Then I should be navigated to the Service Appointment page
+  Scenario: Share Appointment Link
+    Given I am on the service appointment page
+    When I share the appointment link
+    Then I should see the service appointment page
 
-  @regression @member_exclusive_booking_link @service_appointment_page
-  Scenario: Verify Member Exclusive Booking Link
-    Given I am on the Service Appointment page
-    When I tap the member exclusive booking link copy button
-    Then A copy link dialog should be displayed
-    When I tap copy link in the copy link dialog
-    Then A copy link dialog should be dismissed
+  Scenario: Navigate to Service Items Page
+    Given I am on the service appointment page
+    When I tap on the service items
+    Then I should see the service items page
 
-  @regression @service_item_management @service_appointment_page
-  Scenario: Verify Service Item Management
-    Given I am on the Service Appointment page
-    When I tap the service item in the Service Appointment page
-    Then I should be navigated to the Service item page
-    When I tap the category edit button in the Service item page
-    Then I should be navigated to the Category page
-    When I tap the add category in the Category page
-    Then I should be navigated to the Add Category page
-    When I add a new category in the Add Category page
-    Then I should be navigated to the Category page
-    Then the category is added successfully
-    When I tap the close button in the Category page
-    Then I should be navigated to the Service item page
-    Then the category is displayed in the Service item page
-    When I tap the add service item button in the Service item page
-    Then I fill in the service item details
-    Then I should be navigated to the Service item page
-    Then the service item is added successfully
-    When I edit the service item in the Service item page
-    Then I should be navigated to the Service item page
-    Then the service item is edited successfully
-    When I delete the service item in service item page
-    Then the service item is deleted successfully
-    When I add a new service item
-    Then I should be navigated to the Service item page
-    Then the service item is added successfully
-    When I copy the service item in service item page
-    Then the service item is copied successfully
-    When I tap delete service item in service item page
-    Then the service item is deleted successfully
-    When I Delete the service category in the Service item page
-    Then the service category is deleted successfully
-    When I tap the close button in the Service item page
-    Then I should be navigated to the Service Appointment page
+  Scenario: Add Service Category
+    Given I am on the service items page
+    When I Add a new service category named "New Category"
+    Then I should see the service category named "New Category"
 
-  @regression @online_booking_management @service_appointment_page
-  Scenario: Verify Online Booking Management
-    Given I am on the Branch Settings page
-    Then I have added a new service personnel
-    Then I have added a new service item
-    When I tap the online booking management button in the Service Appointment page
-    Then I should be navigated to the Online Booking Management page
-    When I tap the personal online booking management in the Online Booking Management page
-    Then I should be navigated to the Personal Online Booking page
-    Then I configure open days in the Open Setting tab in the Personal Online Booking page
-    Then I configure latest appointment time in the Personal Online Booking page
-    Then I configure advance setting in the Personal Online Booking page
-    Then I configure open time in the Personal Online Booking page
-    When I tap the close button in the Personal Online Booking page
-    Then I should be navigated to the Online Booking Management page
-    When I close the Personal Online Booking
-    Then the service personnel should be displayed in the closed online booking section in the Online Booking Management page
-    When I add service unspecified appointment combination
-    Then the service unspecified appointment combination should be added successfully
-    Then I edit service unspecified appointment combination
-    When I Delete service unspecified appointment combination
-    Then the service unspecified appointment combination should be deleted successfully
-    When I tap the close button in the Online Booking Management page
-    Then I should be navigated to the Service Appointment page
-    Then I Delete the service item
-    Then I Delete the service personnel
+  Scenario: Edit Service Category
+    Given I am on the service items page
+    When I edit the service category named "New Category" to "Updated Category"
+    Then I should see the service category named "Updated Category"
 
-  @regression @booking_issue_and_note @service_appointment_page
-  Scenario: Verify Booking Issue and Note
-    Given I am on the Branch Settings page
-    When I tap on Service Appointment in the Branch Settings page
-    Then I should be navigated to the Service Appointment page
-    When I tap the booking issue and note button in the Service Appointment page
-    Then I should be navigated to the Booking Issue and Note page
-    Then Add a short answer booking issue and set it to hidden
-    Then Add a single choice booking issue and set it to hidden
-    Then Add a multiple choice booking issue and set it to hidden
-    Then Add a short answer booking issue and set it to visible
-    Then Add a single choice booking issue and set it to visible
-    Then Add a multiple choice booking issue and set it to visible
-    Then Delete booking issue
-    When I tap the close button in the Booking Issue and Note page
-    Then I should be navigated to the Service Appointment page
+  Scenario: Delete Service Category
+    Given I am on the service items page
+    When I delete the service category named "Updated Category"
+    Then I should not see the service category named "Updated Category"
 
-  @regression @service_appointment_note @service_appointment_page
-  Scenario: Verify Service Appointment Note
-    Given I am on the Service Appointment page
-    When I tap the service appointment note in the ServiceAppointment page
-    Then I should be navigated to the Service Appointment Note page
-    Then I add a new service appointment note
-    Then I should be navigated to the Service Appointment page
+  Scenario: Add Service Item
+    Given I am on the service items page
+    When I select a service category named "推薦項目"
+    And I click the add service item button
+    And I enter the service item name "Service Name"
+    And I enter the service code name "SC"
+    And I enter the service introduction "Service Introduction"
+    And I select the service category "推薦項目" in the add service item
+    And I enter the service duration "60" minutes
+    And I enter the service price "100"
+    And I select the service display type fixed price
+    And I select the service display type starting price
+    And I select the sub service type single choice
+    And I select the sub service type multiple choice
+    And I add sub service items name "Sub Service 1" and duration "30" minutes and price "50"
+    And I click the save add service item button
+    Then I should see the service item name "Service Name"
 
-  @regression @deposit_management @service_appointment_page @daily_deposit_management @ios @web
-    Scenario: Verify Deposit Management
-#        Given I am on the Service Appointment page
-#        When I tap the deposit management button in the Service Appointment page
-#        Then I should be navigated to the Deposit Management page
-        Then I add a general date deposit
-        Then I add a specific date deposit
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  @haha
+  Scenario: Navigate to Online Booking Page
+    Given I am on the service appointment page
+    When I tap on the online booking
+    Then I should see the online booking page

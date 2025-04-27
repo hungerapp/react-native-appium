@@ -3,7 +3,6 @@ from appium.webdriver.webdriver import WebDriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions
 from selenium.common.exceptions import TimeoutException
-from appium.webdriver.common.appiumby import AppiumBy
 from selenium.common.exceptions import NoSuchElementException
 
 class CommonActions:
@@ -78,17 +77,36 @@ class CommonActions:
         element = self.find_element(locator_type, locator_value)
         return element.text
 
-    def wait_for_element_visible(self, locator_type: str, locator_value: str) -> bool:
+    def wait_for_element_visible(self, locator_type: str, locator_value: str, timeout: int = 30):
         """
-        等待直到指定元素可見
+        Quick check if an element is visible
+        Returns False immediately if an element does not exist
+
+        Args:
+            locator_type: The type of locator strategy
+            locator_value: The value of the locator
+            timeout: Maximum time to wait in seconds (only used if an element is found)
+
+        Returns:
+            WebElement: The visible WebElement if found
+            False: If the element is not found
+
+        Raises:
+            TimeoutException: If the element is not visible after the timeout period
         """
         try:
-            self.wait.until(
+            self.driver.implicitly_wait(0)
+            wait = WebDriverWait(self.driver, timeout)
+            return wait.until(
                 expected_conditions.visibility_of_element_located((locator_type, locator_value))
             )
-            return True
-        except TimeoutException:
+        except NoSuchElementException:
             return False
+        except TimeoutException:
+            actual_timeout = timeout
+            raise TimeoutException(
+                f"Element ({locator_type}={locator_value}) still not visible after {actual_timeout} seconds"
+            )
 
     def wait_for_element_clickable(self, locator_type: str, locator_value: str) -> bool:
         """
@@ -109,23 +127,24 @@ class CommonActions:
         actual_text = self.get_element_text(locator_type, locator_value)
         return actual_text == expected_text
 
-
-
-    def scroll_to_element(self, locator_type: str, locator_value: str, max_swipes: int = 3, timeout: int = 2) -> bool:
+    def scroll_to_element(self, locator_type: str, locator_value: str, scroll_container: str = "//android.widget.ScrollView", max_swipes: int = 3, timeout: float = 0.5) -> bool:
         """
-        滾動螢幕直到指定元素可見
+        在 ScrollView 內垂直滾動直到找到指定元件
 
         Args:
-            locator_type: 定位器類型 (例如 AppiumBy.ID)
-            locator_value: 定位器的值
-            max_swipes: 最大滑動嘗試次數，默認3次
-            timeout: 每次滑動後的等待時間（秒），默認2秒
+            locator_type: 定位方式（例如：AppiumBy.ID）
+            locator_value: 定位值
+            scroll_container: 滾動容器的xpath，默認為"//android.widget.ScrollView"
+            max_swipes: 最大滑動次數，默認3次
+            timeout: 每次滑動後的等待時間（秒），默認0.5秒
 
         Returns:
-            bool: 找到並可見元素時返回True，否則返回False
+            bool: 如果找到並且元件可見返回True，否則返回False
         """
         from selenium.common.exceptions import NoSuchElementException, StaleElementReferenceException
+        from selenium.webdriver.common.by import By
 
+        self.driver.implicitly_wait(0)
         try:
             element = self.driver.find_element(locator_type, locator_value)
             if element.is_displayed():
@@ -133,21 +152,33 @@ class CommonActions:
         except (NoSuchElementException, StaleElementReferenceException):
             pass
 
-        screen_width, screen_height = self.get_screen_size()
-        start_y = int(screen_height * 0.8)
-        end_y = int(screen_height * 0.2)
-        start_x = screen_width // 2
+        try:
+            # 尋找 ScrollView 容器
+            container = self.driver.find_element(By.XPATH, scroll_container)
+            container_rect = container.rect
+
+            # 使用容器的尺寸和位置
+            start_y = container_rect['y'] + int(container_rect['height'] * 0.8)
+            end_y = container_rect['y'] + int(container_rect['height'] * 0.2)
+            start_x = container_rect['x'] + (container_rect['width'] // 2)
+
+        except NoSuchElementException:
+            print("找不到 ScrollView 容器，改用整個螢幕範圍")
+            # 找不到容器時使用整個螢幕的尺寸
+            screen_width, screen_height = self.get_screen_size()
+            start_y = int(screen_height * 0.8)
+            end_y = int(screen_height * 0.2)
+            start_x = screen_width // 2
 
         for _ in range(max_swipes):
+            self.swipe(start_x, start_y, start_x, end_y)
+            time.sleep(timeout)
             try:
                 element = self.driver.find_element(locator_type, locator_value)
                 if element.is_displayed():
                     return True
-                self.swipe(start_x, start_y, start_x, end_y)
-                time.sleep(timeout)
             except (NoSuchElementException, StaleElementReferenceException):
-                self.swipe(start_x, start_y, start_x, end_y)
-                time.sleep(timeout)
+                continue
 
         return False
 
@@ -200,22 +231,80 @@ class CommonActions:
 
     def wait_for_element_disappear(self, locator_type: str, locator_value: str, timeout: int = 30):
         """
-        Wait for an element to disappear from the page (either not visible or not in DOM)
+        Quick check if an element exists and is visible
+        Returns True immediately if an element is not found
 
         Args:
             locator_type: The type of locator strategy
             locator_value: The value of the locator
-            timeout: Maximum time to wait in seconds
+            timeout: Maximum time to wait in seconds (only used if an element is found and visible)
 
         Returns:
-            bool: True if an element successfully disappeared
-
-        Raises:
-            TimeoutException: When an element remains visible within specified timeout
+            bool: True if an element is not visible or not found
         """
         try:
+            self.driver.implicitly_wait(0)
             return WebDriverWait(self.driver, timeout).until(
                 expected_conditions.invisibility_of_element_located((locator_type, locator_value))
             )
+        except NoSuchElementException:
+            return True
         except TimeoutException:
             raise TimeoutException(f"Element ({locator_type}={locator_value}) still visible after {timeout} seconds")
+
+    def scroll_to_element_left(self, locator_type: str, locator_value: str, scroll_container: str = "//android.widget.HorizontalScrollView", max_swipes: int = 3, timeout: float = 0.5) -> bool:
+        """
+        在指定的 HorizontalScrollView 內向左滑動直到找到指定元件
+
+        Args:
+            locator_type: 定位方式（例如：AppiumBy.ID）
+            locator_value: 定位值
+            scroll_container: 滾動容器的xpath，默認為"//android.widget.HorizontalScrollView"
+            max_swipes: 最大滑動次數，默認3次
+            timeout: 每次滑動後的等待時間（秒），默認0.5秒
+
+        Returns:
+            bool: 如果找到並且元件可見返回True，否則返回False
+        """
+        from selenium.common.exceptions import NoSuchElementException, StaleElementReferenceException
+        from selenium.webdriver.common.by import By
+
+        self.driver.implicitly_wait(0)
+        try:
+            element = self.driver.find_element(locator_type, locator_value)
+            if element.is_displayed():
+                return True
+        except (NoSuchElementException, StaleElementReferenceException):
+            pass
+
+        # 獲取 HorizontalScrollView 的位置和尺寸
+        try:
+            scroll_view = self.driver.find_element(By.XPATH, scroll_container)
+            container_rect = scroll_view.rect
+
+            # 取得滾動容器的座標和尺寸
+            container_x = container_rect['x']
+            container_y = container_rect['y']
+            container_width = container_rect['width']
+            container_height = container_rect['height']
+
+            # 計算滑動的起點和終點
+            start_x = container_x + int(container_width * 0.8)  # 容器右側80%位置
+            end_x = container_x + int(container_width * 0.2)    # 容器左側20%位置
+            swipe_y = container_y + (container_height // 2)     # 容器垂直中心位置
+
+            for _ in range(max_swipes):
+                self.swipe(start_x, swipe_y, end_x, swipe_y)
+                time.sleep(timeout)
+                try:
+                    element = self.driver.find_element(locator_type, locator_value)
+                    if element.is_displayed():
+                        return True
+                except (NoSuchElementException, StaleElementReferenceException):
+                    continue
+
+        except NoSuchElementException:
+            print("找不到指定的 HorizontalScrollView")
+            return False
+
+        return False

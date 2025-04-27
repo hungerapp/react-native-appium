@@ -86,7 +86,7 @@ class BrandPage:
     def turn_off_branch_phone_display_switch(self):
         if not self.common_actions.is_element_present(*self.brand_locators.BRANCH_PHONE_NUMBER_FIELD_IN_BRANCH_BRAND_INFO_PAGE):
             self.common_actions.click_element(*self.brand_locators.DISPLAY_BRANCH_PHONE_NUMBER_SWITCH_IN_BRANCH_BRAND_INFO_PAGE)
-            self.common_actions.wait_for_element_present(*self.brand_locators.BRANCH_PHONE_NUMBER_FIELD_IN_BRANCH_BRAND_INFO_PAGE)
+            self.common_actions.wait_for_element_visible(*self.brand_locators.BRANCH_PHONE_NUMBER_FIELD_IN_BRANCH_BRAND_INFO_PAGE)
         self.common_actions.click_element(*self.brand_locators.DISPLAY_BRANCH_PHONE_NUMBER_SWITCH_IN_BRANCH_BRAND_INFO_PAGE)
         self.common_actions.wait_for_element_disappear(*self.brand_locators.BRANCH_PHONE_NUMBER_FIELD_IN_BRANCH_BRAND_INFO_PAGE)
         return self
@@ -94,13 +94,13 @@ class BrandPage:
     def turn_on_branch_phone_display_switch(self):
         if not self.common_actions.is_element_present(*self.brand_locators.BRANCH_PHONE_NUMBER_FIELD_IN_BRANCH_BRAND_INFO_PAGE):
             self.common_actions.click_element(*self.brand_locators.DISPLAY_BRANCH_PHONE_NUMBER_SWITCH_IN_BRANCH_BRAND_INFO_PAGE)
-            self.common_actions.wait_for_element_present(*self.brand_locators.BRANCH_PHONE_NUMBER_FIELD_IN_BRANCH_BRAND_INFO_PAGE)
+            self.common_actions.wait_for_element_visible(*self.brand_locators.BRANCH_PHONE_NUMBER_FIELD_IN_BRANCH_BRAND_INFO_PAGE)
         return self
 
     def turn_off_branch_address_display_switch(self):
         if not self.common_actions.is_element_present(*self.brand_locators.BRANCH_ADDRESS_COUNTRY_IN_BRANCH_BRAND_INFO_PAGE):
             self.common_actions.click_element(*self.brand_locators.DISPLAY_BRANCH_ADDRESS_SWITCH_IN_BRANCH_BRAND_INFO_PAGE)
-            self.common_actions.wait_for_element_present(*self.brand_locators.BRANCH_ADDRESS_COUNTRY_IN_BRANCH_BRAND_INFO_PAGE)
+            self.common_actions.wait_for_element_visible(*self.brand_locators.BRANCH_ADDRESS_COUNTRY_IN_BRANCH_BRAND_INFO_PAGE)
         self.common_actions.click_element(*self.brand_locators.DISPLAY_BRANCH_ADDRESS_SWITCH_IN_BRANCH_BRAND_INFO_PAGE)
         self.common_actions.wait_for_element_disappear(*self.brand_locators.BRANCH_ADDRESS_COUNTRY_IN_BRANCH_BRAND_INFO_PAGE)
         return self
@@ -108,7 +108,7 @@ class BrandPage:
     def turn_on_branch_address_display_switch(self):
         if not self.common_actions.is_element_present(*self.brand_locators.BRANCH_ADDRESS_COUNTRY_IN_BRANCH_BRAND_INFO_PAGE):
             self.common_actions.click_element(*self.brand_locators.DISPLAY_BRANCH_ADDRESS_SWITCH_IN_BRANCH_BRAND_INFO_PAGE)
-            self.common_actions.wait_for_element_present(*self.brand_locators.BRANCH_ADDRESS_COUNTRY_IN_BRANCH_BRAND_INFO_PAGE)
+            self.common_actions.wait_for_element_visible(*self.brand_locators.BRANCH_ADDRESS_COUNTRY_IN_BRANCH_BRAND_INFO_PAGE)
         return self
 
     def select_branch_city(self, branch_city):
@@ -142,7 +142,7 @@ class BrandPage:
     def tap_expand_brand_settings(self):
         self.common_actions.scroll_to_element(*self.brand_locators.EXPAND_BRAND_SETTINGS_BUTTON_IN_BRANCH_BRAND_INFO_PAGE)
         self.common_actions.click_element(*self.brand_locators.EXPAND_BRAND_SETTINGS_BUTTON_IN_BRANCH_BRAND_INFO_PAGE)
-        self.common_actions.wait_for_element_present(*self.brand_locators.CLOSE_BRAND_SETTINGS_BUTTON_IN_BRANCH_BRAND_INFO_PAGE)
+        self.common_actions.wait_for_element_visible(*self.brand_locators.CLOSE_BRAND_SETTINGS_BUTTON_IN_BRANCH_BRAND_INFO_PAGE)
         return self
 
     def verify_brand_settings_section(self):
@@ -154,10 +154,10 @@ class BrandPage:
 
     def tap_close_button(self):
         self.common_actions.click_element(*self.brand_locators.CLOSE_BUTTON_IN_BRANCH_BRAND_INFO_PAGE)
-        self.common_actions.wait_for_element_present(*self.brand_locators.CLOSE_BUTTON_IN_BRANCH_BRAND_INFO_PAGE)
+        self.common_actions.wait_for_element_visible(*self.brand_locators.CLOSE_BUTTON_IN_BRANCH_BRAND_INFO_PAGE)
         return self
 
     def tap_confirm_button(self):
         self.common_actions.click_element(*self.brand_locators.CONFIRM_BUTTON_IN_BRANCH_BRAND_INFO_PAGE)
-        self.common_actions.wait_for_element_present(*self.brand_locators.BRANCH_SETTINGS_PAGE)
+        self.common_actions.wait_for_element_visible(*self.brand_locators.BRANCH_SETTINGS_PAGE)
         return self
