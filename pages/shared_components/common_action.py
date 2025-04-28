@@ -3,7 +3,8 @@ from appium.webdriver.webdriver import WebDriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions
 from selenium.common.exceptions import TimeoutException
-from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import NoSuchElementException, StaleElementReferenceException
+from selenium.webdriver.common.by import By
 
 class CommonActions:
     def __init__(self, driver: WebDriver):
@@ -127,7 +128,7 @@ class CommonActions:
         actual_text = self.get_element_text(locator_type, locator_value)
         return actual_text == expected_text
 
-    def scroll_to_element(self, locator_type: str, locator_value: str, scroll_container: str = "//android.widget.ScrollView", max_swipes: int = 3, timeout: float = 0.5) -> bool:
+    def scroll_to_element(self, locator_type: str, locator_value: str, scroll_container: str = "//android.widget.ScrollView", max_swipes: int = 5, timeout: float = 0.5) -> bool:
         """
         在 ScrollView 內垂直滾動直到找到指定元件
 
@@ -141,9 +142,6 @@ class CommonActions:
         Returns:
             bool: 如果找到並且元件可見返回True，否則返回False
         """
-        from selenium.common.exceptions import NoSuchElementException, StaleElementReferenceException
-        from selenium.webdriver.common.by import By
-
         self.driver.implicitly_wait(0)
         try:
             element = self.driver.find_element(locator_type, locator_value)
@@ -206,28 +204,28 @@ class CommonActions:
         """
         return self.driver.get_window_size()['width'], self.driver.get_window_size()['height']
 
-    def wait_for_element_present(self, locator_type: str, locator_value: str, timeout: int = 30):
+    def wait_for_element_present(self, locator_type: str, locator_value: str, timeout: int = 30) -> bool:
         """
-        Wait for an element to be present in the DOM and visible
+        等待元素在DOM中出現並可見
 
         Args:
-            locator_type: The type of locator strategy
-            locator_value: The value of the locator
-            timeout: Maximum time to wait in seconds
+            locator_type: 定位方式
+            locator_value: 定位值
+            timeout: 最大等待時間（秒）
 
         Returns:
-            WebElement: The found element
-
-        Raises:
-            TimeoutException: When an element is not present within a specified timeout
+            bool: 如果元素出現並可見返回True，否則返回False
         """
         try:
-            element = WebDriverWait(self.driver, timeout).until(
+            # 暫時禁用隱式等待，避免與顯式等待發生衝突
+            self.driver.implicitly_wait(0)
+            wait = WebDriverWait(self.driver, timeout)
+            wait.until(
                 expected_conditions.visibility_of_element_located((locator_type, locator_value))
             )
-            return element
+            return True
         except TimeoutException:
-            raise TimeoutException(f"Element ({locator_type}={locator_value}) not present within {timeout} seconds")
+            return False
 
     def wait_for_element_disappear(self, locator_type: str, locator_value: str, timeout: int = 30):
         """
@@ -266,8 +264,6 @@ class CommonActions:
         Returns:
             bool: 如果找到並且元件可見返回True，否則返回False
         """
-        from selenium.common.exceptions import NoSuchElementException, StaleElementReferenceException
-        from selenium.webdriver.common.by import By
 
         self.driver.implicitly_wait(0)
         try:

@@ -30,24 +30,44 @@ Feature: Service Appointment Settings
 
   Scenario: Add Service Item
     Given I am on the service items page
-    When I select a service category named "推薦項目"
+    When I select a service category named "New Category"
     And I click the add service item button
     And I enter the service item name "Service Name"
     And I enter the service code name "SC"
     And I enter the service introduction "Service Introduction"
-    And I select the service category "推薦項目" in the add service item
+    And I select the service category "New Category" in the add service item
     And I enter the service duration "60" minutes
     And I enter the service price "100"
-    And I select the service display type fixed price
-    And I select the service display type starting price
-    And I select the sub service type single choice
-    And I select the sub service type multiple choice
+    And I select the service display type "固定價"
+    And I select the service display type "起標價"
+    And I select the sub service type "單選"
+    And I select the sub service type "複選"
     And I add sub service items name "Sub Service 1" and duration "30" minutes and price "50"
     And I click the save add service item button
     Then I should see the service item name "Service Name"
 
-  @haha
   Scenario: Navigate to Online Booking Page
     Given I am on the service appointment page
     When I tap on the online booking
     Then I should see the online booking page
+
+  Scenario: Add Online Booking Without Appointment Combination
+    Given I am on the online booking page
+    When I tap on the add unspecified appointment combination
+    And I enter the appointment combination name "New Combination"
+    And I enter the appointment combination introduction "Combination Introduction"
+    And I select the appointment combination service personnel "全部選取"
+    And I tap on the confirm button on the add appointment combination
+    Then I should see the appointment combination name "New Combination" on the online booking page
+
+  Scenario: Edit Online Booking Appointment Combination
+    Given I am on the online booking page
+    When I tap on the edit appointment combination named "New Combination"
+    And I tap on the open item tab
+    And I select the main service item and clear all options "New Category" "Service Name"
+    And I select the main service item "New Category" "Service Name 2"
+    And I select the online booking type "單選"
+    And I select the online booking type "複選"
+    And I select the additional service item and clear all options "New Category" "Service Name 4"
+    And I tap on the close button on the edit appointment combination
+    Then I should see the appointment combination name "New Combination" on the online booking page

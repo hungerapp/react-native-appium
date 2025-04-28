@@ -7,7 +7,6 @@ def verify_service_appointment_page(driver):
     service_appointment_page = ServiceAppointmentPage(driver)
     assert service_appointment_page.verify_service_appointment_page(), "Service appointment page is not displayed"
 
-
 @when("I share the appointment link")
 def share_appointment_link(driver):
     service_appointment_page = ServiceAppointmentPage(driver)
@@ -93,25 +92,16 @@ def enter_service_price(driver, price):
     service_appointment_page = ServiceAppointmentPage(driver)
     assert service_appointment_page.enter_service_price(price), "Service price input is not displayed"
 
-@when('I select the service display type fixed price')
-def select_fixed_price(driver):
-    service_appointment_page = ServiceAppointmentPage(driver)
-    assert service_appointment_page.select_fixed_price(), "Select fixed price is not displayed"
 
-@when('I select the service display type starting price')
-def select_starting_price(driver):
+@when(parsers.parse('I select the service display type "{display_price_method}"'))
+def select_display_price_method(driver, display_price_method):
     service_appointment_page = ServiceAppointmentPage(driver)
-    assert service_appointment_page.select_starting_price(), "Select starting price is not displayed"
+    assert service_appointment_page.select_display_price_method(display_price_method),  "Select display price method is not displayed"
 
-@when('I select the sub service type single choice')
-def select_single_choice(driver):
+@when(parsers.parse('I select the sub service type "{sub_service_type}"'))
+def select_sub_service_type(driver, sub_service_type):
     service_appointment_page = ServiceAppointmentPage(driver)
-    assert service_appointment_page.select_single_choice(), "Select single choice is not displayed"
-
-@when('I select the sub service type multiple choice')
-def select_multiple_choice(driver):
-    service_appointment_page = ServiceAppointmentPage(driver)
-    assert service_appointment_page.select_multiple_choice(), "Select multiple choice is not displayed"
+    assert service_appointment_page.select_sub_service_type(sub_service_type), "Select sub service type is not displayed"
 
 @when(parsers.parse('I add sub service items name "{sub_item_name}" and duration "{duration}" minutes and price "{price}"'))
 def add_sub_service_items(driver, sub_item_name, duration, price):
@@ -143,3 +133,77 @@ def verify_online_booking_page(driver):
     service_appointment_page = ServiceAppointmentPage(driver)
     assert service_appointment_page.verify_online_booking_page(), "Online booking page is not displayed"
 
+@given('I am on the online booking page')
+def verify_online_booking_page(driver):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.verify_online_booking_page(), "Online booking page is not displayed"
+
+@when('I tap on the add unspecified appointment combination')
+def tap_add_appointment_combination(driver):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.tap_add_appointment_combination(), "Add appointment combination is not displayed"
+
+@when(parsers.parse('I enter the appointment combination name "{combination_name}"'))
+def enter_appointment_combination_name(driver, combination_name):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.enter_appointment_combination_name(combination_name), "Appointment combination name input is not displayed"
+
+@when(parsers.parse('I enter the appointment combination introduction "{combination_introduction}"'))
+def enter_appointment_combination_introduction(driver, combination_introduction):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.enter_appointment_combination_introduction(combination_introduction), "Appointment combination introduction input is not displayed"
+
+@when(parsers.parse('I select the appointment combination service personnel "{service_personnel}"'))    #全部選取
+def select_appointment_combination_service_personnel(driver, service_personnel):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.select_appointment_combination_service_personnel(service_personnel), "Appointment combination service personnel selection is not displayed"
+
+@when('I tap on the confirm button on the add appointment combination')
+def tap_confirm_add_appointment_combination(driver):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.tap_confirm_add_appointment_combination(), "Confirm add appointment combination button is not displayed"
+
+@then(parsers.parse('I should see the appointment combination name "{combination_name}" on the online booking page'))
+def verify_appointment_combination_name(driver, combination_name):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.verify_appointment_combination_name(combination_name), "Appointment combination name is not displayed"
+
+@when(parsers.parse('I tap on the edit appointment combination named "{combination_name}"'))
+def tap_edit_appointment_combination(driver, combination_name):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.tap_edit_appointment_combination(combination_name), "Edit appointment combination is not displayed"
+
+@when("I tap on the open item tab")
+def tap_open_item_tab(driver):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.tap_open_item_tab(), "Open item tab is not displayed"
+
+@when(parsers.parse('I select the main service item and clear all options "{service_item_category}" "{service_item_name}"'))
+def select_main_service_item_and_clear_all(driver, service_item_category, service_item_name):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.select_main_service_item(service_item_category, service_item_name, clear_all=True), "Main service item selection and clear all options is not displayed"
+
+@when(parsers.parse('I select the main service item "{service_item_category}" "{service_item_name}"'))
+def select_main_service_item(driver, service_item_category, service_item_name):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.select_main_service_item(service_item_category, service_item_name), "Main service item selection is not displayed"
+
+@when(parsers.parse('I select the online booking type "{online_booking_type}"'))
+def select_online_booking_type(driver, online_booking_type):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.select_online_booking_type(online_booking_type), "Online booking type selection is not displayed"
+
+@when(parsers.parse('I select the additional service item "{service_item_category}" "{service_item_name}"'))
+def select_additional_service_item(driver, service_item_category, service_item_name):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.select_additional_service_item(service_item_category, service_item_name), "Additional service item selection is not displayed"
+
+@when(parsers.parse('I select the additional service item and clear all options "{service_item_category}" "{service_item_name}"'))
+def select_additional_service_item(driver, service_item_category, service_item_name):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.select_additional_service_item(service_item_category, service_item_name, clear_all=True), "Additional service item selection is not displayed"
+
+@when("I tap on the close button on the edit appointment combination")
+def tap_close_edit_appointment_combination(driver):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.tap_close_edit_appointment_combination(), "Close edit appointment combination button is not displayed"
