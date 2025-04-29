@@ -242,3 +242,38 @@ def set_online_booking_quantity_range(driver, min_quantity, max_quantity):
 def set_open_time(driver, times):
     service_appointment_page = ServiceAppointmentPage(driver)
     assert service_appointment_page.set_open_time(times), "Set open time is not displayed"
+
+@when("I tap on the booking note")
+def tap_booking_note(driver):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.tap_booking_note(), "Booking note is not displayed"
+
+@then("I should see the booking note page")
+def verify_booking_note_page(driver):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.verify_booking_note_page(), "Booking note page is not displayed"
+
+@given("I am on the booking note page")
+def verify_booking_note_page(driver):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.verify_booking_note_page(), "Booking note page is not displayed"
+
+@when("I turn off the booking note switch")
+def turn_off_booking_note_switch(driver):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.turn_off_booking_note_switch(), "Booking note switch is not displayed"
+
+@when("I turn on the booking note switch")
+def turn_on_booking_note_switch(driver):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.turn_on_booking_note_switch(), "Booking note switch is not displayed"
+
+@when(parsers.parse('I enter the booking note "{booking_note}"'))
+def enter_booking_note(driver, booking_note):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.enter_booking_note(booking_note), "Booking note input is not displayed"
+
+@when("I tap on the confirm button in the booking note")
+def tap_confirm_booking_note(driver):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.tap_confirm_booking_note(), "Confirm booking note button is not displayed"

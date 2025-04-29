@@ -94,3 +94,16 @@ Feature: Service Appointment Settings
     And I tap on the close button on the edit appointment combination
     Then I should see the online booking page
 
+  Scenario: Navigate to Booking Note Page
+    Given I am on the service appointment page
+    When I tap on the booking note
+    Then I should see the booking note page
+
+  @haha
+  Scenario: Add Booking Note
+    Given I am on the booking note page
+    When I turn off the booking note switch
+    And I turn on the booking note switch
+    And I enter the booking note "Booking Note"
+    And I tap on the confirm button in the booking note
+    Then I should see the service appointment page

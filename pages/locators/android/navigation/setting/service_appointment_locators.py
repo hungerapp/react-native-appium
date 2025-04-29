@@ -10,7 +10,7 @@ class ServiceAppointmentPageLocators:
     SERVICE_PRICE_LIST_IN_SERVICE_APPOINTMENT_PAGE = (AppiumBy.XPATH,'//*[@text="服務項目(價目表)"]')
     ONLINE_BOOKING_MANAGEMENT_IN_SERVICE_APPOINTMENT_PAGE = (AppiumBy.XPATH,'//*[@text="網路預約管理"]')
     BOOKING_FAQ_IN_SERVICE_APPOINTMENT_PAGE = (AppiumBy.XPATH,'//*[@text="預約問題與備註"]")')
-    BOOKING_GUIDELINES_IN_SERVICE_APPOINTMENT_PAGE = (AppiumBy.XPATH,'//*[@text="預約注意事項"]')
+    BOOKING_NOTE_IN_SERVICE_APPOINTMENT_PAGE = (AppiumBy.XPATH,'//*[@text="預約注意事項"]')
     DEPOSIT_MANAGEMENT_IN_SERVICE_APPOINTMENT_PAGE = (AppiumBy.XPATH,'//*[@text="定金管理"]')
     ADVANCED_FEATURES_IN_SERVICE_APPOINTMENT_PAGE = (AppiumBy.XPATH,'//*[@text="進階功能"]')
     BACK_TO_CALENDAR_BUTTON_IN_SERVICE_APPOINTMENT_PAGE = (AppiumBy.XPATH,'//*[@text="回到行事曆"]')
@@ -157,17 +157,14 @@ class ServiceAppointmentPageLocators:
     # Service Appointment Page/Service Item List Page/Open Time Tab/Open Time Selection Modal/Close Time Dialog/Close All-Time Dialog
     CLOSE_ALL_TIME_DIALOG_CONFIRM_BUTTON = (AppiumBy.XPATH,'//*[@text="確定"]')
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    # Service Appointment Page/Booking Note Page
+    TITLE_IN_BOOKING_NOTE_PAGE = (AppiumBy.XPATH,'//*[@content-desc="check"]/../*[@text="預約注意事項"]')
+    CLOSE_BUTTON_IN_BOOKING_NOTE_PAGE = (AppiumBy.ACCESSIBILITY_ID,'xmark')
+    CONFIRM_BUTTON_IN_BOOKING_NOTE_PAGE = (AppiumBy.ACCESSIBILITY_ID,'check')
+    BOOKING_NOTE_SWITCH_IN_BOOKING_NOTE_PAGE = (AppiumBy.ACCESSIBILITY_ID,'預約注意事項-switch-button')
+    BOOKING_NOTE_FIELD_IN_BOOKING_NOTE_PAGE = (AppiumBy.ACCESSIBILITY_ID,'undefined-textarea-field')
+    # Service Appointment Page/Booking Note Page/Booking Note Dialog
+    BOOKING_NOTE_DIALOG_CLOSE_BUTTON = (AppiumBy.ACCESSIBILITY_ID,'預約注意事項-close-button')
+    BOOKING_NOTE_DIALOG_CONFIRM_BUTTON = (AppiumBy.ACCESSIBILITY_ID,'circle-check')
+    BOOKING_NOTE_DIALOG_CLEAR_BUTTON = (AppiumBy.XPATH,'//*[@content-desc="清除"]')
+    BOOKING_NOTE_DIALOG_FIELD = (AppiumBy.ACCESSIBILITY_ID,'預約注意事項-textarea-input')

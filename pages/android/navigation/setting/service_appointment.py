@@ -336,7 +336,41 @@ class ServiceAppointmentPage:
         self.common_actions.click_element(*self.service_appointment_page_locators.OPEN_TIME_SELECTION_MODAL_CLOSE_BUTTON)
         return self
 
+    def tap_booking_note(self):
+        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.BOOKING_NOTE_IN_SERVICE_APPOINTMENT_PAGE)
+        self.common_actions.click_element(*self.service_appointment_page_locators.BOOKING_NOTE_IN_SERVICE_APPOINTMENT_PAGE)
+        return self
 
+    def verify_booking_note_page(self):
+        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.TITLE_IN_BOOKING_NOTE_PAGE)
+        self.common_actions.is_element_visible(*self.service_appointment_page_locators.CLOSE_BUTTON_IN_BOOKING_NOTE_PAGE)
+        self.common_actions.is_element_visible(*self.service_appointment_page_locators.CONFIRM_BUTTON_IN_BOOKING_NOTE_PAGE)
+        return self
 
+    def turn_off_booking_note_switch(self):
+        if not self.common_actions.is_element_present(*self.service_appointment_page_locators.BOOKING_NOTE_FIELD_IN_BOOKING_NOTE_PAGE):
+            self.common_actions.click_element(*self.service_appointment_page_locators.BOOKING_NOTE_SWITCH_IN_BOOKING_NOTE_PAGE)
+            self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.BOOKING_NOTE_FIELD_IN_BOOKING_NOTE_PAGE)
+        self.common_actions.click_element(*self.service_appointment_page_locators.BOOKING_NOTE_SWITCH_IN_BOOKING_NOTE_PAGE)
+        self.common_actions.wait_for_element_disappear(*self.service_appointment_page_locators.BOOKING_NOTE_FIELD_IN_BOOKING_NOTE_PAGE)
+        return self
 
+    def turn_on_booking_note_switch(self):
+        if not self.common_actions.is_element_present(*self.service_appointment_page_locators.BOOKING_NOTE_FIELD_IN_BOOKING_NOTE_PAGE):
+            self.common_actions.click_element(*self.service_appointment_page_locators.BOOKING_NOTE_SWITCH_IN_BOOKING_NOTE_PAGE)
+            self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.BOOKING_NOTE_FIELD_IN_BOOKING_NOTE_PAGE)
+        return self
 
+    def enter_booking_note(self, note):
+        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.BOOKING_NOTE_FIELD_IN_BOOKING_NOTE_PAGE)
+        self.common_actions.click_element(*self.service_appointment_page_locators.BOOKING_NOTE_FIELD_IN_BOOKING_NOTE_PAGE)
+        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.BOOKING_NOTE_DIALOG_FIELD)
+        self.common_actions.send_keys_to_element(*self.service_appointment_page_locators.BOOKING_NOTE_DIALOG_FIELD, note)
+        self.common_actions.click_element(*self.service_appointment_page_locators.BOOKING_NOTE_DIALOG_CONFIRM_BUTTON)
+        self.common_actions.wait_for_element_disappear(*self.service_appointment_page_locators.BOOKING_NOTE_DIALOG_CONFIRM_BUTTON)
+        return self
+
+    def tap_confirm_booking_note(self):
+        self.common_actions.click_element(*self.service_appointment_page_locators.CONFIRM_BUTTON_IN_BOOKING_NOTE_PAGE)
+        self.common_actions.wait_for_element_disappear(*self.service_appointment_page_locators.CONFIRM_BUTTON_IN_BOOKING_NOTE_PAGE)
+        return self
