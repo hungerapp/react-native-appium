@@ -14,7 +14,7 @@ scenarios('../../../features/navigation/more/tutorial_book.feature')
 # [TUTORIAL BOOK]
 @allure.feature('Tutorial Book')
 @allure.story('Tutorial Book - Opening the User Book')
-@pytest.mark.navigation
+@pytest.mark.navigation_more_tutorial_book
 @pytest.mark.run(order=92)
 @given('I click on the user book')
 def click_user_book(driver):

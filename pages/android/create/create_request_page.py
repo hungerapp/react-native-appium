@@ -154,12 +154,10 @@ class CreateRequestPage:
                 plus_button.click()
                 time.sleep(0.5)
           else:
-             quantity_input = self.driver.find_element(*self.create_request_locators.QUANTITY_REVISE_INPUT)
-             quantity_input.click()
              random_quantity = str(random.randint(5, 100))
-             quantity_input2 = self.driver.find_element(*self.create_request_locators.QUANTITY_REVISE_INPUT2)
-             quantity_input2.click()
-             quantity_input2.send_keys(random_quantity)
+             quantity_input = self.driver.find_element(*self.create_request_locators.QUANTITY_REVISE_INPUT2)
+             quantity_input.click()
+             quantity_input.send_keys(random_quantity)
           
           self.driver.find_element(*self.create_request_locators.QUANTITY_REVISE_SAVE_BTN).click()
         

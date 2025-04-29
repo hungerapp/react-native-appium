@@ -34,9 +34,11 @@ class AllowAppointmentLocators:
     LATEST_RESERVATION_TIME_OPTION = [
       (AppiumBy.ACCESSIBILITY_ID, "不限制 (0分鐘前)"),
       (AppiumBy.ACCESSIBILITY_ID, "30分鐘前"),
-      (AppiumBy.ACCESSIBILITY_ID, "1天前 (當天不開放預約)"),
-      (AppiumBy.ACCESSIBILITY_ID, "2天前"),
-      (AppiumBy.ACCESSIBILITY_ID, "1週前"),
+      (AppiumBy.ACCESSIBILITY_ID, "60分鐘前"),
+      (AppiumBy.ACCESSIBILITY_ID, "90分鐘前"),
+      (AppiumBy.ACCESSIBILITY_ID, "120分鐘前"),
+      (AppiumBy.ACCESSIBILITY_ID, "180分鐘前"),
+      (AppiumBy.ACCESSIBILITY_ID, "1天前 (當天不開放預約)")
     ]
     
     # expand advanced settings
@@ -51,9 +53,10 @@ class AllowAppointmentLocators:
     OPEN_TIME_TAB = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("開放時間")')
     OPEN_CALENDAR_WINDOW = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("caret-down")')
     ARROW_RIGHT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("arrow-right").instance(1)')
-    ADD_NEW_OPEN_TIME = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("新增時間").instance(0)')
+    ADD_NEW_OPEN_TIME = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("新增時間").instance(1)')
     TIME_SLOTS = (AppiumBy.XPATH, "//android.widget.TextView[contains(@text, ':')]")
-    EDIT_OPEN_TIME_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("pen-to-square").instance(0)')
+    EDIT_OPEN_TIME1_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("pen-to-square").instance(0)')
+    EDIT_OPEN_TIME2_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("pen-to-square")')
     COPY_TODAY_BUTTON = (AppiumBy.ACCESSIBILITY_ID, '複製本日')
     QUICK_CLOSE_BUTTON = (AppiumBy.ACCESSIBILITY_ID, '快速關閉')
     CONFIRM_BUTTON = (AppiumBy.ACCESSIBILITY_ID, '確定')
@@ -82,12 +85,14 @@ class AllowAppointmentLocators:
     
     START_SECTION = (AppiumBy.ACCESSIBILITY_ID, '從')
     END_DATE_BLOCK = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("結束日期")')
-    RIGHT_ARROW = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("arrow-right")')
+    RIGHT_ARROW = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("arrow-right").instance(1)')
     
     # save button
     SAVE_BUTTON = (AppiumBy.ACCESSIBILITY_ID, 'check')
     
     # close button
+    OPEN_TIME_CLOSE_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("xmark").instance(1)')
+    EDIT_OPEN_TIME_CLOSE_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("xmark").instance(1)')
     CLOSE_BUTTON = (AppiumBy.ACCESSIBILITY_ID, 'xmark')
     
     
@@ -98,8 +103,8 @@ class AllowAppointmentLocators:
     MAIN_ITEM_SECTION = (AppiumBy.ACCESSIBILITY_ID, '主要服務項目')
     ONLINE_RESERVATION_TYPE_SECTION = (AppiumBy.ACCESSIBILITY_ID, '線上預約選取類型')
     ONLINE_RESERVATION_TYPE_OPTION = [
-        '單選',
-        '複選'
+        '單選-popup-option',
+        '複選-popup-option'
     ]
     ADD_ON_SERVICE_ITEMS_SECTION = (AppiumBy.ACCESSIBILITY_ID, '加購服務項目')
     CLEAR_ALL_BUTTON = (AppiumBy.ACCESSIBILITY_ID, '全部清除')

@@ -15,33 +15,22 @@ class PersonalPageLocators:
       BRAND_HUNGER_SALON_PROFILE_PICTURE = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("android.widget.ImageView").instance(1)')
       BRANCH_LIST = (AppiumBy.XPATH, '//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup')
       BRANCH_ITEM_TEMPLATE = "//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup//android.widget.TextView[contains(@text, '{}')]"
-      FIRST_LOGIN_POP_UP_WINDOW_CANCEL_ICON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.SvgView").instance(0)')
-      POP_UP_1CANCEL_ICON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(0)')
-      POP_UP_2CANCEL_ICON = (AppiumBy.XPATH, '//android.widget.FrameLayout[@resource-id="android:id/content"]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/com.horcrux.svg.SvgView')
+      POP_UP_CANCEL_ICON = (AppiumBy.ACCESSIBILITY_ID, 'xmark')
       FREE_WINDOW_BACK_TO_PERSONAL_PAGE_BTN = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("返回主頁")')
       TALK_TO_YOU_LATER_BTN = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("稍後再說")')
       WAY_TO_GIVE_UP_BTN = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("忍痛放棄")')
-      BACK_TO_PERSONAL_PAGE_BTN = (AppiumBy.XPATH, "//android.view.ViewGroup[contains(@content-desc, '分店') or contains(@content-desc, 'Ffff') or contains(@content-desc, 'Ttt')]/descendant::com.horcrux.svg.PathView")
+      BACK_TO_PERSONAL_PAGE_BTN = (AppiumBy.XPATH, "//android.view.ViewGroup[contains(@content-desc, '分店')]/descendant::com.horcrux.svg.PathView")
       UNEXPECTED_ERROR_BTN = (AppiumBy.ACCESSIBILITY_ID, '關閉')
-      
-      
-      POPUP_LOCATORS = {
-            "Cancel Style1 Button": POP_UP_1CANCEL_ICON,
-            "Cancel Style2 Button": POP_UP_2CANCEL_ICON,
-            "First Login Pop Up Window Cancel Button": FIRST_LOGIN_POP_UP_WINDOW_CANCEL_ICON,
-            "Back to Home Button": FREE_WINDOW_BACK_TO_PERSONAL_PAGE_BTN,
-            "Talk to you later": TALK_TO_YOU_LATER_BTN,
-          }
-      
+    
       
       # Branch name list
       BRANCH_NAMES = [
-        #{"name": "Pro分店", "locator": (AppiumBy.ACCESSIBILITY_ID, 'Pro分店, 品牌管理員')},
+        {"name": "Ultra分店", "locator": (AppiumBy.ACCESSIBILITY_ID, 'Ultra 分店')},
         {"name": "Star分店", "locator": (AppiumBy.ACCESSIBILITY_ID, 'Star分店, 品牌管理員')},
-        {"name": "Free分店", "locator": (AppiumBy.ACCESSIBILITY_ID, 'Free分店, 品牌管理員')},
-        {"name": "Ultra分店", "locator": (AppiumBy.ACCESSIBILITY_ID, 'Ultra分店, 品牌管理員')}
+        {"name": "Free分店", "locator": (AppiumBy.ACCESSIBILITY_ID, 'Free分店, 品牌管理員')}
       ]
-  
+      
+      PRO_BRANCH_NAME = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Pro 分店")')
   
   
       # Quick functions
@@ -69,23 +58,15 @@ class PersonalPageLocators:
         "bella_toggle": (AppiumBy.XPATH, "//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[4]/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup[2]/android.view.ViewGroup"),
         "dami_toggle": (AppiumBy.XPATH, "//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[4]/android.view.ViewGroup/android.view.ViewGroup[4]/android.view.ViewGroup[2]/android.view.ViewGroup"),
         "ella_toggle": (AppiumBy.XPATH, '//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[4]/android.view.ViewGroup/android.view.ViewGroup[5]/android.view.ViewGroup[2]/android.view.ViewGroup'),
-        "test_toggle": (AppiumBy.XPATH, "//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[4]/android.view.ViewGroup/android.view.ViewGroup[6]/android.view.ViewGroup[2]/android.view.ViewGroup"),
-        "918mmm_toggle": (AppiumBy.XPATH, '//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[4]/android.view.ViewGroup/android.view.ViewGroup[7]/android.view.ViewGroup[2]/android.view.ViewGroup'),
-        "new1_toggle": (AppiumBy.XPATH, "//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[4]/android.view.ViewGroup/android.view.ViewGroup[8]/android.view.ViewGroup[2]/android.view.ViewGroup"),
-        "new2_toggle": (AppiumBy.XPATH, "//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[4]/android.view.ViewGroup/android.view.ViewGroup[9]/android.view.ViewGroup[2]/android.view.ViewGroup"),
-        "cindy_toggle": (AppiumBy.XPATH, "//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[4]/android.view.ViewGroup/android.view.ViewGroup[10]/android.view.ViewGroup[2]/android.view.ViewGroup")
+        "kelly_toggle": (AppiumBy.XPATH, "//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[4]/android.view.ViewGroup/android.view.ViewGroup[6]/android.view.ViewGroup[2]/android.view.ViewGroup"),
+        "test_toggle": (AppiumBy.XPATH, '//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[4]/android.view.ViewGroup/android.view.ViewGroup[7]/android.view.ViewGroup[2]/android.view.ViewGroup'),
+        "918_toggle": (AppiumBy.XPATH, "//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[4]/android.view.ViewGroup/android.view.ViewGroup[8]/android.view.ViewGroup[2]/android.view.ViewGroup"),
+        "new1_toggle": (AppiumBy.XPATH, "//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[4]/android.view.ViewGroup/android.view.ViewGroup[9]/android.view.ViewGroup[2]/android.view.ViewGroup")
       }
       
       
       # Locators for account settings page
-      NAME_INPUT = [
-        (AppiumBy.XPATH, "//android.widget.EditText"),  # 通用的 EditText
-        (AppiumBy.CLASS_NAME, "android.widget.EditText"),  # 使用 class name
-        (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Ann")'),  # 使用 UiSelector
-        (AppiumBy.XPATH, "//android.widget.EditText[contains(@text, 'Ann')]"),
-        (AppiumBy.XPATH, '//android.widget.EditText[@text="Ann"]'),
-        (AppiumBy.XPATH, "//android.widget.EditText[@text='請輸入姓名']")# 包含特定文本
-      ]
+      NAME_INPUT = (AppiumBy.ACCESSIBILITY_ID, '姓名-text-input')
   
       GENDER_OPTIONS = {
       "男": (AppiumBy.ACCESSIBILITY_ID, "男"),
@@ -97,7 +78,7 @@ class PersonalPageLocators:
       BIRTHDAY_FIELD = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("生日")')
       CALENDAR_WINDOW = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("android:id/pickers")')
       CONFIRM_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("android:id/button1")')
-      PHONE_INPUT_INITIAL = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textMatches("\\d{9}")')
+      PHONE_INPUT_INITIAL = (AppiumBy.ACCESSIBILITY_ID, '電話-text-input')
       PHONE_INPUT_CLEAR = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("請輸入電話")')
       EMPTY_PHONE_ERROR_MESSAGE = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text(" 此欄位為必填。")')
       INVALID_PHONE_ERROR_MESSAGE = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("格式錯誤")')

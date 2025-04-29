@@ -13,7 +13,7 @@ scenarios('../../../features/navigation/more/deposit.feature')
 
 @allure.feature('Deposit More')
 @allure.story('Deposit Management')
-@pytest.mark.navigation
+@pytest.mark.navigation_more_deposit
 @pytest.mark.run(order=83)
 @given('I tap on deposit')
 def tap_on_deposit(driver):

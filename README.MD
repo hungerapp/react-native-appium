@@ -26,7 +26,18 @@ A powerful automated testing framework for React Native applications, supporting
     - [Basic Test Execution](#basic-test-execution)
     - [Report Generation Commands](#report-generation-commands)
     - [Generate Test Reports](#generate-test-reports)
-    - [Appium Inspector Configuration](#appium-inspector-configuration)
+    - [Appium Inspector](#appium-inspector)
+      - [Android Configuration](#android-configuration)
+      - [iOS {Simulator} Configuration](#ios-simulator-configuration)
+      - [iOS {Real Device} Configuration](#ios-real-device-configuration)
+    - [Using Appium Inspector](#using-appium-inspector)
+    - [uiauto.dev Tool](#uiautodev-tool)
+      - [Prerequisites](#prerequisites-1)
+      - [Installation](#installation)
+      - [Launch Methods](#launch-methods)
+      - [Key Features](#key-features)
+      - [Configuration Steps](#configuration-steps)
+      - [Using uiauto.dev](#using-uiautodev)
     - [Find Device UDID](#find-device-udid)
 
 <h1 id="system-requirements">💻 System Requirements</h1>
@@ -166,13 +177,10 @@ docker-compose logs -f
 pytest -v
 
 # Run tests with regression marker
-pytest -v -m regression
+pytest -k "regression"
 
 # Run tests by keyword
 pytest -k "login_invalid_email"
-
-# Run tests by specific marker
-pytest -m "login_invalid_email"
 
 # Run specific test file
 pytest tests/steps/android/test_04create_checkout_steps.py
@@ -214,46 +222,117 @@ allure serve allure-results
 
 <h1 id="element-location-tools">🔍 Element Location Tools</h1>
 
-### Appium Inspector Configuration
+### Appium Inspector
 
-> ⚠️ **Important**: You must first start the Appium server in your terminal (by running the `appium` command) before you can use Appium Inspector for element inspection.
+- Download Appium Inspector
+- Configure Appium Server
+- Start Appium Server
+- Launch Appium Inspector
+- Configure Desired Capabilities
 
-<div align="center">
-  <img src="./images/img2.png" alt="Appium Inspctor Tool" width="600">
-</div>
-
-<details>
-<summary>Android Capabilities</summary>
+#### Android Configuration
 
 ```json
 {
   "platformName": "android",
   "appium:deviceName": "emulator-5554",
   "appium:automationName": "UiAutomator2",
-  "appium:app": "/path/to/your/app.apk",
+  "appium:platformVersion": "13",
+  "appium:app": "/path/to/your/android/app-staging-debug.apk",
   "appium:noReset": true,
   "appium:uiautomator2ServerLaunchTimeout": 60000
 }
 ```
 
-</details>
-
-<details>
-<summary>iOS Capabilities</summary>
+#### iOS {Simulator} Configuration
 
 ```json
 {
   "platformName": "ios",
-  "appium:deviceName": "iPhone 15 Pro",
+  "appium:deviceName": "iPhone 15",
   "appium:automationName": "XCUITest",
-  "appium:platformVersion": "17.5",
-  "appium:app": "/path/to/your/Runner.app",
+  "appium:platformVersion": "17.2",
+  "appium:app": "/path/to/your/ios/Hotcake.app",
   "appium:noReset": true,
   "appium:autoAcceptAlerts": true
 }
 ```
 
-</details>
+#### iOS {Real Device} Configuration
+
+```json
+{
+  "platformName": "ios",
+  "appium:deviceName": "iPhone",
+  "appium:automationName": "XCUITest",
+  "appium:platformVersion": "17.5",
+  "appium:udid": "YOUR-PERSONAL-UUID",
+  "appium:noReset": true,
+  "appium:autoAcceptAlerts": true
+}
+```
+
+### Using Appium Inspector
+
+<div align="center">
+  <img src="./images/img2.png" alt="Appium Inspctor Tool" width="600">
+</div>
+
+### uiauto.dev Tool
+
+[uiauto.dev](https://uiauto.dev/) is a powerful web-based tool for inspecting mobile app elements. It provides a more user-friendly interface compared to Appium Inspector and supports both Android and iOS platforms.
+
+#### Prerequisites
+
+- Python 3.8 or higher
+- Appium server running locally
+
+#### Installation
+
+```bash
+# Install uiauto.dev
+pip3 install -U uiautodev
+```
+
+#### Launch Methods
+
+```bash
+# Method 1: Direct command
+uiauto.dev
+
+# Method 2: Python module
+python3 -m uiautodev
+```
+
+#### Key Features
+
+- Web-based interface (no installation required)
+- Real-time element inspection
+- Support for both Android and iOS
+- Element hierarchy visualization
+- XPath and accessibility ID generation
+- Screenshot capture and element highlighting
+
+#### Configuration Steps
+
+1. Start your Appium server
+2. Connect your device or emulator
+3. Configure the desired capabilities
+
+#### Using uiauto.dev
+
+1. Enter your Appium server URL (default: http://localhost:4723)
+2. Configure the desired capabilities
+3. Click "Start Session"
+4. Use the interface to:
+   - Inspect elements
+   - Generate locators
+   - Take screenshots
+   - View element hierarchy
+
+<div align="center">
+  <img src="./images/uiauto-dev.png" alt="uiauto.dev Interface" width="600">
+</div>
 
 <h1 id="device-configuration">📱 Device Configuration</h1>
 

@@ -14,11 +14,11 @@ class CalendarPage:
 
     
     def open_month_selection(self):
-        self.driver.find_element(*self.calendar_locators.DATE_SELECTOR).click()
         time.sleep(2)
+        self.driver.find_element(*self.calendar_locators.DATE_SELECTOR).click()
 
     def change_month_display_mode(self):
-        clicks_arrow = random.randint(1, 8)
+        clicks_arrow = random.randint(1, 4)
         for _ in range(clicks_arrow):
             self.driver.find_element(*self.calendar_locators.ARROW).click()
             time.sleep(0.5)
@@ -28,6 +28,7 @@ class CalendarPage:
         self.driver.find_element(*random_month).click()
     
     def change_calendar_display(self):
+        time.sleep(1.5)
         self.driver.find_element(*self.calendar_locators.DISPLAY_MODES[0]).click()
         
     def select_target_display_mode(self):
@@ -104,7 +105,7 @@ class CalendarPage:
             time.sleep(1) 
     
     def navigate_to_today(self):
-        time.sleep(0.5)
+        time.sleep(1)
         self.driver.find_element(*self.calendar_locators.TODAY_ICON).click()
 
 

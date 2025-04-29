@@ -14,7 +14,7 @@ Feature: Personal Page
     Then I should see greeting message
     Then I should see my email address
   
-  @regression @brand_list
+  @regression @view_brand_list
   Scenario: View brand list section
     Given I am on the personal page
     Then I should see the brand list title
@@ -61,10 +61,12 @@ Feature: Personal Page
   
   @regression @empty_phone_number 
   Scenario: Verify empty phone number error
-    Given I am on the acc setting page
+    Given I am on the personal page
+    When I click settings icon
+    Then I click account settings option
     Then I input empty phone number and get error message
 
-  @regression @invalid_phone_number 
+  @regression @personal_page_invalid_phone_number 
   Scenario: Verify invalid phone number error
     Given I am on the personal page
     When I click settings icon

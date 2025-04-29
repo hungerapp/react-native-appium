@@ -5,12 +5,11 @@ Feature: Login Feature (existing)
   
 
   @regression @select_language_and_contact_cs
-  Scenario: Select language
+  Scenario: Select language and click contact cs
     Given the app is launched
-    When I select my language and click sure button
-    Then I can save the language setting and continue to the login page
-    When I click contact cs button
-    Then I can see the contact cs page
+    Then I can see the login page displayed
+    Then I can select my language and click sure button
+    Then I can click contact cs button and go back to the login page
 
   @regression @click_terms_and_conditions
   Scenario: Click terms and conditions
