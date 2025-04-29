@@ -207,3 +207,38 @@ def select_additional_service_item(driver, service_item_category, service_item_n
 def tap_close_edit_appointment_combination(driver):
     service_appointment_page = ServiceAppointmentPage(driver)
     assert service_appointment_page.tap_close_edit_appointment_combination(), "Close edit appointment combination button is not displayed"
+
+@when("I delete the appointment combination")
+def delete_appointment_combination(driver):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.delete_appointment_combination(), "Delete edit appointment combination button is not displayed"
+
+@then(parsers.parse('I should not see the appointment combination name "{combination_name}" on the online booking page'))
+def verify_appointment_combination_name_not_visible(driver, combination_name):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.verify_appointment_combination_name_not_visible(combination_name), "Appointment combination name is still displayed"
+
+@when(parsers.parse('I tap on the edit service personnel "{service_personnel}"'))
+def tap_edit_service_personnel(driver, service_personnel):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.tap_edit_service_personnel(service_personnel), "Edit service personnel is not displayed"
+
+@when(parsers.parse('I set the available date to "{specific_day}" "{open_month}"'))
+def set_available_date(driver, specific_day, open_month):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.set_available_date(specific_day, open_month), "Set available date is not displayed"
+
+@when(parsers.parse('I set the latest booking time to "{latest_booking_time}"'))
+def set_latest_booking_time(driver, latest_booking_time):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.set_latest_booking_time(latest_booking_time), "Set latest booking time is not displayed"
+
+@when(parsers.parse('I set the range of online booking quantity "{min_quantity}" to "{max_quantity}"'))
+def set_online_booking_quantity_range(driver, min_quantity, max_quantity):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.set_online_booking_quantity_range(min_quantity, max_quantity), "Set online booking quantity range is not displayed"
+
+@when(parsers.parse('I set today open time "{times}"'))
+def set_open_time(driver, times):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.set_open_time(times), "Set open time is not displayed"

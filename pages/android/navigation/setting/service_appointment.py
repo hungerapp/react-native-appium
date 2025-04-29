@@ -262,3 +262,81 @@ class ServiceAppointmentPage:
         self.common_actions.click_element(*self.service_appointment_page_locators.CLOSE_BUTTON_IN_EDIT_UNSPECIFIED_APPOINTMENT_COMBINATION_PAGE)
         return self
 
+    def delete_appointment_combination(self):
+        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.DELETE_BUTTON_IN_EDIT_UNSPECIFIED_APPOINTMENT_COMBINATION_PAGE)
+        self.common_actions.click_element(*self.service_appointment_page_locators.DELETE_BUTTON_IN_EDIT_UNSPECIFIED_APPOINTMENT_COMBINATION_PAGE)
+        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.DELETE_COMBINATION_DIALOG_DELETE_BUTTON)
+        self.common_actions.click_element(*self.service_appointment_page_locators.DELETE_COMBINATION_DIALOG_DELETE_BUTTON)
+        self.common_actions.wait_for_element_disappear(*self.service_appointment_page_locators.DELETE_COMBINATION_DIALOG_DELETE_BUTTON)
+        return self
+
+    def verify_appointment_combination_name_not_visible(self, combination_name):
+        self.common_actions.wait_for_element_disappear(*self.service_appointment_page_locators.UNSPECIFIED_APPOINTMENT_COMBINATION_MODAL_IN_ONLINE_BOOKING_MANAGEMENT_PAGE(combination_name))
+        return self
+
+    def tap_edit_service_personnel(self, service_personnel):
+        self.common_actions.scroll_to_element(*self.service_appointment_page_locators.EDIT_SERVICE_PERSONNEL_BUTTON_IN_ONLINE_BOOKING_MANAGEMENT_PAGE(service_personnel))
+        self.common_actions.click_element(*self.service_appointment_page_locators.EDIT_SERVICE_PERSONNEL_BUTTON_IN_ONLINE_BOOKING_MANAGEMENT_PAGE(service_personnel))
+        return self
+
+    def set_available_date(self, specific_date, open_month):
+        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.OPEN_SITTING_TAB_IN_EDIT_SERVICE_PERSONNEL_PAGE)
+        self.common_actions.click_element(*self.service_appointment_page_locators.OPEN_SITTING_TAB_IN_EDIT_SERVICE_PERSONNEL_PAGE)
+        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.AVAILABLE_DAYS_IN_EDIT_SERVICE_PERSONNEL_PAGE)
+        self.common_actions.click_element(*self.service_appointment_page_locators.AVAILABLE_DAYS_IN_EDIT_SERVICE_PERSONNEL_PAGE)
+        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.AVAILABLE_DAYS_MODAL_SPECIFIC_DATE)
+        self.common_actions.click_element(*self.service_appointment_page_locators.AVAILABLE_DAYS_MODAL_SPECIFIC_DATE)
+        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.AVAILABLE_DAYS_MODAL_SPECIFIC_DATE_SELECTION(specific_date))
+        self.common_actions.scroll_to_element(*self.service_appointment_page_locators.AVAILABLE_DAYS_MODAL_SPECIFIC_DATE_SELECTION(specific_date))
+        self.common_actions.click_element(*self.service_appointment_page_locators.AVAILABLE_DAYS_MODAL_SPECIFIC_DATE_SELECTION(specific_date))
+        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.AVAILABLE_DAYS_MODAL_MONTH_SELECTION(open_month))
+        self.common_actions.click_element(*self.service_appointment_page_locators.AVAILABLE_DAYS_MODAL_MONTH_SELECTION(open_month))
+        self.common_actions.click_element(*self.service_appointment_page_locators.AVAILABLE_DAYS_MODAL_CONFIRM_BUTTON)
+        return self
+
+    def set_latest_booking_time(self, latest_booking_time):
+        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.OPEN_SITTING_TAB_IN_EDIT_SERVICE_PERSONNEL_PAGE)
+        self.common_actions.click_element(*self.service_appointment_page_locators.OPEN_SITTING_TAB_IN_EDIT_SERVICE_PERSONNEL_PAGE)
+        self.common_actions.click_element(*self.service_appointment_page_locators.LATEST_BOOKING_TIME_IN_EDIT_SERVICE_PERSONNEL_PAGE)
+        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.LATEST_BOOKING_TIME_MODAL_TIME_SELECTION(latest_booking_time))
+        self.common_actions.click_element(*self.service_appointment_page_locators.LATEST_BOOKING_TIME_MODAL_TIME_SELECTION(latest_booking_time))
+        return self
+
+    def set_online_booking_quantity_range(self, min_quantity, max_quantity):
+        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.EXPAND_ADVANCED_SETTINGS_IN_EDIT_SERVICE_PERSONNEL_PAGE)
+        self.common_actions.click_element(*self.service_appointment_page_locators.EXPAND_ADVANCED_SETTINGS_IN_EDIT_SERVICE_PERSONNEL_PAGE)
+        self.common_actions.scroll_to_element(*self.service_appointment_page_locators.MIN_BOOKING_QUANTITY_FIELD_IN_EDIT_SERVICE_PERSONNEL_PAGE)
+        self.common_actions.send_keys_to_element(*self.service_appointment_page_locators.MIN_BOOKING_QUANTITY_FIELD_IN_EDIT_SERVICE_PERSONNEL_PAGE, min_quantity)
+        self.common_actions.send_keys_to_element(*self.service_appointment_page_locators.MAX_BOOKING_QUANTITY_FIELD_IN_EDIT_SERVICE_PERSONNEL_PAGE, max_quantity)
+        return self
+
+    def set_open_time(self, times):
+        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.OPEN_TIME_TAB_IN_EDIT_SERVICE_PERSONNEL_PAGE)
+        self.common_actions.click_element(*self.service_appointment_page_locators.OPEN_TIME_TAB_IN_EDIT_SERVICE_PERSONNEL_PAGE)
+        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.OPEN_TIME_DATE_SELECTION)
+        self.common_actions.click_element(*self.service_appointment_page_locators.OPEN_TIME_DATE_SELECTION)
+        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.OPEN_TIME_SELECTION_MODAL_CLOSE_TIME_BUTTON)
+        self.common_actions.click_element(*self.service_appointment_page_locators.OPEN_TIME_SELECTION_MODAL_CLOSE_TIME_BUTTON)
+        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.CLOSE_TIME_DIALOG_ALL_TIME_CLOSE)
+        self.common_actions.click_element(*self.service_appointment_page_locators.CLOSE_TIME_DIALOG_ALL_TIME_CLOSE)
+        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.CLOSE_ALL_TIME_DIALOG_CONFIRM_BUTTON)
+        self.common_actions.click_element(*self.service_appointment_page_locators.CLOSE_ALL_TIME_DIALOG_CONFIRM_BUTTON)
+        self.common_actions.wait_for_element_disappear(*self.service_appointment_page_locators.CLOSE_ALL_TIME_DIALOG_CONFIRM_BUTTON)
+        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.OPEN_TIME_SELECTION_MODAL_TODAY_BUTTON)
+        self.common_actions.click_element(*self.service_appointment_page_locators.OPEN_TIME_SELECTION_MODAL_TODAY_BUTTON)
+        self.common_actions.click_element(*self.service_appointment_page_locators.OPEN_TIME_SELECTION_MODAL_SHOW_EARLY_MORNING_BUTTON)
+        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.OPEN_TIME_SELECTION_MODAL_TIME_SELECTION("0:00"))
+        time_list = [t.strip() for t in times.split(',')]
+        for time in time_list:
+            try:
+                self.common_actions.scroll_to_element(*self.service_appointment_page_locators.OPEN_TIME_SELECTION_MODAL_TIME_SELECTION(time))
+                self.common_actions.click_element(*self.service_appointment_page_locators.OPEN_TIME_SELECTION_MODAL_TIME_SELECTION(time))
+            except Exception as e:
+                    print(f"Error setting time {time}: {str(e)}")
+        self.common_actions.click_element(*self.service_appointment_page_locators.OPEN_TIME_SELECTION_MODAL_CLOSE_BUTTON)
+        return self
+
+
+
+
+

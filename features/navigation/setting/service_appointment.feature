@@ -71,3 +71,26 @@ Feature: Service Appointment Settings
     And I select the additional service item and clear all options "New Category" "Service Name 4"
     And I tap on the close button on the edit appointment combination
     Then I should see the appointment combination name "New Combination" on the online booking page
+
+  Scenario: Delete Online Booking Appointment Combination
+    Given I am on the online booking page
+    When I tap on the edit appointment combination named "New Combination"
+    And I delete the appointment combination
+    Then I should not see the appointment combination name "New Combination" on the online booking page
+
+  Scenario: Edit Online Booking Personnel
+    Given I am on the online booking page
+    When I tap on the edit service personnel "U"
+    And I set the available date to "每月10日" "開放下1個月"
+    And I set the available date to "每月10日" "全部開放"
+    And I set the latest booking time to "10分鐘前"
+    And I set the range of online booking quantity "1" to "5"
+    And I set today open time "9:00, 20:00, 21:00, 22:10, 23:00"
+    And I tap on the open item tab
+    And I select the main service item and clear all options "New Category" "Service Name"
+    And I select the main service item "New Category" "Service Name 2"
+    And I select the online booking type "單選"
+    And I select the additional service item and clear all options "New Category" "Service Name 4"
+    And I tap on the close button on the edit appointment combination
+    Then I should see the online booking page
+

@@ -119,58 +119,52 @@ class ServiceAppointmentPageLocators:
     LATEST_BOOKING_TIME_IN_EDIT_SERVICE_PERSONNEL_PAGE = (AppiumBy.ACCESSIBILITY_ID,'最晚預約時間-fake-field')
     EXPAND_ADVANCED_SETTINGS_IN_EDIT_SERVICE_PERSONNEL_PAGE = (AppiumBy.XPATH,'//*[@content-desc="展開進階設定"]')
     CLOSE_ADVANCED_SETTINGS_IN_EDIT_SERVICE_PERSONNEL_PAGE = (AppiumBy.ACCESSIBILITY_ID,'xmark')
-    MIN_BOOKING_QUANTITY_FIELD_IN_EDIT_SERVICE_PERSONNEL_PAGE = (AppiumBy.XPATH,'//*[@resource-id="undefined-text-input"][1]')
-    MAX_BOOKING_QUANTITY_FIELD_IN_EDIT_SERVICE_PERSONNEL_PAGE = (AppiumBy.XPATH,'//*[@resource-id="undefined-text-input"][2]')
+    MIN_BOOKING_QUANTITY_FIELD_IN_EDIT_SERVICE_PERSONNEL_PAGE = (AppiumBy.XPATH,'//*[@text="網路預約可選擇數量"]/../android.view.ViewGroup[1]//android.widget.EditText')
+    MAX_BOOKING_QUANTITY_FIELD_IN_EDIT_SERVICE_PERSONNEL_PAGE = (AppiumBy.XPATH,'//*[@text="網路預約可選擇數量"]/../android.view.ViewGroup[2]//android.widget.EditText')
     # Available Days Modal
     AVAILABLE_DAYS_MODAL_SPECIFIC_DATE = (AppiumBy.ACCESSIBILITY_ID,'指定日期-fake-field')
-    AVAILABLE_DAYS_MODAL_SPECIFIC_DATE_SELECTION = lambda self, date: (AppiumBy.XPATH,f'//*[@text="每月{date}日"]') if 6 <= date <= 28 else None
+    AVAILABLE_DAYS_MODAL_SPECIFIC_DATE_SELECTION = lambda self, date: (AppiumBy.XPATH,f'//*[@text="{date}"]')
     AVAILABLE_DAYS_MODAL_SPECIFIC_TIME = (AppiumBy.XPATH,'//*[@text="指定時間"]')
-    AVAILABLE_DAYS_MODAL_MONTH_SELECTION = lambda self, num: (AppiumBy.XPATH,f'//*[@text="開放下{num}個月"]') if 1 <= num <= 6 else None
-    AVAILABLE_DAYS_MODAL_MONTH_SELECTION_ALL = (AppiumBy.XPATH,'//*[@text="全部開放"]')
+    AVAILABLE_DAYS_MODAL_MONTH_SELECTION = lambda self, num: (AppiumBy.XPATH,f'//*[@text="{num}"]')
     AVAILABLE_DAYS_MODAL_CLOSE_BUTTON = (AppiumBy.XPATH,'//*[@resource-id="xmark"][2]')
     AVAILABLE_DAYS_MODAL_CONFIRM_BUTTON = (AppiumBy.ACCESSIBILITY_ID,'check')
     # Latest Booking Time Modal
-    LATEST_BOOKING_TIME_MODAL_TIME_SELECTION = lambda self, text: (AppiumBy.XPATH,f'//*[@text="最晚預約時間"][2]/../android.view.ViewGroup//*[@text="{text}"]')
+    LATEST_BOOKING_TIME_MODAL_TIME_SELECTION = lambda self, text: (AppiumBy.XPATH,f'//*[@text="{text}"]')
     LATEST_BOOKING_TIME_MODAL_CLOSE_BUTTON = (AppiumBy.XPATH,'//*[@resource-id="xmark"][2]')
     # Open Item Tab
     MAIN_SERVICE_IN_EDIT_UNSPECIFIED_SERVICE_PAGE = (AppiumBy.ACCESSIBILITY_ID,'主要服務項目-fake-field')
     ONLINE_BOOKING_TYPE_IN_EDIT_UNSPECIFIED_SERVICE_PAGE = (AppiumBy.ACCESSIBILITY_ID,'線上預約選取類型-fake-field')
     ADDITIONAL_SERVICE_IN_EDIT_UNSPECIFIED_SERVICE_PAGE = (AppiumBy.ACCESSIBILITY_ID, '加購服務項目-fake-field')
     ONLINE_BOOKING_TYPE_SELECTION = lambda self, text: (AppiumBy.ACCESSIBILITY_ID,f'{text}-popup-option') #單選, 複選
-    # Service Appointment Page/Service Item List Page/Service Item Modal/Service Item Selection Dialog
+    # Service Appointment Page/Service Item List Page/Service Item Tab/Service Item Selection Dialog
     SERVICE_ITEM_SELECTION_DIALOG_CLOSE_BUTTON = (AppiumBy.ACCESSIBILITY_ID,'xmark')
     SERVICE_ITEM_SELECTION_DIALOG_CONFIRM_BUTTON = (AppiumBy.XPATH,'//*[@resource-id="check"]')
     SERVICE_ITEM_SELECTION_DIALOG_CLEAR_BUTTON = (AppiumBy.XPATH,'//*[@content-desc="全部清除"]')
     SERVICE_ITEM_SELECTION_DIALOG_SERVICE_ITEM_CATEGORY_SELECTION = lambda self, category_name: (AppiumBy.XPATH,f'//*[@text="{category_name}"]')
     SERVICE_ITEM_SELECTION_DIALOG_SERVICE_ITEM_SELECTION = lambda self, service_item: (AppiumBy.XPATH,f'//*[@text="{service_item}"]')
+    # Service Appointment Page/Service Item List Page/Combination Tab/Delete Combination Dialog
+    DELETE_COMBINATION_DIALOG_DELETE_BUTTON = (AppiumBy.XPATH,'//*[@text="刪除"]')
+    # Service Appointment Page/Service Item List Page/Open Time Tab
+    OPEN_TIME_DATE_SELECTION = (AppiumBy.XPATH,'//android.widget.ScrollView//android.view.ViewGroup//android.view.ViewGroup')
+    # Service Appointment Page/Service Item List Page/Open Time Tab/Open Time Selection Modal
+    OPEN_TIME_SELECTION_MODAL_CLOSE_BUTTON = (AppiumBy.XPATH,'//*[@text="編輯開放時間"]/../*[@resource-id="xmark"]')
+    OPEN_TIME_SELECTION_MODAL_TODAY_BUTTON = (AppiumBy.XPATH,'//*[@text="點擊時間即可開放/關閉預約。紅色：開放、灰色：關閉。"]/../android.view.ViewGroup//*[@text="今天"]')
+    OPEN_TIME_SELECTION_MODAL_SHOW_EARLY_MORNING_BUTTON = (AppiumBy.XPATH,'//*[@text="顯示凌晨"]')
+    OPEN_TIME_SELECTION_MODAL_TIME_SELECTION = lambda self, text: (AppiumBy.XPATH,f'//*[@content-desc="{text}"]')
+    OPEN_TIME_SELECTION_MODAL_CLOSE_TIME_BUTTON = (AppiumBy.XPATH,'//*[@content-desc="快速關閉"]')
+    # Service Appointment Page/Service Item List Page/Open Time Tab/Open Time Selection Modal/Close Time Dialog
+    CLOSE_TIME_DIALOG_ALL_TIME_CLOSE = (AppiumBy.XPATH,'//*[@text="全部關閉"]')
+    # Service Appointment Page/Service Item List Page/Open Time Tab/Open Time Selection Modal/Close Time Dialog/Close All-Time Dialog
+    CLOSE_ALL_TIME_DIALOG_CONFIRM_BUTTON = (AppiumBy.XPATH,'//*[@text="確定"]')
 
 
 
 
 
 
-    DATE_SELECTOR = (AppiumBy.ANDROID_UIAUTOMATOR,'new UiSelector().resourceId("com.kkbox.app:id/date_selector")')
-    TODAY_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR,'new UiSelector().resourceId("com.kkbox.app:id/today_button")')
-    SHOW_EARLY_MORNING_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR,'new UiSelector().resourceId("com.kkbox.app:id/show_early_morning_button")')
-    TIME_PICKER = (AppiumBy.ANDROID_UIAUTOMATOR,'new UiSelector().resourceId("com.kkbox.app:id/time_picker")')
 
-    COPY_TODAY_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR,'new UiSelector().resourceId("com.kkbox.app:id/copy_today_button")')
-    COPY_TO_SPECIFIC_DATE_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR,'new UiSelector().resourceId("com.kkbox.app:id/copy_to_specific_date_button")')
-    COPY_TO_SPECIFIC_TIME_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR,'new UiSelector().resourceId("com.kkbox.app:id/copy_to_specific_time_button")')
-    QUICK_CLOSE_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR,'new UiSelector().resourceId("com.kkbox.app:id/quick_close_button")')
-    TODAY_CLOSE_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR,'new UiSelector().resourceId("com.kkbox.app:id/today_close_button")')
-    DATE_RANGE_CLOSE_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR,'new UiSelector().resourceId("com.kkbox.app:id/date_range_close_button")')
-    CLOSE_ALL_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR,'new UiSelector().resourceId("com.kkbox.app:id/close_all_button")')
 
-    # Service Item Tab
-    SERVICE_ITEM_TAB_CLOSE_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR,'new UiSelector().resourceId("com.kkbox.app:id/close_button")')
-    SERVICE_ITEM_TAB_CONFIRM_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR,'new UiSelector().resourceId("com.kkbox.app:id/confirm_button")')
-    SERVICE_ITEM_TAB_CATEGORY_SELECTION = lambda self, category_name: (AppiumBy.ANDROID_UIAUTOMATOR,f'new UiSelector().text("{category_name}")')
-    SERVICE_ITEM_TAB_SERVICE_ITEM_SELECTION = lambda self, service_item: (AppiumBy.ANDROID_UIAUTOMATOR,f'new UiSelector().text("{service_item}")')
-    SERVICE_ITEM_TAB_SERVICE_ITEM_SELECTION_ALL = (AppiumBy.ANDROID_UIAUTOMATOR,'new UiSelector().text("所有服務項目")')
-    # Online Booking Type Dialog
-    ONLINE_BOOKING_TYPE_DIALOG_SINGLE_SELECTION = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("單選")')
-    ONLINE_BOOKING_TYPE_DIALOG_MULTIPLE_SELECTION = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("多選")')
+
 
 
 
