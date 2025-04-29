@@ -374,3 +374,13 @@ class ServiceAppointmentPage:
         self.common_actions.click_element(*self.service_appointment_page_locators.CONFIRM_BUTTON_IN_BOOKING_NOTE_PAGE)
         self.common_actions.wait_for_element_disappear(*self.service_appointment_page_locators.CONFIRM_BUTTON_IN_BOOKING_NOTE_PAGE)
         return self
+
+    def tap_deposit_management(self):
+        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.DEPOSIT_MANAGEMENT_IN_SERVICE_APPOINTMENT_PAGE)
+        self.common_actions.click_element(*self.service_appointment_page_locators.DEPOSIT_MANAGEMENT_IN_SERVICE_APPOINTMENT_PAGE)
+        return self
+
+    def verify_deposit_management_page(self):
+        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.TITLE_IN_DEPOSIT_MANAGEMENT_PAGE)
+        self.common_actions.is_element_visible(*self.service_appointment_page_locators.CLOSE_BUTTON_IN_DEPOSIT_MANAGEMENT_PAGE)
+        return self

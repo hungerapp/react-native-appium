@@ -168,3 +168,9 @@ class ServiceAppointmentPageLocators:
     BOOKING_NOTE_DIALOG_CONFIRM_BUTTON = (AppiumBy.ACCESSIBILITY_ID,'circle-check')
     BOOKING_NOTE_DIALOG_CLEAR_BUTTON = (AppiumBy.XPATH,'//*[@content-desc="清除"]')
     BOOKING_NOTE_DIALOG_FIELD = (AppiumBy.ACCESSIBILITY_ID,'預約注意事項-textarea-input')
+
+    # Service Appointment Page/Deposit Management Page
+    TITLE_IN_DEPOSIT_MANAGEMENT_PAGE = (AppiumBy.XPATH,'//*[@text="定金管理"]')
+    CLOSE_BUTTON_IN_DEPOSIT_MANAGEMENT_PAGE = (AppiumBy.ACCESSIBILITY_ID,'xmark')
+    GENERAL_DATE_IN_DEPOSIT_MANAGEMENT_PAGE = (AppiumBy.XPATH,'//*[@text="一般日期"]')
+    SPECIFIC_DATE_RANGE_IN_DEPOSIT_MANAGEMENT_PAGE = (AppiumBy.XPATH,'//*[@text="特定日期區間"]')

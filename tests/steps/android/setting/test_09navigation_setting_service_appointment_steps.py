@@ -277,3 +277,13 @@ def enter_booking_note(driver, booking_note):
 def tap_confirm_booking_note(driver):
     service_appointment_page = ServiceAppointmentPage(driver)
     assert service_appointment_page.tap_confirm_booking_note(), "Confirm booking note button is not displayed"
+
+@when("I tap on the deposit management")
+def tap_deposit_management(driver):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.tap_deposit_management(), "Deposit management is not displayed"
+
+@then("I should see the deposit management page")
+def verify_deposit_management_page(driver):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.verify_deposit_management_page(), "Deposit management page is not displayed"

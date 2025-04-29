@@ -99,7 +99,6 @@ Feature: Service Appointment Settings
     When I tap on the booking note
     Then I should see the booking note page
 
-  @haha
   Scenario: Add Booking Note
     Given I am on the booking note page
     When I turn off the booking note switch
@@ -107,3 +106,9 @@ Feature: Service Appointment Settings
     And I enter the booking note "Booking Note"
     And I tap on the confirm button in the booking note
     Then I should see the service appointment page
+
+  @haha
+  Scenario: Navigate to Deposit Management Page
+    Given I am on the service appointment page
+    When I tap on the deposit management
+    Then I should see the deposit management page
