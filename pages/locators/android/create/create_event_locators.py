@@ -21,9 +21,9 @@ class CreateEventLocators:
       # May change frequently
       # (//com.horcrux.svg.GroupView)[2]
       # new UiSelector().className("com.horcrux.svg.PathView").instance(1)
-      SAVE_BUTTON = (AppiumBy.XPATH, '(//com.horcrux.svg.GroupView)[2]')
+      SAVE_BUTTON = (AppiumBy.ACCESSIBILITY_ID, 'check')
       NEW_EVENT_PAGE_SAVE_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(1)')
-      TIME_SAVE_BUTTON = (AppiumBy.ACCESSIBILITY_ID, 'check')
+      TIME_SAVE_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("check").instance(1)')
       TIME = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("時間")')
       ALL_DAY_TOGGLE = (AppiumBy.ACCESSIBILITY_ID, '整日-switch-button')
       CLICK_START_TIME = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("開始時間")')
@@ -32,7 +32,7 @@ class CreateEventLocators:
       LEFT_DATE_ARROW = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("arrow-left")')
       RIGHT_DATE_ARROW = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("arrow-right")')
       REPEAT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("重複")')
-      REPEAT_SAVE_BUTTON = (AppiumBy.ACCESSIBILITY_ID, 'check')
+      REPEAT_SAVE_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("check").instance(1)')
       REPEAT_TOGGLE = (AppiumBy.ACCESSIBILITY_ID, '重複-switch-button')
       WEEKDAYS = [
         '週一', '週二', '週三', '週四', '週五', '週六', '週日'
@@ -41,7 +41,7 @@ class CreateEventLocators:
       ERROR_ICON1 = (AppiumBy.XPATH, '(//android.view.ViewGroup[@resource-id="circle-exclamation"])[1]/com.horcrux.svg.SvgView/com.horcrux.svg.GroupView/com.horcrux.svg.PathView')
       ERROR_ICON2 = (AppiumBy.XPATH, '(//android.view.ViewGroup[@resource-id="circle-exclamation"])[2]/com.horcrux.svg.SvgView/com.horcrux.svg.GroupView/com.horcrux.svg.PathView')
       ERROR_ICON3 = (AppiumBy.XPATH, '(//android.view.ViewGroup[@resource-id="circle-exclamation"])[3]/com.horcrux.svg.SvgView/com.horcrux.svg.GroupView/com.horcrux.svg.PathView')
-      REPEAT_BACK_BUTTON = (AppiumBy.ACCESSIBILITY_ID, 'xmark')
+      REPEAT_BACK_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("xmark").instance(1)')
       BACK_TO_CALENDAR = (AppiumBy.ACCESSIBILITY_ID, 'xmark')
       WINDOW_LEAVE_BUTTON = (AppiumBy.ACCESSIBILITY_ID, '離開')
     

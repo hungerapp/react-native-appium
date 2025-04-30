@@ -17,7 +17,7 @@ VALID_NUMBER = "0972205690"
 @allure.feature('Member Management')
 @allure.story('Manage member and page functionality')
 @pytest.mark.run(order=57)
-@pytest.mark.navigation
+@pytest.mark.navigation_member
 @given('I click on the member option in the bottom navigation bar')
 def click_member_option(driver):
     member_page = MemberPage(driver)
@@ -65,7 +65,7 @@ def verify_scheduling_records(driver):
 @allure.feature('Search and passport tags functionality')
 @allure.story('Search and passport tags functionality')
 @pytest.mark.run(order=58)
-@pytest.mark.navigation
+@pytest.mark.navigation_member
 @given('I am on the member page')
 def verify_on_member_page(driver):
     member_page = MemberPage(driver)
@@ -139,7 +139,7 @@ def delete_checkout(driver):
 @allure.feature('Edit member top-up balance')
 @allure.story('Edit member top-up balance')
 @pytest.mark.run(order=59)
-@pytest.mark.navigation
+@pytest.mark.navigation_member
 @given('I am on the member passport page')
 def verify_on_member_passport_page(driver):
     member_page = MemberPage(driver)
@@ -177,7 +177,7 @@ def return_to_member_passport(driver):
 @allure.feature('Edit Bonus Points')
 @allure.story('Edit Bonus Points')
 @pytest.mark.run(order=60)
-@pytest.mark.navigation
+@pytest.mark.navigation_member
 @given('I am on the member passport page')
 def verify_on_member_passport_page(driver):
     member_page = MemberPage(driver)
@@ -206,7 +206,7 @@ def return_to_member_passport(driver):
 @allure.feature('Edit tickets')
 @allure.story('Edit tickets')
 @pytest.mark.run(order=61)
-@pytest.mark.navigation
+@pytest.mark.navigation_member
 @given('I am on the member passport page')
 def verify_on_member_passport_page(driver):
     member_page = MemberPage(driver)
@@ -243,7 +243,7 @@ def select_payment_method(driver):
 @allure.feature('Use and gift a ticket from the ticket page')
 @allure.story('Use and gift a ticket from the ticket page')
 @pytest.mark.run(order=62)
-@pytest.mark.navigation
+@pytest.mark.navigation_member
 @given('I am on the ticket page')
 def verify_on_ticket_page(driver):
     pass
@@ -276,7 +276,7 @@ def select_tickets_for_sending(driver):
 @then('I return to member passport page')
 def return_to_member_passport(driver):
     member_page = MemberPage(driver)
-    member_page.return_to_member_passport()
+    member_page.ticket_page_return_to_member_passport()
 
 
 
@@ -285,7 +285,7 @@ def return_to_member_passport(driver):
 @allure.feature('Edit member info in member passport page')
 @allure.story('Edit member info in member passport page')
 @pytest.mark.run(order=63)
-@pytest.mark.navigation
+@pytest.mark.navigation_member
 @given('I am on the member passport page')
 def verify_on_member_passport_page(driver):
     member_page = MemberPage(driver)
@@ -312,7 +312,7 @@ def edit_member_description(driver):
 @allure.feature('Bottom navigation functionality')
 @allure.story('Bottom navigation functionality')
 @pytest.mark.run(order=64)
-@pytest.mark.navigation
+@pytest.mark.navigation_member
 @given('I am on the member passport page')
 def verify_on_member_passport_page(driver):
     member_page = MemberPage(driver)
@@ -374,7 +374,7 @@ def click_back_to_member_passport_page(driver):
 @allure.feature('Modify checkout and re-checkout')
 @allure.story('Modify checkout and re-checkout')
 @pytest.mark.run(order=65)
-@pytest.mark.navigation
+@pytest.mark.navigation_member
 @when('I add member to blacklist')
 def add_member_to_blacklist(driver):
     member_page = MemberPage(driver)

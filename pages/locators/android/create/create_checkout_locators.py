@@ -8,16 +8,16 @@ class CreateCheckoutLocators:
         'sell_ticket_option': (AppiumBy.ACCESSIBILITY_ID, '販售票券, (會員限定)'),
         'deposit_option': (AppiumBy.ACCESSIBILITY_ID, '客人儲值（入金）, (會員限定)')
       }
-      DESIGNATED_APPOINTMENT_TOGGLE = (AppiumBy.XPATH, "//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup")
-      SALES_OWNER_SELECT = (AppiumBy.ACCESSIBILITY_ID, "QA測試人員")
+      DESIGNATED_APPOINTMENT_TOGGLE = (AppiumBy.ACCESSIBILITY_ID, "該筆為指定業績-switch-button")
+      SALES_OWNER_SELECT_QA_TESTER = (AppiumBy.ACCESSIBILITY_ID, "checkbox-single-option-0")
       SALES_OWNER_SAVE_BUTTON = (AppiumBy.ACCESSIBILITY_ID, 'check')
       TAB_CONTAINER = (AppiumBy.XPATH, '//android.widget.HorizontalScrollView/android.view.ViewGroup')
-      AUTO_TEST_TAB = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("自動化測試商品")')
+      AUTO_TEST_TAB = (AppiumBy.ACCESSIBILITY_ID, 'category-8')
       TEST_PRODUCT_OPTIONS = [
-              'new UiSelector().text("測試1")',
-              'new UiSelector().text("測試2")',
-              'new UiSelector().text("測試3")',
-              'new UiSelector().text("測試4")',
+              'product-item-0',
+              'product-item-1',
+              'product-item-2',
+              'product-item-3',
             ]
       TESTING1_ITEM_SELECT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("測試1")')
       TESTING_ITEM_INFO = (AppiumBy.XPATH, '(//android.view.ViewGroup[@resource-id="circle-info"])[1]/com.horcrux.svg.SvgView/com.horcrux.svg.GroupView/com.horcrux.svg.PathView')
@@ -27,19 +27,13 @@ class CreateCheckoutLocators:
       ITEM_INFO_BACK_BUTTON = (AppiumBy.XPATH, '//com.horcrux.svg.GroupView')
       SAVE_PRODUCT_BTN = (AppiumBy.XPATH, '//com.horcrux.svg.GroupView')
       SAVE_ITEM_BTN = (AppiumBy.ACCESSIBILITY_ID, 'check')
-      NON_SELECTED_MEMBER_SECTION = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("尚未選擇會員")')
-      CLEAR_INPUT_SEARCH = (AppiumBy.XPATH, '//android.view.ViewGroup[@resource-id="circle-xmark"]/com.horcrux.svg.SvgView/com.horcrux.svg.GroupView/com.horcrux.svg.PathView')
-      MEMBER_SEARCH = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("輸入手機號碼、姓名進行搜尋")')
-      MEMBER_SEARCH_RESULT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().descriptionContains("972 205690")')
+      NON_SELECTED_MEMBER_SECTION = (AppiumBy.ACCESSIBILITY_ID, '尚未選擇會員')
+      CLEAR_INPUT_SEARCH = (AppiumBy.ACCESSIBILITY_ID, 'undefined-text-input')
+      MEMBER_SEARCH = (AppiumBy.ACCESSIBILITY_ID, 'undefined-text-input')
+      MEMBER_SEARCH_RESULT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("+886 972 205690")')
       MEMBER_SEARCH_NOT_FOUND = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("查無資料")')
-      PHONE_NUMBER_INPUT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("請輸入電話")')
-      NICKNAME_INPUT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("請輸入別名")')
-      MEMBER_DESCRIPTION_INPUT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("請輸入內容")')
-      MEMBER_DESCRIPTION_MODAL_INPUT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("輸入內容")')
-      MEMBER_DESCRIPTION_MODAL_SAVE_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(1)')
-      ADD_NEW_MEMBER_TOGGLE = (AppiumBy.XPATH, '//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[6]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup')
-      SAVE_NEW_MEMBER_BUTTON = (AppiumBy.XPATH, '//android.widget.FrameLayout[@resource-id="android:id/content"]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/com.horcrux.svg.SvgView/com.horcrux.svg.GroupView/com.horcrux.svg.PathView')
-      DELETE_MEMBER_BUTTON = (AppiumBy.XPATH, '//android.view.ViewGroup[@content-desc="會員"]/android.view.ViewGroup[2]/com.horcrux.svg.SvgView/com.horcrux.svg.GroupView/com.horcrux.svg.PathView')
+      ADD_MEMBER_BUTTON = (AppiumBy.ACCESSIBILITY_ID, 'user-plus')
+      DELETE_MEMBER_BUTTON = (AppiumBy.ACCESSIBILITY_ID, 'trash-can')
       PAYMENT_METHOD = (AppiumBy.ACCESSIBILITY_ID, '選擇支付方式')
       CASH_SECTION = {
         'edit_btn': (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("pen-to-square").instance(0)'),
@@ -51,24 +45,24 @@ class CreateCheckoutLocators:
       }
       COMMON_BUTTONS = {
         'clear': (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("清除")'),
-        'confirm': (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(1)')
+        'confirm': (AppiumBy.ACCESSIBILITY_ID, 'circle-check')
       }
       PAYMENT_ERROR_MESSAGE = lambda self, is_above: (
-        AppiumBy.ANDROID_UIAUTOMATOR, 
-        f'new UiSelector().textContains("{("多" if is_above else "少")}收 NT$")'
+        AppiumBy.ANDROID_UIAUTOMATOR,
+        f'new UiSelector().textMatches(".*{("多" if is_above else "少")}收\\sNT\\$.*")'
       )
       ITEM_SECTION = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("商品")')
-      SELECT_ITEM_BTN = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("選擇商品")')
+      SELECT_ITEM_BTN = (AppiumBy.ACCESSIBILITY_ID, '選擇商品')
       SELECT_TICKETS_BTN = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("選擇票券")')
-      CLEAR_ITEMS_BTN = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("全部清除")')
+      CLEAR_ITEMS_BTN = (AppiumBy.ACCESSIBILITY_ID, '全部清除')
       TICKET_SECTION = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("票券")')
       CLEAR_TICKETS_BTN = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("全部清除")')
       CHECKOUT_SECTION = {
        'record_content': (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("請輸入內容")'),
        'content_input': (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("輸入內容")'),
-       'save_button': (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(1)'),
+       'save_button': (AppiumBy.ACCESSIBILITY_ID, 'circle-check'),
        'clear_button': (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("清除")'),
-       'cancel_button': (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(0)'),
+       'cancel_button': (AppiumBy.ACCESSIBILITY_ID, '結帳記錄（僅商家可見）-close-button'),
        'window_leave_button': (AppiumBy.ACCESSIBILITY_ID, '離開')
       }
       CANCEL_RECORD = (AppiumBy.XPATH, "//android.view.View[@content-desc='取消']")
@@ -76,22 +70,24 @@ class CreateCheckoutLocators:
       POSTING_SECTION = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("業績記入日期")')
       RIGHT_ARROW = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("arrow-right")')
       PERFORMANCE_PERSONNEL = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("業績歸屬")')
-      PERFORMANCE_CHANGE_PERSONNEL = (AppiumBy.ACCESSIBILITY_ID, 'Sally #美睫 #美甲')
-      SALES_PERFORMANCE_EDIT_ICON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("pen-to-square")')
-      TOTAL_PERFORMANCE_CONFIRM_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(1)')
+      PERFORMANCE_CHANGE_PERSONNEL_SALLY = (AppiumBy.ACCESSIBILITY_ID, 'checkbox-single-option-2')
+      SALES_PERFORMANCE_EDIT1_ICON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("pen-to-square").instance(7)')
+      SALES_PERFORMANCE_EDIT2_ICON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("pen-to-square").instance(6)')
+      TOTAL_PERFORMANCE_CONFIRM_BUTTON = (AppiumBy.ACCESSIBILITY_ID, 'check')
       CALCULATE_ICON = (AppiumBy.ACCESSIBILITY_ID, '找零')
       CALCULATE_CHANGE_BACK_ICON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView")')
     
       BONUS_POINTS = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("紅利點數")')
+      BONUS_POINTS_INPUT_FIELD = (AppiumBy.ACCESSIBILITY_ID, '點數-text-input')
       BONUS_POINTS_QUICK_SELECT_OPTIONS = [
-            (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("NT$1 : 1")'),
-            (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("NT$10 : 1")'),
-            (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("NT$50 : 1")'),
-            (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("NT$100 : 1")'),
-            (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("NT$200 : 1")'),
-            (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("NT$250 : 1")'),
-            (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("NT$500 : 1")'),
-            (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("NT$1,000 : 1")')
+            (AppiumBy.ACCESSIBILITY_ID, 'NT$1 : 1'),
+            (AppiumBy.ACCESSIBILITY_ID, 'NT$10 : 1'),
+            (AppiumBy.ACCESSIBILITY_ID, 'NT$50 : 1'),
+            (AppiumBy.ACCESSIBILITY_ID, 'NT$100 : 1'),
+            (AppiumBy.ACCESSIBILITY_ID, 'NT$200 : 1'),
+            (AppiumBy.ACCESSIBILITY_ID, 'NT$250 : 1'),
+            (AppiumBy.ACCESSIBILITY_ID, 'NT$500 : 1'),
+            (AppiumBy.ACCESSIBILITY_ID, 'NT$1,000 : 1')
             ]
       BONUS_POINTS_CONFIRM_BUTTON = (AppiumBy.ACCESSIBILITY_ID, 'check')
       CHECKOUT_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().descriptionContains("結帳 NT$")')
@@ -103,11 +99,11 @@ class CreateCheckoutLocators:
       # Sell ticket use ID
       TICKET_ELEMENTS = {
         'ticket1': {
-            'select': (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("自動化測試票券")'),
-            'input': (AppiumBy.XPATH, '//android.widget.EditText')
+            'select': (AppiumBy.ACCESSIBILITY_ID, '自動化測試票券'),
+            'input': (AppiumBy.ACCESSIBILITY_ID, 'undefined-number-field-input')
         },
         'ticket2': {
-            'select': (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("自動化測試票卷2")'),
+            'select': (AppiumBy.ACCESSIBILITY_ID, '自動化測試票卷2'),
             'plus': (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("plus").instance(1)')
         }
       }

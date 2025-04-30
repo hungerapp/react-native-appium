@@ -37,7 +37,7 @@ class MemberPage(CommonUseSection):
           if phone_elements:
              random.choice(phone_elements).click()
              time.sleep(1)
-             self.driver.find_element(*self.member_locators.MEMBER_PAGE_FUNCTIONS['passport_return_button']).click()
+             self.driver.find_element(*self.member_locators.PASSPORT_RETURN_BUTTON).click()
             
           else:
              raise Exception("No member phone numbers found")
@@ -45,13 +45,13 @@ class MemberPage(CommonUseSection):
           return self
       
       def add_member(self):
-          self.driver.find_element(*self.member_locators.MEMBER_PAGE_FUNCTIONS['add_member']).click()
+          self.driver.find_element(*self.member_locators.ADD_MEMBER).click()
           time.sleep(0.5)
           self.new_member()
         
       def apply_member_filters(self):
-          self.driver.find_element(*self.member_locators.MEMBER_PAGE_FUNCTIONS['apply_filters']).click()
-          time.sleep(0.5)
+          time.sleep(2)
+          self.driver.find_element(*self.member_locators.APPLY_FILTERS).click()
         
           try:
           
@@ -74,8 +74,8 @@ class MemberPage(CommonUseSection):
                        time.sleep(0.5)
               
                 # click save button
+                time.sleep(1)
                 self.driver.find_element(*self.member_locators.MEMBER_FILTER_SECTIONS['save_button']).click()
-                time.sleep(0.5)
               
             # handle cost amount menu
             self.driver.find_element(*self.member_locators.COST_AMOUNT_MENU).click()
@@ -109,29 +109,32 @@ class MemberPage(CommonUseSection):
             time.sleep(0.5)
 
             # input max value
-            time.sleep(1)
+            time.sleep(2)
             max_input = self.driver.find_element(*self.member_locators.INPUT_AMOUNT[max_field])
             max_input.click()
             max_input.send_keys(str(max_value))
             time.sleep(0.5)
-          
-          
+            
+            # hide keyboard
+            self.driver.hide_keyboard()
+        
                   
             # Scroll to find delete condition section   
-            scroll_to_view = ('new UiScrollable(new UiSelector().scrollable(true)).scrollToEnd(1)')
-            self.driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR, scroll_to_view)
+            #scroll_to_view = ('new UiScrollable(new UiSelector().scrollable(true)).setMaxSearchSwipes(18).scrollIntoView(new UiSelector().description("排除條件-multi-select-field"))')
+            #self.driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR, scroll_to_view)
           
-            assert self.driver.find_element(*self.member_locators.DELETE_CONDITION).is_displayed()
+            #assert self.driver.find_element(*self.member_locators.DELETE_CONDITION).is_displayed()
               
               
             # click filter button
+            time.sleep(1)
             self.driver.find_element(*self.member_locators.FILTER_BUTTON).click()
+          
+    
+            time.sleep(2)
+            self.driver.find_element(*self.member_locators.MEMBER_FILTER_BACK_TO_FILTER_MODAL_BUTTON).click()
             time.sleep(0.5)
-          
-            # click back to button
-            self.driver.find_element(*self.member_locators.MEMBER_PAGE_FUNCTIONS['member_filer_back']).click()
-          
-            self.driver.back()
+            self.driver.find_element(*self.member_locators.MEMBER_FILTER_BACK_TO_MEMBER_PAGE_BUTTON).click()
           
           
           except Exception as e:
@@ -140,24 +143,30 @@ class MemberPage(CommonUseSection):
        
                       
       def check_scheduling_records(self):
-          self.driver.find_element(*self.member_locators.MEMBER_PAGE_FUNCTIONS['check_scheduling_records']).click()
-          time.sleep(1)
-          sent_tag = self.driver.find_element(*self.member_locators.MEMBER_PAGE_FUNCTIONS['sent_tag'])
-          assert sent_tag.is_displayed()
-          self.driver.find_element(*self.member_locators.MEMBER_PAGE_FUNCTIONS['scheduling_records_back']).click()
+          time.sleep(2)
+          self.driver.find_element(*self.member_locators.CHECK_SCHEDULING_RECORDS).click()
+          try:
+            sent_tag = self.driver.find_element(*self.member_locators.SENT_TAG)
+            assert sent_tag.is_displayed()
+          except Exception as e:
+            print(f"Error in check_scheduling_records: {str(e)}")
+            raise
+          finally:
+            self.driver.find_element(*self.member_locators.SCHEDULING_RECORDS_BACK).click()
+
     
       def verify_on_member_page(self):
           assert all ([
-          self.driver.find_element(*self.member_locators.MEMBER_PAGE_FUNCTIONS['add_member']).is_displayed(),
-          self.driver.find_element(*self.member_locators.MEMBER_PAGE_FUNCTIONS['apply_filters']).is_displayed(),
-          self.driver.find_element(*self.member_locators.MEMBER_PAGE_FUNCTIONS['check_scheduling_records']).is_displayed(),
-          self.driver.find_element(*self.member_locators.MEMBER_PAGE_FUNCTIONS['search_member']).is_displayed()
+          self.driver.find_element(*self.member_locators.ADD_MEMBER).is_displayed(),
+          self.driver.find_element(*self.member_locators.APPLY_FILTERS).is_displayed(),
+          self.driver.find_element(*self.member_locators.CHECK_SCHEDULING_RECORDS).is_displayed(),
+          self.driver.find_element(*self.member_locators.SEARCH_MEMBER).is_displayed()
           ]), "Not all required member page functions are displayed"
         
         
         
       def tap_search_button(self):
-          self.driver.find_element(*self.member_locators.MEMBER_PAGE_FUNCTIONS['search_member']).click()
+          self.driver.find_element(*self.member_locators.SEARCH_MEMBER).click()
           time.sleep(0.5)
         
       def search_phone_number(self, phone_number):
@@ -171,8 +180,9 @@ class MemberPage(CommonUseSection):
           time.sleep(0.5)
         
       def select_member_tags(self):
+          time.sleep(1)
           self.click_more_icon()
-          self.driver.find_element(*self.member_locators.MORE_OPTIONS_FUNCTIONS['member_tags']).click()
+          self.driver.find_element(*self.member_locators.MEMBER_TAGS).click()
           time.sleep(0.5)
         
           return self
@@ -201,37 +211,37 @@ class MemberPage(CommonUseSection):
           time.sleep(0.5)
         
       def modify_custom_tag(self):
-          self.driver.find_element(*self.member_locators.CUSTOM_TAGS_FUNCTIONS['add_tag']).click()
+          self.driver.find_element(*self.member_locators.CUSTOM_TAG_ADD_TAG).click()
           time.sleep(1)
         
           # add new tag
-          tag_input = self.driver.find_element(AppiumBy.CLASS_NAME, 'android.widget.EditText')
+          tag_input = self.driver.find_element(AppiumBy.ACCESSIBILITY_ID, 'undefined-text-input')
           random_tag = "自動化測試標籤" +''.join(random.choice(string.ascii_letters + string.digits) for _ in range(random.randint(5, 10)))
           time.sleep(0.5)
           tag_input.send_keys(random_tag)
         
-          self.driver.find_element(*self.member_locators.CUSTOM_TAGS_FUNCTIONS['save_new_tag']).click()
+          self.driver.find_element(*self.member_locators.CUSTOM_TAG_SAVE_NEW_TAG).click()
           time.sleep(0.5)
         
           # edit tag
-          self.driver.find_element(*self.member_locators.CUSTOM_TAGS_FUNCTIONS['edit_tag']).click()
-          tag_input = self.driver.find_element(AppiumBy.CLASS_NAME, "android.widget.EditText")
+          self.driver.find_element(*self.member_locators.CUSTOM_TAG_EDIT_TAG).click()
+          tag_input = self.driver.find_element(AppiumBy.ACCESSIBILITY_ID, 'undefined-text-input')
           tag_input.click()
           tag_input.clear()
           time.sleep(0.5)
         
           # verify error message
-          error_msg = self.driver.find_element(*self.member_locators.CUSTOM_TAGS_FUNCTIONS['error_msg'])
+          error_msg = self.driver.find_element(*self.member_locators.CUSTOM_TAG_ERROR_MSG)
           assert error_msg.is_displayed(), "Error message not displayed"
         
           # reenter tag name
           tag_input.send_keys(random_tag)
-          self.driver.find_element(*self.member_locators.CUSTOM_TAGS_FUNCTIONS['save_new_tag']).click()
+          self.driver.find_element(*self.member_locators.CUSTOM_TAG_SAVE_NEW_TAG).click()
           time.sleep(0.5)
         
           # remove tag
-          self.driver.find_element(*self.member_locators.CUSTOM_TAGS_FUNCTIONS['delete_tag']).click()
-          self.driver.find_element(*self.member_locators.CUSTOM_TAGS_FUNCTIONS['confirm_delete']).click()
+          self.driver.find_element(*self.member_locators.CUSTOM_TAG_DELETE_TAG).click()
+          self.driver.find_element(*self.member_locators.CUSTOM_TAG_CONFIRM_DELETE).click()
           time.sleep(0.5)
           self.driver.back()
         
@@ -244,14 +254,14 @@ class MemberPage(CommonUseSection):
           return self
       
       def tap_billing_tab(self):
-          time.sleep(0.5)
+          time.sleep(2)
           self.driver.find_element(*self.member_locators.PASSPORT_TABS['billing_tab']).click()
     
           return self
     
       def tap_view_details(self):
-          self.driver.find_element(*self.member_locators.BILLING_FUNCTIONS['view_details']).click()
           time.sleep(0.5)
+          self.driver.find_element(*self.member_locators.BILLING_FUNCTIONS['view_details']).click()
         
           self.driver.find_element(*self.member_locators.BILLING_FUNCTIONS['expand_details']).click()
           time.sleep(1.5)
@@ -287,31 +297,32 @@ class MemberPage(CommonUseSection):
           self.driver.find_element(*self.member_locators.PASSPORT_TABS['info_tab']).click()
         
       def click_top_up_section(self):
-          self.driver.find_element(*self.member_locators.TOP_UP_SECTION['top_up_section']).click()
-          time.sleep(0.5)
+          time.sleep(2)
+          self.driver.find_element(*self.member_locators.TOP_UP_SECTION).click()
         
           return self
     
       def edit_top_up_amount(self):
-          self.driver.find_element(*self.member_locators.TOP_UP_SECTION['edit_top_up_icon']).click()
-          time.sleep(0.5)
+          
+          time.sleep(1)
+          self.driver.find_element(*self.member_locators.EDIT_TOP_UP_ICON).click()
         
-          self.driver.find_element(*self.member_locators.TOP_UP_SECTION['input_top_up_amount']).click()
+          self.driver.find_element(*self.member_locators.INPUT_TOP_UP_AMOUNT).click()
           amount = random.randint(1, 1000)
-          self.driver.find_element(*self.member_locators.TOP_UP_SECTION['input_top_up_amount']).send_keys(amount)
+          self.driver.find_element(*self.member_locators.INPUT_TOP_UP_AMOUNT).send_keys(amount)
         
           if random.choice([True, False]):
-             self.driver.find_element(*self.member_locators.TOP_UP_SECTION['increase_button']).click()
+             self.driver.find_element(*self.member_locators.INCREASE_BUTTON).click()
           else:
-             self.driver.find_element(*self.member_locators.TOP_UP_SECTION['decrease_button']).click()
+             self.driver.find_element(*self.member_locators.DECREASE_BUTTON).click()
           time.sleep(0.5)
         
-          self.driver.find_element(*self.member_locators.TOP_UP_SECTION['confirm_button']).click()
+          self.driver.find_element(*self.member_locators.BALANCE_CONFIRM_BUTTON).click()
         
           return self
     
       def click_top_up_button(self):
-          self.driver.find_element(*self.member_locators.TOP_UP_SECTION['top_up_button']).click()
+          self.driver.find_element(*self.member_locators.TOP_UP_BUTTON).click()
           time.sleep(0.5)
         
           return self
@@ -327,32 +338,32 @@ class MemberPage(CommonUseSection):
           return self
       
       def return_to_member_passport(self):
-          self.driver.back()
           time.sleep(0.5)
+          self.driver.back()
         
           return self
       
       def click_bonus_points_section(self):
-          self.driver.find_element(*self.member_locators.BONUS_POINTS_SECTION['bonus_points_section']).click()
-          time.sleep(0.5)
+          time.sleep(2)
+          self.driver.find_element(*self.member_locators.BONUS_POINTS_SECTION).click()
         
           return self
     
       def edit_bonus_points(self):
-          # same id same logic 
+          time.sleep(1)
           self.edit_top_up_amount()
           time.sleep(0.5) 
         
           return self
     
       def click_tickets_section(self):
-          self.driver.find_element(*self.member_locators.TICKETS_SECTION['tickets_section']).click()
-          time.sleep(0.5)
+          time.sleep(2)
+          self.driver.find_element(*self.member_locators.TICKETS_SECTION).click()
         
           return self
     
       def click_sell_ticket_button(self):
-          self.driver.find_element(*self.member_locators.TICKETS_SECTION['sell_ticket_button']).click()
+          self.driver.find_element(*self.member_locators.SELL_TICKET_BUTTON).click()
           time.sleep(0.5)
         
           return self
@@ -364,7 +375,6 @@ class MemberPage(CommonUseSection):
           self.create_checkout_page.select_ticket()
     
       def finish_checkout_process(self):
-          #todo: 舊版有bug點擊選擇支付方式無反應
           self.create_checkout_page.select_payment_method()
           self.create_checkout_page.proceed_to_checkout()
           self.create_checkout_page.confirm_checkout()
@@ -372,43 +382,43 @@ class MemberPage(CommonUseSection):
           return self
     
       def tap_ticket(self):
-          self.driver.find_element(*self.member_locators.TICKETS_SECTION['ticket']).click()
+          self.driver.find_element(*self.member_locators.TICKET).click()
           time.sleep(0.5)
         
           return self
     
       def use_ticket(self):
-          self.driver.find_element(*self.member_locators.TICKETS_SECTION['use_button']).click()
+          self.driver.find_element(*self.member_locators.USE_BUTTON).click()
           time.sleep(0.5)
         
           if random.choice([True, False]):
-             plus_button = self.driver.find_element(*self.member_locators.TICKETS_SECTION['plus_button'])
+             plus_button = self.driver.find_element(*self.member_locators.PLUS_BUTTON)
              clicks = random.randint(3,6)
              for _ in range(clicks):
                 plus_button.click()
         
           else:
-            input_field = self.driver.find_element(*self.member_locators.TICKETS_SECTION['input_field'])
+            input_field = self.driver.find_element(*self.member_locators.INPUT_FIELD)
             random_number = str(random.randint(10, 100))
             input_field.clear()
             input_field.send_keys(random_number)
         
           time.sleep(1)
-          self.driver.find_element(*self.member_locators.TICKETS_SECTION['save_button']).click()
+          self.driver.find_element(*self.member_locators.CONFIRM_BUTTON).click()
         
           # click confirm again
           time.sleep(0.5)
-          self.driver.find_element(*self.member_locators.TICKETS_SECTION['save_button']).click()
+          self.driver.find_element(*self.member_locators.CONFIRM_BUTTON).click()
           return self
     
       def switch_to_history_tab(self):
-          self.driver.find_element(*self.member_locators.TICKETS_SECTION['history_tab']).click()
+          self.driver.find_element(*self.member_locators.HISTORY_TAB).click()
           time.sleep(0.5)
         
           return self
       
       def click_gift_ticket_button(self):
-          self.driver.find_element(*self.member_locators.TICKETS_SECTION['gift_ticket_button']).click()
+          self.driver.find_element(*self.member_locators.GIFT_TICKET_BUTTON).click()
           time.sleep(0.5)
         
           return self
@@ -418,31 +428,43 @@ class MemberPage(CommonUseSection):
           time.sleep(0.5)
         
           # click confirm btn
-          self.driver.find_element(*self.member_locators.TICKETS_SECTION['save_button']).click()
           time.sleep(1)
+          self.driver.find_element(*self.member_locators.CONFIRM_BUTTON).click()
+         
+          return self
+      
+      def ticket_page_return_to_member_passport(self):
+          time.sleep(1)
+          self.driver.find_element(*self.member_locators.TICKET_PAGE_RETURN_BUTTON).click()
           return self
       
       def edit_basic_info(self):
-          self.driver.find_element(*self.member_locators.EDIT_SECTION['edit_info_icon']).click()
+          time.sleep(1)
+          self.driver.find_element(*self.member_locators.EDIT_INFO_ICON).click()
           time.sleep(0.5)
         
           # edit name
-          name_input = self.driver.find_element(*self.member_locators.EDIT_SECTION['input'])
+          name_input = self.driver.find_element(*self.member_locators.OTHER_NAME_INPUT)
           name_input.clear()
           random_nickname = "自動化測試" + ''.join(random.choice(string.ascii_letters) for _ in range(random.randint(3, 10)))
           name_input.send_keys(random_nickname)
         
           self.select_random_gender()
-          self.select_random_date()
+          
+          # click birthday field to open date picker
+          self.driver.find_element(*self.member_locators.EDIT_BASIC_INFO_CHOOSE_DATE_FIELD).click()
+          time.sleep(0.5)
+          self.swipe_calendar_component()
         
           # click save
-          self.driver.find_element(*self.member_locators.EDIT_SECTION['edit_save']).click()
-          self.driver.find_element(*self.member_locators.EDIT_SECTION['confirm_button']).click()
+          self.driver.find_element(*self.member_locators.EDIT_SAVE).click()
+          self.driver.find_element(*self.member_locators.CONFIRM_BUTTON).click()
         
           return self
     
       def edit_custom_fields(self):
-          self.driver.find_element(*self.member_locators.EDIT_SECTION['edit_custom_info_icon']).click()
+          time.sleep(1)
+          self.driver.find_element(*self.member_locators.EDIT_CUSTOM_INFO_ICON).click()
           time.sleep(0.5)
         
           selected_choice = random.choice(self.member_locators.SINGLE_CHOICE)
@@ -453,20 +475,19 @@ class MemberPage(CommonUseSection):
           for music in selected_music:
               self.driver.find_element(AppiumBy.ACCESSIBILITY_ID, music).click()
             
-          option_input = self.driver.find_element(*self.member_locators.EDIT_SECTION['option_input'])
+          option_input = self.driver.find_element(*self.member_locators.OPTION_INPUT)
           option_input.click()
         
         
           random_option = "自動化測試" + ''.join(random.choice(
             string.ascii_letters + string.digits + "!@#$%^&*" + "測試回饋意見"
           ) for _ in range(random.randint(3, 10)))
-          option_modal = self.driver.find_element(*self.member_locators.EDIT_SECTION['input'])
+          option_modal = self.driver.find_element(*self.member_locators.INPUT)
           option_modal.clear()
-          option_modal.click()
           option_modal.send_keys(random_option)
         
           # click save
-          self.driver.find_element(*self.member_locators.EDIT_SECTION['modal_save_button']).click()
+          self.driver.find_element(*self.member_locators.GIVE_US_FEEDBACK_MODAL_SAVE_BUTTON).click()
         
         
         
@@ -483,28 +504,28 @@ class MemberPage(CommonUseSection):
           time.sleep(1)
         
           # fourth question
-          fourth_question = self.driver.find_element(*self.member_locators.EDIT_SECTION['fourth_question_input'])
+          fourth_question = self.driver.find_element(*self.member_locators.FOURTH_QUESTION_INPUT)
           fourth_question.click()
         
         
           random_answer = "自動化測試" + ''.join(random.choice(string.ascii_letters + string.digits) for _ in range(random.randint(3, 8)))
-          fourth_question_modal = self.driver.find_element(*self.member_locators.EDIT_SECTION['input'])
+          fourth_question_modal = self.driver.find_element(*self.member_locators.INPUT)
           fourth_question_modal.clear()
           fourth_question_modal.click()
           fourth_question_modal.send_keys(random_answer)
           time.sleep(1)
         
-          self.driver.find_element(*self.member_locators.EDIT_SECTION['modal_save_button']).click()
+          self.driver.find_element(*self.member_locators.FOURTH_QUESTION_MODAL_SAVE_BUTTON).click()
         
           time.sleep(0.5)
-          self.driver.find_element(*self.member_locators.EDIT_SECTION['modal_save_button']).click()
+          self.driver.find_element(*self.member_locators.CUSTOM_MODAL_SAVE_BUTTON).click()
         
           return self
     
       def edit_member_description(self):
           # scroll to bottom
           time.sleep(1)
-          for _ in range(1):
+          for _ in range(3):
               self.driver.execute_script('mobile: scrollGesture', {
                 'left': 100,
                 'top': 100,
@@ -515,24 +536,24 @@ class MemberPage(CommonUseSection):
               })
           time.sleep(1)
         
-          self.driver.find_element(*self.member_locators.EDIT_SECTION['edit_member_description_icon']).click()
+          self.driver.find_element(*self.member_locators.EDIT_MEMBER_DESCRIPTION_ICON).click()
           time.sleep(0.5)
         
           # edit member description
-          member_description = self.driver.find_element(*self.member_locators.EDIT_SECTION['member_description_input'])
+          member_description = self.driver.find_element(*self.member_locators.MEMBER_DESCRIPTION_INPUT)
           member_description.click()
         
-          member_modal = self.driver.find_element(*self.member_locators.EDIT_SECTION['input'])
+          member_modal = self.driver.find_element(*self.member_locators.INPUT)
           member_modal.clear()
           member_modal.click()
         
           random_description = "自動化測試" + ''.join(random.choice(string.ascii_letters + string.digits) for _ in range(random.randint(3, 8)))
           member_modal.send_keys(random_description)
-          self.driver.find_element(*self.member_locators.EDIT_SECTION['modal_save_button']).click()
+          self.driver.find_element(*self.member_locators.MEMBER_DESCRIPTION_MODAL_SAVE_BUTTON).click()
         
           # click save
           time.sleep(0.5)
-          self.driver.find_element(*self.member_locators.EDIT_SECTION['modal_save_button']).click()
+          self.driver.find_element(*self.member_locators.MEMBER_DESCRIPTION_SAVE_BUTTON).click()
         
           return self
     
@@ -568,8 +589,8 @@ class MemberPage(CommonUseSection):
           return self
     
       def click_review_member_icon(self):
-          self.driver.find_element(*self.member_locators.BOTTOM_NAVIGATION['member_review_icon']).click()
           time.sleep(0.5)
+          self.driver.find_element(*self.member_locators.BOTTOM_NAVIGATION['member_review_icon']).click()
         
           return self
     
@@ -586,31 +607,31 @@ class MemberPage(CommonUseSection):
           return self
     
       def click_more_icon(self):
-          self.driver.find_element(*self.member_locators.BOTTOM_NAVIGATION['more_icon']).click()
           time.sleep(0.5)
+          self.driver.find_element(*self.member_locators.BOTTOM_NAVIGATION['more_icon']).click()
         
           return self
     
       def link_account_and_send_line_message(self):
           time.sleep(0.5)
-          self.driver.find_element(*self.member_locators.MORE_OPTIONS_FUNCTIONS['link_account']).click()
+          self.driver.find_element(*self.member_locators.LINK_ACCOUNT).click()
         
-          self.driver.find_element(*self.member_locators.MORE_OPTIONS_FUNCTIONS['line_section']).click()
+          self.driver.find_element(*self.member_locators.LINE_SECTION).click()
         
-          self.driver.find_element(*self.member_locators.MORE_OPTIONS_FUNCTIONS['send_line_message_btn']).click()
+          self.driver.find_element(*self.member_locators.SEND_LINE_MESSAGE_BTN).click()
         
-          self.driver.find_element(*self.member_locators.MORE_OPTIONS_FUNCTIONS['input_message_content']).click()
+          self.driver.find_element(*self.member_locators.INPUT_MESSAGE_CONTENT).click()
           time.sleep(0.5)
         
         
           random_msg = "自動化測試" + ''.join(random.choice(string.digits + string.ascii_letters) for _ in range(random.randint(5, 10)))
-          self.driver.find_element(*self.member_locators.MORE_OPTIONS_FUNCTIONS['input_modal']).clear()
-          self.driver.find_element(*self.member_locators.MORE_OPTIONS_FUNCTIONS['input_modal']).send_keys(random_msg)
+          self.driver.find_element(*self.member_locators.INPUT_MODAL).clear()
+          self.driver.find_element(*self.member_locators.INPUT_MODAL).send_keys(random_msg)
         
-          self.driver.find_element(*self.member_locators.MORE_OPTIONS_FUNCTIONS['modal_save_button']).click()
+          self.driver.find_element(*self.member_locators.LINK_ACCOUNT_MESSAGE_MODAL_SAVE_BUTTON).click()
         
           #use message template after entering message content
-          self.driver.find_element(*self.member_locators.MORE_OPTIONS_FUNCTIONS['use_message_template']).click()
+          self.driver.find_element(*self.member_locators.USE_MESSAGE_TEMPLATE).click()
         
           # randomly select a message template
           selected_option = random.choice(self.member_locators.MESSAGE_TEMPLATE_OPTIONS)
@@ -618,35 +639,35 @@ class MemberPage(CommonUseSection):
           time.sleep(0.5)
         
           # manage message template
-          self.driver.find_element(*self.member_locators.MORE_OPTIONS_FUNCTIONS['manage_message_template']).click()
+          self.driver.find_element(*self.member_locators.MANAGE_MESSAGE_TEMPLATE).click()
           time.sleep(0.5)
         
         
           # add new message template
-          self.driver.find_element(*self.member_locators.MORE_OPTIONS_FUNCTIONS['add_new_message_template_button']).click()
+          self.driver.find_element(*self.member_locators.ADD_NEW_MESSAGE_TEMPLATE_BUTTON).click()
           time.sleep(0.5)
         
-          title_input = self.driver.find_element(*self.member_locators.MORE_OPTIONS_FUNCTIONS['title_input'])
+          title_input = self.driver.find_element(*self.member_locators.TITLE_INPUT)
           title_input.click()
           title_input.send_keys(random_msg)
           time.sleep(0.5)
         
-          content_input = self.driver.find_element(*self.member_locators.MORE_OPTIONS_FUNCTIONS['content_input'])
+          content_input = self.driver.find_element(*self.member_locators.CONTENT_INPUT)
           content_input.click()
-          content_input_modal = self.driver.find_element(*self.member_locators.MORE_OPTIONS_FUNCTIONS['input_modal'])
+          content_input_modal = self.driver.find_element(*self.member_locators.INPUT_MODAL)
           content_input_modal.clear()
           content_input_modal.click()
           content_input_modal.send_keys(random_msg)
           time.sleep(0.5)
         
-          self.driver.find_element(*self.member_locators.MORE_OPTIONS_FUNCTIONS['modal_save_button']).click()
+          self.driver.find_element(*self.member_locators.TEMPLATE_CONTENT_MODAL_SAVE_BUTTON).click()
         
-          self.driver.find_element(*self.member_locators.MORE_OPTIONS_FUNCTIONS['save_button']).click()
+          self.driver.find_element(*self.member_locators.SAVE_BUTTON).click()
           time.sleep(0.5)
 
           # remove tag
-          self.driver.find_element(*self.member_locators.MORE_OPTIONS_FUNCTIONS['delete_tag']).click()
-          self.driver.find_element(*self.member_locators.MORE_OPTIONS_FUNCTIONS['confirm_delete']).click()
+          self.driver.find_element(*self.member_locators.DELETE_TAG).click()
+          self.driver.find_element(*self.member_locators.CONFIRM_DELETE).click()
           time.sleep(0.5)
         
           # back to message template page
@@ -654,12 +675,12 @@ class MemberPage(CommonUseSection):
           time.sleep(0.5)
         
         
-          self.driver.find_element(*self.member_locators.MORE_OPTIONS_FUNCTIONS['message_save_button']).click()
+          self.driver.find_element(*self.member_locators.MESSAGE_SAVE_BUTTON).click()
           time.sleep(1)
         
           # click to save again
-          self.driver.find_element(*self.member_locators.MORE_OPTIONS_FUNCTIONS['message_save_button']).click()
-          self.driver.find_element(*self.member_locators.MORE_OPTIONS_FUNCTIONS['confirm']).click()
+          self.driver.find_element(*self.member_locators.MESSAGE_SAVE_BUTTON).click()
+          self.driver.find_element(*self.member_locators.CONFIRM).click()
         
           return self
         
@@ -675,8 +696,8 @@ class MemberPage(CommonUseSection):
         
         
       def return_to_calendar_page(self):
-          self.driver.find_element(*self.member_locators.MEMBER_PASSPORT_TITLE).click()
-          time.sleep(1) 
+          time.sleep(1)
+          self.driver.find_element(*self.member_locators.MEMBER_PASSPORT_TITLE).click() 
           for _ in range(3):
               self.driver.back()
               time.sleep(0.5)
@@ -684,7 +705,7 @@ class MemberPage(CommonUseSection):
       def can_choose_the_item_i_have_bought_before(self):
           try:
               # item
-              item = self.driver.find_elements(*self.member_locators.MORE_OPTIONS_FUNCTIONS['selct_item_button'])
+              item = self.driver.find_elements(*self.member_locators.SELECT_ITEM_BUTTON)
               if item:
                   item[0].click()
                   self.create_checkout_page.select_item()
@@ -692,7 +713,7 @@ class MemberPage(CommonUseSection):
                   return True
               
               # ticket
-              ticket = self.driver.find_elements(*self.member_locators.MORE_OPTIONS_FUNCTIONS['select_ticket_button'])
+              ticket = self.driver.find_elements(*self.member_locators.SELECT_TICKET_BUTTON)
               if ticket:
                   ticket[0].click()
                   self.create_checkout_page.select_ticket()
@@ -700,7 +721,7 @@ class MemberPage(CommonUseSection):
                   return True
             
               # deposit
-              deposit = self.driver.find_elements(*self.member_locators.MORE_OPTIONS_FUNCTIONS['deposit_title'])
+              deposit = self.driver.find_elements(*self.member_locators.DEPOSIT_TITLE)
               if deposit:
                   self.create_checkout_page.enter_deposit_amount()
                   time.sleep(0.5)
@@ -714,15 +735,15 @@ class MemberPage(CommonUseSection):
         
       def add_member_to_blacklist(self):
           self.driver.find_element(*self.member_locators.BOTTOM_NAVIGATION['more_icon']).click()
-          self.driver.find_element(*self.member_locators.MORE_OPTIONS_FUNCTIONS['add_to_blacklist']).click()
-          self.driver.find_element(*self.member_locators.MORE_OPTIONS_FUNCTIONS['confirm']).click()
+          self.driver.find_element(*self.member_locators.ADD_TO_BLACKLIST).click()
+          self.driver.find_element(*self.member_locators.CONFIRM).click()
           time.sleep(0.5)
         
           return self
     
       def remove_member_from_blacklist(self):
-          self.driver.find_element(*self.member_locators.MORE_OPTIONS_FUNCTIONS['remove_from_blacklist']).click()
-          self.driver.find_element(*self.member_locators.MORE_OPTIONS_FUNCTIONS['confirm']).click()
+          self.driver.find_element(*self.member_locators.REMOVE_FROM_BLACKLIST).click()
+          self.driver.find_element(*self.member_locators.CONFIRM).click()
           time.sleep(0.5)
         
           return self
