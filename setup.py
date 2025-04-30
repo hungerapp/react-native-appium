@@ -139,9 +139,6 @@ class AppiumSetup(unittest.TestCase):
         # Initialize  TestHelper
         self.helper = GetTestHelper(self.driver)
         return self.driver
-    
-    def screen_shot(self, name: str):
-        self.driver.save_screenshot(f'{name}-{time.time()}.png')
 
     def tearDown(self) -> None:
         if self.driver:
