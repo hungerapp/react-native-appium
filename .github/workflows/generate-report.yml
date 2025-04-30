@@ -1,0 +1,70 @@
+name: Generate Allure Report
+
+on:
+  workflow_run:
+    workflows: ["Android E2E Tests", "iOS E2E Tests"]
+    types:
+      - completed
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  generate-report:
+    name: Generate Allure Report
+    runs-on: ubuntu-latest
+    if: always()
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Download Android test results
+        uses: dawidd6/action-download-artifact@v3
+        with:
+          workflow: android-e2e-tests.yml
+          name: android-test-results
+          path: allure-results
+          if_no_artifact_found: warn
+
+      - name: Download iOS test results
+        uses: dawidd6/action-download-artifact@v3
+        with:
+          workflow: ios-e2e-tests.yml
+          name: ios-test-results
+          path: allure-results
+          if_no_artifact_found: warn
+
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: "temurin"
+          java-version: "17"
+
+      - name: Set up Allure
+        run: |
+          curl -o allure-2.24.1.tgz -OL https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/2.24.1/allure-commandline-2.24.1.tgz
+          tar -zxvf allure-2.24.1.tgz -C /opt/
+          ln -s /opt/allure-2.24.1/bin/allure /usr/local/bin/allure
+
+      - name: Generate Allure Report
+        run: |
+          allure generate allure-results --clean -o allure-report
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: allure-report
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

@@ -14,7 +14,7 @@ scenarios('../../../features/navigation/more/inventory.feature')
 # [INVENTORY]
 @allure.feature('Inventory More')
 @allure.story('Inventory Management')
-@pytest.mark.navigation
+@pytest.mark.navigation_more_inventory
 @pytest.mark.run(order=84)
 @given('I tap on inventory management')
 def tap_on_inventory_management(driver):

@@ -15,7 +15,6 @@ class CommonUseSection:
         "其他": (AppiumBy.ACCESSIBILITY_ID, "其他")
     }
     CONFIRM_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("android:id/button1")')
-    BIRTHDAY_FIELD = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("生日")')
     CALENDAR_WINDOW = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("android:id/pickers")')
 
     COUNTRY_SELECTOR = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("caret-down")')
@@ -33,20 +32,20 @@ class CommonUseSection:
     SERVICE_TAB_CONTAINER = (AppiumBy.XPATH, "//android.widget.HorizontalScrollView/android.view.ViewGroup")
     AUTO_TEST_TAB = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("自動化測試服物分類")')
     SERVICE_ITEMS = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("測試服務")')
-    SAVE_SERVICE_BTN = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(1)')
+    SAVE_SERVICE_BTN = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("check").instance(0)')
     SERVICE_OPTION1 = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("測試服務1")')
     SERVICE_OPTION4 = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("測試服務4")')
-    SUB_SERVICE_SAVE_BTN = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(1)')
+    SUB_SERVICE_SAVE_BTN = (AppiumBy.ACCESSIBILITY_ID, '選擇子服務-modal-right-button ')
     SUB_SERVICE_OPTIONS = {
-            "option1": "附加服務1, +30 分鐘 / +NT$500",
-            "option2": "附加服務2, +30 分鐘 / +NT$500",
-            "option3": "附加服務3, +30 分鐘 / +NT$500"
+        '附加服務1': (AppiumBy.ACCESSIBILITY_ID, 'checkbox-multiple-option-0'),
+        '附加服務2': (AppiumBy.ACCESSIBILITY_ID, 'checkbox-multiple-option-1'),
+        '附加服務3': (AppiumBy.ACCESSIBILITY_ID, 'checkbox-multiple-option-2'),
       }
     
     
     
     SERVICE_PERSON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("服務人員")')
-    SERVICE_TESTING_PERSON = (AppiumBy.ACCESSIBILITY_ID, 'QA測試人員')
+    SERVICE_TESTING_PERSON = (AppiumBy.ACCESSIBILITY_ID, 'checkbox-single-option-1')
     SERVICE_PAGE_TOGGLE_SWITCH = (AppiumBy.ACCESSIBILITY_ID, '該筆預約為指定預約-switch-button')
     SERVICE_PAGE_SAVE_BTN = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("check")')
     
@@ -58,7 +57,7 @@ class CommonUseSection:
         (AppiumBy.ACCESSIBILITY_ID, 'Bella #美甲'),
         # Add more personnel options as needed
     ]
-    PERSONNEL_SAVE_BUTTON = (AppiumBy.ACCESSIBILITY_ID, 'check')
+    PERSONNEL_SAVE_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("check").instance(1)')
     
     
     # For checkout, request page
@@ -66,7 +65,7 @@ class CommonUseSection:
     AMOUNT_INPUT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("android.widget.EditText")')
     AMOUNT_CLEAR_BTN = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("清除")')
     AMOUNT_SAVE_BTN = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(1)')
-    EDIT_ITEM_QUANTITY_ICON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("caret-down").instance(0)')
+    EDIT_ITEM_QUANTITY_ICON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("caret-down").instance(1)')
     QUANTITLY_PLUS_BUTTON = (AppiumBy.XPATH, '//android.view.ViewGroup[@resource-id="plus"]/com.horcrux.svg.SvgView/com.horcrux.svg.GroupView/com.horcrux.svg.PathView')
     QUANTITY_REVISE_INPUT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textMatches("^[1-9][0-9]{0,2}$")')
     QUANTITY_REVISE_INPUT2 = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("android.widget.EditText")')
@@ -74,32 +73,34 @@ class CommonUseSection:
     REMOVE_ITEM_BTN = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("circle-minus").instance(0)')
     REMOVE_CONFIRM_BTN = (AppiumBy.ACCESSIBILITY_ID, '移除')
     BACK_TO_PREVIOUS_PAGE_ICON = (AppiumBy.ACCESSIBILITY_ID, 'arrow-left')
-    ADD_NEW_DISCOUNT_BTN = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().description("新增").instance(0)')
+    ADD_NEW_DISCOUNT_BTN = (AppiumBy.ACCESSIBILITY_ID, '新增')
     DISCOUNT_SAVE_BUTTON = (AppiumBy.ACCESSIBILITY_ID, 'check')
     CASH_QUICK_AMOUNTS = ["50", "100", "150", "200", "250", "300", "350", "400"]
     DISCOUNT_QUICK_RATES = ["95折", "92折", "9折", "88折", "85折", "8折", "75折", "7折"]
     DISCOUNT_INPUT_OPTIONS = [90, 85, 95, 80, 70, 85, 75]
-    CASH_TAB = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("現金")')
+    CASH_TAB = (AppiumBy.ACCESSIBILITY_ID, '現金')
     DISCOUNT_TAB = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("折數")')
-    COUPON_TAB = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("票券")')
+    COUPON_TAB = (AppiumBy.ACCESSIBILITY_ID, '票券')
     # Input fields and buttons
-    AMOUNT_INPUT_FIELD = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("請輸入金額")')
-    DISCOUNT_INPUT_FIELD = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("請輸入折數")')
+    AMOUNT_INPUT_FIELD = (AppiumBy.ACCESSIBILITY_ID, '金額-text-input')
+    DISCOUNT_INPUT_FIELD = (AppiumBy.ACCESSIBILITY_ID, '折數-text-input')
     QUICK_SELECT_AMOUNTS = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("android.widget.TextView")')
-    AUTO_TEST_COUPON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("自動化測試票券")')
-    SELECT_TICKET_ICON = (AppiumBy.XPATH, '//android.view.ViewGroup[@resource-id="caret-down"]/com.horcrux.svg.SvgView/com.horcrux.svg.GroupView/com.horcrux.svg.PathView')
-    QUANTITY_INPUT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("android.widget.EditText")')
+    AUTO_TEST_COUPON = (AppiumBy.ACCESSIBILITY_ID, '自動化測試票券')
+    SELECT_TICKET_ICON = (AppiumBy.ACCESSIBILITY_ID, '1 張')
+    QUANTITY_INPUT = (AppiumBy.ACCESSIBILITY_ID, 'undefined-text-input')
     NO_COUPON_AVAILABLE_TEXT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("目前沒有資料")')
     
     # for add new member
-    PHONE_NUMBER_INPUT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("請輸入電話")')
-    NICKNAME_INPUT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("請輸入別名")')
-    MEMBER_DESCRIPTION_INPUT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("請輸入內容")')
+    PHONE_NUMBER_INPUT = (AppiumBy.ACCESSIBILITY_ID, '電話-text-input')
+    NICKNAME_INPUT = (AppiumBy.ACCESSIBILITY_ID, '別名-text-input')
+    ADD_NEW_MEMBER_CHOOSE_DATE_FIELD = (AppiumBy.ACCESSIBILITY_ID, '生日, 選填, 請選擇')
+    MEMBER_DESCRIPTION_INPUT = (AppiumBy.ACCESSIBILITY_ID, '會員描述-textarea-field')
     MEMBER_DESCRIPTION_MODAL_INPUT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("輸入內容")')
-    MEMBER_DESCRIPTION_MODAL_SAVE_BUTTON = (AppiumBy.XPATH, '(//com.horcrux.svg.SvgView)[2]')
+    MEMBER_DESCRIPTION_MODAL_SAVE_BUTTON = (AppiumBy.ACCESSIBILITY_ID, 'circle-check')
     ADD_NEW_MEMBER_TOGGLE = (AppiumBy.ACCESSIBILITY_ID, '是否加入黑名單-switch-button')
    
     SAVE_NEW_MEMBER_BUTTON = (AppiumBy.ACCESSIBILITY_ID, 'check')
+    SAVE_NAV_NEW_MEMBER_BUTTON = (AppiumBy.ACCESSIBILITY_ID, 'createMemberOnSubmit')
     RIGHT_ARROW = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("arrow-right")')      
     
     
@@ -118,18 +119,6 @@ class CommonUseSection:
             return gender
         except Exception as e:
             print(f"Select gender error: {str(e)}")
-            raise
-        
-    def select_random_date(self):
-        """Random scroll to select date"""
-        try:
-            # Click birthday field to open date picker
-            self.driver.find_element(*self.BIRTHDAY_FIELD).click()
-            
-            self.swipe_calendar_component()
-        
-        except Exception as e:
-            print(f"Select date error: {str(e)}")
             raise
         
     def swipe_calendar_component(self):
@@ -394,10 +383,10 @@ class CommonUseSection:
             time.sleep(0.5)
             self.handle_sub_services()
             
+            time.sleep(2)
             service1.click()
 
             # Click save button
-            time.sleep(1)
             save_button = self.driver.find_element(*self.SAVE_SERVICE_BTN)
             save_button.click()
 
@@ -415,27 +404,22 @@ class CommonUseSection:
         """
         
         try:
-            num_to_select = 2
-            selected_options = random.sample(list(self.SUB_SERVICE_OPTIONS.values()), num_to_select)
+            # Randomly select two options
+            selected_keys = random.sample(list(self.SUB_SERVICE_OPTIONS.keys()), 2)
             
-            for description in selected_options:
+            # Click selected options
+            for key in selected_keys:
+                option_locator = self.SUB_SERVICE_OPTIONS[key]
                 try:
-                    option_locator = (AppiumBy.ANDROID_UIAUTOMATOR, f'new UiSelector().description("{description}")')
-                    option_element = self.driver.find_element(*option_locator)
-                    option_element.click()
+                    self.driver.find_element(*option_locator).click()
                 except NoSuchElementException:
                     continue
             
             # Click save button for sub-service
             sub_save_button = self.driver.find_element(*self.SUB_SERVICE_SAVE_BTN)
-            if sub_save_button.is_displayed():
-                sub_save_button.click()
-            else:
-                print("Sub-service save button is not visible or enabled")
-            return True
+            sub_save_button.click()
             
         except Exception as e:
-            print(f"Error handling sub-services: {str(e)}")
             return False
 
     
@@ -489,13 +473,13 @@ class CommonUseSection:
         back_to_previous_page_icon = self.driver.find_element(*self.BACK_TO_PREVIOUS_PAGE_ICON)
         back_to_previous_page_icon.click() 
     
-    def add_new_discount(self, add_new_member=False):
-        self.driver.find_element(*self.ADD_NEW_DISCOUNT_BTN).click()
+    def add_new_discount(self, existing_member=False):
         time.sleep(1)
+        self.driver.find_element(*self.ADD_NEW_DISCOUNT_BTN).click()
         
         #randomly select tab
         tabs = [self.CASH_TAB, self.DISCOUNT_TAB]
-        if not add_new_member:
+        if existing_member == True:
             tabs.append(self.COUPON_TAB)
             
         selected_tab = random.choice(tabs)
@@ -532,36 +516,40 @@ class CommonUseSection:
             self.driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR, f'new UiSelector().text("{discount}")').click()
             
     def _handle_coupon_tab(self):
+        time.sleep(1)
         self.driver.find_element(*self.AUTO_TEST_COUPON).click()
-        time.sleep(1)
         
-        self.driver.find_element(*self.SELECT_TICKET_ICON).click()
-        time.sleep(1.5)
+        try:
+            self.driver.find_element(*self.SELECT_TICKET_ICON).click()
+
+            time.sleep(1.5)
         
-        # Get window size for swipe calculation
-        window_size = self.driver.get_window_size()
-        start_x = window_size['width'] * 0.5
-        start_y = window_size['height'] * 0.7
-        end_y = window_size['height'] * 0.6
+            # Get window size for swipe calculation
+            window_size = self.driver.get_window_size()
+            start_x = window_size['width'] * 0.5
+            start_y = window_size['height'] * 0.7
+            end_y = window_size['height'] * 0.6
         
+            # Select random quantity (1-17)
+            random_quantity = random.randint(1, 17)
         
-        # Select random quantity (1-11)
-        random_quantity = str(random.randint(1, 11))
+            # Perform small swipe gesture
+            self.driver.swipe(start_x, start_y, start_x, end_y, duration=500)
+            time.sleep(1)
         
-        # Perform small swipe gesture
-        self.driver.swipe(start_x, start_y, start_x, end_y, duration=500)
-        time.sleep(1)
+            self.driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR, f'new UiSelector().text("{random_quantity}")').click()
+            time.sleep(0.5)
         
-        self.driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR, f'new UiSelector().text("{random_quantity}")').click()
-        time.sleep(0.5)
-        
-        # Input amount
-        amount_input = self.driver.find_element(*self.QUANTITY_INPUT)
-        amount_input.click()
-        random_amount = str(random.randint(1, 100))
-        amount_input.clear()
-        amount_input.send_keys(random_amount)
+            # Input amount
+            amount_input = self.driver.find_element(*self.QUANTITY_INPUT)
+            amount_input.click()
+            random_amount = str(random.randint(1, 100))
+            amount_input.clear()
+            amount_input.send_keys(random_amount)
             
+        except Exception as e:
+            print(f"Error handling coupon tab: {str(e)}")
+            raise
     
     def new_member(self):
         
@@ -580,8 +568,9 @@ class CommonUseSection:
         # select random gender
         self.select_random_gender()
         time.sleep(0.5)
-        # select random date
-        self.select_random_date()
+        # click birthday field to open date picker
+        self.driver.find_element(*self.ADD_NEW_MEMBER_CHOOSE_DATE_FIELD).click()
+        self.swipe_calendar_component()
         
         # Generate random member description -> Due to id cannot be found, so we won't use it anymore
         description = ''.join(random.choice(nickname_chars) for _ in range(20))
@@ -594,7 +583,10 @@ class CommonUseSection:
         
         # Click save button
         time.sleep(0.5)
-        self.driver.find_element(*self.SAVE_NEW_MEMBER_BUTTON).click()
+        try:
+            self.driver.find_element(*self.SAVE_NEW_MEMBER_BUTTON).click()
+        except:
+            self.driver.find_element(*self.SAVE_NAV_NEW_MEMBER_BUTTON).click()
         
     def choose_date(self):
         # click right arrow multiple times
@@ -609,18 +601,21 @@ class CommonUseSection:
         
         # click outside to close the date window
         size = self.driver.get_window_size()
-        self.driver.execute_script('mobile: clickGesture', {
-            'x': int(size['width'] * 0.5),  
-            'y': int(size['height'] * 0.9)   
-        })
+        x = int(size['width'] * 0.5)
+        y = int(size['height'] * 0.9)
+        actions = ActionChains(self.driver)
+        actions.tap(x=x, y=y).perform()
 
-    @staticmethod
-    def get_current_timestamp():
+    def tap_at_coordinates(self, x, y):
         """
-        Generates current timestamp in YYYYMMDDHHMMSSmmm format
+        使用 W3C Actions API 在指定座標點擊
         """
-        from datetime import datetime
-
-        now = datetime.now()
-        timestamp = now.strftime("%Y%m%d%H%M%S") + f"{int(now.microsecond / 1000):03d}"
-        return timestamp
+        actions = ActionChains(self.driver)
+        pointer = PointerInput(interaction.POINTER_TOUCH, "touch")
+        
+        actions.w3c_actions = ActionBuilder(self.driver, mouse=pointer)
+        actions.w3c_actions.pointer_action.move_to_location(x, y)
+        actions.w3c_actions.pointer_action.pointer_down()
+        actions.w3c_actions.pointer_action.pause(0.1) 
+        actions.w3c_actions.pointer_action.pointer_up()
+        actions.perform()

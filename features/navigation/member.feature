@@ -82,9 +82,7 @@ Feature: Member Page
     Given I am on the member passport page
     #先註解掉
     #When I click on the message icon
-    #Then I can enter send message page
-    #When I click on the sign document icon
-    #Then I can sign the review document
+    #Then I can send message to member
     When I click on the review member icon
     Then I can view member review
     When I click on the more icon

@@ -13,7 +13,7 @@ scenarios('../../../features/create/create_event.feature')
 @allure.feature('Create Event')
 @allure.story('Add event flow')
 @pytest.mark.run(order=31)
-@pytest.mark.create
+@pytest.mark.create_event
 @given('I click the create event option')
 def click_create_event_option(driver):
     create_page = CreateEventPage(driver)
@@ -54,7 +54,7 @@ def click_save_button(driver):
 @allure.feature('Create Event')
 @allure.story('Service Personnel Selection and Time Setting')
 @pytest.mark.run(order=32)
-@pytest.mark.create
+@pytest.mark.create_event
 @given('I click the create event option')
 def click_create_event_option(driver):
     create_page = CreateEventPage(driver)
@@ -96,7 +96,7 @@ def click_save_button(driver):
 @allure.feature('Create Event')
 @allure.story('Error Handling for Missing Time')
 @pytest.mark.run(order=33)
-@pytest.mark.create
+@pytest.mark.create_event
 @given('I click the create event option')
 def click_create_event_option(driver):
     create_page = CreateEventPage(driver)
@@ -132,7 +132,7 @@ def return_to_create_event_page(driver):
 @allure.feature('Create Event')
 @allure.story('Repeat Enabled but Save Error')
 @pytest.mark.run(order=34)
-@pytest.mark.create
+@pytest.mark.create_event
 @given('I am on the Create Event page')
 def on_create_event_page(driver):
     pass

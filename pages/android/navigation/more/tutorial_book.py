@@ -1,3 +1,5 @@
+import time
+
 from pages.locators.android.navigation.more.tutorial_book_locators import TutorialBookLocators
 
 class TutorialBookPage():
@@ -10,6 +12,7 @@ class TutorialBookPage():
         return self
     
     def return_to_calendar_page(self):
+        time.sleep(1)
         self.driver.back()
         return self
     

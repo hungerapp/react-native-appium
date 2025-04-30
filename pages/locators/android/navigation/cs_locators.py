@@ -4,7 +4,7 @@ class CS_Locators:
       CS_OPTION = (AppiumBy.ACCESSIBILITY_ID, "客服")
       MESSAGE_SECTION = (AppiumBy.XPATH, '//android.widget.ScrollView/android.view.View[1]/android.view.View')
       PAST_MESSAGE = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("android.view.View").instance(4)'),
-      SEND_MESSAGE_TO_US_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("傳訊息給我們")')
+      SEND_MESSAGE_TO_US_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("android.widget.Button").instance(1)')
       CS_SEND_OPTIONS = [
         (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("方案與價格")'),
         (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("新手教學")'),

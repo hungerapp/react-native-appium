@@ -21,34 +21,34 @@ class TutorialGuidePage():
     def click_service_staff_section(self):
         time.sleep(1)
         self.driver.find_element(*self.tutorial_guide_locators.SERVICE_STAFF_SECTION).click()
-        time.sleep(0.5)
+        time.sleep(1)
         self.driver.find_element(*self.tutorial_guide_locators.CANCEL_BUTTON).click()
         return self
     
     def click_service_items_section(self):
         time.sleep(1)
         self.driver.find_element(*self.tutorial_guide_locators.SERVICE_ITEMS_SECTION).click()
-        time.sleep(0.5)
+        time.sleep(1)
         self.driver.find_element(*self.tutorial_guide_locators.CANCEL_BUTTON).click()
         return self
     
     def click_online_reservation_management_section(self):
         time.sleep(1)
         self.driver.find_element(*self.tutorial_guide_locators.ONLINE_RESERVATION_MANAGEMENT_SECTION).click()
-        time.sleep(0.5)
+        time.sleep(1)
         self.driver.find_element(*self.tutorial_guide_locators.CANCEL_BUTTON).click()
         return self
       
     def click_connect_line_official_account_section(self):
         time.sleep(1)
         self.driver.find_element(*self.tutorial_guide_locators.CONNECT_LINE_OFFICIAL_ACCOUNT_SECTION).click()
-        time.sleep(0.5)
+        time.sleep(1)
         self.driver.find_element(*self.tutorial_guide_locators.CANCEL_BUTTON).click()
         return self
       
     def click_tutorial_book_button(self):
         self.driver.find_element(*self.tutorial_guide_locators.TUTORIAL_BOOK_BUTTON).click()
-        time.sleep(0.5)
+        time.sleep(1)
         self.driver.back()
         return self
       

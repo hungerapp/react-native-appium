@@ -3,8 +3,7 @@ Feature: Allow Appointment
   # [ALLOW APPOINTMENT SETTINGS] ACCESS_RESERVATION_SETTINGS
   @regression @access_reservation_settings
   Scenario: Accessing Reservation Settings
-    Given I click on the more option in the bottom navigation bar
-    When I click on the allow appointment settings
+    Given I click on the allow appointment settings
     Then I can click the toggle and select open times
     Then I can select the latest reservation time
     When I click on the expand advanced settings

@@ -19,9 +19,9 @@ Feature: Customer Deposit Checkout
 
 
 
-   @regression  @modify_and_clear_deposit_details_before_checkout
-   Scenario: Modify and clear deposit details before checkout  
-    I want to modify and clear deposit details before completing checkout  
+   @regression  @modify_and_clear_deposit_details_before_checkout_with_existing_member
+   Scenario: Modify and clear deposit details before checkout with existing member  
+    I want to modify and clear deposit details before completing checkout with existing member  
     So that I can ensure the system handles data changes correctly  
 
     Given I click the create checkout option
@@ -43,15 +43,14 @@ Feature: Customer Deposit Checkout
 
 
 
-   @regression  @error_validation_during_deposit_checkout
-   Scenario: Error validation during deposit checkout  
-    I want to validate error messages when entering incorrect deposit details  
+   @regression  @error_validation_during_deposit_checkout_with_new_member
+   Scenario: Error validation during deposit checkout with new member  
+    I want to validate error messages when entering incorrect deposit details with new member  
     So that I can verify the system correctly handles invalid inputs  
 
     Given I click the create checkout option
     When I select deposit option  
-    Then I search for an non-existing member and re-search for an existing member
-    Then I click the search result
+    Then I add a brand new member
     Then I select a sales performance owner  
     Then I enter the deposit amount  
     Then I select a payment method and change it above the item price and validate errors  

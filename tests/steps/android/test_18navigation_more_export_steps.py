@@ -14,7 +14,7 @@ scenarios('../../../features/navigation/more/export.feature')
 # [EXPORT] AVAILABLE_TIME_SLOTS_AS_CALENDAR_IMAGE
 @allure.feature('Export')
 @allure.story('Available Time Slots as Calendar Image')
-@pytest.mark.navigation
+@pytest.mark.navigation_more_export
 @pytest.mark.run(order=86)
 @given('I click on export available time slots')
 def click_export_available_time_slots(driver):
@@ -58,7 +58,7 @@ def return_to_calendar_page(driver):
 # [EXPORT] AVAILABLE_TIME_SLOTS_AS_TEXT
 @allure.feature('Export')
 @allure.story('Available Time Slots as Text')
-@pytest.mark.navigation
+@pytest.mark.navigation_more_export
 @pytest.mark.run(order=87)
 @given('I click on export available time slots')
 def click_export_available_time_slots(driver):

@@ -14,7 +14,7 @@ scenarios('../../../features/navigation/more/subscription_management.feature')
 # [SUBSCRIPTION MANAGEMENT]
 @allure.feature('Subscription Management')
 @allure.story('Subscription Management - View Current Plans')
-@pytest.mark.navigation
+@pytest.mark.navigation_more_subscription_management    
 @pytest.mark.run(order=88)
 @given('I click on subscription management')
 def click_subscription_management(driver):

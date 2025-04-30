@@ -27,8 +27,13 @@ class LoginPage:
       #driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value='開始使用').click()
       
   def click_contact_cs_button(self):
+      time.sleep(1)
       self.driver.find_element(*self.login_locators.CONTACT_CS_BUTTON).click()
-      self.driver.find_element(*self.login_locators.CONTACT_CS_BACK_BUTTON).click()
+      time.sleep(1)
+      try:
+          self.driver.find_element(*self.login_locators.CONTACT_CS_BACK_BUTTON).click()
+      except:
+          self.driver.back()
 
       
   def click_terms_and_conditions_button(self):
@@ -64,6 +69,7 @@ class LoginPage:
           pass
 
   def enter_ver_code(self, ver_code):
+      time.sleep(1)
       self.driver.find_element(*self.login_locators.VER_CODE_INPUT).send_keys(ver_code)
       self.driver.find_element(*self.login_locators.VER_SUBMIT_BUTTON).click()
 
@@ -143,6 +149,7 @@ class LoginPage:
             return None
        
   def click_login_cancel_button(self):
+       time.sleep(1)
        login_button_cancel = self.driver.find_element(*self.login_locators.LOGIN_CANCEL_BUTTON)
        login_button_cancel.click()
        

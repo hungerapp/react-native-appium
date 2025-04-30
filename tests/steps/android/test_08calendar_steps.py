@@ -127,6 +127,7 @@ def create_appointment(driver):
     common_use = CommonUseSection(driver)
     common_use.select_service_person()
     create_appointment.select_service()
+    create_appointment.save_service1_button()
 
 
 @then('I can successfully create an appointment')
@@ -161,6 +162,7 @@ def create_appointment(driver):
     common_use = CommonUseSection(driver)
     common_use.select_service_person()
     create_appointment.select_service()
+    create_appointment.save_service1_button()
 
 @then('I change the time of the appointment')
 def change_appointment_time(driver):
