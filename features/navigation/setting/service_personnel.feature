@@ -22,6 +22,7 @@ Feature: Service Personnel Management
         And I should see "Robot大軍" in the Service Personnel list
         When I delete "Robot大軍" from the Service Personnel list
         Then I should see the Service Personnel page
+        #TODO: 最後要返回分店設定頁
 
 
 

@@ -35,6 +35,7 @@ class ServiceAppointmentPage:
 
 
     def add_service_category(self, category_name):
+        # TODO: 這邊的Add First Category Button locator有錯誤, 需要修改
         if not self.common_actions.is_element_present(*self.service_appointment_page_locators.ADD_FIRST_CATEGORY_BUTTON_IN_SERVICE_ITEM_LIST_PAGE):
             self.common_actions.click_element(*self.service_appointment_page_locators.ADD_FIRST_CATEGORY_BUTTON_IN_SERVICE_ITEM_LIST_PAGE)
             self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.ADD_CATEGORY_DIALOG_NAME_FIELD)
@@ -50,6 +51,7 @@ class ServiceAppointmentPage:
             self.common_actions.click_element(*self.service_appointment_page_locators.ADD_CATEGORY_DIALOG_CONFIRM_BUTTON)
             self.common_actions.wait_for_element_disappear(*self.service_appointment_page_locators.ADD_CATEGORY_DIALOG_CONFIRM_BUTTON)
             self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.CATEGORY_MANAGEMENT_MODAL_NAME(category_name))
+            # TODO: 這邊的Close Button locator有錯誤, 未成功點擊關閉modal, 需要修改
             self.common_actions.click_element(*self.service_appointment_page_locators.CATEGORY_MANAGEMENT_MODAL_CLOSE_BUTTON)
             self.common_actions.wait_for_element_disappear(*self.service_appointment_page_locators.CATEGORY_MANAGEMENT_MODAL_CLOSE_BUTTON)
         return self
@@ -79,6 +81,7 @@ class ServiceAppointmentPage:
         return self
 
     def verify_service_category_not_visible(self, category_name):
+        # TODO: 這邊的Close Button locator有錯誤, 未成功點擊關閉modal, 需要修改
         self.common_actions.click_element(*self.service_appointment_page_locators.CATEGORY_MANAGEMENT_MODAL_CLOSE_BUTTON)
         self.common_actions.wait_for_element_disappear(*self.service_appointment_page_locators.CATEGORY_MANAGEMENT_MODAL_TITLE)
         self.common_actions.wait_for_element_disappear(*self.service_appointment_page_locators.CATEGORY_NAME_IN_SERVICE_ITEM_LIST_PAGE(category_name))

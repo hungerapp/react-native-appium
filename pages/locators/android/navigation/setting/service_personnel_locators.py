@@ -24,6 +24,7 @@ class ServicePersonnelPageLocators:
     CLEAR_SERVICE_PERSONNEL_INTRODUCTION_BUTTON = (AppiumBy.XPATH, '//*[@text="清除"]')
     CONFIRM_CLEAR_SERVICE_PERSONNEL_INTRODUCTION_BUTTON = (AppiumBy.XPATH, '//*[@content-desc="circle-check"]')
     CLOSE_SERVICE_PERSONNEL_INTRODUCTION_BUTTON = (AppiumBy.ACCESSIBILITY_ID, "人員介紹-close-button")
+    # TODO: 展開進階設定locator有變動要修改
     EXPAND_ADVANCED_SETTINGS_IN_SERVICE_PERSONNEL_MODAL = (AppiumBy.XPATH, '//android.widget.TextView[@text="展開進階設定"]')
     CLOSE_ADVANCED_SETTINGS_IN_SERVICE_PERSONNEL_MODAL = (AppiumBy.XPATH, '//android.widget.TextView[@text="收起進階設定"]')
     SIMULTANEOUS_SERVICE_COUNT_FIELD_IN_SERVICE_PERSONNEL_MODAL = (AppiumBy.ACCESSIBILITY_ID, "同時服務數量-text-input")

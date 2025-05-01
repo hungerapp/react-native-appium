@@ -25,13 +25,15 @@ class InvitationCodePage:
         self.common_actions.click_element(*self.invitation_code_page_locators.COPY_INVITATION_BUTTON)
         self.common_actions.wait_for_element_disappear(*self.invitation_code_page_locators.COPY_INVITATION_BUTTON)
         return self
-
+    
+    # TODO: 這邊沒有加上已邀請名單的驗證, 需要修改錯誤
     def tap_invited_list_button(self):
         self.common_actions.click_element(*self.invitation_code_page_locators.INVITED_LIST_IN_INVITATION_CODE_PAGE)
         self.common_actions.is_element_visible(*self.invitation_code_page_locators.TITLE_IN_INVITED_LIST)
         self.common_actions.is_element_visible(*self.invitation_code_page_locators.CLOSE_BUTTON_IN_INVITED_LIST)
         return self
-
+    
+    # TODO: 這邊沒有加上已邀請名單的驗證, 需要修改錯誤
     def tap_invited_list_close_button(self):
         self.common_actions.click_element(*self.invitation_code_page_locators.CLOSE_BUTTON_IN_INVITED_LIST)
         self.common_actions.wait_for_element_disappear(*self.invitation_code_page_locators.CLOSE_BUTTON_IN_INVITED_LIST)

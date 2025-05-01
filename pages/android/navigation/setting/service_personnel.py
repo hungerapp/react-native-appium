@@ -53,6 +53,7 @@ class ServicePersonnelPage:
         return self
 
     def enter_simultaneous_service_count(self, simultaneous_service_count):
+        # TODO: 展開進階設定locator有變動要修改
         self.common_actions.scroll_to_element(*self.service_personnel_page_locators.EXPAND_ADVANCED_SETTINGS_IN_SERVICE_PERSONNEL_MODAL)
         self.common_actions.click_element(*self.service_personnel_page_locators.EXPAND_ADVANCED_SETTINGS_IN_SERVICE_PERSONNEL_MODAL)
         self.common_actions.wait_for_element_visible(*self.service_personnel_page_locators.CLOSE_ADVANCED_SETTINGS_IN_SERVICE_PERSONNEL_MODAL)
@@ -67,11 +68,13 @@ class ServicePersonnelPage:
 
     def verify_service_personnel_name(self, service_personnel_name):
         self.common_actions.scroll_to_element(*self.service_personnel_page_locators.DELETE_SERVICE_PERSONNEL_BUTTON_IN_SERVICE_PERSONNEL_PAGE(service_personnel_name))
+        #TODO: 找不到元素not visible locator要做修改
         self.common_actions.is_element_visible(*self.service_personnel_page_locators.DELETE_SERVICE_PERSONNEL_BUTTON_IN_SERVICE_PERSONNEL_PAGE(service_personnel_name))
         self.common_actions.is_element_visible(*self.service_personnel_page_locators.EDIT_SERVICE_PERSONNEL_BUTTON_IN_SERVICE_PERSONNEL_PAGE(service_personnel_name))
         return self
 
     def delete_service_personnel(self, service_personnel_name):
+        # TODO: 無點擊刪除icon及輸入匡刪除服務人員, locator有變更需要做修改
         self.common_actions.click_element(*self.service_personnel_page_locators.DELETE_SERVICE_PERSONNEL_BUTTON_IN_SERVICE_PERSONNEL_PAGE(service_personnel_name))
         self.common_actions.wait_for_element_visible(*self.service_personnel_page_locators.TITLE_IN_DELETE_SERVICE_PERSONNEL_DIALOG)
         self.common_actions.is_element_visible(*self.service_personnel_page_locators.DESCRIPTION_IN_DELETE_SERVICE_PERSONNEL_DIALOG(service_personnel_name))

@@ -2,6 +2,8 @@ from pytest_bdd import scenarios, given, when, then, parsers
 from pages.android.navigation.setting.service_appointment import ServiceAppointmentPage
 
 scenarios('../../../../features/navigation/setting/service_appointment.feature')
+
+#TODO: 這邊預設是在分店設定頁, 點擊服務預約區塊進入服務預約頁
 @given('I am on the service appointment page')
 def verify_service_appointment_page(driver):
     service_appointment_page = ServiceAppointmentPage(driver)
@@ -17,6 +19,10 @@ def verify_service_appointment_page(driver):
     service_appointment_page = ServiceAppointmentPage(driver)
     assert service_appointment_page.verify_service_appointment_page(), "Service appointment page is not displayed"
 
+
+
+# TODO: 每一條test都建議標記是跑哪一條scenario的, 每條test之間建議留有空白, 這樣比較好debug
+# TODO: 少寫了Given I am on the Service Appointment page 這句
 @when("I tap on the service items")
 def tap_service_items(driver):
     service_appointment_page = ServiceAppointmentPage(driver)
@@ -26,7 +32,12 @@ def tap_service_items(driver):
 def verify_service_items_page(driver):
     service_appointment_page = ServiceAppointmentPage(driver)
     assert service_appointment_page.verify_service_items_page(), "Service items page is not displayed"
+    
+    
+    
 
+# TODO: 每一條test都建議標記是跑哪一條scenario的, 每條test之間建議留有空白, 這樣比較好debug
+# TODO: 少寫了Given I am on the Service Appointment page 這句
 @given("I am on the service items page")
 def verify_service_items_page(driver):
     service_appointment_page = ServiceAppointmentPage(driver)
@@ -35,13 +46,19 @@ def verify_service_items_page(driver):
 @when(parsers.parse('I Add a new service category named "{category_name}"'))
 def add_service_category(driver, category_name):
     service_appointment_page = ServiceAppointmentPage(driver)
+    # TODO: 這邊的Add First Category Button locator有錯誤, 需要修改
     assert service_appointment_page.add_service_category(category_name), "Add service category is not displayed"
 
 @then(parsers.parse('I should see the service category named "{category_name}"'))
 def verify_service_category(driver, category_name):
     service_appointment_page = ServiceAppointmentPage(driver)
     assert service_appointment_page.verify_service_category(category_name), "Service category is not displayed"
-
+    
+    
+    
+    
+# TODO: 每一條test都建議標記是跑哪一條scenario的, 每條test之間建議留有空白, 這樣比較好debug
+# TODO: 少寫了Given I am on the Service Appointment page 這句
 @when(parsers.parse('I edit the service category named "{old_category}" to "{new_category}"'))
 def edit_service_category(driver, old_category, new_category):
     service_appointment_page = ServiceAppointmentPage(driver)
@@ -56,10 +73,16 @@ def delete_service_category(driver, category_name):
 def verify_service_category_not_visible(driver, category_name):
     service_appointment_page = ServiceAppointmentPage(driver)
     assert service_appointment_page.verify_service_category_not_visible(category_name), "Service category is still displayed"
+    
+    
+    
 
+# TODO: 每一條test都建議標記是跑哪一條scenario的, 每條test之間建議留有空白, 這樣比較好debug
+# TODO: 少寫了Given I am on the Service Appointment page 這句
 @when(parsers.parse('I select a service category named "{category_name}"'))
 def select_service_category(driver, category_name):
     service_appointment_page = ServiceAppointmentPage(driver)
+    # TODO: 這邊因為你前面已經將你處建的new category刪除, 所以這邊會找不到所創建的分類, 不然就是刪除後你要加個前置條件是再重新增一次New Category, 不用將New Category改名成Updated Category, 這樣你這邊的test才會過
     assert service_appointment_page.select_service_category(category_name), "Select service category is not displayed"
 
 @when("I click the add service item button")
@@ -122,7 +145,15 @@ def click_save_add_service_item_button(driver):
 def verify_service_item_name(driver, item_name):
     service_appointment_page = ServiceAppointmentPage(driver)
     assert service_appointment_page.verify_service_item_name(item_name), "Service item name is not displayed"
+#TODO: 加一條case是我新增完服務項目後有編輯, 有兩個選項可以選擇編輯/複製服務項目
+#TODO: 加一條case是刪除所新增或是其他先前的服務項目, 前面只有刪除分類case
+#TODO: 最後服務項目頁中相關的case寫完後要點擊X 關閉服務項目頁, 回到服務預約頁, 這樣下一條case才是given I am on the Service Appointment page
+    
+    
+    
 
+# TODO: 每一條test都建議標記是跑哪一條scenario的, 每條test之間建議留有空白, 這樣比較好debug
+# TODO: 少寫了Given I am on the Service Appointment page 這句
 @when('I tap on the online booking')
 def tap_online_booking(driver):
     service_appointment_page = ServiceAppointmentPage(driver)
@@ -132,7 +163,13 @@ def tap_online_booking(driver):
 def verify_online_booking_page(driver):
     service_appointment_page = ServiceAppointmentPage(driver)
     assert service_appointment_page.verify_online_booking_page(), "Online booking page is not displayed"
+    
+    
+    
 
+
+# TODO: 每一條test都建議標記是跑哪一條scenario的, 每條test之間建議留有空白, 這樣比較好debug
+# TODO: 少寫了Given I am on the Service Appointment page 這句
 @given('I am on the online booking page')
 def verify_online_booking_page(driver):
     service_appointment_page = ServiceAppointmentPage(driver)
@@ -167,7 +204,13 @@ def tap_confirm_add_appointment_combination(driver):
 def verify_appointment_combination_name(driver, combination_name):
     service_appointment_page = ServiceAppointmentPage(driver)
     assert service_appointment_page.verify_appointment_combination_name(combination_name), "Appointment combination name is not displayed"
+    
+    
+    
 
+
+# TODO: 每一條test都建議標記是跑哪一條scenario的, 每條test之間建議留有空白, 這樣比較好debug
+# TODO: 少寫了Given I am on the Service Appointment page 這句
 @when(parsers.parse('I tap on the edit appointment combination named "{combination_name}"'))
 def tap_edit_appointment_combination(driver, combination_name):
     service_appointment_page = ServiceAppointmentPage(driver)
@@ -186,6 +229,7 @@ def select_main_service_item_and_clear_all(driver, service_item_category, servic
 @when(parsers.parse('I select the main service item "{service_item_category}" "{service_item_name}"'))
 def select_main_service_item(driver, service_item_category, service_item_name):
     service_appointment_page = ServiceAppointmentPage(driver)
+    #TODO: 這邊要確認前置條件main service都有存在, 不然會fail
     assert service_appointment_page.select_main_service_item(service_item_category, service_item_name), "Main service item selection is not displayed"
 
 @when(parsers.parse('I select the online booking type "{online_booking_type}"'))
@@ -217,7 +261,13 @@ def delete_appointment_combination(driver):
 def verify_appointment_combination_name_not_visible(driver, combination_name):
     service_appointment_page = ServiceAppointmentPage(driver)
     assert service_appointment_page.verify_appointment_combination_name_not_visible(combination_name), "Appointment combination name is still displayed"
+    
+    
+    
+    
 
+# TODO: 每一條test都建議標記是跑哪一條scenario的, 每條test之間建議留有空白, 這樣比較好debug
+# TODO: 少寫了Given I am on the Service Appointment page 這句
 @when(parsers.parse('I tap on the edit service personnel "{service_personnel}"'))
 def tap_edit_service_personnel(driver, service_personnel):
     service_appointment_page = ServiceAppointmentPage(driver)
@@ -242,7 +292,11 @@ def set_online_booking_quantity_range(driver, min_quantity, max_quantity):
 def set_open_time(driver, times):
     service_appointment_page = ServiceAppointmentPage(driver)
     assert service_appointment_page.set_open_time(times), "Set open time is not displayed"
+#TODO: 這邊最後結束要返回服務預約頁, 這樣下一條case才是given I am on the Service Appointment page
 
+
+# TODO: 每一條test都建議標記是跑哪一條scenario的, 每條test之間建議留有空白, 這樣比較好debug
+# TODO: 少寫了Given I am on the Service Appointment page 這句
 @when("I tap on the booking note")
 def tap_booking_note(driver):
     service_appointment_page = ServiceAppointmentPage(driver)
