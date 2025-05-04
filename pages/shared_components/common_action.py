@@ -29,9 +29,6 @@ class CommonActions:
         )
 
     def is_element_present(self, locator_type: str, locator_value: str) -> bool:
-        """
-        檢查元素是否存在
-        """
         try:
             self.driver.find_element(locator_type, locator_value)
             return True
