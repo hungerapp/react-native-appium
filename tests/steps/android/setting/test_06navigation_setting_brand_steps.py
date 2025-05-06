@@ -4,6 +4,13 @@ from pages.android.navigation.setting.brand import BrandPage
 
 scenarios('../../../../features/navigation/setting/brand.feature')
 
+
+
+
+# TODO: 開頭你把background那條mark掉了, 那是你要從導覽列點擊設定到設定頁的scenario,然後再進入分店和品牌資訊確認ele is present
+# Background
+# TODO: 每一條test都建議標記是跑哪一條scenario的, 每條test之間建議留有空白, 這樣比較好debug
+# ex: # Clear Branch Name and See Required Field Warning
 @given("I am on the Branch Settings page")
 def verify_on_branch_settings_page(driver):
     brand_page = BrandPage(driver)
@@ -18,7 +25,11 @@ def tap_branch_name(driver):
 def verify_branch_brand_info_page(driver):
     brand_page = BrandPage(driver)
     assert brand_page.verify_branch_brand_info_page(), "Branch and Brand Information page not found"
-
+    
+    
+    
+        
+# TODO: 每一條test都建議標記是跑哪一條scenario的, 每條test之間建議留有空白, 這樣比較好debug
 @given("I am on the Branch and Brand Information page")
 def verify_on_branch_brand_info_page(driver):
     brand_page = BrandPage(driver)
@@ -33,7 +44,13 @@ def clear_branch_name(driver):
 def verify_error_message(driver):
     brand_page = BrandPage(driver)
     assert brand_page.verify_error_message(), "Error message not found"
-
+    
+  
+    
+    
+    
+# TODO: 每一條test都建議標記是跑哪一條scenario的, 每條test之間建議留有空白, 這樣比較好debug
+# TODO: 少寫了Given I am on the Branch and Brand Information page 這句
 @when(parsers.parse('I enter "{branch_name}" in the Branch Name field'))
 def enter_branch_name(driver, branch_name):
     brand_page = BrandPage(driver)
@@ -43,7 +60,13 @@ def enter_branch_name(driver, branch_name):
 def verify_branch_name(driver, branch_name):
     brand_page = BrandPage(driver)
     assert brand_page.verify_branch_name(branch_name), f"Branch Name field does not display {branch_name}"
-
+    
+    
+    
+    
+    
+# TODO: 每一條test都建議標記是跑哪一條scenario的, 每條test之間建議留有空白, 這樣比較好debug
+# TODO: 少寫了Given I am on the Branch and Brand Information page 這句
 @when("I clear the branch introduction text")
 def clear_branch_introduction(driver):
     brand_page = BrandPage(driver)
@@ -53,7 +76,12 @@ def clear_branch_introduction(driver):
 def verify_branch_introduction_empty(driver):
     brand_page = BrandPage(driver)
     assert brand_page.verify_branch_introduction_empty(), "Branch introduction field is not empty"
+    
+    
+    
 
+# TODO: 每一條test都建議標記是跑哪一條scenario的, 每條test之間建議留有空白, 這樣比較好debug
+# TODO: 少寫了Given I am on the Branch and Brand Information page 這句
 @when(parsers.parse('I enter "{branch_introduction}" in the branch introduction'))
 def enter_branch_introduction(driver, branch_introduction):
     brand_page = BrandPage(driver)
@@ -63,7 +91,15 @@ def enter_branch_introduction(driver, branch_introduction):
 def verify_branch_introduction(driver, branch_introduction):
     brand_page = BrandPage(driver)
     assert brand_page.verify_branch_introduction(branch_introduction), f"Branch introduction field does not display {branch_introduction}"
-
+    
+    
+    
+    
+    
+# TODO: 每一條test都建議標記是跑哪一條scenario的, 每條test之間建議留有空白, 這樣比較好debug
+# TODO: 少寫了Given I am on the Branch and Brand Information page 這句
+# TODO: 少寫了 When I turn off the branch phone display switch (你移到下面了)
+# TODO: 少寫了 And I turn on the branch phone display switch (你移到下面了)
 @when(parsers.parse('I select "{country_code}" as the country code'))
 def select_country_code(driver, country_code):
     brand_page = BrandPage(driver)
@@ -78,7 +114,14 @@ def enter_branch_phone_number(driver, phone_number):
 def verify_branch_phone_number(driver, country_code, phone_number):
     brand_page = BrandPage(driver)
     assert brand_page.verify_branch_phone_number(country_code, phone_number), f"Branch phone number field does not display {country_code} {phone_number}"
+'''
+|
+|
+|
+|
+v
 
+這兩個應該是被移到下面位置錯了, 將這兩個移到對的scenario地方
 @when("I turn off the branch phone display switch")
 def turn_off_branch_phone_display_switch(driver):
     brand_page = BrandPage(driver)
@@ -88,7 +131,14 @@ def turn_off_branch_phone_display_switch(driver):
 def turn_on_branch_phone_display_switch(driver):
     brand_page = BrandPage(driver)
     assert brand_page.turn_on_branch_phone_display_switch(), "Branch phone display switch not found"
+    
+'''    
+    
 
+
+
+# TODO: 每一條test都建議標記是跑哪一條scenario的, 每條test之間建議留有空白, 這樣比較好debug
+# TODO: 少寫了Given I am on the Branch and Brand Information page 這句
 @when("I turn off the branch address display switch")
 def turn_off_branch_address_display_switch(driver):
     brand_page = BrandPage(driver)
@@ -118,7 +168,13 @@ def enter_branch_address(driver, branch_address):
 def verify_branch_address(driver, branch_city, branch_district, branch_address):
     brand_page = BrandPage(driver)
     assert brand_page.verify_branch_address(branch_city, branch_district, branch_address), f"Branch address field does not display {branch_city} {branch_district} {branch_address}"
+    
+    
+    
+    
 
+# TODO: 每一條test都建議標記是跑哪一條scenario的, 每條test之間建議留有空白, 這樣比較好debug
+# TODO: 少寫了Given I am on the Branch and Brand Information page 這句
 @when("I tap on the Expand Brand Settings button")
 def tap_expand_brand_settings(driver):
     brand_page = BrandPage(driver)
@@ -129,6 +185,10 @@ def verify_brand_settings_section(driver):
     brand_page = BrandPage(driver)
     assert brand_page.verify_brand_settings_section(), "Brand Settings section not found"
 
+
+
+# TODO: 每一條test都建議標記是跑哪一條scenario的, 每條test之間建議留有空白, 這樣比較好debug
+# TODO: 少寫了Given I am on the Branch and Brand Information page 這句
 @when("I tap on the Close button")
 def tap_close_button(driver):
     brand_page = BrandPage(driver)
@@ -139,7 +199,29 @@ def verify_branch_settings_page_after_close(driver):
     brand_page = BrandPage(driver)
     assert brand_page.verify_branch_settings_page(), "Branch Settings page not found"
 
+
+
+# TODO: 下方這條case因為你前一條點擊xmark回到brand setting page, 所以這條case的given會是你點擊進入分店和品牌資訊頁後開始
+'''
+@regression @save_branch_brand_info
+    Scenario: Save Branch and Brand Information
+        Given I am on the Branch and Brand Information page
+        When I enter "Robot_Branch_Name" in the Branch Name field
+        And I enter "🤖 Welcome to our AI-powered store! We provide 24/7 automated service." in the branch introduction
+        And I turn on the branch phone display switch
+        And I select "+886" as the country code
+        And I enter "0912345678" in the branch phone number field
+        And I turn on the branch address display switch
+        And I select "臺北市" as the city
+        And I select "中正區" as the district
+        And I enter "地球路1號" in the branch address field
+        And I tap on the confirm button
+        Then I should see the Branch Settings page
+'''
 @when("I tap on the confirm button")
 def tap_confirm_button(driver):
     brand_page = BrandPage(driver)
     assert brand_page.tap_confirm_button(), "Confirm button not found"
+
+    
+    

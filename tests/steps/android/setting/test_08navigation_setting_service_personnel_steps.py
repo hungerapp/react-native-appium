@@ -3,6 +3,7 @@ from pages.android.navigation.setting.service_personnel import ServicePersonnelP
 
 scenarios('../../../../features/navigation/setting/service_personnel.feature')
 
+# TODO: 這邊預設你會是在分店設定頁, 所以given的話會是點擊服務人員進入服務人員頁面
 @given("I am on the Service Personnel page")
 def verify_on_service_personnel_page(driver):
     service_personnel_page = ServicePersonnelPage(driver)
@@ -48,6 +49,11 @@ def verify_service_personnel_page(driver):
     service_personnel_page = ServicePersonnelPage(driver)
     assert service_personnel_page.verify_service_personnel_page(), "Service Personnel page is not found"
 
+
+
+
+# TODO: 每一條test都建議標記是跑哪一條scenario的, 每條test之間建議留有空白, 這樣比較好debug
+# TODO: 少寫了Given I am on the Service Personnel page 這句
 @then(parsers.parse('I should see "{service_personnel_name}" in the Service Personnel list'))
 def verify_service_personnel_name(driver, service_personnel_name):
     service_personnel_page = ServicePersonnelPage(driver)
@@ -62,3 +68,12 @@ def verify_service_personnel_name(driver, service_personnel_name):
 def delete_service_personnel(driver, service_personnel_name):
     service_personnel_page = ServicePersonnelPage(driver)
     assert service_personnel_page.delete_service_personnel(service_personnel_name), f"Service Personnel name {service_personnel_name} is not found in the list"
+    
+# TODO: 少了這個步驟：
+'''
+@then("I should see the Service Personnel page")
+def verify_service_personnel_page(driver):
+    service_personnel_page = ServicePersonnelPage(driver)
+    assert service_personnel_page.verify_service_personnel_page(), "Service Personnel page is not found"
+
+'''
