@@ -364,22 +364,14 @@ class CommonActions:
 
     def is_toggle_on(self, locator_type: str, locator_value: str) -> bool:
         """
-        檢查 Toggle（Switch）是否處於開啟狀態
-
-        在 React Native 中，Switch 元件的狀態由 value 屬性控制：
-        - value={true} 表示開啟
-        - value={false} 表示關閉
-
-        Args:
-            locator_type: 定位方式
-            locator_value: 定位值
-
-        Returns:
-            bool: 如果 Toggle 處於開啟狀態返回 True，否則返回 False
+        根據 checked 屬性判斷 toggle 狀態
+        checked="true" 表示 ON，checked="false" 表示 OFF
         """
         try:
             element = self.find_element(locator_type, locator_value)
-            return element.get_attribute("checked") == "true"
+            checked = element.get_attribute("checked")
+            print(f"Toggle checked attribute: {checked}")
+            return checked == "true"
         except (NoSuchElementException, TimeoutException):
             return False
 
@@ -409,7 +401,8 @@ class CommonActions:
     def toggle_switch_state(self, locator_type: str, locator_value: str, should_be_on: bool = True) -> bool:
         """
         切換 Toggle（Switch）的狀態
-        - 如果當前狀態與期望狀態不同，則切換
+        - 強制將 Toggle 切換到指定的狀態（should_be_on）
+        - 如果當前狀態與期望狀態不同，則進行切換
         - 如果當前狀態與期望狀態相同，則保持不變
 
         使用範例：
@@ -427,12 +420,6 @@ class CommonActions:
         # Toggle New State: Off
         # Toggle switched to Off state successfully
 
-        # 如果已經是期望狀態
-        common_actions.toggle_switch_state(By.ID, "my_toggle", should_be_on=True)
-        # 輸出：
-        # Toggle Current State: On
-        # Toggle is already On, no need to switch
-
         Args:
             locator_type: 定位方式
             locator_value: 定位值
@@ -445,21 +432,41 @@ class CommonActions:
             current_state = self.is_toggle_on(locator_type, locator_value)
             print(f"Toggle Current State:{'On' if current_state else 'Off'}")
             
-            if current_state == should_be_on:
+            # 如果當前狀態與期望狀態不同，進行切換
+            if current_state != should_be_on:
+                print(f"Switching toggle to {'On' if should_be_on else 'Off'} state")
+                
+                max_attempts = 3
+                for attempt in range(max_attempts):
+                    try:
+                        element = self.wait.until(
+                            EC.element_to_be_clickable((locator_type, locator_value))
+                        )
+                        element.click()
+                        time.sleep(1) 
+                        
+                        new_state = self.is_toggle_on(locator_type, locator_value)
+                        print(f"Toggle New State (Attempt {attempt + 1}):{'On' if new_state else 'Off'}")
+                        
+                        if new_state == should_be_on:
+                            print(f"Toggle switched to {'On' if should_be_on else 'Off'} state successfully")
+                            return True
+                            
+                        if attempt < max_attempts - 1:
+                            print(f"Attempt {attempt + 1} failed, trying again...")
+                            time.sleep(1)  # 等待一下再試
+                            
+                    except Exception as e:
+                        print(f"Error during attempt {attempt + 1}: {str(e)}")
+                        if attempt < max_attempts - 1:
+                            time.sleep(1)
+                            continue
+                
+                print(f"Warning: Failed to switch toggle to {'On' if should_be_on else 'Off'} state after {max_attempts} attempts")
+                return False
+            else:
                 print(f"Toggle is already {'On' if should_be_on else 'Off'}, no need to switch")
                 return True
-            
-            success = self.toggle_switch(locator_type, locator_value, should_be_on=should_be_on)
-            
-            new_state = self.is_toggle_on(locator_type, locator_value)
-            print(f"Toggle New State:{'On' if new_state else 'Off'}")
-            
-            if not success or new_state != should_be_on:
-                print(f"Warning: Failed to switch toggle to {'On' if should_be_on else 'Off'} state")
-                return False
-                
-            print(f"Toggle switched to {'On' if should_be_on else 'Off'} state successfully")
-            return True
             
         except NoSuchElementException:
             print(f"Error: Toggle element not found ({locator_type}={locator_value})")
