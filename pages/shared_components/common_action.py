@@ -1,32 +1,40 @@
 import time
+from typing import Tuple
 from appium.webdriver.webdriver import WebDriver
 from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions
-from selenium.common.exceptions import TimeoutException
-from selenium.common.exceptions import NoSuchElementException, StaleElementReferenceException
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import TimeoutException, NoSuchElementException, StaleElementReferenceException
 from selenium.webdriver.common.by import By
+from selenium.webdriver.remote.webelement import WebElement
 
 class CommonActions:
-    def __init__(self, driver: WebDriver):
+    def __init__(self, driver: WebDriver, default_timeout: int = 10):
+        """
+        Args:
+            driver: WebDriver instance
+            default_timeout: default timeout (seconds)
+        """
         self.driver = driver
-        self.wait = WebDriverWait(driver, 10)
+        self.wait = WebDriverWait(driver, default_timeout)
+        self.default_timeout = default_timeout
 
     def find_element(self, locator_type: str, locator_value: str):
         """
         使用顯式等待查找元素並返回
         """
         return self.wait.until(
-            expected_conditions.presence_of_element_located((locator_type, locator_value))
+            EC.presence_of_element_located((locator_type, locator_value))
         )
 
     def is_element_visible(self, locator_type: str, locator_value: str):
         """
         檢查元素是否存在且可見
         """
-        element = self.driver.find_element(locator_type, locator_value)
-        return self.wait.until(
-            expected_conditions.visibility_of(element)
-        )
+        try:
+            element = self.driver.find_element(locator_type, locator_value)
+            return self.wait.until(EC.visibility_of(element))
+        except (NoSuchElementException, TimeoutException):
+            return False
 
     def is_element_present(self, locator_type: str, locator_value: str) -> bool:
         """
@@ -43,7 +51,7 @@ class CommonActions:
         點擊可點擊的元素
         """
         element = self.wait.until(
-            expected_conditions.element_to_be_clickable((locator_type, locator_value))
+            EC.element_to_be_clickable((locator_type, locator_value))
         )
         element.click()
 
@@ -80,26 +88,25 @@ class CommonActions:
 
     def wait_for_element_visible(self, locator_type: str, locator_value: str, timeout: int = 30):
         """
-        Quick check if an element is visible
-        Returns False immediately if an element does not exist
+        快速檢查元素是否可見
+        如果元素不存在則立即返回 False
 
         Args:
-            locator_type: The type of locator strategy
-            locator_value: The value of the locator
-            timeout: Maximum time to wait in seconds (only used if an element is found)
+            locator_type: 定位方式
+            locator_value: 定位值
+            timeout: 最大等待時間（秒）
 
         Returns:
-            WebElement: The visible WebElement if found
-            False: If the element is not found
+            WebElement: 如果元素可見返回 WebElement，否則返回 False
 
         Raises:
-            TimeoutException: If the element is not visible after the timeout period
+            TimeoutException: 如果元素在指定時間內未可見
         """
         try:
             self.driver.implicitly_wait(0)
             wait = WebDriverWait(self.driver, timeout)
             return wait.until(
-                expected_conditions.visibility_of_element_located((locator_type, locator_value))
+                EC.visibility_of_element_located((locator_type, locator_value))
             )
         except NoSuchElementException:
             return False
@@ -115,7 +122,7 @@ class CommonActions:
         """
         try:
             self.wait.until(
-                expected_conditions.element_to_be_clickable((locator_type, locator_value))
+                EC.element_to_be_clickable((locator_type, locator_value))
             )
             return True
         except TimeoutException:
@@ -140,7 +147,7 @@ class CommonActions:
             timeout: 每次滑動後的等待時間（秒），默認0.5秒
 
         Returns:
-            bool: 如果找到並且元件可見返回True，否則返回False
+            bool: 如果找到並且元件可見返回 True，否則返回 False
         """
         self.driver.implicitly_wait(0)
         try:
@@ -198,11 +205,12 @@ class CommonActions:
         """
         self.driver.hide_keyboard()
 
-    def get_screen_size(self) -> tuple:
+    def get_screen_size(self) -> Tuple[int, int]:
         """
         獲取螢幕尺寸
         """
-        return self.driver.get_window_size()['width'], self.driver.get_window_size()['height']
+        size = self.driver.get_window_size()
+        return size['width'], size['height']
 
     def wait_for_element_present(self, locator_type: str, locator_value: str, timeout: int = 30) -> bool:
         """
@@ -221,29 +229,32 @@ class CommonActions:
             self.driver.implicitly_wait(0)
             wait = WebDriverWait(self.driver, timeout)
             wait.until(
-                expected_conditions.visibility_of_element_located((locator_type, locator_value))
+                EC.visibility_of_element_located((locator_type, locator_value))
             )
             return True
         except TimeoutException:
             return False
 
-    def wait_for_element_disappear(self, locator_type: str, locator_value: str, timeout: int = 30):
+    def wait_for_element_disappear(self, locator_type: str, locator_value: str, timeout: int = 30) -> bool:
         """
-        Quick check if an element exists and is visible
-        Returns True immediately if an element is not found
+        快速檢查元素是否存在且可見
+        如果元素不存在則立即返回 True
 
         Args:
-            locator_type: The type of locator strategy
-            locator_value: The value of the locator
-            timeout: Maximum time to wait in seconds (only used if an element is found and visible)
+            locator_type: 定位方式
+            locator_value: 定位值
+            timeout: 最大等待時間（秒）
 
         Returns:
-            bool: True if an element is not visible or not found
+            bool: 如果元素消失返回 True，否則返回 False
+
+        Raises:
+            TimeoutException: 如果元素在指定時間內未消失
         """
         try:
             self.driver.implicitly_wait(0)
             return WebDriverWait(self.driver, timeout).until(
-                expected_conditions.invisibility_of_element_located((locator_type, locator_value))
+                EC.invisibility_of_element_located((locator_type, locator_value))
             )
         except NoSuchElementException:
             return True
@@ -304,3 +315,158 @@ class CommonActions:
             return False
 
         return False
+
+    def get_element_attribute(self, locator_type: str, locator_value: str, attribute: str) -> str:
+        """
+        獲取元素屬性值
+
+        Args:
+            locator_type: 定位方式
+            locator_value: 定位值
+            attribute: 屬性名稱
+
+        Returns:
+            str: 屬性值
+        """
+        element = self.find_element(locator_type, locator_value)
+        return element.get_attribute(attribute)
+
+
+    def get_element_location(self, locator_type: str, locator_value: str) -> Tuple[int, int]:
+        """
+        獲取元素位置
+
+        Args:
+            locator_type: 定位方式
+            locator_value: 定位值
+
+        Returns:
+            Tuple[int, int]: 元素的 x, y 座標
+        """
+        element = self.find_element(locator_type, locator_value)
+        location = element.location
+        return location['x'], location['y']
+
+    def get_element_size(self, locator_type: str, locator_value: str) -> Tuple[int, int]:
+        """
+        獲取元素尺寸
+
+        Args:
+            locator_type: 定位方式
+            locator_value: 定位值
+
+        Returns:
+            Tuple[int, int]: 元素的寬度和高度
+        """
+        element = self.find_element(locator_type, locator_value)
+        size = element.size
+        return size['width'], size['height']
+
+    def is_toggle_on(self, locator_type: str, locator_value: str) -> bool:
+        """
+        檢查 Toggle（Switch）是否處於開啟狀態
+
+        在 React Native 中，Switch 元件的狀態由 value 屬性控制：
+        - value={true} 表示開啟
+        - value={false} 表示關閉
+
+        Args:
+            locator_type: 定位方式
+            locator_value: 定位值
+
+        Returns:
+            bool: 如果 Toggle 處於開啟狀態返回 True，否則返回 False
+        """
+        try:
+            element = self.find_element(locator_type, locator_value)
+            return element.get_attribute("checked") == "true"
+        except (NoSuchElementException, TimeoutException):
+            return False
+
+    def toggle_switch(self, locator_type: str, locator_value: str, should_be_on: bool = True) -> bool:
+        """
+        切換 Toggle（Switch）的狀態
+
+        Args:
+            locator_type: 定位方式
+            locator_value: 定位值
+            should_be_on: 期望的狀態，True 表示開啟，False 表示關閉
+
+        Returns:
+            bool: 如果成功切換到期望狀態返回 True，否則返回 False
+        """
+        try:
+            current_state = self.is_toggle_on(locator_type, locator_value)
+            if current_state != should_be_on:
+                self.click_element(locator_type, locator_value)
+                # 等待狀態改變
+                time.sleep(0.5)
+                return self.is_toggle_on(locator_type, locator_value) == should_be_on
+            return True
+        except (NoSuchElementException, TimeoutException):
+            return False
+
+    def toggle_switch_state(self, locator_type: str, locator_value: str, should_be_on: bool = True) -> bool:
+        """
+        切換 Toggle（Switch）的狀態
+        - 如果當前狀態與期望狀態不同，則切換
+        - 如果當前狀態與期望狀態相同，則保持不變
+
+        使用範例：
+        # 切換到開啟狀態
+        common_actions.toggle_switch_state(By.ID, "my_toggle", should_be_on=True)
+        # 輸出：
+        # Toggle Current State: Off
+        # Toggle New State: On
+        # Toggle switched to On state successfully
+
+        # 切換到關閉狀態
+        common_actions.toggle_switch_state(By.ID, "my_toggle", should_be_on=False)
+        # 輸出：
+        # Toggle Current State: On
+        # Toggle New State: Off
+        # Toggle switched to Off state successfully
+
+        # 如果已經是期望狀態
+        common_actions.toggle_switch_state(By.ID, "my_toggle", should_be_on=True)
+        # 輸出：
+        # Toggle Current State: On
+        # Toggle is already On, no need to switch
+
+        Args:
+            locator_type: 定位方式
+            locator_value: 定位值
+            should_be_on: 期望的狀態，True 表示開啟，False 表示關閉
+
+        Returns:
+            bool: 如果成功切換到期望狀態返回 True，否則返回 False
+        """
+        try:
+            current_state = self.is_toggle_on(locator_type, locator_value)
+            print(f"Toggle Current State:{'On' if current_state else 'Off'}")
+            
+            if current_state == should_be_on:
+                print(f"Toggle is already {'On' if should_be_on else 'Off'}, no need to switch")
+                return True
+            
+            success = self.toggle_switch(locator_type, locator_value, should_be_on=should_be_on)
+            
+            new_state = self.is_toggle_on(locator_type, locator_value)
+            print(f"Toggle New State:{'On' if new_state else 'Off'}")
+            
+            if not success or new_state != should_be_on:
+                print(f"Warning: Failed to switch toggle to {'On' if should_be_on else 'Off'} state")
+                return False
+                
+            print(f"Toggle switched to {'On' if should_be_on else 'Off'} state successfully")
+            return True
+            
+        except NoSuchElementException:
+            print(f"Error: Toggle element not found ({locator_type}={locator_value})")
+            return False
+        except TimeoutException:
+            print(f"Error: Waiting for Toggle element timeout ({locator_type}={locator_value})")
+            return False
+        except Exception as e:
+            print(f"Error: Unknown error occurred while switching toggle state: {str(e)}")
+            return False
