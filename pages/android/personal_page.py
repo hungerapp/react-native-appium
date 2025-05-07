@@ -1,14 +1,12 @@
 import time
 import random
 import string
-import warnings
 
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.actions import interaction
 from selenium.webdriver.common.actions.action_builder import ActionBuilder
 from selenium.webdriver.common.actions.pointer_input import PointerInput
-from datetime import datetime, timedelta
 from appium.webdriver.common.appiumby import AppiumBy
 
 from pages.shared_components.common_use import CommonUseSection
@@ -21,16 +19,72 @@ class PersonalPage(CommonUseSection):
     super().__init__(driver)
     self.common_action = CommonActions(driver)
     
-    
-    # Get window size
-    window_size = self.driver.get_window_size()
-    # Calculate center coordinates
-    self.center_x = window_size['width'] // 2
-    self.center_y = window_size['height'] // 2
-    
   
+  ############# Used Gestures #############
+  def _scroll_down(self):
+    """Scroll down"""
+    try:
+        screen_size = self.common_action.get_screen_size()
+        start_x = screen_size[0] * 0.5
+        start_y = screen_size[1] * 0.7
+        end_y = screen_size[1] * 0.3
+        
+        # execute scroll
+        self.common_action.swipe(
+            start_x, 
+            start_y, 
+            start_x, 
+            end_y, 
+            duration=500
+        )
+    except Exception as e:
+        print(f"[PersonalPage][_scroll_down] error: {str(e)}")
+        raise
+    
+  def _scroll_to_top(self):
+    """Scroll to top"""
+    try:
+        screen_size = self.common_action.get_screen_size()
+        start_x = screen_size[0] * 0.5
+        start_y = screen_size[1] * 0.3
+        end_y = screen_size[1] * 0.7
+        
+        # scroll to top
+        self.common_action.swipe(
+            start_x, 
+            start_y, 
+            start_x, 
+            end_y, 
+            duration=500
+        )
+    except Exception as e:
+        print(f"[PersonalPage][_scroll_to_top] error: {str(e)}")
+        raise
+    
+  def _perform_random_swipe(self, start_x, start_y, max_offset=50):
+    """Perform random swipe"""
+    try:
+        actions = ActionChains(self.driver)
+        pointer = PointerInput(interaction.POINTER_TOUCH, "touch")
+        
+        
+        end_x = start_x + random.randint(-max_offset, max_offset)
+        end_y = start_y + random.randint(-800, 800)  
+        
+        actions.w3c_actions = ActionBuilder(self.driver, mouse=pointer)
+        actions.w3c_actions.pointer_action.move_to_location(start_x, start_y)
+        actions.w3c_actions.pointer_action.pointer_down()
+        actions.w3c_actions.pointer_action.move_to_location(end_x, end_y)
+        actions.w3c_actions.pointer_action.release()
+        actions.perform()
+        
+    except Exception as e:
+        print(f"[PersonalPage][_perform_random_swipe] error: {str(e)}")
+        raise
+      
+  ###############################################
   
-  # Check if Basic elements are displayed
+  # Check if Basic elements are displayed (profile picture, username, greeting message, email address)
   def is_profile_picture_displayed(self):
     assert self.common_action.is_element_visible(*PersonalPageLocators.PROFILE_PICTURE)
   
@@ -49,9 +103,7 @@ class PersonalPage(CommonUseSection):
   def is_email_address_displayed(self):
     assert self.common_action.is_element_visible(*PersonalPageLocators.EMAIL_ADDRESS)
   
-  
-  
-  # Check if Brand list elements are displayed
+  # Check if Brand list elements are displayed (brand list title, brand hunger title, brand profile picture)
   def is_brand_list_title_displayed(self):
     assert self.common_action.is_element_visible(*PersonalPageLocators.BRAND_LIST_TITLE)
   
@@ -60,36 +112,12 @@ class PersonalPage(CommonUseSection):
   
   def is_brand_hunger_salon_profile_picture_displayed(self):
     assert self.common_action.is_element_visible(*PersonalPageLocators.BRAND_HUNGER_SALON_PROFILE_PICTURE)
-  
-  
-  def _scroll_down(self):
-    """Scroll down"""
-    try:
-        # get screen size
-        screen_size = self.driver.get_window_size()
-        start_x = screen_size['width'] * 0.5
-        start_y = screen_size['height'] * 0.7
-        end_y = screen_size['height'] * 0.3
-        
-        # execute scroll
-        self.driver.swipe(
-            start_x, 
-            start_y, 
-            start_x, 
-            end_y, 
-            duration=500
-        )
-    except Exception as e:
-        print(f"Scroll down error: {str(e)}")
-        raise
-  
-  #click all branches
+
   def visit_all_branches_smart(self):
-    """Smart visit all branches"""
+    """click star free ultra branch"""
     results = []
     visited_branches = set()
-
-    
+   
     try:
         for branch_info in PersonalPageLocators.BRANCH_NAMES:
             try:
@@ -105,18 +133,16 @@ class PersonalPage(CommonUseSection):
                     elif branch_info["name"] == "Star分店":
                         self.common_action.click_element(*PersonalPageLocators.POP_UP_CANCEL_ICON)
                         self.common_action.click_element(*PersonalPageLocators.BACK_TO_PERSONAL_PAGE_BTN)
-                        
                     else:
                         self.common_action.click_element(*PersonalPageLocators.POP_UP_CANCEL_ICON)
                         self.common_action.click_element(*PersonalPageLocators.BACK_TO_PERSONAL_PAGE_BTN)
 
-                    
                     results.append({
                         "branch_name": branch_info["name"],
                         "status": "success"
                     })
             except Exception as e:
-                print(f"Error clicking branch {branch_info['name']}: {str(e)}")
+                print(f"[PersonalPage][visit_all_branches_smart] error clicking branch {branch_info['name']}: {str(e)}")
                 results.append({
                     "branch_name": branch_info["name"],
                     "status": "error",
@@ -125,7 +151,7 @@ class PersonalPage(CommonUseSection):
     
         unvisited_branches = [branch["name"] for branch in PersonalPageLocators.BRANCH_NAMES if branch["name"] not in visited_branches]
         if unvisited_branches:
-            print(f"Warning: Could not visit branches: {', '.join(unvisited_branches)}")
+            print(f"[PersonalPage][visit_all_branches_smart] Warning: Could not visit branches: {', '.join(unvisited_branches)}")
         
         # finally click Pro branch
         self.common_action.click_element(*PersonalPageLocators.PRO_BRANCH_NAME)
@@ -133,28 +159,9 @@ class PersonalPage(CommonUseSection):
         self.common_action.click_element(*PersonalPageLocators.BACK_TO_PERSONAL_PAGE_BTN)
             
     except Exception as e:
-        print(f"Error in visit_all_branches_smart: {str(e)}")
-
-  def _scroll_to_top(self):
-    """Scroll to top"""
-    try:
-        screen_size = self.driver.get_window_size()
-        start_x = screen_size['width'] * 0.5
-        start_y = screen_size['height'] * 0.3
-        end_y = screen_size['height'] * 0.7
+        print(f"[PersonalPage][visit_all_branches_smart] error: {str(e)}")
+        raise
         
-        # scroll to top
-        self.driver.swipe(
-            start_x, 
-            start_y, 
-            start_x, 
-            end_y, 
-            duration=500
-        )
-    except Exception as e:
-        print(f"Scroll to top error: {str(e)}")             
-  
-  
   # Google Calendar
   def click_google_calendar_button(self):
     self.common_action.click_element(*PersonalPageLocators.GOOGLE_CALENDAR_BUTTON)
@@ -168,58 +175,10 @@ class PersonalPage(CommonUseSection):
         self.driver.back()
     return self
   
-   
-  
   # Push notification
   def click_push_notification_button(self):
-    """click push notification button"""
-    max_attempts = 3
-    attempt = 0
-    scroll_direction = "up"  # initial scroll direction is 
-    
-    while attempt < max_attempts:
-        try:
-            element = self.common_action.find_element(*PersonalPageLocators.PUSH_NOTIFICATION_BUTTON)
-            if element.is_displayed():
-                element.click()
-                return self
-        except NoSuchElementException:
-            pass
-        
-        # execute scroll
-        try:
-            screen_size = self.driver.get_window_size()
-            start_x = screen_size['width'] * 0.5
-            
-            if scroll_direction == "down":
-                # scroll down
-                start_y = screen_size['height'] * 0.7
-                end_y = screen_size['height'] * 0.3
-            else:
-                # scroll up
-                start_y = screen_size['height'] * 0.3
-                end_y = screen_size['height'] * 0.7
-            
-            self.driver.swipe(
-                start_x,
-                start_y,
-                start_x,
-                end_y,
-                duration=500
-            )
-            
-            time.sleep(1)  
-            
-            # switch scroll direction after each attempt
-            scroll_direction = "down" if scroll_direction == "up" else "up"
-            attempt += 1
-            
-        except Exception as e:
-            print(f"Error scrolling to find push notification button: {str(e)}")
-            raise
-    
-    raise NoSuchElementException("After multiple up and down scrolls, still not found push notification button")
-  
+    self.common_action.click_element(*PersonalPageLocators.PUSH_NOTIFICATION_BUTTON)
+    return self
   
   def random_toggle_switches(self, num_toggles=None):
     """
@@ -246,16 +205,16 @@ class PersonalPage(CommonUseSection):
             target_y = location['y'] + (size['height'] / 2)
             
             # get screen size
-            screen_size = self.driver.get_window_size()
-            start_x = screen_size['width'] * 0.5
+            screen_size = self.common_action.get_screen_size()
+            start_x = screen_size[0] * 0.5
             
             # if element is out of screen, scroll to it
-            if target_y > screen_size['height']:
-                self.driver.swipe(
+            if target_y > screen_size[1]:
+                self.common_action.swipe(
                     start_x,
-                    screen_size['height'] * 0.7,
+                    screen_size[1] * 0.7,
                     start_x,
-                    screen_size['height'] * 0.3,
+                    screen_size[1] * 0.3,
                     duration=500
                 )
                 time.sleep(0.5)
@@ -303,16 +262,13 @@ class PersonalPage(CommonUseSection):
         """Toggle and save"""
         results = self.random_toggle_switches(num_toggles)
         return results    
-      
-  # Manage account settings -> Maybe seperated into different files
+
   def click_setting_icon(self):
     """Click settings icon and verify settings popup is displayed"""
 
     # try to find and click settings button
     try:
-        settings_button = self.common_action.find_element(*PersonalPageLocators.SETTINGS_BUTTON)
-        if settings_button.is_displayed() and settings_button.is_enabled():
-            settings_button.click()
+        self.common_action.click_element(*PersonalPageLocators.SETTINGS_BUTTON)
                     
         # Verify settings popup
         if self.common_action.is_element_visible(*PersonalPageLocators.SETTINGS_POPUP):
@@ -320,36 +276,11 @@ class PersonalPage(CommonUseSection):
             return self
     except NoSuchElementException:
       raise NoSuchElementException("Unable to find settings button after multiple attempts")
-
-  def _perform_scroll(self, direction):
-    """Helper method to perform scroll"""
-    try:
-        screen_size = self.driver.get_window_size()
-        start_x = screen_size['width'] * 0.5
-        
-        if direction == "down":
-            start_y = screen_size['height'] * 0.7
-            end_y = screen_size['height'] * 0.3
-        else:
-            start_y = screen_size['height'] * 0.3
-            end_y = screen_size['height'] * 0.7
-        
-        self.driver.swipe(
-            start_x,
-            start_y,
-            start_x,
-            end_y,
-            duration=500
-        )
-        time.sleep(1)
-    except Exception as e:
-        print(f"Error during scroll: {str(e)}")
   
   def click_account_settings(self):
     """Click account settings"""
     self.common_action.click_element(*PersonalPageLocators.ACCOUNT_SETTINGS_OPTION)
     return self
-  
   
   def generate_random_name(self):
     """Generate random name"""
@@ -362,9 +293,6 @@ class PersonalPage(CommonUseSection):
         if name_field.is_displayed():
             print(f"Found name input field, current text: {name_field.text}") 
             
-            # click input field
-            name_field.click()
-            
             # clear existing text
             name_field.clear()
             
@@ -373,16 +301,13 @@ class PersonalPage(CommonUseSection):
             time.sleep(2)
             name_field.send_keys(random_name)
             
-            # hide keyboard after input
-            self.driver.hide_keyboard()
-            
             print(f"Successfully input new name: {random_name}")
             return random_name
             
         raise NoSuchElementException("Name input field is not visible")
         
     except Exception as e:
-        print(f"Error inputting name: {str(e)}")
+        print(f"[PersonalPage][clear_and_input_name] error: {str(e)}")
         raise
         
   def get_empty_name_error_message(self):
@@ -392,46 +317,21 @@ class PersonalPage(CommonUseSection):
             if name_field.is_displayed():
                 print(f"Found name input field, current text: {name_field.text}")
                 
-                # click input field
-                name_field.click()
-                
                 # clear existing text
                 name_field.clear()
                 
-                error_msg = self.common_action.find_element(*PersonalPageLocators.EMPTY_NAME_ERROR_MESSAGE)
-                assert error_msg.text == " 此欄位為必填。", "Empty name error message is not correct"
-                return error_msg.text
+                error_msg = self.common_action.get_element_text(*PersonalPageLocators.EMPTY_NAME_ERROR_MESSAGE)
+                assert error_msg == " 此欄位為必填。", "Empty name error message is not correct"
+                return error_msg
               
         except Exception as e:
-            print(f"Failed to locate name input field: {str(e)}")
+            print(f"[PersonalPage][get_empty_name_error_message] error: {str(e)}")
             raise
-                
-  def _perform_random_swipe(self, start_x, start_y, max_offset=50):
-    """執行隨機滑動"""
-    try:
-        actions = ActionChains(self.driver)
-        pointer = PointerInput(interaction.POINTER_TOUCH, "touch")
-        
-        
-        end_x = start_x + random.randint(-max_offset, max_offset)
-        end_y = start_y + random.randint(-800, 800)  
-        
-        actions.w3c_actions = ActionBuilder(self.driver, mouse=pointer)
-        actions.w3c_actions.pointer_action.move_to_location(start_x, start_y)
-        actions.w3c_actions.pointer_action.pointer_down()
-        actions.w3c_actions.pointer_action.move_to_location(end_x, end_y)
-        actions.w3c_actions.pointer_action.release()
-        actions.perform()
-        
-    except Exception as e:
-        print(f"Random swipe error: {str(e)}")
-        raise
-
+          
   def input_phone_number(self, valid=True):
     """Input phone number"""
     try:
-        phone_field = self.common_action.find_element(*PersonalPageLocators.PHONE_INPUT_INITIAL)
-        phone_field.clear()
+        self.common_action.clear_text(*PersonalPageLocators.PHONE_INPUT_INITIAL)
         
         if valid:
             # Generate a valid phone number
@@ -440,27 +340,25 @@ class PersonalPage(CommonUseSection):
             # Generate an invalid phone number
             phone_number = f"{random.randint(10000, 99999)}"
         
-        time.sleep(1)
-        phone_field.send_keys(phone_number)
+        self.common_action.send_keys_to_element(*PersonalPageLocators.PHONE_INPUT_INITIAL, phone_number)
         return phone_number
     except Exception as e:
-        print(f"Input phone number error: {str(e)}")
+        print(f"[PersonalPage][input_phone_number] error: {str(e)}")
         raise
+    
   def get_empty_phone_error_message(self):
         """Get error message"""
         
-        phone_field = self.common_action.find_element(*PersonalPageLocators.PHONE_INPUT_INITIAL)
-        phone_field.click()
-        phone_field.clear()
-        error_element = self.common_action.find_element(*PersonalPageLocators.EMPTY_PHONE_ERROR_MESSAGE)
-        assert error_element.text == " 此欄位為必填。", "Empty phone error message is not correct"
-        return error_element.text
+        self.common_action.clear_text(*PersonalPageLocators.PHONE_INPUT_INITIAL)
+        error_element = self.common_action.get_element_text(*PersonalPageLocators.EMPTY_PHONE_ERROR_MESSAGE)
+        assert error_element == " 此欄位為必填。", "Empty phone error message is not correct"
+        return error_element
       
   def get_invalid_phone_error_message(self):
         """Get error message"""
-        error_element = self.common_action.find_element(*PersonalPageLocators.INVALID_PHONE_ERROR_MESSAGE)
-        assert error_element.text == " 格式錯誤。", "Invalid phone error message is not correct"
-        return error_element.text
+        error_element = self.common_action.get_element_text(*PersonalPageLocators.INVALID_PHONE_ERROR_MESSAGE)
+        assert error_element == " 格式錯誤。", "Invalid phone error message is not correct"
+        return error_element
 
   def save_account_settings(self):
         """Save settings"""
@@ -485,7 +383,7 @@ class PersonalPage(CommonUseSection):
             self.save_account_settings()
             
       except Exception as e:
-            error_msg = f"Update failed: {str(e)}"
+            error_msg = f"[PersonalPage][update_account_information_and_save_settings] Update failed: {str(e)}"
             print(error_msg)
             raise Exception(error_msg)
 
@@ -505,18 +403,11 @@ class PersonalPage(CommonUseSection):
   def _random_scroll_and_select(self):
     """Random scroll and select visible country code options"""
     try:
-        # Get window size
-        window_size = self.driver.get_window_size()
-        start_x = window_size['width'] * 0.5
-        
-        # Define scroll area
-        scroll_start_y = window_size['height'] * 0.7
-        scroll_end_y = window_size['height'] * 0.3
-        
-        # Random scroll 2-4 times
+        window_size = self.common_action.get_screen_size()
+        start_x = window_size[0] * 0.5
+        scroll_start_y = window_size[1] * 0.7
+        scroll_end_y = window_size[1] * 0.3
         num_scrolls = random.randint(2, 4)
-        
-        # Record seen options to avoid duplicates
         seen_options = set()
         
         for _ in range(num_scrolls):
@@ -526,14 +417,10 @@ class PersonalPage(CommonUseSection):
             # Record current visible options
             for option in visible_options:
                 seen_options.add(option.text)
-            
-            # Randomly decide scroll direction
             if random.choice([True, False]):
-                # Scroll up
-                self.driver.swipe(start_x, scroll_start_y, start_x, scroll_end_y, duration=500)
+                self.common_action.swipe(start_x, scroll_start_y, start_x, scroll_end_y, duration=500)
             else:
-                # Scroll down
-                self.driver.swipe(start_x, scroll_end_y, start_x, scroll_start_y, duration=500)
+                self.common_action.swipe(start_x, scroll_end_y, start_x, scroll_start_y, duration=500)
             time.sleep(0.5)
         
         # Get final visible options
@@ -543,10 +430,9 @@ class PersonalPage(CommonUseSection):
             # Randomly select a visible option
             selected_option = random.choice(final_visible_options)
             self.selected_country_code = selected_option.text
-            selected_option.click()
             time.sleep(0.5)
+            selected_option.click()
             
-            # Click confirm button
             self.common_action.click_element(*PersonalPageLocators.COUNTRY_CODE_CONFIRM_BUTTON)
         else:
             raise NoSuchElementException("No country code options visible after scrolling")
@@ -601,7 +487,7 @@ class PersonalPage(CommonUseSection):
     except Exception as e:
         print(f"Search country code error: {str(e)}")
         raise
-
+    
   def click_language_settings(self):
     self.common_action.click_element(*PersonalPageLocators.LANGUAGE_SETTINGS_OPTION)
     
