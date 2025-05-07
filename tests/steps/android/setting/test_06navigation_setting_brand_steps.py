@@ -1,11 +1,9 @@
 from pytest_bdd import scenarios, given, when, then, parsers
 from pages.android.navigation.setting.brand import BrandPage
+from pages.shared_components.common_use import CommonUseSection
 
 
 scenarios('../../../../features/navigation/setting/brand.feature')
-
-
-
 
 
 # Scenario: Navigate to Branch and Brand Information Page
@@ -18,33 +16,36 @@ def tap_settings_icon(driver):
     brand_page = BrandPage(driver)
     assert brand_page.tap_settings_icon(), "Settings icon not found in navigation bar"
 
-@when("I tap on the Branch Name")
-def tap_branch_name(driver):
-    brand_page = BrandPage(driver)
-    assert brand_page.tap_branch_name(), "Branch Name not found in Branch Settings page"
 
-@then("I should see the Branch and Brand Information page")
-def verify_branch_brand_info_page(driver):
+@then("I should see the Branch Settings page")
+def verify_branch_settings_page_after_close(driver):
     brand_page = BrandPage(driver)
-    assert brand_page.verify_branch_brand_info_page(), "Branch and Brand Information page not found"
+    assert brand_page.verify_branch_settings_page(), "Branch Settings page not found"
 
 
 
 
 
 # Scenario: Save Branch and Brand Information
-@given("I am on the Branch and Brand Information page")
-def verify_on_branch_brand_info_page(driver):
+@given("I am on the Branch Setting page")
+def on_branch_setting_page(driver):
     brand_page = BrandPage(driver)
-    assert brand_page.verify_branch_brand_info_page(), "Branch and Brand Information page not found"
+    assert brand_page.verify_branch_settings_page(), "Branch Settings page not found"
+
+@when("I tap on the Branch Name")
+def tap_branch_name(driver):
+    brand_page = BrandPage(driver)
+    assert brand_page.tap_branch_name(), "Branch Name not found in Branch Settings page"
 
 @when(parsers.parse('I enter "{branch_name}" in the Branch Name field'))
 def enter_branch_name(driver, branch_name):
+    branch_name = CommonUseSection.replace_current_datetime(branch_name)
     brand_page = BrandPage(driver)
     brand_page.enter_branch_name(branch_name)
 
 @when(parsers.parse('I enter "{branch_introduction}" in the branch introduction'))
 def enter_branch_introduction(driver, branch_introduction):
+    branch_introduction = CommonUseSection.replace_current_datetime(branch_introduction)
     brand_page = BrandPage(driver)
     assert brand_page.enter_branch_introduction(branch_introduction), "Branch introduction field not found"
 
@@ -65,6 +66,7 @@ def select_country_code(driver, country_code):
 
 @when(parsers.parse('I enter "{phone_number}" in the branch phone number field'))
 def enter_branch_phone_number(driver, phone_number):
+    phone_number = CommonUseSection.replace_current_datetime(phone_number)
     brand_page = BrandPage(driver)
     assert brand_page.enter_branch_phone_number(phone_number), "Branch phone number field not found"
 
@@ -90,6 +92,7 @@ def select_branch_district(driver, branch_district):
 
 @when(parsers.parse('I enter "{branch_address}" in the branch address field'))
 def enter_branch_address(driver, branch_address):
+    branch_address = CommonUseSection.replace_current_datetime(branch_address)
     brand_page = BrandPage(driver)
     assert brand_page.enter_branch_address(branch_address), "Branch address field not found"
 
