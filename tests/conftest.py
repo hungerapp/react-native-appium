@@ -10,7 +10,8 @@ from datetime import datetime
 from setup import AppiumSetup
 from utils.send_report_to_slack import send_report_to_slack
 from utils.logger import logger
-
+from pages.shared_components.common_action import CommonActions
+from pages.shared_components.common_use import CommonUseSection
 
 @pytest.fixture(scope="session")
 def driver():
@@ -351,3 +352,17 @@ def pytest_configure(config):
     )
     
     
+@pytest.fixture
+def common_actions(driver):
+    """
+    provide common actions for all tests
+    """
+    return CommonActions(driver)
+    
+
+@pytest.fixture
+def common_use(driver):
+    """
+    provide common use components for all tests
+    """
+    return CommonUseSection(driver)
