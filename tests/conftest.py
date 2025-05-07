@@ -351,14 +351,14 @@ def pytest_configure(config):
         "navigation: navigation related tests"
     )
     
-    
+
 @pytest.fixture
 def common_action(driver):
     """
     provide common actions for all tests
     """
     return CommonActions(driver)
-    
+
 
 @pytest.fixture
 def common_use(driver):

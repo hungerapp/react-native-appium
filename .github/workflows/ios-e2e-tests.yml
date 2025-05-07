@@ -1,0 +1,85 @@
+name: iOS E2E Tests
+
+on:
+  workflow_dispatch:
+    inputs:
+      tags:
+        description: "要運行的測試標籤 (例如: regression, login)"
+        required: false
+        default: ""
+      device_count:
+        description: "並行設備數量"
+        required: true
+        type: choice
+        options:
+          - 1
+          - 2
+          - 3
+          - 4
+        default: "1"
+
+env:
+  PYTHON_VERSION: "3.9"
+
+jobs:
+  ios-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python ${{ env.PYTHON_VERSION }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Set up environment variables
+        run: |
+          cat > .env << EOF
+          TEST_ENV=github_actions
+          IS_CI=true
+          APPIUM_OS=ios
+          BROWSERSTACK_USERNAME=${{ secrets.BROWSERSTACK_USERNAME }}
+          BROWSERSTACK_ACCESS_KEY=${{ secrets.BROWSERSTACK_ACCESS_KEY }}
+          BROWSERSTACK_APP_ID=${{ secrets.BROWSERSTACK_IOS_APP_ID }}
+          BROWSERSTACK_DEVICE_NAME=iPhone 15 Pro
+          BROWSERSTACK_OS_VERSION=17.5
+          BROWSERSTACK_PROJECT_NAME=iOS E2E Tests
+          BROWSERSTACK_BUILD_NAME=iOS Build
+          BROWSERSTACK_SESSION_NAME=iOS Test Session
+          BROWSERSTACK_HUB_URL=https://hub-cloud.browserstack.com/wd/hub
+          DEVICE_COUNT=${{ github.event.inputs.device_count }}
+          NO_RESET=True
+          AUTO_ACCEPT_ALERTS=True
+          IMPLICIT_WAIT=25
+          EOF
+
+      - name: Run tests
+        run: |
+          echo "Running iOS E2E tests..."
+
+          # 安裝並啟動 BrowserStack 本地測試工具
+          curl -L https://www.browserstack.com/browserstack-local/BrowserStackLocal-linux-x64.zip -o BrowserStackLocal.zip
+          unzip BrowserStackLocal.zip
+          ./BrowserStackLocal --key ${{ secrets.BROWSERSTACK_ACCESS_KEY }} --daemon start
+
+          # 運行測試
+          if [ -n "${{ github.event.inputs.tags }}" ]; then
+            echo "Running with tag: ${{ github.event.inputs.tags }}"
+            python -m pytest -v -k "${{ github.event.inputs.tags }}" --alluredir=allure-results
+          else
+            echo "Running all iOS tests"
+            python -m pytest -v --alluredir=allure-results
+          fi
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ios-test-results
+          path: allure-results/
+          retention-days: 5

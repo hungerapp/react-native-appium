@@ -67,8 +67,8 @@ class SearchPage:
           return self
     
       def click_back(self):
+          time.sleep(1)
           self.driver.back()
-          time.sleep(0.5)
 
     
       def is_no_data_displayed(self):

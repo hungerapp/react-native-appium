@@ -106,20 +106,20 @@ class InventoryPage(CommonUseSection):
         time.sleep(0.5)
         
         # click back button
-        self.driver.find_element(*self.inventory_locators.BACK_BUTTON).click()
+        self.driver.find_element(*self.inventory_locators.RETURN_TO_WAREHOUSE_BACK_BUTTON).click()
         time.sleep(0.5)
         return self
     
     def view_inventory_records(self):
         self.driver.find_element(*self.inventory_locators.INVENTORY_RECORDS).click()
         time.sleep(1)
-        self.driver.find_element(*self.inventory_locators.BACK_BUTTON).click()
+        self.driver.find_element(*self.inventory_locators.INVENTORY_RECORDS_BACK_BUTTON).click()
         return self
       
     def return_to_calendar(self):
-        for _ in range(2):
-            self.driver.find_element(*self.inventory_locators.BACK_BUTTON).click()
-            time.sleep(0.5)
+        self.driver.find_element(*self.inventory_locators.RETURN_TO_INVENTORY_MANAGEMENT_BUTTON).click()
+        time.sleep(1)
+        self.driver.find_element(*self.inventory_locators.BACK_BUTTON).click()
         return self
     
     

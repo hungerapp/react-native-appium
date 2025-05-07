@@ -11,8 +11,8 @@ Feature: Create Appointment
     Then I select a service person
     Then I select a service
     Then I change service time and service person
-    Then I input the note in the note section
     Then I select a valid appointment time
+    Then I input the note in the note section
     Then I click create appointment and should see the appointment created successfully
   
  
@@ -33,7 +33,7 @@ Feature: Create Appointment
     When I select a service person
     Then I select a service
     Then I select a valid appointment time
-    Then I click one more service button
+    Then I add one more service
     Then I delete one service
     Then I can go back to calendar page after delete
 

@@ -31,6 +31,21 @@ class NotificationPage():
         self.driver.find_element(*self.notification_locators.ANY_NOTIFICATION).click()
         time.sleep(0.5)
         return self
+    
+    def on_notification_page(self):
+        try:
+            time.sleep(0.5)
+            assert self.driver.find_element(*self.notification_locators.NOTIFICATION_TITLE).is_displayed()
+        except:
+            raise Exception("Notification title is not displayed")
+        return self
+    
+    def see_notification(self):
+        try:
+            assert self.driver.find_element(*self.notification_locators.NOTIFICATION_MESSAGE_TAG).is_displayed()
+        except:
+            raise Exception("Notification message tag is not displayed")
+        return self
       
     def click_mark_all_as_read_button(self):
         self.driver.find_element(*self.notification_locators.MARK_ALL_AS_READ_BUTTON).click()

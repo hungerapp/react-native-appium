@@ -7,7 +7,6 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.actions import interaction
 from selenium.webdriver.common.actions.action_builder import ActionBuilder
 from selenium.webdriver.common.actions.pointer_input import PointerInput
-from datetime import datetime
 
 class CommonUseSection:
     GENDER_OPTIONS = {
@@ -620,6 +619,7 @@ class CommonUseSection:
         """
         Generates current timestamp in YYYYMMDDHHMMSSmmm format
         """
+        from datetime import datetime
 
         now = datetime.now()
         timestamp = now.strftime("%Y%m%d%H%M%S") + f"{int(now.microsecond / 1000):03d}"

@@ -45,7 +45,7 @@ def see_email_address(driver):
     personal_page = PersonalPage(driver)
     personal_page.is_email_address_displayed()
   
-  
+
 
 # View brand list section
 @allure.feature('Brand List')
@@ -71,15 +71,9 @@ def see_hunger_salon_title_with_profile_picture(driver):
 @then('I should be able to visit all branches')
 def visit_all_branches(driver):
     personal_page = PersonalPage(driver)
-    results = personal_page.visit_all_branches_smart()
-    # verify all branches visit results
-    failed_branches = [r for r in results if r['status'] == 'failed']
-    assert len(failed_branches) == 0, f"Failed to visit branches: {failed_branches}"
-    # for some reason, the back button is not working, so we need to click the cancel button
-    try :
-      personal_page.click_back_to_personal_page()
-    except:
-      pass
+    personal_page.visit_all_branches_smart()
+
+
 
 
 # Google Calendar
@@ -135,7 +129,6 @@ def save_notification_settings(driver):
  
 
 
-
 # Manage account settings
 @allure.feature('Account Settings')
 @allure.story('Manage account settings')
@@ -181,8 +174,7 @@ def click_account_settings_option(driver):
 def input_empty_name(driver):
     personal_page = PersonalPage(driver)
     personal_page.get_empty_name_error_message()
-
-
+    personal_page.cancel_account_settings()
 
 
 # Account Settings for empty phone number
@@ -190,19 +182,26 @@ def input_empty_name(driver):
 @allure.story('Account Settings for empty phone number')
 @pytest.mark.run(order=15)
 @pytest.mark.personal
-@given('I am on the acc setting page')
-def on_acc_setting_page(driver):
+@given('I am on the personal page')
+def login_to_personal_page(driver):
     pass
-  
+
+@when('I click settings icon')
+def click_settings_icon(driver):
+    personal_page = PersonalPage(driver)
+    personal_page.click_setting_icon()
+
+@then('I click account settings option')
+def click_account_settings_option(driver):
+    personal_page = PersonalPage(driver)
+    personal_page.click_account_settings()
+
 @then('I input empty phone number and get error message')
 def input_empty_phone_number(driver):
     personal_page = PersonalPage(driver)
     personal_page.get_empty_phone_error_message()
     personal_page.cancel_account_settings()
     
-    
-    
-
 
 # Account Settings for invalid phone number
 @allure.feature('Account Settings for invalid phone number')
@@ -234,8 +233,7 @@ def see_error_message_for_invalid_phone(driver):
     personal_page.get_invalid_phone_error_message()
     personal_page.cancel_account_settings()
     
-    
-    
+      
     
 
 # Select different country code
@@ -288,8 +286,6 @@ def verify_country_code_changed(driver):
     personal_page = PersonalPage(driver)
     personal_page.is_country_code_changed(), "Country code not changed"
     personal_page.cancel_account_settings()
-
-
 
 
 

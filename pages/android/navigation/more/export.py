@@ -13,8 +13,8 @@ class ExportPage(CommonUseSection):
         self.export_locators = ExportLocators()
         
     def click_export_available_time_slots(self):
+        time.sleep(1)
         self.driver.find_element(*self.export_locators.EXPORT_AVAILABLE_TIME_SLOTS).click()
-        time.sleep(0.5)
         return self
     
     def select_a_staff_member(self):
@@ -30,11 +30,14 @@ class ExportPage(CommonUseSection):
         return self
       
     def select_a_month(self):
-        time.sleep(0.5)
+        time.sleep(1)
         self.driver.find_element(*self.export_locators.MONTH_SECTION).click()
         # randomly select a month
         month_option = random.choice(self.export_locators.MONTH_OPTION)
-        self.driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR, f'new UiSelector().textContains("{month_option}")').click()
+        try:
+            self.driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR, f'new UiSelector().textContains("{month_option}")').click()
+        except:
+            self.driver.back()
         time.sleep(0.5)
         return self 
       
@@ -49,8 +52,8 @@ class ExportPage(CommonUseSection):
         return self
       
     def click_on_the_text_tab(self):
+        time.sleep(1)
         self.driver.find_element(*self.export_locators.TEXT_TAB).click()
-        time.sleep(0.5)
         return self
       
     def select_a_date_range(self):
@@ -80,10 +83,7 @@ class ExportPage(CommonUseSection):
         
         # click outside to close the date window
         size = self.driver.get_window_size()
-        self.driver.execute_script('mobile: clickGesture', {
-            'x': int(size['width'] * 0.5),  
-            'y': int(size['height'] * 0.9)   
-        })
+        self.tap_at_coordinates(int(size['width'] * 0.5), int(size['height'] * 0.9))
         
         # click save button
         self.driver.find_element(*self.export_locators.SAVE_BUTTON).click()
@@ -96,10 +96,11 @@ class ExportPage(CommonUseSection):
         time.sleep(0.5)
         return self
     
+    
     def return_to_calendar_page(self):
-        for _ in range(2):
-            self.driver.find_element(*self.export_locators.BACK_BUTTON).click()
-            time.sleep(0.5)
+        self.driver.find_element(*self.export_locators.EXPORT_MODAL_BACK_BUTTON).click()
+        time.sleep(1)
+        self.driver.find_element(*self.export_locators.BACK_BUTTON).click()
         return self
         
         

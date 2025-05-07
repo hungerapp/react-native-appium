@@ -12,14 +12,13 @@ from datetime import datetime, timedelta
 from appium.webdriver.common.appiumby import AppiumBy
 
 from pages.shared_components.common_use import CommonUseSection
-from pages.shared_components.common_action import CommonActions
 from pages.locators.android.personal_page.personal_page_locators import PersonalPageLocators
 
 class PersonalPage(CommonUseSection):
   
   def __init__(self, driver):
-    super().__init__(driver)
-    self.common_action = CommonActions(driver)
+    self.driver = driver
+    self.personal_page_locators = PersonalPageLocators()
     
     
     # Get window size
@@ -33,13 +32,13 @@ class PersonalPage(CommonUseSection):
   # Check if Basic elements are displayed
   def is_profile_picture_displayed(self):
     time.sleep(2)
-    assert self.common_action.is_element_visible(*PersonalPageLocators.PROFILE_PICTURE)
+    assert self.driver.find_element(*self.personal_page_locators.PROFILE_PICTURE).is_displayed()
   
   def is_username_displayed(self):
-    assert self.common_action.is_element_visible(*PersonalPageLocators.USERNAME)
+    assert self.driver.find_element(*self.personal_page_locators.USERNAME).is_displayed()
   
   def get_greeting_message_message(self):
-    elements = self.common_action.find_elements(*PersonalPageLocators.GREETING_MESSAGE)
+    elements = self.driver.find_elements(*self.personal_page_locators.GREETING_MESSAGE)
     for e in elements:
       text = e.text
       if "早安" in text or "保持好心情" in text or "晚安" in text:
@@ -48,19 +47,19 @@ class PersonalPage(CommonUseSection):
     return None
   
   def is_email_address_displayed(self):
-    assert self.common_action.is_element_visible(*PersonalPageLocators.EMAIL_ADDRESS)
+    assert self.driver.find_element(*self.personal_page_locators.EMAIL_ADDRESS).is_displayed()
   
   
   
   # Check if Brand list elements are displayed
   def is_brand_list_title_displayed(self):
-    assert self.common_action.is_element_visible(*PersonalPageLocators.BRAND_LIST_TITLE)
+    assert self.driver.find_element(*self.personal_page_locators.BRAND_LIST_TITLE).is_displayed()
   
   def is_brand_hunger_salon_title_displayed(self):
-    assert self.common_action.is_element_visible(*PersonalPageLocators.BRAND_HUNGER_SALON_TITLE)
+    assert self.driver.find_element(*self.personal_page_locators.BRAND_HUNGER_SALON_TITLE).is_displayed()
   
   def is_brand_hunger_salon_profile_picture_displayed(self):
-    assert self.common_action.is_element_visible(*PersonalPageLocators.BRAND_HUNGER_SALON_PROFILE_PICTURE)
+    assert self.driver.find_element(*self.personal_page_locators.BRAND_HUNGER_SALON_PROFILE_PICTURE).is_displayed()
   
   
   def _scroll_down(self):
@@ -92,9 +91,9 @@ class PersonalPage(CommonUseSection):
 
     
     try:
-        for branch_info in PersonalPageLocators.BRANCH_NAMES:
+        for branch_info in self.personal_page_locators.BRANCH_NAMES:
             try:
-                element = self.common_action.find_element(*branch_info["locator"])
+                element = self.driver.find_element(*branch_info["locator"])
                 if element.is_displayed():
                     time.sleep(2)
                     element.click()
@@ -102,15 +101,15 @@ class PersonalPage(CommonUseSection):
                  
                     # Handle specific branch scenarios
                     if branch_info["name"] == "Free分店":
-                        self.common_action.click_element(*PersonalPageLocators.POP_UP_CANCEL_ICON)
-                        self.common_action.click_element(*PersonalPageLocators.FREE_WINDOW_BACK_TO_PERSONAL_PAGE_BTN)
+                        self.driver.find_element(*self.personal_page_locators.POP_UP_CANCEL_ICON).click()
+                        self.driver.find_element(*self.personal_page_locators.FREE_WINDOW_BACK_TO_PERSONAL_PAGE_BTN).click()
                     elif branch_info["name"] == "Star分店":
-                        self.common_action.click_element(*PersonalPageLocators.POP_UP_CANCEL_ICON)
-                        self.common_action.click_element(*PersonalPageLocators.BACK_TO_PERSONAL_PAGE_BTN)
+                        self.driver.find_element(*self.personal_page_locators.POP_UP_CANCEL_ICON).click()
+                        self.driver.find_element(*self.personal_page_locators.BACK_TO_PERSONAL_PAGE_BTN).click()
                         
                     else:
-                        self.common_action.click_element(*PersonalPageLocators.POP_UP_CANCEL_ICON)
-                        self.common_action.click_element(*PersonalPageLocators.BACK_TO_PERSONAL_PAGE_BTN)
+                        self.driver.find_element(*self.personal_page_locators.POP_UP_CANCEL_ICON).click()
+                        self.driver.find_element(*self.personal_page_locators.BACK_TO_PERSONAL_PAGE_BTN).click()
 
                     
                     results.append({
@@ -125,14 +124,14 @@ class PersonalPage(CommonUseSection):
                     "error": str(e)
                 })
     
-        unvisited_branches = [branch["name"] for branch in PersonalPageLocators.BRANCH_NAMES if branch["name"] not in visited_branches]
+        unvisited_branches = [branch["name"] for branch in self.personal_page_locators.BRANCH_NAMES if branch["name"] not in visited_branches]
         if unvisited_branches:
             print(f"Warning: Could not visit branches: {', '.join(unvisited_branches)}")
         
         # finally click Pro branch
-        self.common_action.click_element(*PersonalPageLocators.PRO_BRANCH_NAME)
-        self.common_action.click_element(*PersonalPageLocators.POP_UP_CANCEL_ICON)
-        self.common_action.click_element(*PersonalPageLocators.BACK_TO_PERSONAL_PAGE_BTN)
+        self.driver.find_element(*self.personal_page_locators.PRO_BRANCH_NAME).click()
+        self.driver.find_element(*self.personal_page_locators.POP_UP_CANCEL_ICON).click()
+        self.driver.find_element(*self.personal_page_locators.BACK_TO_PERSONAL_PAGE_BTN).click()
             
     except Exception as e:
         print(f"Error in visit_all_branches_smart: {str(e)}")
@@ -159,12 +158,12 @@ class PersonalPage(CommonUseSection):
   
   # Google Calendar
   def click_google_calendar_button(self):
-    self.common_action.click_element(*PersonalPageLocators.GOOGLE_CALENDAR_BUTTON)
+    self.driver.find_element(*self.personal_page_locators.GOOGLE_CALENDAR_BUTTON).click()
     return self
   
   def integrate_google_calendar(self):
     time.sleep(2)
-    self.common_action.click_element(*PersonalPageLocators.INTEGRATE_GOOGLE_CALENDAR_BUTTON)
+    self.driver.find_element(*self.personal_page_locators.INTEGRATE_GOOGLE_CALENDAR_BUTTON).click()
     time.sleep(1)
     for _ in range (2):
         self.driver.back()
@@ -181,7 +180,7 @@ class PersonalPage(CommonUseSection):
     
     while attempt < max_attempts:
         try:
-            element = self.common_action.find_element(*PersonalPageLocators.PUSH_NOTIFICATION_BUTTON)
+            element = self.driver.find_element(*self.personal_page_locators.PUSH_NOTIFICATION_BUTTON)
             if element.is_displayed():
                 element.click()
                 return self
@@ -230,15 +229,15 @@ class PersonalPage(CommonUseSection):
     :return: return toggle results list
     """
     if num_toggles is None:
-        num_toggles = random.randint(1, len(PersonalPageLocators.TOGGLE_LOCATORS))
+        num_toggles = random.randint(1, len(self.personal_page_locators.TOGGLE_LOCATORS))
         
-    selected_toggles = random.sample(list(PersonalPageLocators.TOGGLE_LOCATORS.items()), num_toggles)
+    selected_toggles = random.sample(list(self.personal_page_locators.TOGGLE_LOCATORS.items()), num_toggles)
     toggled_results = []
     
     for toggle_name, toggle_locator in selected_toggles:
         try:
             # try to find element
-            toggle = self.common_action.find_element(*toggle_locator)
+            toggle = self.driver.find_element(*toggle_locator)
             
             # get element location
             location = toggle.location
@@ -263,7 +262,7 @@ class PersonalPage(CommonUseSection):
                 time.sleep(0.5)
             
             # check element and click
-            toggle = self.common_action.find_element(*toggle_locator)
+            toggle = self.driver.find_element(*toggle_locator)
             if toggle.is_displayed() and toggle.is_enabled():
                 original_state = toggle.is_selected()
                 toggle.click()
@@ -297,7 +296,7 @@ class PersonalPage(CommonUseSection):
      
   def save_notification_settings(self):
         """Click save button"""
-        save_button = self.common_action.find_element(*PersonalPageLocators.PUSH_NOTTIFICATION_SAVE)
+        save_button = self.driver.find_element(*self.personal_page_locators.PUSH_NOTTIFICATION_SAVE)
         save_button.click()
         time.sleep(3)
         return self
@@ -314,13 +313,13 @@ class PersonalPage(CommonUseSection):
     # try to find and click settings button
     try:
         time.sleep(1)
-        settings_button = self.common_action.find_element(*PersonalPageLocators.SETTINGS_BUTTON)
+        settings_button = self.driver.find_element(*self.personal_page_locators.SETTINGS_BUTTON)
         if settings_button.is_displayed() and settings_button.is_enabled():
             settings_button.click()
                     
         # Verify settings popup
-        if self.common_action.is_element_visible(*PersonalPageLocators.SETTINGS_POPUP):
-            print("Successfully clicked settings button and displayed settings popup")
+            if self.driver.find_element(*self.personal_page_locators.SETTINGS_POPUP).is_displayed():
+                print("Successfully clicked settings button and displayed settings popup")
             return self
     except NoSuchElementException:
       raise NoSuchElementException("Unable to find settings button after multiple attempts")
@@ -351,7 +350,7 @@ class PersonalPage(CommonUseSection):
   
   def click_account_settings(self):
     """Click account settings"""
-    self.common_action.click_element(*PersonalPageLocators.ACCOUNT_SETTINGS_OPTION)
+    self.driver.find_element(*self.personal_page_locators.ACCOUNT_SETTINGS_OPTION).click()
     return self
   
   
@@ -362,7 +361,7 @@ class PersonalPage(CommonUseSection):
 
   def clear_and_input_name(self):
     try:
-        name_field = self.common_action.find_element(*PersonalPageLocators.NAME_INPUT)
+        name_field = self.driver.find_element(*self.personal_page_locators.NAME_INPUT)
         if name_field.is_displayed():
             print(f"Found name input field, current text: {name_field.text}") 
             
@@ -392,7 +391,7 @@ class PersonalPage(CommonUseSection):
   def get_empty_name_error_message(self):
         """Get empty name error message"""
         try:
-            name_field = self.common_action.find_element(*PersonalPageLocators.NAME_INPUT)
+            name_field = self.driver.find_element(*self.personal_page_locators.NAME_INPUT)
             if name_field.is_displayed():
                 print(f"Found name input field, current text: {name_field.text}")
                 
@@ -402,7 +401,7 @@ class PersonalPage(CommonUseSection):
                 # clear existing text
                 name_field.clear()
                 
-                error_msg = self.common_action.find_element(*PersonalPageLocators.EMPTY_NAME_ERROR_MESSAGE)
+                error_msg = self.driver.find_element(*self.personal_page_locators.EMPTY_NAME_ERROR_MESSAGE)
                 assert error_msg.text == " 此欄位為必填。", "Empty name error message is not correct"
                 return error_msg.text
               
@@ -434,7 +433,7 @@ class PersonalPage(CommonUseSection):
   def input_phone_number(self, valid=True):
     """Input phone number"""
     try:
-        phone_field = self.common_action.find_element(*PersonalPageLocators.PHONE_INPUT_INITIAL)
+        phone_field = self.driver.find_element(*self.personal_page_locators.PHONE_INPUT_INITIAL)
         phone_field.clear()
         
         if valid:
@@ -454,27 +453,27 @@ class PersonalPage(CommonUseSection):
         """Get error message"""
         
         time.sleep(1)
-        phone_field = self.common_action.find_element(*PersonalPageLocators.PHONE_INPUT_INITIAL)
+        phone_field = self.driver.find_element(*self.personal_page_locators.PHONE_INPUT_INITIAL)
         phone_field.click()
         phone_field.clear()
-        error_element = self.common_action.find_element(*PersonalPageLocators.EMPTY_PHONE_ERROR_MESSAGE)
+        error_element = self.driver.find_element(*self.personal_page_locators.EMPTY_PHONE_ERROR_MESSAGE)
         assert error_element.text == " 此欄位為必填。", "Empty phone error message is not correct"
         return error_element.text
       
   def get_invalid_phone_error_message(self):
         """Get error message"""
-        error_element = self.common_action.find_element(*PersonalPageLocators.INVALID_PHONE_ERROR_MESSAGE)
+        error_element = self.driver.find_element(*self.personal_page_locators.INVALID_PHONE_ERROR_MESSAGE)
         assert error_element.text == " 格式錯誤。", "Invalid phone error message is not correct"
         return error_element.text
 
   def save_account_settings(self):
         """Save settings"""
-        self.common_action.click_element(*PersonalPageLocators.SAVE_BUTTON)
+        self.driver.find_element(*self.personal_page_locators.SAVE_BUTTON).click()
         return self
       
   def cancel_account_settings (self):
         """Cancel account settings"""
-        self.common_action.click_element(*PersonalPageLocators.ACCOUNT_SETTINGS_CANCEL_BUTTON)
+        self.driver.find_element(*self.personal_page_locators.ACCOUNT_SETTINGS_CANCEL_BUTTON).click()
         time.sleep(2)
         return self
   
@@ -482,7 +481,7 @@ class PersonalPage(CommonUseSection):
     
       try:  
             # click birthday field to open date picker
-            self.common_action.click_element(*PersonalPageLocators.BIRTHDAY_FIELD)
+            self.driver.find_element(*self.personal_page_locators.BIRTHDAY_FIELD).click()
             self.swipe_calendar_component()
             
             self.select_random_gender()
@@ -498,7 +497,7 @@ class PersonalPage(CommonUseSection):
   def select_random_country_code(self):
     """Select random country code"""
     try:
-        self.common_action.click_element(*PersonalPageLocators.COUNTRY_SELECTOR)
+        self.driver.find_element(*self.personal_page_locators.COUNTRY_SELECTOR).click()
         time.sleep(1)
         
         self._random_scroll_and_select()
@@ -528,7 +527,7 @@ class PersonalPage(CommonUseSection):
         
         for _ in range(num_scrolls):
             # Get current visible options
-            visible_options = self.common_action.find_elements(*PersonalPageLocators.COUNTRY_CODE_OPTIONS)
+            visible_options = self.driver.find_elements(*self.personal_page_locators.COUNTRY_CODE_OPTIONS)
             
             # Record current visible options
             for option in visible_options:
@@ -544,7 +543,7 @@ class PersonalPage(CommonUseSection):
             time.sleep(0.5)
         
         # Get final visible options
-        final_visible_options = self.common_action.find_elements(*PersonalPageLocators.COUNTRY_CODE_OPTIONS)
+        final_visible_options = self.driver.find_elements(*self.personal_page_locators.COUNTRY_CODE_OPTIONS)
         
         if final_visible_options:
             # Randomly select a visible option
@@ -554,7 +553,7 @@ class PersonalPage(CommonUseSection):
             time.sleep(0.5)
             
             # Click confirm button
-            self.common_action.click_element(*PersonalPageLocators.COUNTRY_CODE_CONFIRM_BUTTON)
+            self.driver.find_element(*self.personal_page_locators.COUNTRY_CODE_CONFIRM_BUTTON).click()
             time.sleep(0.5)
         else:
             raise NoSuchElementException("No country code options visible after scrolling")
@@ -568,7 +567,7 @@ class PersonalPage(CommonUseSection):
     try:
         time.sleep(1) 
         
-        current_element = self.common_action.find_element(*PersonalPageLocators.CHANGED_COUNTRY_CODE)
+        current_element = self.driver.find_element(*self.personal_page_locators.CHANGED_COUNTRY_CODE)
         current_code = current_element.text #get country code only
         
         # Extract country code from full text (e.g. from "Russia +7" extract "+7")
@@ -590,12 +589,12 @@ class PersonalPage(CommonUseSection):
 
   def search_country_code(self):
     """Search and select a random country code"""
-    self.common_action.click_element(*PersonalPageLocators.COUNTRY_SELECTOR)
+    self.driver.find_element(*self.personal_page_locators.COUNTRY_SELECTOR).click()
     
     try: 
-        search_term = random.choice(PersonalPageLocators.COMMON_SEARCH_TERMS)
+        search_term = random.choice(self.personal_page_locators.COMMON_SEARCH_TERMS)
         
-        search_input = self.common_action.find_element(*PersonalPageLocators.SEARCH_INPUT)
+        search_input = self.driver.find_element(*self.personal_page_locators.SEARCH_INPUT)
         search_input.click()
         search_input.send_keys(search_term["keyword"])
         time.sleep(1)
@@ -606,7 +605,7 @@ class PersonalPage(CommonUseSection):
         self.selected_country_code = result.text
         result.click()
         
-        self.common_action.click_element(*PersonalPageLocators.COUNTRY_CODE_CONFIRM_BUTTON)
+        self.driver.find_element(*self.personal_page_locators.COUNTRY_CODE_CONFIRM_BUTTON).click()
         time.sleep(0.5)
         
     except Exception as e:
@@ -614,10 +613,10 @@ class PersonalPage(CommonUseSection):
         raise
 
   def click_language_settings(self):
-    self.common_action.click_element(*PersonalPageLocators.LANGUAGE_SETTINGS_OPTION)
+    self.driver.find_element(*self.personal_page_locators.LANGUAGE_SETTINGS_OPTION).click()
     
   def select_language(self):
-    self.common_action.click_element(*PersonalPageLocators.LANGUAGE_CHINESE_OPTION)
-    self.common_action.click_element(*PersonalPageLocators.LANGUAGE_CONFIRM_BUTTON)
+    self.driver.find_element(*self.personal_page_locators.LANGUAGE_CHINESE_OPTION).click()
+    self.driver.find_element(*self.personal_page_locators.LANGUAGE_CONFIRM_BUTTON).click()
 
   

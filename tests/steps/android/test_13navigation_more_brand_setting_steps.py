@@ -13,7 +13,7 @@ BRAND_DESCRIPTION = "夯客提供預約管理、數據分析、會員系統、�
 
 @allure.feature('Brand Setting')
 @allure.story('Brand Setting')
-@pytest.mark.navigation
+@pytest.mark.navigation_more_brand_setting
 @pytest.mark.run(order=74)
 @given('I tap on more in the bottom navigation bar')
 def tap_more_tab(driver):

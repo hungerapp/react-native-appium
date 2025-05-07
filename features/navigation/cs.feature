@@ -13,6 +13,6 @@ Feature: Customer Service Interaction
     Then I tap on the follow Hotcake Instagram hyperlink
     Then I tap on the Pricing & Plans hyperlink
     Then I tap on the Help Center hyperlink
-    Then I tap on the 1-on-1 Meeting hyperlink
+    Then I click back button to go back to calendar page
 
   

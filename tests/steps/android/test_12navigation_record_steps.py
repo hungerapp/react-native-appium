@@ -14,7 +14,7 @@ BILLING_NUMBER = '#86SXS'
 # View and Switch Between Recent and Canceled Appointments
 @allure.feature('Record')
 @allure.story('View and Switch Between Recent and Canceled Appointments')
-@pytest.mark.navigation
+@pytest.mark.navigation_record
 @pytest.mark.run(order=70)
 @given('I tap on records in the navigation bar')
 def navigate_to_records(driver):
@@ -46,7 +46,7 @@ def tap_canceled_order(driver):
 # Filter by Personnel and Search 
 @allure.feature('Record')
 @allure.story('Filter by Personnel and Search')
-@pytest.mark.navigation
+@pytest.mark.navigation_record
 @pytest.mark.run(order=71)
 @given('I am on the Records page')
 def navigate_to_records(driver):
@@ -87,7 +87,7 @@ def verify_search_result(driver):
 # View Checkout Details and Check Payment Method
 @allure.feature('Record')
 @allure.story('View Checkout Details and Check Payment Method')
-@pytest.mark.navigation
+@pytest.mark.navigation_record
 @pytest.mark.run(order=72)
 @given('I am on the Records page')
 def navigate_to_records(driver):
@@ -128,7 +128,7 @@ def check_payment_method(driver):
 # Process and Delete a claim request
 @allure.feature('Record')
 @allure.story('Process and Delete a claim request')
-@pytest.mark.navigation
+@pytest.mark.navigation_record
 @pytest.mark.run(order=73)
 @given('I am on the Records page')
 def navigate_to_records(driver):

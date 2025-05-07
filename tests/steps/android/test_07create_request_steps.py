@@ -12,7 +12,7 @@ scenarios('../../../features/create/create_request.feature')
 @allure.feature('Create Request')
 @allure.story('Request items without signing')
 @pytest.mark.run(order=44)
-@pytest.mark.create
+@pytest.mark.create_request
 @given('I click the create request option')
 def click_create_request_option(driver):
     create_page = CreateRequestPage(driver)
@@ -46,7 +46,7 @@ def confirm_request(driver):
 @allure.feature('Create Request')
 @allure.story('Modify request details before confirming')
 @pytest.mark.run(order=45)
-@pytest.mark.create
+@pytest.mark.create_request
 @given('I click the create request option')
 def click_create_request_option(driver):
     create_page = CreateRequestPage(driver)

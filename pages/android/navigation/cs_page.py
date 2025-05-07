@@ -100,14 +100,14 @@ class CSPage():
   
       def meeting_link(self):
           scroll_command = ('new UiScrollable(new UiSelector().scrollable(true))'
-                        '.scrollIntoView(new UiSelector().textContains("30分鐘"))')
-        
+                        '.scrollIntoView(new UiSelector().textContains("立即預約"))')
+          
+          time.sleep(1)
           self.driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR, scroll_command)
           self.driver.find_element(*self.cs_locators.MEETING_LINK).click()
           time.sleep(1)
           self.driver.back()
       
-      
-          # back again to go back to calendar page
+      def click_back_button(self):
           self.driver.back()
           return self

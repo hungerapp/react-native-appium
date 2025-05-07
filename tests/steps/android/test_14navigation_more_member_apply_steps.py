@@ -14,7 +14,7 @@ scenarios('../../../features/navigation/more/member_apply.feature')
 # GENERAL VOUCHER MANAGEMENT
 @allure.feature('General Voucher Management')
 @allure.story('General Voucher Management')
-@pytest.mark.navigation
+@pytest.mark.navigation_more_member_apply
 @pytest.mark.run(order=75)
 @given('I tap on membership application')
 def tap_member_apply(driver):
@@ -41,7 +41,7 @@ def edit_and_delete_general_voucher(driver):
 # BONUS POINT VOUCHER MANAGEMENT
 @allure.feature('Bonus Point Voucher Management')
 @allure.story('Bonus Point Voucher Management')
-@pytest.mark.navigation
+@pytest.mark.navigation_more_member_apply
 @pytest.mark.run(order=76)
 @given('I am in the voucher management section')
 def in_voucher_management_section(driver):
@@ -68,7 +68,7 @@ def edit_and_delete_bonus_point_voucher(driver):
 # MEMBERSHIP GIFT VOUCHER MANAGEMENT
 @allure.feature('Membership Gift Voucher Management')
 @allure.story('Membership Gift Voucher Management')
-@pytest.mark.navigation
+@pytest.mark.navigation_more_member_apply
 @pytest.mark.run(order=77)
 @given('I am in the voucher management section')
 def in_voucher_management_section(driver):
@@ -94,7 +94,7 @@ def edit_and_delete_membership_gift_voucher(driver):
 # BIRTHDAY GIFT VOUCHER MANAGEMENT
 @allure.feature('Birthday Gift Voucher Management')
 @allure.story('Birthday Gift Voucher Management')
-@pytest.mark.navigation
+@pytest.mark.navigation_more_member_apply
 @pytest.mark.run(order=78)
 @given('I am in the voucher management section')
 def in_voucher_management_section(driver):
@@ -124,7 +124,7 @@ def return_to_membership_application(driver):
 # DOCUMENT MANAGEMENT
 @allure.feature('Document Management')
 @allure.story('Document Management in Membership Application')
-@pytest.mark.navigation
+@pytest.mark.navigation_more_member_apply
 @pytest.mark.run(order=79)
 @given('I am on the membership application page')
 def in_membership_application_page(driver):
@@ -139,7 +139,7 @@ def tap_document_management(driver):
 def add_document(driver):
     member_apply_page = MemberApplyPage(driver)
     member_apply_page.add_document()
-
+  
 @then('I can edit, preview, and share a document')
 def edit_preview_share_document(driver):
     member_apply_page = MemberApplyPage(driver)
@@ -149,7 +149,7 @@ def edit_preview_share_document(driver):
 # DISABLED DOCUMENT MANAGEMENT
 @allure.feature('Disabled Document Management')
 @allure.story('Disabled Document Management in Membership Application')
-@pytest.mark.navigation
+@pytest.mark.navigation_more_member_apply
 @pytest.mark.run(order=80)
 @given('I am in the document management section')
 def in_document_management_section(driver):
@@ -184,7 +184,7 @@ def return_to_membership_application(driver):
 # BONUS POINT RATIO MANAGEMENT
 @allure.feature('Bonus Point Ratio Management')
 @allure.story('Bonus Point Ratio Management in Membership Application')
-@pytest.mark.navigation
+@pytest.mark.navigation_more_member_apply
 @pytest.mark.run(order=81)
 @given('I am on the membership application page')
 def in_membership_application_page(driver):
@@ -210,7 +210,7 @@ def return_to_membership_application(driver):
 # CUSTOM MEMBERSHIP REGISTRATION
 @allure.feature('Custom Membership Registration')
 @allure.story('Custom Membership Registration in Membership Application')
-@pytest.mark.navigation
+@pytest.mark.navigation_more_member_apply   
 @pytest.mark.run(order=82)
 @given('I am on the membership application page')
 def in_membership_application_page(driver):

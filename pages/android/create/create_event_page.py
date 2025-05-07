@@ -3,6 +3,10 @@ import random
 
 from appium.webdriver.common.appiumby import AppiumBy
 from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.actions import interaction
+from selenium.webdriver.common.actions.action_builder import ActionBuilder
+from selenium.webdriver.common.actions.pointer_input import PointerInput
 
 from pages.locators.android.create.create_event_locators import CreateEventLocators
 
@@ -82,10 +86,7 @@ class CreateEventPage:
         
         # click outside to close the date window
         size = self.driver.get_window_size()
-        self.driver.execute_script('mobile: clickGesture', {
-            'x': int(size['width'] * 0.5),  
-            'y': int(size['height'] * 0.9)   
-        })
+        self.tap_at_coordinates(int(size['width'] * 0.5), int(size['height'] * 0.9))
         
         time.sleep(0.5)
         
@@ -168,10 +169,7 @@ class CreateEventPage:
         
             # click outside to close the time window
             window_size = self.driver.get_window_size()
-            self.driver.execute_script('mobile: clickGesture', {
-            'x': int(window_size['width'] * 0.5),
-            'y': int(window_size['height'] * 0.9)
-            })
+            self.tap_at_coordinates(int(window_size['width'] * 0.5), int(window_size['height'] * 0.9))
         self.driver.find_element(*self.create_event_locators.TIME_SAVE_BUTTON).click()
         time.sleep(1)
         
@@ -193,10 +191,7 @@ class CreateEventPage:
         
         # click outside to close the date window
         size = self.driver.get_window_size()
-        self.driver.execute_script('mobile: clickGesture', {
-            'x': int(size['width'] * 0.5),  
-            'y': int(size['height'] * 0.9)   
-        })
+        self.tap_at_coordinates(int(size['width'] * 0.5), int(size['height'] * 0.9))
         
         time.sleep(0.5)
         self.driver.find_element(*self.create_event_locators.TIME_SAVE_BUTTON).click()
@@ -278,6 +273,20 @@ class CreateEventPage:
     def modify_quick_select_settings(self):
         self.driver.find_element(*self.create_event_locators.MODIFY_QUICK_SELECT_ICON).click()
         time.sleep(0.5)
+        
+    def tap_at_coordinates(self, x, y):
+        """
+        使用 W3C Actions API 在指定座標點擊
+        """
+        actions = ActionChains(self.driver)
+        pointer = PointerInput(interaction.POINTER_TOUCH, "touch")
+        
+        actions.w3c_actions = ActionBuilder(self.driver, mouse=pointer)
+        actions.w3c_actions.pointer_action.move_to_location(x, y)
+        actions.w3c_actions.pointer_action.pointer_down()
+        actions.w3c_actions.pointer_action.pause(0.1) 
+        actions.w3c_actions.pointer_action.pointer_up()
+        actions.perform()
         
         
         
