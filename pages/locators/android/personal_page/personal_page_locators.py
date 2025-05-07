@@ -4,7 +4,7 @@ from appium.webdriver.common.appiumby import AppiumBy
 class PersonalPageLocators:
       # View basic personal information 
       PROFILE_PICTURE = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("android.widget.ImageView").instance(0)')
-      USERNAME = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("ann")')
+      USERNAME = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("j")')
       GREETING_MESSAGE = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textMatches(".*保持好心情.*|.*開始美好.*|.*好好休息.*")')
       EMAIL_ADDRESS = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textMatches(".*@.*")')
 
@@ -51,7 +51,7 @@ class PersonalPageLocators:
       INTEGRATE_GOOGLE_CALENDAR_BUTTON = (AppiumBy.ACCESSIBILITY_ID, 'Google行事曆, 進行串接')
   
       # Push notification page
-      PUSH_NOTTIFICATION_SAVE = (AppiumBy.ACCESSIBILITY_ID, 'check')
+      PUSH_NOTIFICATION_SAVE = (AppiumBy.ACCESSIBILITY_ID, 'check')
   
       # Manage account settings
       SETTINGS_BUTTON = (AppiumBy.ACCESSIBILITY_ID, 'gear')

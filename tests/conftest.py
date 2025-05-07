@@ -353,7 +353,7 @@ def pytest_configure(config):
     
     
 @pytest.fixture
-def common_actions(driver):
+def common_action(driver):
     """
     provide common actions for all tests
     """
