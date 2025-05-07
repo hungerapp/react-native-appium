@@ -4,7 +4,7 @@ from appium.webdriver.common.appiumby import AppiumBy
 class PersonalPageLocators:
       # View basic personal information 
       PROFILE_PICTURE = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("android.widget.ImageView").instance(0)')
-      USERNAME = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("j")')
+      USERNAME = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("QA")')
       GREETING_MESSAGE = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textMatches(".*保持好心情.*|.*開始美好.*|.*好好休息.*")')
       EMAIL_ADDRESS = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textMatches(".*@.*")')
 

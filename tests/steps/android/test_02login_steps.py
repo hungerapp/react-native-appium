@@ -2,7 +2,6 @@ import pytest
 import allure
 import random
 
-#from appium.webdriver.common.appiumby import AppiumBy
 from pytest_bdd import scenarios, given, when, then, parsers
 
 from pages.android.login_page import LoginPage
