@@ -41,7 +41,7 @@ def tap_branch_name(driver):
 def enter_branch_name(driver, branch_name):
     branch_name = CommonUseSection.replace_current_datetime(branch_name)
     brand_page = BrandPage(driver)
-    brand_page.enter_branch_name(branch_name)
+    assert brand_page.enter_branch_name(branch_name), "Branch Name field not found"
 
 @when(parsers.parse('I enter "{branch_introduction}" in the branch introduction'))
 def enter_branch_introduction(driver, branch_introduction):
