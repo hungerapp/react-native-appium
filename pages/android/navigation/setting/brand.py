@@ -60,6 +60,7 @@ class BrandPage:
         return self
 
     def turn_off_branch_phone_display_switch(self):
+        self.common_actions.scroll_to_element(*self.brand_locators.DISPLAY_BRANCH_PHONE_NUMBER_SWITCH_IN_BRANCH_BRAND_INFO_PAGE)
         if not self.common_actions.is_element_present(*self.brand_locators.BRANCH_PHONE_NUMBER_FIELD_IN_BRANCH_BRAND_INFO_PAGE):
             self.common_actions.click_element(*self.brand_locators.DISPLAY_BRANCH_PHONE_NUMBER_SWITCH_IN_BRANCH_BRAND_INFO_PAGE)
             self.common_actions.wait_for_element_visible(*self.brand_locators.BRANCH_PHONE_NUMBER_FIELD_IN_BRANCH_BRAND_INFO_PAGE)
@@ -68,6 +69,7 @@ class BrandPage:
         return self
 
     def turn_on_branch_phone_display_switch(self):
+        self.common_actions.scroll_to_element(*self.brand_locators.DISPLAY_BRANCH_PHONE_NUMBER_SWITCH_IN_BRANCH_BRAND_INFO_PAGE)
         if not self.common_actions.is_element_present(*self.brand_locators.BRANCH_PHONE_NUMBER_FIELD_IN_BRANCH_BRAND_INFO_PAGE):
             self.common_actions.click_element(*self.brand_locators.DISPLAY_BRANCH_PHONE_NUMBER_SWITCH_IN_BRANCH_BRAND_INFO_PAGE)
             self.common_actions.wait_for_element_visible(*self.brand_locators.BRANCH_PHONE_NUMBER_FIELD_IN_BRANCH_BRAND_INFO_PAGE)
@@ -122,5 +124,9 @@ class BrandPage:
 
     def tap_confirm_button(self):
         self.common_actions.click_element(*self.brand_locators.CONFIRM_BUTTON_IN_BRANCH_BRAND_INFO_PAGE)
+        self.common_actions.wait_for_element_visible(*self.brand_locators.BRANCH_SETTINGS_PAGE)
+        return self
+
+    def verify_branch_settings_page(self):
         self.common_actions.wait_for_element_visible(*self.brand_locators.BRANCH_SETTINGS_PAGE)
         return self

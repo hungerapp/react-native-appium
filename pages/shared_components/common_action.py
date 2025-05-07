@@ -235,7 +235,7 @@ class CommonActions:
         except TimeoutException:
             return False
 
-    def wait_for_element_disappear(self, locator_type: str, locator_value: str, timeout: int = 30) -> bool:
+    def wait_for_element_disappear(self, locator_type: str, locator_value: str, timeout: int = 30) -> WebElement | bool:
         """
         快速檢查元素是否存在且可見
         如果元素不存在則立即返回 True
@@ -253,9 +253,7 @@ class CommonActions:
         """
         try:
             self.driver.implicitly_wait(0)
-            return WebDriverWait(self.driver, timeout).until(
-                EC.invisibility_of_element_located((locator_type, locator_value))
-            )
+            return WebDriverWait(self.driver, timeout).until(EC.invisibility_of_element_located((locator_type, locator_value)))
         except NoSuchElementException:
             return True
         except TimeoutException:

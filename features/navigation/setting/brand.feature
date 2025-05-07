@@ -3,7 +3,7 @@ Feature: Brand Management in Branch Settings
     I hope to manage the brand information of the branch
     To provide a better customer experience
 
-    @regression @save_branch_brand_info
+    @regression @navigation_to_branch_brand_info_page
     Scenario: Navigate to Branch and Brand Information Page
         Given I am on the Calendar page
         When I tap on the Settings icon in the navigation bar
@@ -16,9 +16,11 @@ Feature: Brand Management in Branch Settings
         Given I am on the Branch and Brand Information page
         When I enter "Robot_Branch_Name" in the Branch Name field
         And I enter "🤖 Welcome to our AI-powered store! We provide 24/7 automated service." in the branch introduction
+        And I turn off the branch phone display switch
         And I turn on the branch phone display switch
         And I select "+886" as the country code
         And I enter "0912345678" in the branch phone number field
+        And I turn off the branch address display switch
         And I turn on the branch address display switch
         And I select "臺北市" as the city
         And I select "中正區" as the district
