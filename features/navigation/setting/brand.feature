@@ -4,7 +4,7 @@ Feature: Brand Management in Branch Settings
     To provide a better customer experience
 
     @regression @navigation_to_branch_settings_page
-    Scenario: Navigate to Branch and Brand Information Page
+    Scenario: Navigate to the Branch Settings Page
         Given I am on the Calendar page
         When I tap on the Settings icon in the navigation bar
         Then I should see the Branch Settings page

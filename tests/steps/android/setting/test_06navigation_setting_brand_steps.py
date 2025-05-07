@@ -6,7 +6,7 @@ from pages.shared_components.common_use import CommonUseSection
 scenarios('../../../../features/navigation/setting/brand.feature')
 
 
-# Scenario: Navigate to Branch and Brand Information Page
+# Scenario: Navigate to the Branch Settings Page
 @given('I am on the Calendar page')
 def on_calendar_page(driver):
     pass
