@@ -59,6 +59,12 @@ class ServicePersonnelPage:
         self.common_actions.wait_for_element_visible(*self.service_personnel_page_locators.TITLE_IN_SERVICE_PERSONNEL_PAGE)
         return self
 
+    def tap_edit_service_personnel_button(self, service_personnel_name):
+        self.common_actions.scroll_to_element(*self.service_personnel_page_locators.EDIT_SERVICE_PERSONNEL_BUTTON_IN_SERVICE_PERSONNEL_PAGE(service_personnel_name))
+        self.common_actions.click_element(*self.service_personnel_page_locators.EDIT_SERVICE_PERSONNEL_BUTTON_IN_SERVICE_PERSONNEL_PAGE(service_personnel_name))
+        self.common_actions.wait_for_element_visible(*self.service_personnel_page_locators.SERVICE_PERSONNEL_NAME_FIELD_IN_SERVICE_PERSONNEL_MODAL)
+        return self
+
     def tap_close_button(self):
         self.common_actions.wait_for_element_visible(*self.service_personnel_page_locators.CLOSE_BUTTON_IN_SERVICE_PERSONNEL_PAGE)
         self.common_actions.click_element(*self.service_personnel_page_locators.CLOSE_BUTTON_IN_SERVICE_PERSONNEL_PAGE)
