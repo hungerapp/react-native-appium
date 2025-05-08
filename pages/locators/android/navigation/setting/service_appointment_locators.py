@@ -2,17 +2,20 @@
 from appium.webdriver.common.appiumby import AppiumBy
 
 class ServiceAppointmentPageLocators:
+    # Branch Settings Page
+    SERVICE_APPOINTMENT_IN_BRANCH_SETTINGS_PAGE = (AppiumBy.ACCESSIBILITY_ID,'服務預約, 設定服務項目、定金、網路預約相關功能，並管理你的網路預約畫面')
+
     # Service Appointment Page
     TITLE_IN_SERVICE_APPOINTMENT_PAGE = (AppiumBy.XPATH,'//*[@text="服務預約"]')
     BACK_BUTTON_IN_SERVICE_APPOINTMENT_PAGE = (AppiumBy.ACCESSIBILITY_ID,'arrow-left')
     MEMBER_BOOKING_LINK_IN_SERVICE_APPOINTMENT_PAGE = (AppiumBy.XPATH,'//*[@text="會員專屬預約連結"]')
     COPY_MEMBER_BOOKING_LINK_BUTTON_IN_SERVICE_APPOINTMENT_PAGE = (AppiumBy.ACCESSIBILITY_ID,'copy')
-    SERVICE_PRICE_LIST_IN_SERVICE_APPOINTMENT_PAGE = (AppiumBy.XPATH,'//*[@text="服務項目(價目表)"]')
-    ONLINE_BOOKING_MANAGEMENT_IN_SERVICE_APPOINTMENT_PAGE = (AppiumBy.XPATH,'//*[@text="網路預約管理"]')
-    BOOKING_FAQ_IN_SERVICE_APPOINTMENT_PAGE = (AppiumBy.XPATH,'//*[@text="預約問題與備註"]")')
-    BOOKING_NOTE_IN_SERVICE_APPOINTMENT_PAGE = (AppiumBy.XPATH,'//*[@text="預約注意事項"]')
-    DEPOSIT_MANAGEMENT_IN_SERVICE_APPOINTMENT_PAGE = (AppiumBy.XPATH,'//*[@text="定金管理"]')
-    ADVANCED_FEATURES_IN_SERVICE_APPOINTMENT_PAGE = (AppiumBy.XPATH,'//*[@text="進階功能"]')
+    SERVICE_PRICE_LIST_IN_SERVICE_APPOINTMENT_PAGE = (AppiumBy.ACCESSIBILITY_ID,'服務項目(價目表), 價目表是預約、結帳的計算基礎')
+    ONLINE_BOOKING_MANAGEMENT_IN_SERVICE_APPOINTMENT_PAGE = (AppiumBy.ACCESSIBILITY_ID,'網路預約管理, 設定服務人員和不指定預約組合的開放時間與開放項目，讓會員透過網路就能完成預約')
+    BOOKING_FAQ_IN_SERVICE_APPOINTMENT_PAGE = (AppiumBy.ACCESSIBILITY_ID,'Hide in Production, 預約問題與備註, 讓會員預約時可以填寫問題與備註')
+    BOOKING_NOTE_IN_SERVICE_APPOINTMENT_PAGE = (AppiumBy.ACCESSIBILITY_ID,'預約注意事項, 讓會員了解你的預約規範')
+    DEPOSIT_MANAGEMENT_IN_SERVICE_APPOINTMENT_PAGE = (AppiumBy.ACCESSIBILITY_ID,'定金管理, 依據會員狀態、預約期間，設定每一筆預約的定金')
+    ADVANCED_FEATURES_IN_SERVICE_APPOINTMENT_PAGE = (AppiumBy.ACCESSIBILITY_ID,'進階功能, 預約限制、預約後緩衝時間、營業時間、設備管理等進階設定')
     BACK_TO_CALENDAR_BUTTON_IN_SERVICE_APPOINTMENT_PAGE = (AppiumBy.XPATH,'//*[@text="回到行事曆"]')
 
     # Service Appointment Page/Member Booking Link Dialog
@@ -27,11 +30,13 @@ class ServiceAppointmentPageLocators:
     CATEGORY_NAME_IN_SERVICE_ITEM_LIST_PAGE = lambda self, category_name: (AppiumBy.XPATH,f'//android.widget.HorizontalScrollView//*[@text="{category_name}"]')
     ADD_SERVICE_BUTTON_IN_SERVICE_ITEM_LIST_PAGE = (AppiumBy.XPATH,'//*[@text="新增服務項目"]')
     SERVICE_NAME_IN_SERVICE_ITEM_LIST_PAGE = lambda self, service_name: (AppiumBy.XPATH,f'//*[@text="{service_name}"]')
-    EDIT_SERVICE_BUTTON_IN_SERVICE_ITEM_LIST_PAGE = lambda self, service_name: (AppiumBy.XPATH,f'//*[@text="{service_name}"]/../android.view.ViewGroup//*[@resource-id="pen-to-square"]')
+    EDIT_SERVICE_BUTTON_IN_SERVICE_ITEM_LIST_PAGE = (AppiumBy.XPATH,'//*[@text="編輯服務項目"]')
+    COPY_SERVICE_BUTTON_IN_SERVICE_ITEM_LIST_PAGE = (AppiumBy.XPATH,'//*[@text="複製服務項目"]')
     DELETE_SERVICE_BUTTON_IN_SERVICE_ITEM_LIST_PAGE = lambda self, service_name: (AppiumBy.XPATH,f'//*[@text="{service_name}"]/../android.view.ViewGroup//*[@resource-id="circle-minus"]')
+    DELETE_SERVICE_ITEM_DIALOG_DELETE_BUTTON = (AppiumBy.XPATH, '//*[@content-desc="刪除"]')
     # Service Appointment Page/Service Item List Page/Category Management Modal
     CATEGORY_MANAGEMENT_MODAL_TITLE = (AppiumBy.XPATH,'//*[@text="分類管理"]')
-    CATEGORY_MANAGEMENT_MODAL_CLOSE_BUTTON = (AppiumBy.XPATH,'//*[@text="分類管理"]/../*[@resource-id="xmark"]')
+    CATEGORY_MANAGEMENT_MODAL_CLOSE_BUTTON = (AppiumBy.XPATH,'(//android.view.ViewGroup[@content-desc="xmark"])[2]')
     CATEGORY_MANAGEMENT_MODAL_ADD_BUTTON = (AppiumBy.XPATH,'//*[@text="新增分類"]')
     CATEGORY_MANAGEMENT_MODAL_NAME = lambda self, category_name: (AppiumBy.XPATH,f'//*[@text="{category_name}"][1]')
     CATEGORY_MANAGEMENT_MODAL_EDIT_BUTTON = lambda self, category_name: (AppiumBy.XPATH,f'//*[@text="{category_name}"][1]/../android.view.ViewGroup//*[@resource-id="pen-to-square"]')
@@ -62,12 +67,15 @@ class ServiceAppointmentPageLocators:
     SUB_SERVICE_TYPE_SELECTION = lambda self, text: (AppiumBy.ACCESSIBILITY_ID,f'{text}-popup-option') #單選, 複選
     SERVICE_ITEM_MODAL_ADD_SUB_SERVICE_BUTTON = (AppiumBy.XPATH,'//*[@text="新增子服務"]')
     SERVICE_ITEM_MODAL_SUB_SERVICE_ITEM = lambda self, sub_service_name: (AppiumBy.XPATH,f'//*[@text="子服務"]/../android.view.ViewGroup//*[@text="{sub_service_name}"]')
+    SERVICE_ITEM_MODAL_SUB_SERVICE_ITEM_DELETE_BUTTON = lambda self, sub_service_name: (AppiumBy.XPATH,f'//*[@text="子服務"]/../android.view.ViewGroup//*[@text="{sub_service_name}"]/../android.view.ViewGroup//*[@resource-id="circle-minus"]')
+    SERVICE_ITEM_MODAL_SUB_SERVICE_ITEM_EDIT_BUTTON = lambda self, sub_service_name: (AppiumBy.XPATH,f'//*[@text="子服務"]/../android.view.ViewGroup//*[@text="{sub_service_name}"]/../*[@resource-id="pen-to-square"]')
     # Service Appointment Page/Service Item List Page/Service Item Modal/Category Selection Dialog
     CATEGORY_SELECTION_DIALOG_CLOSE_BUTTON = (AppiumBy.ACCESSIBILITY_ID,'服務分類-close-button')
     CATEGORY_SELECTION_DIALOG_NAME_SELECTION = lambda self, category_name: (AppiumBy.XPATH,f'//*[@text="{category_name}"][1]')
     # Service Appointment Page/Service Item List Page/Service Item Modal/Sub Service Dialog
     SUB_SERVICE_DIALOG_NAME_FIELD = (AppiumBy.ACCESSIBILITY_ID,'子服務名稱-text-input')
     SUB_SERVICE_DIALOG_CONFIRM_BUTTON = (AppiumBy.ACCESSIBILITY_ID,'新增子服務-modal-right-button ')
+    SUB_SERVICE_DIALOG_EDIT_CONFIRM_BUTTON = (AppiumBy.ACCESSIBILITY_ID, '編輯子服務-modal-right-button ')
     SUB_SERVICE_DIALOG_CLOSE_BUTTON = (AppiumBy.ACCESSIBILITY_ID,'新增子服務-close-button')
     SUB_SERVICE_DIALOG_DURATION_FIELD = (AppiumBy.XPATH,'//*[@text="時長增加"]/../*[@resource-id="undefined-text-input"]')
     SUB_SERVICE_DIALOG_PRICE_FIELD = (AppiumBy.XPATH,'//*[@text="價格增加"]/../*[@resource-id="undefined-text-input"]')

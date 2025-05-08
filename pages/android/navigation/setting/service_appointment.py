@@ -10,6 +10,15 @@ class ServiceAppointmentPage:
         self.common_use = CommonUseSection(driver)
         self.service_appointment_page_locators = ServiceAppointmentPageLocators()
 
+    def verify_branch_settings_page(self):
+        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.SERVICE_APPOINTMENT_IN_BRANCH_SETTINGS_PAGE)
+        return self
+
+    def tap_service_appointment(self):
+        self.common_actions.click_element(*self.service_appointment_page_locators.SERVICE_APPOINTMENT_IN_BRANCH_SETTINGS_PAGE)
+        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.TITLE_IN_SERVICE_APPOINTMENT_PAGE)
+        return self
+
     def verify_service_appointment_page(self):
         self.common_actions.is_element_visible(*self.service_appointment_page_locators.TITLE_IN_SERVICE_APPOINTMENT_PAGE)
         self.common_actions.is_element_visible(*self.service_appointment_page_locators.BACK_BUTTON_IN_SERVICE_APPOINTMENT_PAGE)
@@ -18,31 +27,29 @@ class ServiceAppointmentPage:
     def share_appointment_link(self):
         self.common_actions.is_element_visible(*self.service_appointment_page_locators.MEMBER_BOOKING_LINK_IN_SERVICE_APPOINTMENT_PAGE)
         self.common_actions.click_element(*self.service_appointment_page_locators.COPY_MEMBER_BOOKING_LINK_BUTTON_IN_SERVICE_APPOINTMENT_PAGE)
-        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.MEMBER_BOOKING_LINK_DIALOG_LINE_OA_LINK_BUTTON)
+        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.MEMBER_BOOKING_LINK_DIALOG_COPY_BUTTON)
         self.common_actions.click_element(*self.service_appointment_page_locators.MEMBER_BOOKING_LINK_DIALOG_COPY_BUTTON)
         self.common_actions.wait_for_element_disappear(*self.service_appointment_page_locators.MEMBER_BOOKING_LINK_DIALOG_COPY_BUTTON)
         return self
 
+    def click_apply_line_official_account(self):
+        self.common_actions.is_element_visible(*self.service_appointment_page_locators.MEMBER_BOOKING_LINK_IN_SERVICE_APPOINTMENT_PAGE)
+        self.common_actions.click_element(*self.service_appointment_page_locators.COPY_MEMBER_BOOKING_LINK_BUTTON_IN_SERVICE_APPOINTMENT_PAGE)
+        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.MEMBER_BOOKING_LINK_DIALOG_LINE_OA_LINK_BUTTON)
+        self.common_actions.click_element(*self.service_appointment_page_locators.MEMBER_BOOKING_LINK_DIALOG_LINE_OA_LINK_BUTTON)
+        self.common_actions.wait_for_element_disappear(*self.service_appointment_page_locators.MEMBER_BOOKING_LINK_DIALOG_LINE_OA_LINK_BUTTON)
+        self.driver.back()
+        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.MEMBER_BOOKING_LINK_IN_SERVICE_APPOINTMENT_PAGE)
+        return self
+
     def tap_service_items(self):
-        self.common_actions.is_element_visible(*self.service_appointment_page_locators.SERVICE_PRICE_LIST_IN_SERVICE_APPOINTMENT_PAGE)
+        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.SERVICE_PRICE_LIST_IN_SERVICE_APPOINTMENT_PAGE)
         self.common_actions.click_element(*self.service_appointment_page_locators.SERVICE_PRICE_LIST_IN_SERVICE_APPOINTMENT_PAGE)
-        return self
-
-    def verify_service_items_page(self):
         self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.TITLE_IN_SERVICE_ITEM_LIST_PAGE)
-        self.common_actions.is_element_visible(*self.service_appointment_page_locators.CLOSE_BUTTON_IN_SERVICE_ITEM_LIST_PAGE)
         return self
-
 
     def add_service_category(self, category_name):
-        # TODO: 這邊的Add First Category Button locator有錯誤, 需要修改
-        if not self.common_actions.is_element_present(*self.service_appointment_page_locators.ADD_FIRST_CATEGORY_BUTTON_IN_SERVICE_ITEM_LIST_PAGE):
-            self.common_actions.click_element(*self.service_appointment_page_locators.ADD_FIRST_CATEGORY_BUTTON_IN_SERVICE_ITEM_LIST_PAGE)
-            self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.ADD_CATEGORY_DIALOG_NAME_FIELD)
-            self.common_actions.send_keys_to_element(*self.service_appointment_page_locators.ADD_CATEGORY_DIALOG_NAME_FIELD, category_name)
-            self.common_actions.click_element(*self.service_appointment_page_locators.ADD_CATEGORY_DIALOG_CONFIRM_BUTTON)
-            self.common_actions.wait_for_element_disappear(*self.service_appointment_page_locators.ADD_CATEGORY_DIALOG_CONFIRM_BUTTON)
-        else:
+        if self.common_actions.is_element_present(*self.service_appointment_page_locators.EDIT_CATEGORY_BUTTON_IN_SERVICE_ITEM_LIST_PAGE):
             self.common_actions.click_element(*self.service_appointment_page_locators.EDIT_CATEGORY_BUTTON_IN_SERVICE_ITEM_LIST_PAGE)
             self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.CATEGORY_MANAGEMENT_MODAL_TITLE)
             self.common_actions.click_element(*self.service_appointment_page_locators.CATEGORY_MANAGEMENT_MODAL_ADD_BUTTON)
@@ -51,14 +58,14 @@ class ServiceAppointmentPage:
             self.common_actions.click_element(*self.service_appointment_page_locators.ADD_CATEGORY_DIALOG_CONFIRM_BUTTON)
             self.common_actions.wait_for_element_disappear(*self.service_appointment_page_locators.ADD_CATEGORY_DIALOG_CONFIRM_BUTTON)
             self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.CATEGORY_MANAGEMENT_MODAL_NAME(category_name))
-            # TODO: 這邊的Close Button locator有錯誤, 未成功點擊關閉modal, 需要修改
             self.common_actions.click_element(*self.service_appointment_page_locators.CATEGORY_MANAGEMENT_MODAL_CLOSE_BUTTON)
             self.common_actions.wait_for_element_disappear(*self.service_appointment_page_locators.CATEGORY_MANAGEMENT_MODAL_CLOSE_BUTTON)
-        return self
-
-    def verify_service_category(self, category_name):
-        self.common_actions.scroll_to_element_left(*self.service_appointment_page_locators.CATEGORY_NAME_IN_SERVICE_ITEM_LIST_PAGE(category_name))
-        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.CATEGORY_NAME_IN_SERVICE_ITEM_LIST_PAGE(category_name))
+        else:
+            self.common_actions.click_element(*self.service_appointment_page_locators.ADD_FIRST_CATEGORY_BUTTON_IN_SERVICE_ITEM_LIST_PAGE)
+            self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.ADD_CATEGORY_DIALOG_NAME_FIELD)
+            self.common_actions.send_keys_to_element(*self.service_appointment_page_locators.ADD_CATEGORY_DIALOG_NAME_FIELD, category_name)
+            self.common_actions.click_element(*self.service_appointment_page_locators.ADD_CATEGORY_DIALOG_CONFIRM_BUTTON)
+            self.common_actions.wait_for_element_disappear(*self.service_appointment_page_locators.ADD_CATEGORY_DIALOG_CONFIRM_BUTTON)
         return self
 
     def edit_service_category(self, old_category, new_category):
@@ -68,23 +75,8 @@ class ServiceAppointmentPage:
         self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.ADD_CATEGORY_DIALOG_NAME_FIELD)
         self.common_actions.send_keys_to_element(*self.service_appointment_page_locators.ADD_CATEGORY_DIALOG_NAME_FIELD, new_category)
         self.common_actions.click_element(*self.service_appointment_page_locators.ADD_CATEGORY_DIALOG_CONFIRM_BUTTON)
-        return self
-
-    def delete_service_category(self, category_name):
-        self.common_actions.click_element(*self.service_appointment_page_locators.EDIT_CATEGORY_BUTTON_IN_SERVICE_ITEM_LIST_PAGE)
-        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.CATEGORY_MANAGEMENT_MODAL_TITLE)
-        self.common_actions.click_element(*self.service_appointment_page_locators.CATEGORY_MANAGEMENT_MODAL_DELETE_BUTTON(category_name))
-        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.DELETE_CATEGORY_DIALOG_TITLE)
-        self.common_actions.is_element_visible(*self.service_appointment_page_locators.DELETE_CATEGORY_DIALOG_DESCRIPTION(category_name))
-        self.common_actions.click_element(*self.service_appointment_page_locators.DELETE_CATEGORY_DIALOG_DELETE_BUTTON)
-        self.common_actions.wait_for_element_disappear(*self.service_appointment_page_locators.DELETE_CATEGORY_DIALOG_DELETE_BUTTON)
-        return self
-
-    def verify_service_category_not_visible(self, category_name):
-        # TODO: 這邊的Close Button locator有錯誤, 未成功點擊關閉modal, 需要修改
         self.common_actions.click_element(*self.service_appointment_page_locators.CATEGORY_MANAGEMENT_MODAL_CLOSE_BUTTON)
-        self.common_actions.wait_for_element_disappear(*self.service_appointment_page_locators.CATEGORY_MANAGEMENT_MODAL_TITLE)
-        self.common_actions.wait_for_element_disappear(*self.service_appointment_page_locators.CATEGORY_NAME_IN_SERVICE_ITEM_LIST_PAGE(category_name))
+        self.common_actions.wait_for_element_disappear(*self.service_appointment_page_locators.CATEGORY_MANAGEMENT_MODAL_CLOSE_BUTTON)
         return self
 
     def select_service_category(self, category_name):
@@ -164,13 +156,71 @@ class ServiceAppointmentPage:
         self.common_actions.scroll_to_element(*self.service_appointment_page_locators.SERVICE_ITEM_MODAL_SUB_SERVICE_ITEM(sub_item_name))
         return self
 
+    def edit_sub_service_items(self, old_sub_item_name, new_sub_item_name, duration, price):
+        self.common_actions.scroll_to_element(*self.service_appointment_page_locators.SERVICE_ITEM_MODAL_SUB_SERVICE_ITEM(old_sub_item_name))
+        self.common_actions.click_element(*self.service_appointment_page_locators.SERVICE_ITEM_MODAL_SUB_SERVICE_ITEM_EDIT_BUTTON(old_sub_item_name))
+        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.SUB_SERVICE_DIALOG_NAME_FIELD)
+        self.common_actions.clear_text(*self.service_appointment_page_locators.SUB_SERVICE_DIALOG_NAME_FIELD)
+        self.common_actions.send_keys_to_element(*self.service_appointment_page_locators.SUB_SERVICE_DIALOG_NAME_FIELD, new_sub_item_name)
+        self.common_actions.clear_text(*self.service_appointment_page_locators.SUB_SERVICE_DIALOG_DURATION_FIELD)
+        self.common_actions.send_keys_to_element(*self.service_appointment_page_locators.SUB_SERVICE_DIALOG_DURATION_FIELD, duration)
+        self.common_actions.clear_text(*self.service_appointment_page_locators.SUB_SERVICE_DIALOG_PRICE_FIELD)
+        self.common_actions.send_keys_to_element(*self.service_appointment_page_locators.SUB_SERVICE_DIALOG_PRICE_FIELD, price)
+        self.common_actions.click_element(*self.service_appointment_page_locators.SUB_SERVICE_DIALOG_EDIT_CONFIRM_BUTTON)
+        self.common_actions.wait_for_element_disappear(*self.service_appointment_page_locators.SUB_SERVICE_DIALOG_EDIT_CONFIRM_BUTTON)
+        return self
+
+    def delete_sub_service_items(self, sub_item_name):
+        self.common_actions.scroll_to_element(*self.service_appointment_page_locators.SERVICE_ITEM_MODAL_SUB_SERVICE_ITEM(sub_item_name))
+        self.common_actions.click_element(*self.service_appointment_page_locators.SERVICE_ITEM_MODAL_SUB_SERVICE_ITEM_DELETE_BUTTON(sub_item_name))
+        self.common_actions.wait_for_element_disappear(*self.service_appointment_page_locators.SERVICE_ITEM_MODAL_SUB_SERVICE_ITEM(sub_item_name))
+        return self
+
     def click_save_add_service_item_button(self):
         self.common_actions.click_element(*self.service_appointment_page_locators.SERVICE_ITEM_MODAL_CONFIRM_BUTTON)
         self.common_actions.wait_for_element_disappear(*self.service_appointment_page_locators.SERVICE_ITEM_MODAL_CONFIRM_BUTTON)
         return self
 
-    def verify_service_item_name(self, item_name):
+    def copy_service_item_name(self, item_name):
         self.common_actions.scroll_to_element(*self.service_appointment_page_locators.SERVICE_NAME_IN_SERVICE_ITEM_LIST_PAGE(item_name))
+        self.common_actions.click_element(*self.service_appointment_page_locators.SERVICE_NAME_IN_SERVICE_ITEM_LIST_PAGE(item_name))
+        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.COPY_SERVICE_BUTTON_IN_SERVICE_ITEM_LIST_PAGE)
+        self.common_actions.click_element(*self.service_appointment_page_locators.COPY_SERVICE_BUTTON_IN_SERVICE_ITEM_LIST_PAGE)
+        self.common_actions.wait_for_element_disappear(*self.service_appointment_page_locators.COPY_SERVICE_BUTTON_IN_SERVICE_ITEM_LIST_PAGE)
+        assert self.common_actions.get_element_count(*self.service_appointment_page_locators.SERVICE_NAME_IN_SERVICE_ITEM_LIST_PAGE(item_name)) >= 2, "Service item name not copied successfully"
+        return self
+
+    def delete_service_item(self, item_name):
+        self.common_actions.scroll_to_element(*self.service_appointment_page_locators.SERVICE_NAME_IN_SERVICE_ITEM_LIST_PAGE(item_name))
+        self.common_actions.click_element(*self.service_appointment_page_locators.DELETE_SERVICE_BUTTON_IN_SERVICE_ITEM_LIST_PAGE(item_name))
+        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.DELETE_SERVICE_ITEM_DIALOG_DELETE_BUTTON)
+        self.common_actions.click_element(*self.service_appointment_page_locators.DELETE_SERVICE_ITEM_DIALOG_DELETE_BUTTON)
+        self.common_actions.wait_for_element_disappear(*self.service_appointment_page_locators.DELETE_SERVICE_ITEM_DIALOG_DELETE_BUTTON)
+        return self
+
+    def edit_service_item(self, item_name):
+        self.common_actions.scroll_to_element(*self.service_appointment_page_locators.SERVICE_NAME_IN_SERVICE_ITEM_LIST_PAGE(item_name))
+        self.common_actions.click_element(*self.service_appointment_page_locators.SERVICE_NAME_IN_SERVICE_ITEM_LIST_PAGE(item_name))
+        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.EDIT_SERVICE_BUTTON_IN_SERVICE_ITEM_LIST_PAGE)
+        self.common_actions.click_element(*self.service_appointment_page_locators.EDIT_SERVICE_BUTTON_IN_SERVICE_ITEM_LIST_PAGE)
+        return self
+
+    def delete_service_category(self, category_name):
+        self.common_actions.click_element(*self.service_appointment_page_locators.EDIT_CATEGORY_BUTTON_IN_SERVICE_ITEM_LIST_PAGE)
+        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.CATEGORY_MANAGEMENT_MODAL_TITLE)
+        self.common_actions.click_element(*self.service_appointment_page_locators.CATEGORY_MANAGEMENT_MODAL_DELETE_BUTTON(category_name))
+        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.DELETE_CATEGORY_DIALOG_TITLE)
+        self.common_actions.is_element_visible(*self.service_appointment_page_locators.DELETE_CATEGORY_DIALOG_DESCRIPTION(category_name))
+        self.common_actions.click_element(*self.service_appointment_page_locators.DELETE_CATEGORY_DIALOG_DELETE_BUTTON)
+        self.common_actions.wait_for_element_disappear(*self.service_appointment_page_locators.DELETE_CATEGORY_DIALOG_DELETE_BUTTON)
+        self.common_actions.click_element(*self.service_appointment_page_locators.CATEGORY_MANAGEMENT_MODAL_CLOSE_BUTTON)
+        self.common_actions.wait_for_element_disappear(*self.service_appointment_page_locators.CATEGORY_MANAGEMENT_MODAL_CLOSE_BUTTON)
+        return self
+
+    def tap_close_service_item_page(self):
+        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.CLOSE_BUTTON_IN_SERVICE_ITEM_LIST_PAGE)
+        self.common_actions.click_element(*self.service_appointment_page_locators.CLOSE_BUTTON_IN_SERVICE_ITEM_LIST_PAGE)
+        self.common_actions.wait_for_element_disappear(*self.service_appointment_page_locators.CLOSE_BUTTON_IN_SERVICE_ITEM_LIST_PAGE)
         return self
 
     def tap_online_booking(self):
