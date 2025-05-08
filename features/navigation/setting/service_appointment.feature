@@ -61,6 +61,8 @@ Feature: Service Appointment Settings
 
   Scenario: Online Booking
     Given I am on the service appointment page
+    And I have a service personnel named "U"
+    And I have a service item named "60分鐘100元固定價單選子任務<current_datetime>"
     When I tap on the online booking
     Then I should see the online booking page
 
