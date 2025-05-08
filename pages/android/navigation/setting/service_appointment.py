@@ -20,7 +20,7 @@ class ServiceAppointmentPage:
         return self
 
     def verify_service_appointment_page(self):
-        self.common_actions.is_element_visible(*self.service_appointment_page_locators.TITLE_IN_SERVICE_APPOINTMENT_PAGE)
+        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.TITLE_IN_SERVICE_APPOINTMENT_PAGE)
         self.common_actions.is_element_visible(*self.service_appointment_page_locators.BACK_BUTTON_IN_SERVICE_APPOINTMENT_PAGE)
         return self
 
@@ -49,6 +49,7 @@ class ServiceAppointmentPage:
         return self
 
     def add_service_category(self, category_name):
+        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.TITLE_IN_SERVICE_ITEM_LIST_PAGE)
         if self.common_actions.is_element_present(*self.service_appointment_page_locators.EDIT_CATEGORY_BUTTON_IN_SERVICE_ITEM_LIST_PAGE):
             self.common_actions.click_element(*self.service_appointment_page_locators.EDIT_CATEGORY_BUTTON_IN_SERVICE_ITEM_LIST_PAGE)
             self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.CATEGORY_MANAGEMENT_MODAL_TITLE)

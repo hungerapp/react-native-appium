@@ -71,6 +71,18 @@ def edit_service_category(driver, old_category, new_category):
     service_appointment_page = ServiceAppointmentPage(driver)
     assert service_appointment_page.edit_service_category(old_category, new_category), "Edit service category is not displayed"
 
+@when(parsers.parse('I delete the service category named "{category_name}"'))
+def delete_service_category(driver, category_name):
+    category_name = CommonUseSection.replace_current_datetime(category_name)
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.delete_service_category(category_name), "Delete service category is not displayed"
+
+@when(parsers.parse('I add a new service category named "{category_name}"'))
+def add_service_category(driver, category_name):
+    category_name = CommonUseSection.replace_current_datetime(category_name)
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.add_service_category(category_name), "Add service category is not displayed"
+
 @when(parsers.parse('I select a service category named "{category_name}"'))
 def select_service_category(driver, category_name):
     category_name = CommonUseSection.replace_current_datetime(category_name)
@@ -238,12 +250,6 @@ def add_sub_service_items(driver, sub_item_name, duration, price):
 def click_save_add_service_item_button(driver):
     service_appointment_page = ServiceAppointmentPage(driver)
     assert service_appointment_page.click_save_add_service_item_button(), "Save add service item button is not displayed"
-
-@when(parsers.parse('I delete the service category named "{category_name}"'))
-def delete_service_category(driver, category_name):
-    category_name = CommonUseSection.replace_current_datetime(category_name)
-    service_appointment_page = ServiceAppointmentPage(driver)
-    assert service_appointment_page.delete_service_category(category_name), "Delete service category is not displayed"
 
 @when("I tap on the close button on the service item page")
 def tap_close_service_item_page(driver):

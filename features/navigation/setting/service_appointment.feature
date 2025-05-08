@@ -23,13 +23,15 @@ Feature: Service Appointment Settings
     Given I am on the service appointment page
     When I tap on the service items
     And I add a new service category named "新的分類<current_datetime>"
-    And I edit the service category named "新的分類<current_datetime>" to "被編輯過的分類<current_datetime>"
-    And I select a service category named "被編輯過的分類<current_datetime>"
+    And I edit the service category named "新的分類<current_datetime>" to "要被刪除的分類<current_datetime>"
+    And I delete the service category named "要被刪除的分類<current_datetime>"
+    And I add a new service category named "服務項目分類<current_datetime>"
+    And I select a service category named "服務項目分類<current_datetime>"
     And I click the add service item button
     And I enter the service item name "60分鐘100元固定價單選子任務<current_datetime>"
     And I enter the service code name "S1"
     And I enter the service introduction "Service Introduction<current_datetime>"
-    And I select the service category "被編輯過的分類<current_datetime>" in the add service item
+    And I select the service category "服務項目分類<current_datetime>" in the add service item
     And I enter the service duration "60" minutes
     And I enter the service price "100"
     And I select the service display type "固定價"
@@ -47,19 +49,17 @@ Feature: Service Appointment Settings
     And I enter the service item name "180分鐘500元起標價複選子任務<current_datetime>"
     And I enter the service code name "S2"
     And I enter the service introduction "我被更改過了<current_datetime>"
-    And I select the service category "被編輯過的分類<current_datetime>" in the add service item
+    And I select the service category "服務項目分類<current_datetime>" in the add service item
     And I enter the service duration "180" minutes
     And I enter the service price "500"
     And I select the service display type "起標價"
     And I select the sub service type "複選"
     And I add sub service items name "我是子服務3" and duration "90" minutes and price "300"
     And I click the save add service item button
-    And I delete the service category named "被編輯過的分類<current_datetime>"
     And I tap on the close button on the service item page
     Then I should see the service appointment page
 
-
-  Scenario: Navigate to Online Booking Page
+  Scenario: Online Booking
     Given I am on the service appointment page
     When I tap on the online booking
     Then I should see the online booking page
