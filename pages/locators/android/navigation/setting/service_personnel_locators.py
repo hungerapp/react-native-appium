@@ -1,6 +1,9 @@
 from appium.webdriver.common.appiumby import AppiumBy
 
 class ServicePersonnelPageLocators:
+    # Branch Settings Page
+    SERVICE_PERSONNEL_BUTTON_IN_BRANCH_SETTINGS_PAGE = (AppiumBy.ACCESSIBILITY_ID, '服務人員, 新增、編輯你的服務人員，修改照片、名稱、介紹等資訊')
+
     # Service Personnel Page
     TITLE_IN_SERVICE_PERSONNEL_PAGE = (AppiumBy.XPATH, '//*[@text="服務人員"]')
     CLOSE_BUTTON_IN_SERVICE_PERSONNEL_PAGE = (AppiumBy.ACCESSIBILITY_ID, "xmark")
@@ -24,9 +27,8 @@ class ServicePersonnelPageLocators:
     CLEAR_SERVICE_PERSONNEL_INTRODUCTION_BUTTON = (AppiumBy.XPATH, '//*[@text="清除"]')
     CONFIRM_CLEAR_SERVICE_PERSONNEL_INTRODUCTION_BUTTON = (AppiumBy.XPATH, '//*[@content-desc="circle-check"]')
     CLOSE_SERVICE_PERSONNEL_INTRODUCTION_BUTTON = (AppiumBy.ACCESSIBILITY_ID, "人員介紹-close-button")
-    # TODO: 展開進階設定locator有變動要修改
-    EXPAND_ADVANCED_SETTINGS_IN_SERVICE_PERSONNEL_MODAL = (AppiumBy.XPATH, '//android.widget.TextView[@text="展開進階設定"]')
-    CLOSE_ADVANCED_SETTINGS_IN_SERVICE_PERSONNEL_MODAL = (AppiumBy.XPATH, '//android.widget.TextView[@text="收起進階設定"]')
+    EXPAND_ADVANCED_SETTINGS_IN_SERVICE_PERSONNEL_MODAL = (AppiumBy.ACCESSIBILITY_ID, '展開進階設定')
+    CLOSE_ADVANCED_SETTINGS_IN_SERVICE_PERSONNEL_MODAL = (AppiumBy.ACCESSIBILITY_ID, '收起進階設定')
     SIMULTANEOUS_SERVICE_COUNT_FIELD_IN_SERVICE_PERSONNEL_MODAL = (AppiumBy.ACCESSIBILITY_ID, "同時服務數量-text-input")
     # Delete Service Personnel Dialog
     TITLE_IN_DELETE_SERVICE_PERSONNEL_DIALOG = (AppiumBy.XPATH, '//*[@text="刪除服務人員"]')

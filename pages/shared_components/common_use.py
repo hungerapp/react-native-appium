@@ -604,10 +604,18 @@ class CommonUseSection(CommonActions):
     @staticmethod
     def get_current_timestamp():
         """
-        Generates current timestamp in YYYYMMDDHHMMSSmmm format
+        Generates the current timestamp in YYYYMMDDHHMMSSmmm format
         """
         from datetime import datetime
 
         now = datetime.now()
         timestamp = now.strftime("%Y%m%d%H%M%S") + f"{int(now.microsecond / 1000):03d}"
         return timestamp
+
+    @staticmethod
+    def replace_current_datetime(input_string):
+        from datetime import datetime
+        if "<current_datetime>" in input_string:
+            current_datetime = datetime.now().strftime("%Y%m%d")
+            return input_string.replace("<current_datetime>", current_datetime)
+        return input_string

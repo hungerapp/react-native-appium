@@ -2,7 +2,7 @@
 from appium.webdriver.common.appiumby import AppiumBy
 
 class BrandPageLocators:
-    # Navigation
+    # Navigation bar
     SETTINGS_OPTION_IN_NAVIGATION = (AppiumBy.XPATH, '//*[@content-desc="設定"]')
 
     # Branch Settings Page

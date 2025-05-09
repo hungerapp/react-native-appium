@@ -1,79 +1,65 @@
 from pytest_bdd import scenarios, given, when, then, parsers
 from pages.android.navigation.setting.service_personnel import ServicePersonnelPage
+from pages.shared_components.common_use import CommonUseSection
 
 scenarios('../../../../features/navigation/setting/service_personnel.feature')
 
-# TODO: 這邊預設你會是在分店設定頁, 所以given的話會是點擊服務人員進入服務人員頁面
-@given("I am on the Service Personnel page")
-def verify_on_service_personnel_page(driver):
+# Scenario: Successfully add new service personnel
+@given("I am on the Branch Settings page")
+def on_branch_setting_page(driver):
     service_personnel_page = ServicePersonnelPage(driver)
-    assert service_personnel_page.verify_service_personnel_page(), "Service Personnel page is not found"
+    assert service_personnel_page.verify_branch_settings_page(), "Branch Settings page not found"
 
-@when("I tap on Add Service Personnel button")
-def tap_add_service_personnel_button(driver):
+@when("I tap on the Service Personnel")
+def tap_service_personnel_button(driver):
+    service_personnel_page = ServicePersonnelPage(driver)
+    assert service_personnel_page.tap_service_personnel_button(), "Service Personnel button not found in Branch Settings page"
+
+@when(parsers.parse('I add service personnel "{service_personnel_name}" and select color "{color_num}" and enter "{service_personnel_introduction}" and the Simultaneous Service Count "{simultaneous_service_count}"'))
+def add_service_personnel(driver, service_personnel_name, color_num, service_personnel_introduction, simultaneous_service_count):
+    service_personnel_name = CommonUseSection.replace_current_datetime(service_personnel_name)
+    service_personnel_introduction = CommonUseSection.replace_current_datetime(service_personnel_introduction)
     service_personnel_page = ServicePersonnelPage(driver)
     assert service_personnel_page.tap_add_service_personnel_button(), "Add Service Personnel button is not found"
-
-@then("I should see the service personnel Modal")
-def verify_service_personnel_modal(driver):
-    service_personnel_page = ServicePersonnelPage(driver)
-    assert service_personnel_page.verify_service_personnel_modal(), "Service Personnel Modal is not found"
-
-@when(parsers.parse('I enter "{service_personnel_name}" in the Name field'))
-def enter_service_personnel_name(driver, service_personnel_name):
-    service_personnel_page = ServicePersonnelPage(driver)
     assert service_personnel_page.enter_service_personnel_name(service_personnel_name), "Service Personnel Name field is not found"
-
-@when(parsers.parse('I select color "{color_num}" from the Color list'))
-def select_color(driver, color_num):
-    service_personnel_page = ServicePersonnelPage(driver)
     assert service_personnel_page.select_color(color_num), "Color selection is not found"
-
-@when(parsers.parse('I enter "{service_personnel_introduction}" in the Introduction field'))
-def enter_service_personnel_introduction(driver, service_personnel_introduction):
-    service_personnel_page = ServicePersonnelPage(driver)
     assert service_personnel_page.enter_service_personnel_introduction(service_personnel_introduction), "Service Personnel Introduction field is not found"
-
-@when(parsers.parse('I enter "{simultaneous_service_count}" in the Simultaneous Service Count field'))
-def enter_simultaneous_service_count(driver, simultaneous_service_count):
-    service_personnel_page = ServicePersonnelPage(driver)
     assert service_personnel_page.enter_simultaneous_service_count(simultaneous_service_count), "Simultaneous Service Count field is not found"
-
-@when("I tap on the Confirm button in service personnel modal")
-def tap_confirm_button(driver):
-    service_personnel_page = ServicePersonnelPage(driver)
     assert service_personnel_page.tap_confirm_button(), "Confirm button in service personnel modal is not found"
 
-@then("I should see the Service Personnel page")
-def verify_service_personnel_page(driver):
+@when(parsers.parse('I edit service personnel "{old_service_personnel_name}" to "{new_service_personnel_name}" and select color "{color_num}" and enter "{service_personnel_introduction}" and the Simultaneous Service Count "{simultaneous_service_count}"'))
+def edit_service_personnel(driver, old_service_personnel_name, new_service_personnel_name, color_num, service_personnel_introduction, simultaneous_service_count):
+    old_service_personnel_name = CommonUseSection.replace_current_datetime(old_service_personnel_name)
+    new_service_personnel_name = CommonUseSection.replace_current_datetime(new_service_personnel_name)
+    service_personnel_introduction = CommonUseSection.replace_current_datetime(service_personnel_introduction)
     service_personnel_page = ServicePersonnelPage(driver)
-    assert service_personnel_page.verify_service_personnel_page(), "Service Personnel page is not found"
-
-
-
-
-# TODO: 每一條test都建議標記是跑哪一條scenario的, 每條test之間建議留有空白, 這樣比較好debug
-# TODO: 少寫了Given I am on the Service Personnel page 這句
-@then(parsers.parse('I should see "{service_personnel_name}" in the Service Personnel list'))
-def verify_service_personnel_name(driver, service_personnel_name):
-    service_personnel_page = ServicePersonnelPage(driver)
-    assert service_personnel_page.verify_service_personnel_name(service_personnel_name), f"Service Personnel name {service_personnel_name} is not found in the list"
-
-@given(parsers.parse('I should see "{service_personnel_name}" in the Service Personnel list'))
-def verify_service_personnel_name(driver, service_personnel_name):
-    service_personnel_page = ServicePersonnelPage(driver)
-    assert service_personnel_page.verify_service_personnel_name(service_personnel_name), f"Service Personnel name {service_personnel_name} is not found in the list"
+    assert service_personnel_page.tap_edit_service_personnel_button(old_service_personnel_name), f"Service Personnel name {old_service_personnel_name} is not found in the list"
+    assert service_personnel_page.enter_service_personnel_name(new_service_personnel_name), "Service Personnel Name field is not found"
+    assert service_personnel_page.select_color(color_num), "Color selection is not found"
+    assert service_personnel_page.enter_service_personnel_introduction(service_personnel_introduction), "Service Personnel Introduction field is not found"
+    assert service_personnel_page.enter_simultaneous_service_count(simultaneous_service_count), "Simultaneous Service Count field is not found"
+    assert service_personnel_page.tap_confirm_button(), "Confirm button in service personnel modal is not found"
 
 @when(parsers.parse('I delete "{service_personnel_name}" from the Service Personnel list'))
 def delete_service_personnel(driver, service_personnel_name):
+    service_personnel_name = CommonUseSection.replace_current_datetime(service_personnel_name)
     service_personnel_page = ServicePersonnelPage(driver)
-    assert service_personnel_page.delete_service_personnel(service_personnel_name), f"Service Personnel name {service_personnel_name} is not found in the list"
-    
-# TODO: 少了這個步驟：
-'''
-@then("I should see the Service Personnel page")
-def verify_service_personnel_page(driver):
-    service_personnel_page = ServicePersonnelPage(driver)
-    assert service_personnel_page.verify_service_personnel_page(), "Service Personnel page is not found"
+    assert service_personnel_page.delete_service_personnel(
+        service_personnel_name), f"Service Personnel name {service_personnel_name} is not found in the list"
 
-'''
+@when("I tap on the close button in service personnel Page")
+def tap_close_button(driver):
+    service_personnel_page = ServicePersonnelPage(driver)
+    assert service_personnel_page.tap_close_button(), "Close button in service personnel page is not found"
+
+@then("I should see the branch settings page")
+def verify_branch_settings_page(driver):
+    service_personnel_page = ServicePersonnelPage(driver)
+    assert service_personnel_page.verify_branch_settings_page(), "Branch Settings page not found"
+
+
+
+
+
+
+    

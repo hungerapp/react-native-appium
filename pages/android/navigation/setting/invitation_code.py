@@ -10,6 +10,15 @@ class InvitationCodePage:
         self.common_use_section = CommonUseSection(driver)
         self.invitation_code_page_locators = InvitationCodePageLocators()
 
+    def verify_branch_settings_page(self):
+        self.common_actions.wait_for_element_visible(*self.invitation_code_page_locators.INVITATION_CODE_IN_BRANCH_SETTING_PAGE)
+        return self
+
+    def tap_invitation_code(self):
+        self.common_actions.click_element(*self.invitation_code_page_locators.INVITATION_CODE_IN_BRANCH_SETTING_PAGE)
+        self.common_actions.wait_for_element_visible(*self.invitation_code_page_locators.TITLE_IN_INVITATION_CODE_PAGE)
+        return self
+
     def verify_invitation_code_page(self):
         self.common_actions.is_element_visible(*self.invitation_code_page_locators.TITLE_IN_INVITATION_CODE_PAGE)
         self.common_actions.is_element_visible(*self.invitation_code_page_locators.INVITATION_CODE_IN_INVITATION_CODE_PAGE)
@@ -25,17 +34,20 @@ class InvitationCodePage:
         self.common_actions.click_element(*self.invitation_code_page_locators.COPY_INVITATION_BUTTON)
         self.common_actions.wait_for_element_disappear(*self.invitation_code_page_locators.COPY_INVITATION_BUTTON)
         return self
-    
-    # TODO: 這邊沒有加上已邀請名單的驗證, 需要修改錯誤
-    def tap_invited_list_button(self):
+
+    def tap_invited_list(self):
         self.common_actions.click_element(*self.invitation_code_page_locators.INVITED_LIST_IN_INVITATION_CODE_PAGE)
-        self.common_actions.is_element_visible(*self.invitation_code_page_locators.TITLE_IN_INVITED_LIST)
-        self.common_actions.is_element_visible(*self.invitation_code_page_locators.CLOSE_BUTTON_IN_INVITED_LIST)
+        self.common_actions.wait_for_element_visible(*self.invitation_code_page_locators.TITLE_IN_INVITED_LIST)
         return self
-    
-    # TODO: 這邊沒有加上已邀請名單的驗證, 需要修改錯誤
+
     def tap_invited_list_close_button(self):
-        self.common_actions.click_element(*self.invitation_code_page_locators.CLOSE_BUTTON_IN_INVITED_LIST)
-        self.common_actions.wait_for_element_disappear(*self.invitation_code_page_locators.CLOSE_BUTTON_IN_INVITED_LIST)
+        self.driver.back()
         return self
+
+    def tap_invitation_code_close_button(self):
+        self.common_actions.wait_for_element_visible(*self.invitation_code_page_locators.TITLE_IN_INVITED_LIST)
+        self.common_actions.click_element(*self.invitation_code_page_locators.CLOSE_BUTTON_IN_INVITATION_CODE_PAGE)
+        self.common_actions.wait_for_element_disappear(*self.invitation_code_page_locators.TITLE_IN_INVITATION_CODE_PAGE)
+        return self
+
 

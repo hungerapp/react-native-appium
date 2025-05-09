@@ -2,7 +2,7 @@ import time
 from typing import Tuple
 from appium.webdriver.webdriver import WebDriver
 from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support import expected_conditions
 from selenium.common.exceptions import TimeoutException, NoSuchElementException, StaleElementReferenceException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
@@ -23,7 +23,7 @@ class CommonActions:
         使用顯式等待查找元素並返回
         """
         return self.wait.until(
-            EC.presence_of_element_located((locator_type, locator_value))
+            expected_conditions.presence_of_element_located((locator_type, locator_value))
         )
 
     def is_element_visible(self, locator_type: str, locator_value: str):
@@ -32,7 +32,7 @@ class CommonActions:
         """
         try:
             element = self.driver.find_element(locator_type, locator_value)
-            return self.wait.until(EC.visibility_of(element))
+            return self.wait.until(expected_conditions.visibility_of(element))
         except (NoSuchElementException, TimeoutException):
             return False
 
@@ -51,7 +51,7 @@ class CommonActions:
         點擊可點擊的元素
         """
         element = self.wait.until(
-            EC.element_to_be_clickable((locator_type, locator_value))
+            expected_conditions.element_to_be_clickable((locator_type, locator_value))
         )
         element.click()
 
@@ -120,7 +120,7 @@ class CommonActions:
             self.driver.implicitly_wait(0)
             wait = WebDriverWait(self.driver, timeout)
             return wait.until(
-                EC.visibility_of_element_located((locator_type, locator_value))
+                expected_conditions.visibility_of_element_located((locator_type, locator_value))
             )
         except NoSuchElementException:
             return False
@@ -136,7 +136,7 @@ class CommonActions:
         """
         try:
             self.wait.until(
-                EC.element_to_be_clickable((locator_type, locator_value))
+                expected_conditions.element_to_be_clickable((locator_type, locator_value))
             )
             return True
         except TimeoutException:
@@ -243,7 +243,7 @@ class CommonActions:
             self.driver.implicitly_wait(0)
             wait = WebDriverWait(self.driver, timeout)
             wait.until(
-                EC.visibility_of_element_located((locator_type, locator_value))
+                expected_conditions.visibility_of_element_located((locator_type, locator_value))
             )
             return True
         except TimeoutException:
@@ -267,7 +267,7 @@ class CommonActions:
         """
         try:
             self.driver.implicitly_wait(0)
-            return WebDriverWait(self.driver, timeout).until(EC.invisibility_of_element_located((locator_type, locator_value)))
+            return WebDriverWait(self.driver, timeout).until(expected_conditions.invisibility_of_element_located((locator_type, locator_value)))
         except NoSuchElementException:
             return True
         except TimeoutException:
@@ -452,7 +452,7 @@ class CommonActions:
                 for attempt in range(max_attempts):
                     try:
                         element = self.wait.until(
-                            EC.element_to_be_clickable((locator_type, locator_value))
+                            expected_conditions.element_to_be_clickable((locator_type, locator_value))
                         )
                         element.click()
                         time.sleep(1) 
@@ -489,3 +489,10 @@ class CommonActions:
         except Exception as e:
             print(f"Error: Unknown error occurred while switching toggle state: {str(e)}")
             return False
+
+    def get_element_count(self, locator_type: str, locator_value: str) -> int:
+        """
+        找到所有匹配的元素並返回數量
+        """
+        elements = self.driver.find_elements(locator_type, locator_value)
+        return len(elements)

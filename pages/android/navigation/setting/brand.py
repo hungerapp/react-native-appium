@@ -1,7 +1,7 @@
 from pages.shared_components.common_use import CommonUseSection
 from pages.locators.android.navigation.setting.brand_locators import BrandPageLocators
 from pages.shared_components.common_action import CommonActions
-
+from pages.shared_components.common_use import CommonUseSection
 # noinspection DuplicatedCode
 class BrandPage:
     def __init__(self, driver):
@@ -26,9 +26,6 @@ class BrandPage:
         self.common_actions.is_element_visible(*self.brand_locators.CONFIRM_BUTTON_IN_BRANCH_BRAND_INFO_PAGE)
         self.common_actions.is_element_visible(*self.brand_locators.CLOSE_BUTTON_IN_BRANCH_BRAND_INFO_PAGE)
         return self
-
-
-
 
     def enter_branch_name(self, branch_name):
         self.common_actions.send_keys_to_element(*self.brand_locators.BRANCH_NAME_FIELD_IN_BRANCH_BRAND_INFO_PAGE, branch_name)
