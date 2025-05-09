@@ -59,10 +59,24 @@ class CommonActions:
         """
         如果元素存在則點擊
         """
-        if self.is_element_visible(locator_type, locator_value):
-            self.click_element(locator_type, locator_value)
-            return True
-        return False
+        max_attempts = 3
+        for attempt in range(max_attempts):
+            try:
+                if self.is_element_visible(locator_type, locator_value):
+                    element = self.wait.until(
+                        EC.element_to_be_clickable((locator_type, locator_value))
+                    )
+                    element.click()
+                    return True
+                return False
+            except StaleElementReferenceException:
+                if attempt < max_attempts - 1:
+                    time.sleep(1) 
+                    continue
+                return False
+            except Exception as e:
+                print(f"點擊元素時發生錯誤: {str(e)}")
+                return False
 
     def send_keys_to_element(self, locator_type: str, locator_value: str, text: str):
         """
@@ -213,7 +227,7 @@ class CommonActions:
         return size['width'], size['height']
 
     def wait_for_element_present(self, locator_type: str, locator_value: str, timeout: int = 30) -> bool:
-        """
+        """  
         等待元素在DOM中出現並可見
 
         Args:

@@ -6,6 +6,7 @@ from pytest_bdd import scenarios, given, then, when
 
 from pages.android.login_page import LoginPage
 from pages.android.personal_page import PersonalPage
+from pages.shared_components.common_use import CommonUseSection
 
 scenarios('../../../features/personal_page.feature')
 
@@ -257,13 +258,13 @@ def click_account_settings_option(driver):
 
 @then('I select different country code and save')
 def select_different_country_code(driver):
-    personal_page = PersonalPage(driver)
-    personal_page.select_random_country_code()
+    common_use = CommonUseSection(driver)
+    common_use.select_random_country_code()
 
 @then('I should see different country code in the phone number input field')
 def verify_country_code_changed(driver):
-    personal_page = PersonalPage(driver)
-    personal_page.is_country_code_changed(), "Country code not changed"
+    common_use = CommonUseSection(driver)
+    common_use.is_country_code_changed(), "Country code not changed"
 
 
 
@@ -284,7 +285,8 @@ def search_different_country_code(driver):
 @then('I should see different country code I\'ve searched in the phone number input field')
 def verify_country_code_changed(driver):
     personal_page = PersonalPage(driver)
-    personal_page.is_country_code_changed(), "Country code not changed"
+    common_use = CommonUseSection(driver)
+    common_use.is_country_code_changed(), "Country code not changed"
     personal_page.cancel_account_settings()
 
 

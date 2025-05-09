@@ -82,7 +82,8 @@ def pytest_runtest_makereport(item, call):
                 artifacts_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), "artifacts")
                 os.makedirs(artifacts_dir, exist_ok=True)
                 
-                screenshot_name = f"{test_name}.png"
+                timestamp = datetime.now().strftime("%Y%m%d_%H%M")
+                screenshot_name = f"{test_name}_{timestamp}.png"
                 screenshot_path = os.path.join(artifacts_dir, screenshot_name)
                 
                 # Save screenshot
@@ -101,7 +102,8 @@ def pytest_runtest_makereport(item, call):
                 screenshots_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), "screenshots")
                 os.makedirs(screenshots_dir, exist_ok=True)
                 
-                screenshot_name = f"{test_name}.png"
+                timestamp = datetime.now().strftime("%Y%m%d_%H%M")
+                screenshot_name = f"{test_name}_{timestamp}.png"
                 screenshot_path = os.path.join(screenshots_dir, screenshot_name)
                 
                 # Save screenshot
@@ -117,7 +119,6 @@ def pytest_runtest_makereport(item, call):
                     )
             
             print(success_msg)
-            logger.info(success_msg)
             
             # Add failure information to log
             if hasattr(report, 'longrepr'):

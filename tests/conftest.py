@@ -3,6 +3,8 @@ import pytest
 import requests
 import subprocess
 import time
+import allure
+
 
 from dotenv import load_dotenv
 
@@ -15,7 +17,7 @@ from datetime import datetime
 from setup import AppiumSetup
 from utils.send_report_to_slack import send_report_to_slack
 from utils.logger import logger
-
+from screenshot_hooks import pytest_runtest_makereport
 from pages.shared_components.common_action import CommonActions
 from pages.shared_components.common_use import CommonUseSection
 
@@ -30,7 +32,6 @@ def driver():
 
 def pytest_configure(config):
     """Configure test collection and markers"""
-    logger.info("Configuring pytest")
     config.addinivalue_line("markers", "onboarding: Mark test as onboarding")
     config.addinivalue_line("markers", "login: login related tests run on port 4723")
     config.addinivalue_line("markers", "personal: personal related tests run on 4724")
@@ -255,15 +256,15 @@ def clean_app_state(request):
                     except Exception as e:
                         print(f"重試過程發生錯誤: {str(e)}")
                 
-            
         except Exception as e:
             print(f"Error during cleanup and relogin: {str(e)}")
         """
-
+        
 @pytest.fixture
 def common_actions(driver):
     return CommonActions(driver)
 
 @pytest.fixture
 def common_use(driver):
-    return CommonUseSection(driver)
+    return CommonUseSection(driver) 
+        
