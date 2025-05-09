@@ -155,7 +155,7 @@ class ServiceAppointmentPageLocators:
     # Service Appointment Page/Service Item List Page/Open Time Tab
     OPEN_TIME_DATE_SELECTION = (AppiumBy.XPATH,'//android.widget.ScrollView//android.view.ViewGroup//android.view.ViewGroup')
     # Service Appointment Page/Service Item List Page/Open Time Tab/Open Time Selection Modal
-    OPEN_TIME_SELECTION_MODAL_CLOSE_BUTTON = (AppiumBy.XPATH,'//*[@text="編輯開放時間"]/../*[@resource-id="xmark"]')
+    OPEN_TIME_SELECTION_MODAL_CLOSE_BUTTON = (AppiumBy.XPATH,'(//*[@resource-id="xmark"])[2]')
     OPEN_TIME_SELECTION_MODAL_TODAY_BUTTON = (AppiumBy.XPATH,'//*[@text="點擊時間即可開放/關閉預約。紅色：開放、灰色：關閉。"]/../android.view.ViewGroup//*[@text="今天"]')
     OPEN_TIME_SELECTION_MODAL_SHOW_EARLY_MORNING_BUTTON = (AppiumBy.XPATH,'//*[@text="顯示凌晨"]')
     OPEN_TIME_SELECTION_MODAL_TIME_SELECTION = lambda self, text: (AppiumBy.XPATH,f'//*[@content-desc="{text}"]')
