@@ -166,7 +166,7 @@ class ServiceAppointmentPageLocators:
     CLOSE_ALL_TIME_DIALOG_CONFIRM_BUTTON = (AppiumBy.XPATH,'//*[@text="確定"]')
 
     # Service Appointment Page/Booking Note Page
-    TITLE_IN_BOOKING_NOTE_PAGE = (AppiumBy.XPATH,'//*[@content-desc="check"]/../*[@text="預約注意事項"]')
+    TITLE_IN_BOOKING_NOTE_PAGE = (AppiumBy.XPATH,'(//android.widget.TextView[@text="預約注意事項"])[1]')
     CLOSE_BUTTON_IN_BOOKING_NOTE_PAGE = (AppiumBy.ACCESSIBILITY_ID,'xmark')
     CONFIRM_BUTTON_IN_BOOKING_NOTE_PAGE = (AppiumBy.ACCESSIBILITY_ID,'check')
     BOOKING_NOTE_SWITCH_IN_BOOKING_NOTE_PAGE = (AppiumBy.ACCESSIBILITY_ID,'預約注意事項-switch-button')

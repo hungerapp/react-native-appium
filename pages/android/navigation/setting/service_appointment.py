@@ -472,6 +472,7 @@ class ServiceAppointmentPage:
         return self
 
     def tap_close_online_booking_page(self):
+        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.CLOSE_BUTTON_IN_ONLINE_BOOKING_MANAGEMENT_PAGE)
         self.common_actions.click_element(*self.service_appointment_page_locators.CLOSE_BUTTON_IN_ONLINE_BOOKING_MANAGEMENT_PAGE)
         self.common_actions.wait_for_element_disappear(*self.service_appointment_page_locators.CLOSE_BUTTON_IN_ONLINE_BOOKING_MANAGEMENT_PAGE)
         return self
