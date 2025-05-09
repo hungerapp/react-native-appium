@@ -483,12 +483,7 @@ class ServiceAppointmentPage:
     def tap_booking_note(self):
         self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.BOOKING_NOTE_IN_SERVICE_APPOINTMENT_PAGE)
         self.common_actions.click_element(*self.service_appointment_page_locators.BOOKING_NOTE_IN_SERVICE_APPOINTMENT_PAGE)
-        return self
-
-    def verify_booking_note_page(self):
         self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.TITLE_IN_BOOKING_NOTE_PAGE)
-        self.common_actions.is_element_visible(*self.service_appointment_page_locators.CLOSE_BUTTON_IN_BOOKING_NOTE_PAGE)
-        self.common_actions.is_element_visible(*self.service_appointment_page_locators.CONFIRM_BUTTON_IN_BOOKING_NOTE_PAGE)
         return self
 
     def turn_off_booking_note_switch(self):

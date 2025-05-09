@@ -78,21 +78,16 @@ Feature: Service Appointment Settings
     And I tap on the close button on the online booking page
     Then I should see the service appointment page
   
- 
-  Scenario: Navigate to Booking Note Page
+  @regression @booking_note_settings
+  Scenario: Booking Note Settings
     Given I am on the service appointment page
     When I tap on the booking note
-    Then I should see the booking note page
-
-  Scenario: Add Booking Note
-    Given I am on the booking note page
-    When I turn off the booking note switch
+    And I turn off the booking note switch
     And I turn on the booking note switch
     And I enter the booking note "Booking Note"
     And I tap on the confirm button in the booking note
     Then I should see the service appointment page
 
-  @haha
   Scenario: Navigate to Deposit Management Page
     Given I am on the service appointment page
     When I tap on the deposit management

@@ -436,26 +436,16 @@ def verify_service_appointment_page(driver):
 
 
 
+# Scenario: Booking Note Settings
+@given('I am on the service appointment page')
+def verify_service_appointment_page(driver):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.verify_service_appointment_page(), "Service appointment page is not displayed"
 
-
-
-
-# TODO: 每一條test都建議標記是跑哪一條scenario的, 每條test之間建議留有空白, 這樣比較好debug
-# TODO: 少寫了Given I am on the Service Appointment page 這句
 @when("I tap on the booking note")
 def tap_booking_note(driver):
     service_appointment_page = ServiceAppointmentPage(driver)
     assert service_appointment_page.tap_booking_note(), "Booking note is not displayed"
-
-@then("I should see the booking note page")
-def verify_booking_note_page(driver):
-    service_appointment_page = ServiceAppointmentPage(driver)
-    assert service_appointment_page.verify_booking_note_page(), "Booking note page is not displayed"
-
-@given("I am on the booking note page")
-def verify_booking_note_page(driver):
-    service_appointment_page = ServiceAppointmentPage(driver)
-    assert service_appointment_page.verify_booking_note_page(), "Booking note page is not displayed"
 
 @when("I turn off the booking note switch")
 def turn_off_booking_note_switch(driver):
@@ -476,6 +466,17 @@ def enter_booking_note(driver, booking_note):
 def tap_confirm_booking_note(driver):
     service_appointment_page = ServiceAppointmentPage(driver)
     assert service_appointment_page.tap_confirm_booking_note(), "Confirm booking note button is not displayed"
+
+@then("I should see the service appointment page")
+def verify_service_appointment_page(driver):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.verify_service_appointment_page(), "Service appointment page is not displayed"
+
+
+
+
+
+
 
 @when("I tap on the deposit management")
 def tap_deposit_management(driver):
