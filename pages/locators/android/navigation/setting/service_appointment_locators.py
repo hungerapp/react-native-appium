@@ -182,3 +182,52 @@ class ServiceAppointmentPageLocators:
     CLOSE_BUTTON_IN_DEPOSIT_MANAGEMENT_PAGE = (AppiumBy.ACCESSIBILITY_ID,'xmark')
     GENERAL_DATE_IN_DEPOSIT_MANAGEMENT_PAGE = (AppiumBy.XPATH,'//*[@text="一般日期"]')
     SPECIFIC_DATE_RANGE_IN_DEPOSIT_MANAGEMENT_PAGE = (AppiumBy.XPATH,'//*[@text="特定日期區間"]')
+    # Service Appointment Page/Deposit Management Page/ Deposit Setting Page
+    CLOSE_BUTTON_IN_DEPOSIT_SETTING_PAGE = (AppiumBy.ACCESSIBILITY_ID,'xmark')
+    CONFIRM_BUTTON_IN_DEPOSIT_SETTING_PAGE = (AppiumBy.ACCESSIBILITY_ID,'check')
+    DEPOSIT_SWITCH_IN_DEPOSIT_SETTING_PAGE = (AppiumBy.ACCESSIBILITY_ID,'定金模式：一般日期-switch-button')
+    DEFAULT_MEMBER_STATUS_IN_DEPOSIT_SETTING_PAGE = (AppiumBy.ACCESSIBILITY_ID,'會員預設狀態-fake-field')
+    PAYABLE_SERVICE_ITEM_IN_DEPOSIT_SETTING_PAGE = (AppiumBy.ACCESSIBILITY_ID,'需要收款的服務項目-fake-field')
+    PAYMENT_METHOD_IN_DEPOSIT_SETTING_PAGE = (AppiumBy.ACCESSIBILITY_ID,'收款方式-fake-field')
+    PAYMENT_METHOD_TEXT_IN_DEPOSIT_SETTING_PAGE = (AppiumBy.XPATH,'//android.view.ViewGroup[@content-desc="收款方式-fake-field"]//android.widget.TextView[last()]')
+    PAYMENT_AMOUNT_IN_DEPOSIT_SETTING_PAGE = (AppiumBy.ACCESSIBILITY_ID,'收款金額-fake-field')
+    AUTO_CANCEL_IF_NOT_PAID_IN_DEPOSIT_SETTING_PAGE = (AppiumBy.ACCESSIBILITY_ID,'未付款自動取消-fake-field')
+    PAYMENT_INSTRUCTIONS_IN_DEPOSIT_SETTING_PAGE = (AppiumBy.ACCESSIBILITY_ID,'付款說明-textarea-field')
+    # Service Appointment Page/Deposit Management Page/ Deposit Setting Page/ Default Member Status Modal
+    DEFAULT_MEMBER_STATUS_MODAL_CLOSE_BUTTON = (AppiumBy.XPATH,'(//android.view.ViewGroup[@content-desc="xmark"])[2]')
+    DEFAULT_MEMBER_STATUS_MODAL_CONFIRM_BUTTON = (AppiumBy.XPATH,'(//android.view.ViewGroup[@content-desc="check"])[2]')
+    DEFAULT_MEMBER_STATUS_MODAL_MEMBER_STATUS = (AppiumBy.XPATH,'(//*[@resource-id="會員預設狀態-fake-field"])[2]')
+    DEFAULT_MEMBER_STATUS_MODAL_MEMBER_STATUS_SELECTION_RECEIVE = (AppiumBy.ACCESSIBILITY_ID,'收取-popup-option')
+    DEFAULT_MEMBER_STATUS_MODAL_MEMBER_STATUS_SELECTION_NO_RECEIVE = (AppiumBy.ACCESSIBILITY_ID,'不收取-popup-option')
+    DEFAULT_MEMBER_STATUS_MODAL_RECEIVE_TYPE_SELECTION = lambda self, receive_type: (AppiumBy.XPATH,f'//*[@text="來訪數即「已報到次數」，若未執行報到則不會進行計算。"]/../android.view.ViewGroup//*[@text="{receive_type}"]')
+    # Service Appointment Page/Deposit Management Page/ Deposit Setting Page/ payable service item Modal
+    PAYABLE_SERVICE_ITEM_MODAL_CLOSE_BUTTON = (AppiumBy.XPATH,'(//android.view.ViewGroup[@content-desc="xmark"])[2]')
+    PAYABLE_SERVICE_ITEM_MODAL_CONFIRM_BUTTON = (AppiumBy.XPATH,'(//android.view.ViewGroup[@content-desc="check"])[2]')
+    PAYABLE_SERVICE_ITEM_MODAL_SPECIFIC_SERVICE_ITEM = (AppiumBy.ACCESSIBILITY_ID,'指定服務項目-fake-field')
+    PAYABLE_SERVICE_ITEM_MODAL_SERVICE_SCOPE_SELECTION = lambda self, service_scope: (AppiumBy.XPATH,f'//*[@resource-id="modal-surface"]//*[@text="{service_scope}"]')
+    PAYABLE_SERVICE_ITEM_MODAL_SERVICE_ITEM = (AppiumBy.ACCESSIBILITY_ID,'選擇服務項目-fake-field')
+    PAYABLE_SERVICE_ITEM_MODAL_SERVICE_ITEM_CATEGORY = lambda self, category_name: (AppiumBy.XPATH,f'//android.widget.HorizontalScrollView//*[@text="{category_name}"]')
+    PAYABLE_SERVICE_ITEM_MODAL_SERVICE_ITEM_SELECTION = lambda self, service_item: (AppiumBy.XPATH,f'//*[@text="{service_item}"]')
+    PAYABLE_SERVICE_ITEM_MODAL_SERVICE_ITEM_SELECTION_ALL_CLEAR = (AppiumBy.XPATH,'//*[@content-desc="全部清除"]')
+    PAYABLE_SERVICE_ITEM_MODAL_SERVICE_ITEM_SELECTION_CONFIRM = (AppiumBy.XPATH,'(//android.view.ViewGroup[@content-desc="check"])[2]')
+    # Service Appointment Page/Deposit Management Page/ Deposit Setting Page/ Payment Method Modal
+    PAYMENT_METHOD_MODAL_CLOSE_BUTTON = (AppiumBy.XPATH,'(//android.view.ViewGroup[@content-desc="xmark"])[2]')
+    PAYMENT_METHOD_MODAL_CONFIRM_BUTTON = (AppiumBy.XPATH,'(//android.view.ViewGroup[@content-desc="check"])[2]')
+    PAYMENT_METHOD_MODAL_BANK_TRANSFER_SWITCH = (AppiumBy.ACCESSIBILITY_ID,'銀行匯款-switch-button')
+    PAYMENT_METHOD_MODAL_STORE_VALUE_SWITCH = (AppiumBy.ACCESSIBILITY_ID,'儲值金-switch-button')
+    PAYMENT_METHOD_MODAL_CREDIT_CARD_SWITCH = (AppiumBy.ACCESSIBILITY_ID,'信用卡-switch-button')
+    PAYMENT_METHOD_MODAL_LINE_PAY_SWITCH = (AppiumBy.ACCESSIBILITY_ID,'LINE Pay-switch-button')
+    PAYMENT_METHOD_MODAL_SWITCH = lambda self, payment_method: (AppiumBy.ACCESSIBILITY_ID,f'{payment_method}-switch-button')
+    PAYMENT_METHOD_MODAL_GO_TO_INTEGRATION_BUTTON = (AppiumBy.XPATH,'//*[@content-desc="前往串接"]')
+    PAYMENT_METHOD_MODAL_BANK_NAME = (AppiumBy.ACCESSIBILITY_ID,'收款銀行-select-field')
+    PAYMENT_METHOD_MODAL_BANK_NAME_SELECTION = lambda self, bank_code, bank_name: (AppiumBy.XPATH,f'//*[@resource-id="收款銀行-option"]//*[@text="{bank_code} {bank_name}"]')
+    PAYMENT_METHOD_MODAL_BANK_ACCOUNT_NUMBER = (AppiumBy.ACCESSIBILITY_ID,'undefined-text-input')
+    PAYMENT_METHOD_MODAL_CREDIT_CARD_SELECTION = (AppiumBy.XPATH,'//*[@text="INSTO"]')
+
+
+
+
+
+
+
+

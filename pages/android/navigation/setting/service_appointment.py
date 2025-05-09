@@ -517,9 +517,113 @@ class ServiceAppointmentPage:
     def tap_deposit_management(self):
         self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.DEPOSIT_MANAGEMENT_IN_SERVICE_APPOINTMENT_PAGE)
         self.common_actions.click_element(*self.service_appointment_page_locators.DEPOSIT_MANAGEMENT_IN_SERVICE_APPOINTMENT_PAGE)
+        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.TITLE_IN_DEPOSIT_MANAGEMENT_PAGE)
         return self
 
-    def verify_deposit_management_page(self):
-        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.TITLE_IN_DEPOSIT_MANAGEMENT_PAGE)
-        self.common_actions.is_element_visible(*self.service_appointment_page_locators.CLOSE_BUTTON_IN_DEPOSIT_MANAGEMENT_PAGE)
+    def tap_general_deposit_settings(self):
+        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.GENERAL_DATE_IN_DEPOSIT_MANAGEMENT_PAGE)
+        self.common_actions.click_element(*self.service_appointment_page_locators.GENERAL_DATE_IN_DEPOSIT_MANAGEMENT_PAGE)
         return self
+
+    def turn_off_general_date_deposit_switch(self):
+        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.DEPOSIT_SWITCH_IN_DEPOSIT_SETTING_PAGE)
+        if not self.common_actions.is_element_present(*self.service_appointment_page_locators.DEFAULT_MEMBER_STATUS_IN_DEPOSIT_SETTING_PAGE):
+            self.common_actions.click_element(*self.service_appointment_page_locators.DEPOSIT_SWITCH_IN_DEPOSIT_SETTING_PAGE)
+            self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.DEFAULT_MEMBER_STATUS_IN_DEPOSIT_SETTING_PAGE)
+        self.common_actions.click_element(*self.service_appointment_page_locators.DEPOSIT_SWITCH_IN_DEPOSIT_SETTING_PAGE)
+        self.common_actions.wait_for_element_disappear(*self.service_appointment_page_locators.DEFAULT_MEMBER_STATUS_IN_DEPOSIT_SETTING_PAGE)
+        return self
+
+    def turn_on_general_date_deposit_switch(self):
+        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.DEPOSIT_SWITCH_IN_DEPOSIT_SETTING_PAGE)
+        if not self.common_actions.is_element_present(*self.service_appointment_page_locators.DEFAULT_MEMBER_STATUS_IN_DEPOSIT_SETTING_PAGE):
+            self.common_actions.click_element(*self.service_appointment_page_locators.DEPOSIT_SWITCH_IN_DEPOSIT_SETTING_PAGE)
+            self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.DEFAULT_MEMBER_STATUS_IN_DEPOSIT_SETTING_PAGE)
+        return self
+
+    def set_default_member_status_no_receive_deposit(self):
+        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.DEFAULT_MEMBER_STATUS_IN_DEPOSIT_SETTING_PAGE)
+        self.common_actions.click_element(*self.service_appointment_page_locators.DEFAULT_MEMBER_STATUS_IN_DEPOSIT_SETTING_PAGE)
+        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.DEFAULT_MEMBER_STATUS_MODAL_MEMBER_STATUS)
+        self.common_actions.click_element(*self.service_appointment_page_locators.DEFAULT_MEMBER_STATUS_MODAL_MEMBER_STATUS)
+        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.DEFAULT_MEMBER_STATUS_MODAL_MEMBER_STATUS_SELECTION_NO_RECEIVE)
+        self.common_actions.click_element(*self.service_appointment_page_locators.DEFAULT_MEMBER_STATUS_MODAL_MEMBER_STATUS_SELECTION_NO_RECEIVE)
+        self.common_actions.wait_for_element_disappear(*self.service_appointment_page_locators.DEFAULT_MEMBER_STATUS_MODAL_MEMBER_STATUS_SELECTION_NO_RECEIVE)
+        self.common_actions.click_element(*self.service_appointment_page_locators.DEFAULT_MEMBER_STATUS_MODAL_CONFIRM_BUTTON)
+        return self
+
+    def set_default_member_status_receive_deposit(self, receive_type):
+        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.DEFAULT_MEMBER_STATUS_IN_DEPOSIT_SETTING_PAGE)
+        self.common_actions.click_element(*self.service_appointment_page_locators.DEFAULT_MEMBER_STATUS_IN_DEPOSIT_SETTING_PAGE)
+        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.DEFAULT_MEMBER_STATUS_MODAL_MEMBER_STATUS)
+        self.common_actions.click_element(*self.service_appointment_page_locators.DEFAULT_MEMBER_STATUS_MODAL_MEMBER_STATUS)
+        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.DEFAULT_MEMBER_STATUS_MODAL_MEMBER_STATUS_SELECTION_RECEIVE)
+        self.common_actions.click_element(*self.service_appointment_page_locators.DEFAULT_MEMBER_STATUS_MODAL_MEMBER_STATUS_SELECTION_RECEIVE)
+        self.common_actions.wait_for_element_disappear(*self.service_appointment_page_locators.DEFAULT_MEMBER_STATUS_MODAL_MEMBER_STATUS_SELECTION_RECEIVE)
+        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.DEFAULT_MEMBER_STATUS_MODAL_RECEIVE_TYPE_SELECTION(receive_type))
+        self.common_actions.click_element(*self.service_appointment_page_locators.DEFAULT_MEMBER_STATUS_MODAL_RECEIVE_TYPE_SELECTION(receive_type))
+        self.common_actions.click_element(*self.service_appointment_page_locators.DEFAULT_MEMBER_STATUS_MODAL_CONFIRM_BUTTON)
+        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.DEFAULT_MEMBER_STATUS_IN_DEPOSIT_SETTING_PAGE)
+        return self
+
+    def set_payable_service_item_scope_all_service_items(self):
+        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.PAYABLE_SERVICE_ITEM_IN_DEPOSIT_SETTING_PAGE)
+        self.common_actions.click_element(*self.service_appointment_page_locators.PAYABLE_SERVICE_ITEM_IN_DEPOSIT_SETTING_PAGE)
+        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.PAYABLE_SERVICE_ITEM_MODAL_SPECIFIC_SERVICE_ITEM)
+        self.common_actions.click_element(*self.service_appointment_page_locators.PAYABLE_SERVICE_ITEM_MODAL_SPECIFIC_SERVICE_ITEM)
+        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.PAYABLE_SERVICE_ITEM_MODAL_SERVICE_SCOPE_SELECTION("全部服務"))
+        self.common_actions.click_element(*self.service_appointment_page_locators.PAYABLE_SERVICE_ITEM_MODAL_SERVICE_SCOPE_SELECTION("全部服務"))
+        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.PAYABLE_SERVICE_ITEM_MODAL_CONFIRM_BUTTON)
+        self.common_actions.click_element(*self.service_appointment_page_locators.PAYABLE_SERVICE_ITEM_MODAL_CONFIRM_BUTTON)
+        return self
+
+    def set_payable_service_item_scope_specific_service_item(self, category_name, service_item_name, clear_all=False):
+        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.PAYABLE_SERVICE_ITEM_IN_DEPOSIT_SETTING_PAGE)
+        self.common_actions.click_element(*self.service_appointment_page_locators.PAYABLE_SERVICE_ITEM_IN_DEPOSIT_SETTING_PAGE)
+        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.PAYABLE_SERVICE_ITEM_MODAL_SPECIFIC_SERVICE_ITEM)
+        self.common_actions.click_element(*self.service_appointment_page_locators.PAYABLE_SERVICE_ITEM_MODAL_SPECIFIC_SERVICE_ITEM)
+        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.PAYABLE_SERVICE_ITEM_MODAL_SERVICE_SCOPE_SELECTION("指定服務"))
+        self.common_actions.click_element(*self.service_appointment_page_locators.PAYABLE_SERVICE_ITEM_MODAL_SERVICE_SCOPE_SELECTION("指定服務"))
+        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.PAYABLE_SERVICE_ITEM_MODAL_SERVICE_ITEM)
+        self.common_actions.click_element(*self.service_appointment_page_locators.PAYABLE_SERVICE_ITEM_MODAL_SERVICE_ITEM)
+        if clear_all:
+            self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.PAYABLE_SERVICE_ITEM_MODAL_SERVICE_ITEM_SELECTION_ALL_CLEAR)
+            self.common_actions.click_element(*self.service_appointment_page_locators.PAYABLE_SERVICE_ITEM_MODAL_SERVICE_ITEM_SELECTION_ALL_CLEAR)
+        self.common_actions.scroll_to_element_left(*self.service_appointment_page_locators.PAYABLE_SERVICE_ITEM_MODAL_SERVICE_ITEM_CATEGORY(category_name))
+        self.common_actions.click_element(*self.service_appointment_page_locators.PAYABLE_SERVICE_ITEM_MODAL_SERVICE_ITEM_CATEGORY(category_name))
+        self.common_actions.scroll_to_element(*self.service_appointment_page_locators.PAYABLE_SERVICE_ITEM_MODAL_SERVICE_ITEM_SELECTION(service_item_name))
+        self.common_actions.click_element(*self.service_appointment_page_locators.PAYABLE_SERVICE_ITEM_MODAL_SERVICE_ITEM_SELECTION(service_item_name))
+        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.PAYABLE_SERVICE_ITEM_MODAL_SERVICE_ITEM_SELECTION_CONFIRM)
+        self.common_actions.click_element(*self.service_appointment_page_locators.PAYABLE_SERVICE_ITEM_MODAL_SERVICE_ITEM_SELECTION_CONFIRM)
+        self.common_actions.click_element(*self.service_appointment_page_locators.PAYABLE_SERVICE_ITEM_MODAL_CONFIRM_BUTTON)
+        return self
+
+    def go_to_integration_payment_method(self):
+        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.PAYMENT_METHOD_IN_DEPOSIT_SETTING_PAGE)
+        self.common_actions.click_element(*self.service_appointment_page_locators.PAYMENT_METHOD_IN_DEPOSIT_SETTING_PAGE)
+        self.common_actions.scroll_to_element(*self.service_appointment_page_locators.PAYMENT_METHOD_MODAL_GO_TO_INTEGRATION_BUTTON)
+        self.common_actions.click_element(*self.service_appointment_page_locators.PAYMENT_METHOD_MODAL_GO_TO_INTEGRATION_BUTTON)
+        self.common_actions.wait_for_element_disappear(*self.service_appointment_page_locators.PAYMENT_METHOD_MODAL_GO_TO_INTEGRATION_BUTTON)
+        self.driver.back()
+        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.PAYMENT_METHOD_MODAL_GO_TO_INTEGRATION_BUTTON)
+        self.common_actions.click_element(*self.service_appointment_page_locators.PAYMENT_METHOD_MODAL_CLOSE_BUTTON)
+        return self
+
+    def set_payment_method(self, payment_method):
+        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.PAYMENT_METHOD_IN_DEPOSIT_SETTING_PAGE)
+        text = self.common_actions.get_element_text(*self.service_appointment_page_locators.PAYMENT_METHOD_TEXT_IN_DEPOSIT_SETTING_PAGE)
+        print(text+"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+        # if payment_method not in text:
+        #     self.common_actions.click_element(*self.service_appointment_page_locators.PAYMENT_METHOD_IN_DEPOSIT_SETTING_PAGE)
+        #     self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.PAYMENT_METHOD_MODAL_SWITCH(payment_method))
+        #     self.common_actions.click_element(*self.service_appointment_page_locators.PAYMENT_METHOD_MODAL_SWITCH(payment_method))
+        #     if payment_method == "銀行匯款":
+        #         self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.PAYMENT_METHOD_MODAL_BANK_NAME)
+        #         self.common_actions.click_element(*self.service_appointment_page_locators.PAYMENT_METHOD_MODAL_BANK_NAME)
+        #         self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.PAYMENT_METHOD_MODAL_BANK_NAME_SELECTION("004", "台灣銀行"))
+        #         self.common_actions.click_element(*self.service_appointment_page_locators.PAYMENT_METHOD_MODAL_BANK_NAME_SELECTION("004", "台灣銀行"))
+        #         self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.PAYMENT_METHOD_MODAL_BANK_ACCOUNT_NUMBER)
+        #         self.common_actions.send_keys_to_element(*self.service_appointment_page_locators.PAYMENT_METHOD_MODAL_BANK_ACCOUNT_NUMBER, "123456789012345678")
+        #     self.common_actions.click_element(*self.service_appointment_page_locators.PAYMENT_METHOD_MODAL_CONFIRM_BUTTON)
+        return self
+

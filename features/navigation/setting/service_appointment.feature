@@ -88,7 +88,23 @@ Feature: Service Appointment Settings
     And I tap on the confirm button in the booking note
     Then I should see the service appointment page
 
-  Scenario: Navigate to Deposit Management Page
-    Given I am on the service appointment page
-    When I tap on the deposit management
-    Then I should see the deposit management page
+  @regression @deposit_management_settings
+  Scenario: Deposit Management Settings
+#    Given I am on the service appointment page
+#    And I have a service item "服務項目分類<current_datetime>" and "一般日期指定收定金服務項目<current_datetime>"
+#    When I tap on the deposit management
+#    When I tap on the general deposit settings
+#    And I turn off the general date deposit switch
+#    And I turn on the general date deposit switch
+#    When  I set the default member status to no receive deposit
+#    When  I set the default member status to receive deposit and set the receive type "全部收取"
+#    When  I set the default member status to receive deposit and set the receive type "來訪3次，下次不收取"
+#    When I set the payable service item scope to all service items
+#    When I set the payable service item scope to "服務項目分類<current_datetime>" "一般日期指定收定金服務項目<current_datetime>"
+#    When I go to integration payment method
+    When I set the payment method to "銀行匯款"
+    When I set the payment method to "儲值金"
+    When I set the payment method to "信用卡"
+    When I set the payment method to "LINE Pay"
+
+
