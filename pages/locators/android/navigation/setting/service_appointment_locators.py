@@ -189,7 +189,7 @@ class ServiceAppointmentPageLocators:
     DEFAULT_MEMBER_STATUS_IN_DEPOSIT_SETTING_PAGE = (AppiumBy.ACCESSIBILITY_ID,'會員預設狀態-fake-field')
     PAYABLE_SERVICE_ITEM_IN_DEPOSIT_SETTING_PAGE = (AppiumBy.ACCESSIBILITY_ID,'需要收款的服務項目-fake-field')
     PAYMENT_METHOD_IN_DEPOSIT_SETTING_PAGE = (AppiumBy.ACCESSIBILITY_ID,'收款方式-fake-field')
-    PAYMENT_METHOD_TEXT_IN_DEPOSIT_SETTING_PAGE = (AppiumBy.XPATH,'//android.view.ViewGroup[@content-desc="收款方式-fake-field"]//android.widget.TextView[last()]')
+    PAYMENT_METHOD_TEXT_IN_DEPOSIT_SETTING_PAGE = (AppiumBy.XPATH,'//android.view.ViewGroup[@content-desc="收款方式-fake-field"]/android.widget.TextView')
     PAYMENT_AMOUNT_IN_DEPOSIT_SETTING_PAGE = (AppiumBy.ACCESSIBILITY_ID,'收款金額-fake-field')
     AUTO_CANCEL_IF_NOT_PAID_IN_DEPOSIT_SETTING_PAGE = (AppiumBy.ACCESSIBILITY_ID,'未付款自動取消-fake-field')
     PAYMENT_INSTRUCTIONS_IN_DEPOSIT_SETTING_PAGE = (AppiumBy.ACCESSIBILITY_ID,'付款說明-textarea-field')
@@ -220,9 +220,16 @@ class ServiceAppointmentPageLocators:
     PAYMENT_METHOD_MODAL_SWITCH = lambda self, payment_method: (AppiumBy.ACCESSIBILITY_ID,f'{payment_method}-switch-button')
     PAYMENT_METHOD_MODAL_GO_TO_INTEGRATION_BUTTON = (AppiumBy.XPATH,'//*[@content-desc="前往串接"]')
     PAYMENT_METHOD_MODAL_BANK_NAME = (AppiumBy.ACCESSIBILITY_ID,'收款銀行-select-field')
-    PAYMENT_METHOD_MODAL_BANK_NAME_SELECTION = lambda self, bank_code, bank_name: (AppiumBy.XPATH,f'//*[@resource-id="收款銀行-option"]//*[@text="{bank_code} {bank_name}"]')
+    PAYMENT_METHOD_MODAL_BANK_NAME_SELECTION = lambda self, bank_name: (AppiumBy.XPATH,f'//*[@resource-id="收款銀行-option"]//*[@text="{bank_name}"]')
     PAYMENT_METHOD_MODAL_BANK_ACCOUNT_NUMBER = (AppiumBy.ACCESSIBILITY_ID,'undefined-text-input')
     PAYMENT_METHOD_MODAL_CREDIT_CARD_SELECTION = (AppiumBy.XPATH,'//*[@text="INSTO"]')
+    # Service Appointment Page/Deposit Management Page/ Deposit Setting Page/ Payment Amount Modal
+    PAYMENT_AMOUNT_MODAL_CLOSE_BUTTON = (AppiumBy.XPATH,'(//android.view.ViewGroup[@content-desc="xmark"])[2]')
+    PAYMENT_AMOUNT_MODAL_CONFIRM_BUTTON = (AppiumBy.XPATH,'(//android.view.ViewGroup[@content-desc="check"])[2]')
+    PAYMENT_AMOUNT_MODAL_PRICING_METHOD = (AppiumBy.ACCESSIBILITY_ID,'收款方式-fake-field')
+    PAYMENT_AMOUNT_MODAL_PRICING_METHOD_SELECTION = lambda self, pricing_method: (AppiumBy.ACCESSIBILITY_ID,f'{pricing_method}-popup-option') #固定價, 起標價
+    PAYMENT_AMOUNT_MODAL_AMOUNT_FIELD = (AppiumBy.ACCESSIBILITY_ID,'收款金額-text-input')
+
 
 
 

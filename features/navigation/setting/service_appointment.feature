@@ -106,5 +106,6 @@ Feature: Service Appointment Settings
     When I set the payment method to "儲值金"
     When I set the payment method to "信用卡"
     When I set the payment method to "LINE Pay"
+    When
 
 

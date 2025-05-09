@@ -613,18 +613,17 @@ class ServiceAppointmentPage:
     def set_payment_method(self, payment_method):
         self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.PAYMENT_METHOD_IN_DEPOSIT_SETTING_PAGE)
         text = self.common_actions.get_element_text(*self.service_appointment_page_locators.PAYMENT_METHOD_TEXT_IN_DEPOSIT_SETTING_PAGE)
-        print(text+"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
-        # if payment_method not in text:
-        #     self.common_actions.click_element(*self.service_appointment_page_locators.PAYMENT_METHOD_IN_DEPOSIT_SETTING_PAGE)
-        #     self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.PAYMENT_METHOD_MODAL_SWITCH(payment_method))
-        #     self.common_actions.click_element(*self.service_appointment_page_locators.PAYMENT_METHOD_MODAL_SWITCH(payment_method))
-        #     if payment_method == "銀行匯款":
-        #         self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.PAYMENT_METHOD_MODAL_BANK_NAME)
-        #         self.common_actions.click_element(*self.service_appointment_page_locators.PAYMENT_METHOD_MODAL_BANK_NAME)
-        #         self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.PAYMENT_METHOD_MODAL_BANK_NAME_SELECTION("004", "台灣銀行"))
-        #         self.common_actions.click_element(*self.service_appointment_page_locators.PAYMENT_METHOD_MODAL_BANK_NAME_SELECTION("004", "台灣銀行"))
-        #         self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.PAYMENT_METHOD_MODAL_BANK_ACCOUNT_NUMBER)
-        #         self.common_actions.send_keys_to_element(*self.service_appointment_page_locators.PAYMENT_METHOD_MODAL_BANK_ACCOUNT_NUMBER, "123456789012345678")
-        #     self.common_actions.click_element(*self.service_appointment_page_locators.PAYMENT_METHOD_MODAL_CONFIRM_BUTTON)
+        if payment_method not in text:
+            self.common_actions.click_element(*self.service_appointment_page_locators.PAYMENT_METHOD_IN_DEPOSIT_SETTING_PAGE)
+            self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.PAYMENT_METHOD_MODAL_SWITCH(payment_method))
+            self.common_actions.click_element(*self.service_appointment_page_locators.PAYMENT_METHOD_MODAL_SWITCH(payment_method))
+            if payment_method == "銀行匯款":
+                self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.PAYMENT_METHOD_MODAL_BANK_NAME)
+                self.common_actions.click_element(*self.service_appointment_page_locators.PAYMENT_METHOD_MODAL_BANK_NAME)
+                self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.PAYMENT_METHOD_MODAL_BANK_NAME_SELECTION("004 臺灣銀行"))
+                self.common_actions.click_element(*self.service_appointment_page_locators.PAYMENT_METHOD_MODAL_BANK_NAME_SELECTION("004 臺灣銀行"))
+                self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.PAYMENT_METHOD_MODAL_BANK_ACCOUNT_NUMBER)
+                self.common_actions.send_keys_to_element(*self.service_appointment_page_locators.PAYMENT_METHOD_MODAL_BANK_ACCOUNT_NUMBER, "123456789012345678")
+            self.common_actions.click_element(*self.service_appointment_page_locators.PAYMENT_METHOD_MODAL_CONFIRM_BUTTON)
         return self
 
