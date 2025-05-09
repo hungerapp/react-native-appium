@@ -1,7 +1,7 @@
 from pytest_bdd import scenarios, given, when, then, parsers
 from pages.android.navigation.setting.invitation_code import InvitationCodePage
 
-scenarios('../../../../features/navigation/setting/invitation_code.feature')
+scenarios('../../../features/navigation/setting/invitation_code.feature')
 
 
 # Scenario: Invitation Code

@@ -2,7 +2,7 @@ from pytest_bdd import scenarios, given, when, then, parsers
 from pages.android.navigation.setting.service_appointment import ServiceAppointmentPage
 from pages.shared_components.common_use import CommonUseSection
 
-scenarios('../../../../features/navigation/setting/service_appointment.feature')
+scenarios('../../../features/navigation/setting/service_appointment.feature')
 
 # Scenario: Navigate to Service Appointment Page
 @given("I am on the branch settings page")
