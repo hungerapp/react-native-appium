@@ -1,5 +1,5 @@
 import time
-from typing import Tuple
+from typing import Tuple, Union
 from appium.webdriver.webdriver import WebDriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions
@@ -235,7 +235,7 @@ class CommonActions:
         except TimeoutException:
             return False
 
-    def wait_for_element_disappear(self, locator_type: str, locator_value: str, timeout: int = 30) -> WebElement | bool:
+    def wait_for_element_disappear(self, locator_type: str, locator_value: str, timeout: int = 30) -> Union[WebElement, bool]:
         """
         快速檢查元素是否存在且可見
         如果元素不存在則立即返回 True
@@ -246,7 +246,7 @@ class CommonActions:
             timeout: 最大等待時間（秒）
 
         Returns:
-            bool: 如果元素消失返回 True，否則返回 False
+            Union[WebElement, bool]: 如果元素消失返回 True，否則返回 False
 
         Raises:
             TimeoutException: 如果元素在指定時間內未消失
