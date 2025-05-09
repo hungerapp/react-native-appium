@@ -2,8 +2,8 @@
 from appium.webdriver.common.appiumby import AppiumBy
 
 class BrandPageLocators:
-    # Navigation
-    SETTINGS_OPTION_IN_NAVIGATION = (AppiumBy.ACCESSIBILITY_ID, '設定')
+    # Navigation bar
+    SETTINGS_OPTION_IN_NAVIGATION = (AppiumBy.XPATH, '//*[@content-desc="設定"]')
 
     # Branch Settings Page
     BRANCH_SETTINGS_PAGE = (AppiumBy.XPATH, '//*[@text="分店設定"]')

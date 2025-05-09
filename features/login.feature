@@ -20,28 +20,28 @@ Feature: Login Feature (existing)
   
   @regression  @login_invalid_email 
   Scenario: Unsuccessful login with invalid email
-    When the user enters an invalid email
-    Then the user should see an invalid email error message
+    When the user enters an invalid email "test@hotcake"
+    Then the user should see an invalid email error message "請填寫正確的電子郵件。"
 
   @regression @login_unregistered_email
   Scenario: Unsuccessful login with unregistered email
-    When the user enters an unregistered email
-    Then the user should see an popup window with email not registered
+    When the user enters an unregistered email "test@hotcake.com"
+    Then the user should see an popup window with email not registered "請檢查信箱是否輸入正確"
   
   @regression @login_invalid_verification_code 
   Scenario: Unsuccessful login with invalid verification code
-    When the user enters an invalid verification code
-    Then the user should see an invalid verification code error message
+    When the user enters an invalid verification code "julian@hotcake.app" "123456"
+    Then the user should see an invalid verification code error message "請檢查驗證通行碼是否輸入正確"
 
   @regression @login_modify_email
   Scenario: Modify email from verification code page
-    When the user clicks modify email button
-    Then the user can enter valid email again
+    When the user clicks modify email button "julian@hotcake.app"
+    Then the user can enter valid email again "ann@hunger.ai"
     Then the user should be on verification code page again
 
   @regression @login_existing 
   Scenario: Successful login
-    When the user enters valid credentials
+    When the user enters valid credentials "julian@hotcake.app" "5556666"
     Then the user should be logged in successfully
 
   

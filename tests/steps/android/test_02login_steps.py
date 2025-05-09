@@ -3,25 +3,14 @@ import allure
 import random
 
 #from appium.webdriver.common.appiumby import AppiumBy
-from pytest_bdd import scenarios, given, when, then
+from pytest_bdd import scenarios, given, when, then, parsers
 
 from pages.android.login_page import LoginPage
 
 
 scenarios('../../../features/login.feature')
 
-TEST_EMAIL = 'ann@hunger.ai'
-TEST_UNREGISTERED_EMAIL = 'ann@hotcake.com'
-TEST_EMAIL_2 = 'ann@hotcake.app'
-TEST_INVALID_EMAILS = [
-    'ann@hotcake',  # invalid domain
-    'ann@',         # missing domain
-    'ann',          # missing @ and domain
-    '@hunger.ai',   # missing username
-    'ann@@hunger.ai' # multiple @ symbols
-]
-TEST_VER = '5556666'
-TEST_INVALID_VER = '123456'
+TEST_EMAIL = 'julian@hotcake.app'
 
 
 # Scenario: Select language and click contact cs
@@ -91,15 +80,15 @@ def verify_privacy_page(driver):
 @allure.story('Unsuccessful login with invalid email')
 @pytest.mark.run(order=4)
 @pytest.mark.login
-@when('the user enters an invalid email')
-def login_with_invalid_email(driver):
+@when(parsers.parse('the user enters an invalid email "{email}"'))
+def login_with_invalid_email(driver, email):
     login_page = LoginPage(driver)
-    login_page.login_with_invalid_email(random.choice(TEST_INVALID_EMAILS))
+    login_page.login_with_invalid_email(email)
 
-@then('the user should see an invalid email error message')
-def verify_invalid_email_error(driver):
+@then(parsers.parse('the user should see an invalid email error message "{error_message}"'))
+def verify_invalid_email_error(driver, error_message):
     login_page = LoginPage(driver)
-    assert login_page.get_email_error_message() == "請填寫正確的電子郵件。", "Invalid email error message not shown"
+    assert login_page.get_email_error_message() == error_message, "Invalid email error message not shown"
     login_page.click_login_cancel_button()
 
 
@@ -108,15 +97,15 @@ def verify_invalid_email_error(driver):
 @allure.story('Login Unregistered Email')
 @pytest.mark.run(order=5)
 @pytest.mark.login
-@when('the user enters an unregistered email')
-def login_with_unregistered_email(driver):
+@when(parsers.parse('the user enters an unregistered email "{email}"'))
+def login_with_unregistered_email(driver, email):
     login_page = LoginPage(driver)
-    login_page.login_with_unregistered_email(TEST_UNREGISTERED_EMAIL)
+    login_page.login_with_unregistered_email(email)
     
-@then('the user should see an popup window with email not registered')
-def verify_unregistered_email_error(driver):
+@then(parsers.parse('the user should see an popup window with email not registered "{error_message}"'))
+def verify_unregistered_email_error(driver, error_message):
     login_page = LoginPage(driver)
-    assert login_page.error_unregistered_message() == "請檢查信箱是否輸入正確", "Unregistered email error message not shown"
+    assert login_page.error_unregistered_message() == error_message, "Unregistered email error message not shown"
     login_page.click_login_cancel_button()
 
 
@@ -125,16 +114,16 @@ def verify_unregistered_email_error(driver):
 @allure.story('Unsuccessful login with invalid verification code')
 @pytest.mark.run(order=6)
 @pytest.mark.login
-@when('the user enters an invalid verification code')
-def login_with_invalid_ver_code(driver):
+@when(parsers.parse('the user enters an invalid verification code "{email}" "{ver_code}"'))
+def login_with_invalid_ver_code(driver, email, ver_code):
     login_page = LoginPage(driver)
-    login_page.login_with_valid_email(TEST_EMAIL)
-    login_page.login_with_invalid_ver_code(TEST_INVALID_VER)
+    login_page.login_with_valid_email(email)
+    login_page.login_with_invalid_ver_code(ver_code)
     
-@then('the user should see an invalid verification code error message')
-def verify_invalid_ver_code_error(driver):
+@then(parsers.parse('the user should see an invalid verification code error message "{error_message}"'))
+def verify_invalid_ver_code_error(driver, error_message):
     login_page = LoginPage(driver)
-    assert login_page.error_ver_window() == "請檢查驗證通行碼是否輸入正確", "Invalid verification window not shown"
+    assert login_page.error_ver_window() == error_message, "Invalid verification window not shown"
     login_page.click_login_cancel_button()
     
 
@@ -143,16 +132,16 @@ def verify_invalid_ver_code_error(driver):
 @allure.story('Modify email from verification code page')
 @pytest.mark.run(order=7)
 @pytest.mark.login
-@when('the user clicks modify email button')
-def click_modify_email_button(driver):
+@when(parsers.parse('the user clicks modify email button "{email}"'))
+def click_modify_email_button(driver, email):
     login_page = LoginPage(driver)
-    login_page.login_with_valid_email(TEST_EMAIL)
+    login_page.login_with_valid_email(email)
     login_page.click_modify_email_button()
     
-@then('the user can enter valid email again')
-def enter_another_valid_email(driver):
+@then(parsers.parse('the user can enter valid email again "{email}"'))
+def enter_another_valid_email(driver, email):
     login_page = LoginPage(driver)
-    login_page.login_with_another_valid_email(TEST_EMAIL)
+    login_page.login_with_another_valid_email(email)
 
 @then('the user should be on verification code page again')
 def verify_verification_code_page(driver):
@@ -166,18 +155,14 @@ def verify_verification_code_page(driver):
 @allure.story('Successful login')
 @pytest.mark.run(order=8)
 @pytest.mark.login
-@when('the user enters valid credentials')
-def login_with_valid_credentials(driver):
+@when(parsers.parse('the user enters valid credentials "{email}" "{ver_code}"'))
+def login_with_valid_credentials(driver, email, ver_code):
     login_page = LoginPage(driver)
-    login_page.login(TEST_EMAIL, TEST_VER)
+    login_page.login(email, ver_code)
 
 @then('the user should be logged in successfully')
 def verify_login_success(driver):
     login_page = LoginPage(driver)
     login_page.is_logged_in(), "Failed to log in successfully"
-
-    #click logout button-> move to personal page
-    #login_page.click_logout_button()
-  
     
     

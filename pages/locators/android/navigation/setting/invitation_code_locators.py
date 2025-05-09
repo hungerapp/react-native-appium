@@ -1,6 +1,9 @@
 from appium.webdriver.common.appiumby import AppiumBy
 
 class InvitationCodePageLocators:
+    # Navigation bar
+    SETTINGS_OPTION_IN_NAVIGATION = (AppiumBy.XPATH, '//*[@content-desc="設定"]')
+
     # Branch Setting Page
     INVITATION_CODE_IN_BRANCH_SETTING_PAGE = (AppiumBy.XPATH, '//*[@text="邀請碼管理"]')
 
@@ -14,9 +17,8 @@ class InvitationCodePageLocators:
     # Share Invitation Code Modal
     COPY_INVITATION_BUTTON = (AppiumBy.XPATH, '//*[@resource-id="com.android.intentresolver:id/copy"]')
     # Invited List Modal
-    #Repeat the elements and cannot be caught very much
-    # TITLE_IN_INVITED_LIST = (AppiumBy.XPATH, '//*[@text="已邀請名單"]')
-    # CLOSE_BUTTON_IN_INVITED_LIST = (AppiumBy.XPATH, '//*[@resource-id="xmark"]')
+    TITLE_IN_INVITED_LIST = (AppiumBy.XPATH, '//android.widget.TextView[@text="已邀請名單"]')
+    CLOSE_BUTTON_IN_INVITED_LIST = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("xmark").instance(2)')
 
 
 
