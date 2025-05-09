@@ -3,7 +3,7 @@ from pages.android.navigation.setting.brand import BrandPage
 from pages.shared_components.common_use import CommonUseSection
 
 
-scenarios('../../../../features/navigation/setting/brand.feature')
+scenarios('../../../features/navigation/setting/brand.feature')
 
 
 # Scenario: Navigate to the Branch Settings Page

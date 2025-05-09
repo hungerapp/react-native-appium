@@ -2,7 +2,7 @@ from pytest_bdd import scenarios, given, when, then, parsers
 from pages.android.navigation.setting.service_personnel import ServicePersonnelPage
 from pages.shared_components.common_use import CommonUseSection
 
-scenarios('../../../../features/navigation/setting/service_personnel.feature')
+scenarios('../../../features/navigation/setting/service_personnel.feature')
 
 # Scenario: Successfully add new service personnel
 @given("I am on the Branch Settings page")
