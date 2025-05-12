@@ -518,17 +518,17 @@ def set_default_member_status_receive_deposit(driver, receive_type):
     service_appointment_page = ServiceAppointmentPage(driver)
     assert service_appointment_page.set_default_member_status_receive_deposit(receive_type), "Default member status receive deposit is not displayed"
 
-@when("I set the payable service item scope to all service items")
-def set_payable_service_item_scope(driver):
+@when(parsers.parse('I set the payable service item scope to "{service_scope}"'))
+def set_payable_service_item_scope(driver, service_scope):
     service_appointment_page = ServiceAppointmentPage(driver)
-    assert service_appointment_page.set_payable_service_item_scope_all_service_items(), "Payable service item scope is not displayed"
+    assert service_appointment_page.set_payable_service_item(service_scope), "Payable service item scope is not displayed"
 
-@when(parsers.parse('I set the payable service item scope to "{category_name}" "{service_item_name}"'))
-def set_payable_service_item_scope(driver, category_name, service_item_name):
+@when(parsers.parse('I set the payable service item scope to "{service_scope}" and service item "{category_name}" "{service_item_name}"'))
+def set_payable_service_item_scope(driver, service_scope, category_name, service_item_name):
     category_name = CommonUseSection.replace_current_datetime(category_name)
     service_item_name = CommonUseSection.replace_current_datetime(service_item_name)
     service_appointment_page = ServiceAppointmentPage(driver)
-    assert service_appointment_page.set_payable_service_item_scope_specific_service_item(category_name, service_item_name, clear_all=True), "Payable service item scope is not displayed"
+    assert service_appointment_page.set_payable_service_item(service_scope, category_name, service_item_name, clear_all=True), "Payable service item scope is not displayed"
 
 @when("I go to integration payment method")
 def go_to_integration_payment_method(driver):
@@ -539,3 +539,57 @@ def go_to_integration_payment_method(driver):
 def set_payment_method(driver, payment_method):
     service_appointment_page = ServiceAppointmentPage(driver)
     assert service_appointment_page.set_payment_method(payment_method), "Payment method is not displayed"
+
+@when(parsers.parse('I set the payment amount pricing method to "{pricing_method}" and amount "{amount}"'))
+def set_payment_amount_pricing_method(driver, pricing_method, amount):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.set_payment_amount_pricing_method(pricing_method, amount), "Payment amount pricing method is not displayed"
+
+@when(parsers.parse('I set the payment amount pricing method to "{pricing_method}" and minimum amount "{amount}" and percentage "{percentage}"'))
+def set_payment_amount_pricing_method(driver, pricing_method, amount, percentage):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.set_payment_amount_pricing_method(pricing_method, amount, percentage), "Payment amount pricing method is not displayed"
+
+@when(parsers.parse('I set the auto cancel if unpaid to "{unpaid_time}"'))
+def set_auto_cancel_if_unpaid(driver, unpaid_time):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.set_auto_cancel_if_unpaid(unpaid_time), "Auto cancel if unpaid is not displayed"
+
+@when(parsers.parse('I set the payment instructions to "{instruction}"'))
+def set_payment_instructions(driver, instruction):
+    instruction = CommonUseSection.replace_current_datetime(instruction)
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.set_payment_instructions(instruction), "Payment instructions is not displayed"
+
+@when("I tap on the confirm button in the deposit settings page")
+def tap_confirm_deposit_settings(driver):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.tap_confirm_deposit_settings(), "Confirm deposit settings button is not displayed"
+
+@when("I tap on the close button in the deposit management page")
+def tap_close_deposit_management_page(driver):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.tap_close_deposit_management_page(), "Close deposit management page button is not displayed"
+
+@when("I tap on the specific date deposit settings")
+def tap_specific_date_deposit_settings(driver):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.tap_specific_date_deposit_settings(), "Specific date deposit settings is not displayed"
+
+@when("I turn off the specific date deposit switch")
+def turn_off_specific_date_deposit_switch(driver):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.turn_off_specific_date_deposit_switch(), "Specific date deposit switch is not displayed"
+
+@when("I turn on the specific date deposit switch")
+def turn_on_specific_date_deposit_switch(driver):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.turn_on_specific_date_deposit_switch(), "Specific date deposit switch is not displayed"
+
+@when(parsers.parse('I set the specific date name "{name}" "{start_day}" to "{end_day}"'))
+def set_specific_date(driver, name, start_day, end_day):
+    name = CommonUseSection.replace_current_datetime(name)
+    start_day = CommonUseSection.replace_current_datetime(start_day)
+    end_day = CommonUseSection.replace_current_datetime(end_day)
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.set_specific_date(name, start_day, end_day), "Specific date is not displayed"

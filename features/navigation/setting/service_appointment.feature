@@ -90,22 +90,44 @@ Feature: Service Appointment Settings
 
   @regression @deposit_management_settings
   Scenario: Deposit Management Settings
-#    Given I am on the service appointment page
-#    And I have a service item "服務項目分類<current_datetime>" and "一般日期指定收定金服務項目<current_datetime>"
-#    When I tap on the deposit management
-#    When I tap on the general deposit settings
-#    And I turn off the general date deposit switch
-#    And I turn on the general date deposit switch
-#    When  I set the default member status to no receive deposit
-#    When  I set the default member status to receive deposit and set the receive type "全部收取"
-#    When  I set the default member status to receive deposit and set the receive type "來訪3次，下次不收取"
-#    When I set the payable service item scope to all service items
-#    When I set the payable service item scope to "服務項目分類<current_datetime>" "一般日期指定收定金服務項目<current_datetime>"
-#    When I go to integration payment method
-    When I set the payment method to "銀行匯款"
-    When I set the payment method to "儲值金"
-    When I set the payment method to "信用卡"
-    When I set the payment method to "LINE Pay"
-    When
-
+    Given I am on the service appointment page
+    And I have a service item "服務項目分類<current_datetime>" and "一般日期指定收定金服務項目<current_datetime>"
+    And I have a service item "服務項目分類<current_datetime>" and "指定日期指定收定金服務項目<current_datetime>"
+    When I tap on the deposit management
+    And I tap on the general deposit settings
+    And I turn off the general date deposit switch
+    And I turn on the general date deposit switch
+    And  I set the default member status to no receive deposit
+    And  I set the default member status to receive deposit and set the receive type "全部收取"
+    And  I set the default member status to receive deposit and set the receive type "來訪3次，下次不收取"
+    And I set the payable service item scope to "全部服務"
+    And I set the payable service item scope to "指定服務" and service item "服務項目分類<current_datetime>" "一般日期指定收定金服務項目<current_datetime>"
+    And I go to integration payment method
+    And I set the payment method to "銀行匯款"
+    And I set the payment method to "儲值金"
+    And I set the payment method to "信用卡"
+    And I set the payment method to "LINE Pay"
+    And I set the payment amount pricing method to "固定值" and amount "100"
+    And I set the payment amount pricing method to "比例" and minimum amount "50" and percentage "50%"
+    And I set the auto cancel if unpaid to "1 小時"
+    And I set the payment instructions to "請於預約時間前1小時付款<current_datetime>"
+    And I tap on the confirm button in the deposit settings page
+    And I tap on the specific date deposit settings
+    And I turn off the specific date deposit switch
+    And I turn on the specific date deposit switch
+    And I set the specific date name "測試<current_datetime>" "<current_datetime>" to "tomorrow"
+    And  I set the default member status to receive deposit and set the receive type "全部收取"
+    And I set the payable service item scope to "指定服務" and service item "服務項目分類<current_datetime>" "指定日期指定收定金服務項目<current_datetime>"
+    And I go to integration payment method
+    And I set the payment method to "銀行匯款"
+    And I set the payment method to "儲值金"
+    And I set the payment method to "信用卡"
+    And I set the payment method to "LINE Pay"
+    And I set the payment amount pricing method to "固定值" and amount "100"
+    And I set the payment amount pricing method to "比例" and minimum amount "50" and percentage "50%"
+    And I set the auto cancel if unpaid to "1 小時"
+    And I set the payment instructions to "這是指定區間，請於預約時間前1小時付款<current_datetime>"
+    And I tap on the confirm button in the deposit settings page
+    And I tap on the close button in the deposit management page
+    Then I should see the service appointment page
 

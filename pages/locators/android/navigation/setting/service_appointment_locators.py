@@ -185,7 +185,9 @@ class ServiceAppointmentPageLocators:
     # Service Appointment Page/Deposit Management Page/ Deposit Setting Page
     CLOSE_BUTTON_IN_DEPOSIT_SETTING_PAGE = (AppiumBy.ACCESSIBILITY_ID,'xmark')
     CONFIRM_BUTTON_IN_DEPOSIT_SETTING_PAGE = (AppiumBy.ACCESSIBILITY_ID,'check')
-    DEPOSIT_SWITCH_IN_DEPOSIT_SETTING_PAGE = (AppiumBy.ACCESSIBILITY_ID,'定金模式：一般日期-switch-button')
+    GENERAL_DATE_DEPOSIT_SWITCH_IN_DEPOSIT_SETTING_PAGE = (AppiumBy.ACCESSIBILITY_ID,'定金模式：一般日期-switch-button')
+    SPECIFIC_DATE_DEPOSIT_SWITCH_IN_DEPOSIT_SETTING_PAGE = (AppiumBy.ACCESSIBILITY_ID,'定金模式：特定日期區間-switch-button')
+    PAYMENT_PERIOD_IN_DEPOSIT_SETTING_PAGE = (AppiumBy.ACCESSIBILITY_ID,'收款期間-fake-field')
     DEFAULT_MEMBER_STATUS_IN_DEPOSIT_SETTING_PAGE = (AppiumBy.ACCESSIBILITY_ID,'會員預設狀態-fake-field')
     PAYABLE_SERVICE_ITEM_IN_DEPOSIT_SETTING_PAGE = (AppiumBy.ACCESSIBILITY_ID,'需要收款的服務項目-fake-field')
     PAYMENT_METHOD_IN_DEPOSIT_SETTING_PAGE = (AppiumBy.ACCESSIBILITY_ID,'收款方式-fake-field')
@@ -222,13 +224,41 @@ class ServiceAppointmentPageLocators:
     PAYMENT_METHOD_MODAL_BANK_NAME = (AppiumBy.ACCESSIBILITY_ID,'收款銀行-select-field')
     PAYMENT_METHOD_MODAL_BANK_NAME_SELECTION = lambda self, bank_name: (AppiumBy.XPATH,f'//*[@resource-id="收款銀行-option"]//*[@text="{bank_name}"]')
     PAYMENT_METHOD_MODAL_BANK_ACCOUNT_NUMBER = (AppiumBy.ACCESSIBILITY_ID,'undefined-text-input')
-    PAYMENT_METHOD_MODAL_CREDIT_CARD_SELECTION = (AppiumBy.XPATH,'//*[@text="INSTO"]')
     # Service Appointment Page/Deposit Management Page/ Deposit Setting Page/ Payment Amount Modal
     PAYMENT_AMOUNT_MODAL_CLOSE_BUTTON = (AppiumBy.XPATH,'(//android.view.ViewGroup[@content-desc="xmark"])[2]')
     PAYMENT_AMOUNT_MODAL_CONFIRM_BUTTON = (AppiumBy.XPATH,'(//android.view.ViewGroup[@content-desc="check"])[2]')
-    PAYMENT_AMOUNT_MODAL_PRICING_METHOD = (AppiumBy.ACCESSIBILITY_ID,'收款方式-fake-field')
+    PAYMENT_AMOUNT_MODAL_PRICING_METHOD = (AppiumBy.ACCESSIBILITY_ID,'計價方式-fake-field')
     PAYMENT_AMOUNT_MODAL_PRICING_METHOD_SELECTION = lambda self, pricing_method: (AppiumBy.ACCESSIBILITY_ID,f'{pricing_method}-popup-option') #固定價, 起標價
-    PAYMENT_AMOUNT_MODAL_AMOUNT_FIELD = (AppiumBy.ACCESSIBILITY_ID,'收款金額-text-input')
+    PAYMENT_AMOUNT_MODAL_AMOUNT_FIELD = (AppiumBy.ACCESSIBILITY_ID,'undefined-text-input')
+    PAYMENT_AMOUNT_MODAL_PERCENTAGE_VALUE_SELECTION = lambda self, percentage_value: (AppiumBy.XPATH,f'//*[@text="{percentage_value}"]')
+    # Service Appointment Page/Deposit Management Page/ Deposit Setting Page/ Auto Cancel If Unpaid Modal
+    AUTO_CANCEL_IF_UNPAID_MODAL_CLOSE_BUTTON = (AppiumBy.XPATH,'(//android.view.ViewGroup[@content-desc="xmark"])[2]')
+    AUTO_CANCEL_IF_UNPAID_MODAL_CONFIRM_BUTTON = (AppiumBy.XPATH,'(//android.view.ViewGroup[@content-desc="check"])[2]')
+    AUTO_CANCEL_IF_UNPAID_MODAL_AUTO_CANCEL_IF_UNPAID_TIME_SELECTION = lambda self, time: (AppiumBy.XPATH,f'//*[@text="顧客若沒有在所選的時間內完成付款或回報銀行轉帳後五碼，系統將自動取消預約。"]/../android.view.ViewGroup//*[@text="{time}"]')
+    # Service Appointment Page/Deposit Management Page/ Deposit Setting Page/ Payment Instructions Modal
+    PAYMENT_INSTRUCTIONS_MODAL_INSTRUCTIONS_FIELD = (AppiumBy.ACCESSIBILITY_ID,'付款說明-textarea-input')
+    PAYMENT_INSTRUCTIONS_MODAL_CLOSE_BUTTON = (AppiumBy.ACCESSIBILITY_ID,'付款說明-close-button')
+    PAYMENT_INSTRUCTIONS_MODAL_CONFIRM_BUTTON = (AppiumBy.ACCESSIBILITY_ID,'circle-check')
+    PAYMENT_INSTRUCTIONS_MODAL_CLEAR_BUTTON = (AppiumBy.XPATH,'//*[@text="清除"]')
+    # Service Appointment Page/Deposit Management Page/ Deposit Setting Page/ Payment Period Modal
+    PAYMENT_PERIOD_MODAL_CLOSE_BUTTON = (AppiumBy.XPATH,'(//android.view.ViewGroup[@content-desc="xmark"])[2]')
+    PAYMENT_PERIOD_MODAL_CONFIRM_BUTTON = (AppiumBy.XPATH,'(//android.view.ViewGroup[@content-desc="check"])[2]')
+    PAYMENT_PERIOD_MODAL_ADDITIONAL_PAYMENT_PERIOD = (AppiumBy.XPATH,'//*[@text="新增收款期間"]')
+    # Service Appointment Page/Deposit Management Page/ Deposit Setting Page/ Payment Period Modal / additional payment period Modal
+    ADDITIONAL_PAYMENT_PERIOD_MODAL_CLOSE_BUTTON = (AppiumBy.XPATH,'(//android.view.ViewGroup[@content-desc="xmark"])[3]')
+    ADDITIONAL_PAYMENT_PERIOD_MODAL_CONFIRM_BUTTON = (AppiumBy.XPATH,'(//android.view.ViewGroup[@content-desc="check"])[3]')
+    ADDITIONAL_PAYMENT_PERIOD_MODAL_ADDITIONAL_PAYMENT_PERIOD = (AppiumBy.XPATH,'//*[@text="新增特定日期區間"]')
+    ADDITIONAL_PAYMENT_PERIOD_MODAL_PERIOD_NAME_FIELD = (AppiumBy.ACCESSIBILITY_ID,'區間名稱-text-input')
+    ADDITIONAL_PAYMENT_PERIOD_MODAL_START_DATE = (AppiumBy.ACCESSIBILITY_ID,'開始日期-fake-field')
+    ADDITIONAL_PAYMENT_PERIOD_MODAL_END_DATE = (AppiumBy.ACCESSIBILITY_ID,'結束日期-fake-field')
+    # Service Appointment Page/Deposit Management Page/ Deposit Setting Page/ Payment Period Modal / additional payment period Modal/ Start Date Selection dialog
+    MONTH_AND_YEAR = lambda self, month, year: (AppiumBy.XPATH,f'//*[@content-desc="{month}月, {year}"]')
+    ARROW_RIGHT = (AppiumBy.ANDROID_UIAUTOMATOR,'new UiSelector().resourceId("arrow-right")')
+    ARROW_LEFT = (AppiumBy.ANDROID_UIAUTOMATOR,'new UiSelector().resourceId("arrow-left")')
+    DAY = lambda self, day: (AppiumBy.XPATH,f'//*[@content-desc="{day}"]')
+
+    # Service Appointment Page/Advanced Features Page
+
 
 
 

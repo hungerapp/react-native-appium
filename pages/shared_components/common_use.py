@@ -7,6 +7,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.actions import interaction
 from selenium.webdriver.common.actions.action_builder import ActionBuilder
 from selenium.webdriver.common.actions.pointer_input import PointerInput
+from datetime import datetime, timedelta
 
 class CommonUseSection:
     GENDER_OPTIONS = {
@@ -619,16 +620,19 @@ class CommonUseSection:
         """
         Generates the current timestamp in YYYYMMDDHHMMSSmmm format
         """
-        from datetime import datetime
-
         now = datetime.now()
         timestamp = now.strftime("%Y%m%d%H%M%S") + f"{int(now.microsecond / 1000):03d}"
         return timestamp
 
     @staticmethod
     def replace_current_datetime(input_string):
-        from datetime import datetime
         if "<current_datetime>" in input_string:
-            current_datetime = datetime.now().strftime("%Y%m%d")
+            current_datetime = datetime.now().strftime("%Y/%m/%d")
             return input_string.replace("<current_datetime>", current_datetime)
         return input_string
+
+    @staticmethod
+    def add_days_to_date(today, days):
+        today_date = datetime.now()  # 抓取今天的日期
+        new_date = today_date + timedelta(days=days)
+        return new_date.strftime("%Y/%m/%d")  # 格式化為 "YYYY/MM/DD"

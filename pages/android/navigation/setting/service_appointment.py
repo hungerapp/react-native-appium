@@ -527,18 +527,18 @@ class ServiceAppointmentPage:
         return self
 
     def turn_off_general_date_deposit_switch(self):
-        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.DEPOSIT_SWITCH_IN_DEPOSIT_SETTING_PAGE)
+        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.GENERAL_DATE_DEPOSIT_SWITCH_IN_DEPOSIT_SETTING_PAGE)
         if not self.common_actions.is_element_present(*self.service_appointment_page_locators.DEFAULT_MEMBER_STATUS_IN_DEPOSIT_SETTING_PAGE):
-            self.common_actions.click_element(*self.service_appointment_page_locators.DEPOSIT_SWITCH_IN_DEPOSIT_SETTING_PAGE)
+            self.common_actions.click_element(*self.service_appointment_page_locators.GENERAL_DATE_DEPOSIT_SWITCH_IN_DEPOSIT_SETTING_PAGE)
             self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.DEFAULT_MEMBER_STATUS_IN_DEPOSIT_SETTING_PAGE)
-        self.common_actions.click_element(*self.service_appointment_page_locators.DEPOSIT_SWITCH_IN_DEPOSIT_SETTING_PAGE)
+        self.common_actions.click_element(*self.service_appointment_page_locators.GENERAL_DATE_DEPOSIT_SWITCH_IN_DEPOSIT_SETTING_PAGE)
         self.common_actions.wait_for_element_disappear(*self.service_appointment_page_locators.DEFAULT_MEMBER_STATUS_IN_DEPOSIT_SETTING_PAGE)
         return self
 
     def turn_on_general_date_deposit_switch(self):
-        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.DEPOSIT_SWITCH_IN_DEPOSIT_SETTING_PAGE)
+        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.GENERAL_DATE_DEPOSIT_SWITCH_IN_DEPOSIT_SETTING_PAGE)
         if not self.common_actions.is_element_present(*self.service_appointment_page_locators.DEFAULT_MEMBER_STATUS_IN_DEPOSIT_SETTING_PAGE):
-            self.common_actions.click_element(*self.service_appointment_page_locators.DEPOSIT_SWITCH_IN_DEPOSIT_SETTING_PAGE)
+            self.common_actions.click_element(*self.service_appointment_page_locators.GENERAL_DATE_DEPOSIT_SWITCH_IN_DEPOSIT_SETTING_PAGE)
             self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.DEFAULT_MEMBER_STATUS_IN_DEPOSIT_SETTING_PAGE)
         return self
 
@@ -567,35 +567,26 @@ class ServiceAppointmentPage:
         self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.DEFAULT_MEMBER_STATUS_IN_DEPOSIT_SETTING_PAGE)
         return self
 
-    def set_payable_service_item_scope_all_service_items(self):
+    def set_payable_service_item(self, service_scope, service_item_category = None, service_item_name = None, clear_all=False):
         self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.PAYABLE_SERVICE_ITEM_IN_DEPOSIT_SETTING_PAGE)
         self.common_actions.click_element(*self.service_appointment_page_locators.PAYABLE_SERVICE_ITEM_IN_DEPOSIT_SETTING_PAGE)
         self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.PAYABLE_SERVICE_ITEM_MODAL_SPECIFIC_SERVICE_ITEM)
         self.common_actions.click_element(*self.service_appointment_page_locators.PAYABLE_SERVICE_ITEM_MODAL_SPECIFIC_SERVICE_ITEM)
-        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.PAYABLE_SERVICE_ITEM_MODAL_SERVICE_SCOPE_SELECTION("全部服務"))
-        self.common_actions.click_element(*self.service_appointment_page_locators.PAYABLE_SERVICE_ITEM_MODAL_SERVICE_SCOPE_SELECTION("全部服務"))
+        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.PAYABLE_SERVICE_ITEM_MODAL_SERVICE_SCOPE_SELECTION(service_scope))
+        self.common_actions.click_element(*self.service_appointment_page_locators.PAYABLE_SERVICE_ITEM_MODAL_SERVICE_SCOPE_SELECTION(service_scope))
+        if service_scope == "指定服務":
+            self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.PAYABLE_SERVICE_ITEM_MODAL_SERVICE_ITEM)
+            self.common_actions.click_element(*self.service_appointment_page_locators.PAYABLE_SERVICE_ITEM_MODAL_SERVICE_ITEM)
+            if clear_all:
+                self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.PAYABLE_SERVICE_ITEM_MODAL_SERVICE_ITEM_SELECTION_ALL_CLEAR)
+                self.common_actions.click_element(*self.service_appointment_page_locators.PAYABLE_SERVICE_ITEM_MODAL_SERVICE_ITEM_SELECTION_ALL_CLEAR)
+            self.common_actions.scroll_to_element_left(*self.service_appointment_page_locators.PAYABLE_SERVICE_ITEM_MODAL_SERVICE_ITEM_CATEGORY(service_item_category))
+            self.common_actions.click_element(*self.service_appointment_page_locators.PAYABLE_SERVICE_ITEM_MODAL_SERVICE_ITEM_CATEGORY(service_item_category))
+            self.common_actions.scroll_to_element(*self.service_appointment_page_locators.PAYABLE_SERVICE_ITEM_MODAL_SERVICE_ITEM_SELECTION(service_item_name))
+            self.common_actions.click_element(*self.service_appointment_page_locators.PAYABLE_SERVICE_ITEM_MODAL_SERVICE_ITEM_SELECTION(service_item_name))
+            self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.PAYABLE_SERVICE_ITEM_MODAL_SERVICE_ITEM_SELECTION_CONFIRM)
+            self.common_actions.click_element(*self.service_appointment_page_locators.PAYABLE_SERVICE_ITEM_MODAL_SERVICE_ITEM_SELECTION_CONFIRM)
         self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.PAYABLE_SERVICE_ITEM_MODAL_CONFIRM_BUTTON)
-        self.common_actions.click_element(*self.service_appointment_page_locators.PAYABLE_SERVICE_ITEM_MODAL_CONFIRM_BUTTON)
-        return self
-
-    def set_payable_service_item_scope_specific_service_item(self, category_name, service_item_name, clear_all=False):
-        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.PAYABLE_SERVICE_ITEM_IN_DEPOSIT_SETTING_PAGE)
-        self.common_actions.click_element(*self.service_appointment_page_locators.PAYABLE_SERVICE_ITEM_IN_DEPOSIT_SETTING_PAGE)
-        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.PAYABLE_SERVICE_ITEM_MODAL_SPECIFIC_SERVICE_ITEM)
-        self.common_actions.click_element(*self.service_appointment_page_locators.PAYABLE_SERVICE_ITEM_MODAL_SPECIFIC_SERVICE_ITEM)
-        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.PAYABLE_SERVICE_ITEM_MODAL_SERVICE_SCOPE_SELECTION("指定服務"))
-        self.common_actions.click_element(*self.service_appointment_page_locators.PAYABLE_SERVICE_ITEM_MODAL_SERVICE_SCOPE_SELECTION("指定服務"))
-        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.PAYABLE_SERVICE_ITEM_MODAL_SERVICE_ITEM)
-        self.common_actions.click_element(*self.service_appointment_page_locators.PAYABLE_SERVICE_ITEM_MODAL_SERVICE_ITEM)
-        if clear_all:
-            self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.PAYABLE_SERVICE_ITEM_MODAL_SERVICE_ITEM_SELECTION_ALL_CLEAR)
-            self.common_actions.click_element(*self.service_appointment_page_locators.PAYABLE_SERVICE_ITEM_MODAL_SERVICE_ITEM_SELECTION_ALL_CLEAR)
-        self.common_actions.scroll_to_element_left(*self.service_appointment_page_locators.PAYABLE_SERVICE_ITEM_MODAL_SERVICE_ITEM_CATEGORY(category_name))
-        self.common_actions.click_element(*self.service_appointment_page_locators.PAYABLE_SERVICE_ITEM_MODAL_SERVICE_ITEM_CATEGORY(category_name))
-        self.common_actions.scroll_to_element(*self.service_appointment_page_locators.PAYABLE_SERVICE_ITEM_MODAL_SERVICE_ITEM_SELECTION(service_item_name))
-        self.common_actions.click_element(*self.service_appointment_page_locators.PAYABLE_SERVICE_ITEM_MODAL_SERVICE_ITEM_SELECTION(service_item_name))
-        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.PAYABLE_SERVICE_ITEM_MODAL_SERVICE_ITEM_SELECTION_CONFIRM)
-        self.common_actions.click_element(*self.service_appointment_page_locators.PAYABLE_SERVICE_ITEM_MODAL_SERVICE_ITEM_SELECTION_CONFIRM)
         self.common_actions.click_element(*self.service_appointment_page_locators.PAYABLE_SERVICE_ITEM_MODAL_CONFIRM_BUTTON)
         return self
 
@@ -626,4 +617,118 @@ class ServiceAppointmentPage:
                 self.common_actions.send_keys_to_element(*self.service_appointment_page_locators.PAYMENT_METHOD_MODAL_BANK_ACCOUNT_NUMBER, "123456789012345678")
             self.common_actions.click_element(*self.service_appointment_page_locators.PAYMENT_METHOD_MODAL_CONFIRM_BUTTON)
         return self
+
+    def set_payment_amount_pricing_method(self, pricing_method, amount, percentage = None):
+        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.PAYMENT_AMOUNT_IN_DEPOSIT_SETTING_PAGE)
+        self.common_actions.click_element(*self.service_appointment_page_locators.PAYMENT_AMOUNT_IN_DEPOSIT_SETTING_PAGE)
+        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.PAYMENT_AMOUNT_MODAL_PRICING_METHOD)
+        self.common_actions.click_element(*self.service_appointment_page_locators.PAYMENT_AMOUNT_MODAL_PRICING_METHOD)
+        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.PAYMENT_AMOUNT_MODAL_PRICING_METHOD_SELECTION(pricing_method))
+        self.common_actions.click_element(*self.service_appointment_page_locators.PAYMENT_AMOUNT_MODAL_PRICING_METHOD_SELECTION(pricing_method))
+        self.common_actions.wait_for_element_disappear(*self.service_appointment_page_locators.PAYMENT_AMOUNT_MODAL_PRICING_METHOD_SELECTION(pricing_method))
+        self.common_actions.send_keys_to_element(*self.service_appointment_page_locators.PAYMENT_AMOUNT_MODAL_AMOUNT_FIELD, amount)
+        if pricing_method == "比例":
+            self.common_actions.scroll_to_element(*self.service_appointment_page_locators.PAYMENT_AMOUNT_MODAL_PERCENTAGE_VALUE_SELECTION(percentage))
+            self.common_actions.click_element(*self.service_appointment_page_locators.PAYMENT_AMOUNT_MODAL_PERCENTAGE_VALUE_SELECTION(percentage))
+        self.common_actions.click_element(*self.service_appointment_page_locators.PAYMENT_AMOUNT_MODAL_CONFIRM_BUTTON)
+        return self
+
+    def set_auto_cancel_if_unpaid(self, auto_cancel_time):
+        self.common_actions.scroll_to_element(*self.service_appointment_page_locators.AUTO_CANCEL_IF_NOT_PAID_IN_DEPOSIT_SETTING_PAGE)
+        self.common_actions.click_element(*self.service_appointment_page_locators.AUTO_CANCEL_IF_NOT_PAID_IN_DEPOSIT_SETTING_PAGE)
+        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.AUTO_CANCEL_IF_UNPAID_MODAL_AUTO_CANCEL_IF_UNPAID_TIME_SELECTION(auto_cancel_time))
+        self.common_actions.click_element(*self.service_appointment_page_locators.AUTO_CANCEL_IF_UNPAID_MODAL_AUTO_CANCEL_IF_UNPAID_TIME_SELECTION(auto_cancel_time))
+        self.common_actions.click_element(*self.service_appointment_page_locators.AUTO_CANCEL_IF_UNPAID_MODAL_CONFIRM_BUTTON)
+        self.common_actions.wait_for_element_disappear(*self.service_appointment_page_locators.AUTO_CANCEL_IF_UNPAID_MODAL_AUTO_CANCEL_IF_UNPAID_TIME_SELECTION(auto_cancel_time))
+        return self
+
+    def set_payment_instructions(self, instructions):
+        self.common_actions.scroll_to_element(*self.service_appointment_page_locators.PAYMENT_INSTRUCTIONS_IN_DEPOSIT_SETTING_PAGE)
+        self.common_actions.click_element(*self.service_appointment_page_locators.PAYMENT_INSTRUCTIONS_IN_DEPOSIT_SETTING_PAGE)
+        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.PAYMENT_INSTRUCTIONS_MODAL_INSTRUCTIONS_FIELD)
+        self.common_actions.send_keys_to_element(*self.service_appointment_page_locators.PAYMENT_INSTRUCTIONS_MODAL_INSTRUCTIONS_FIELD, instructions)
+        self.common_actions.click_element(*self.service_appointment_page_locators.PAYMENT_INSTRUCTIONS_MODAL_CONFIRM_BUTTON)
+        self.common_actions.wait_for_element_disappear(*self.service_appointment_page_locators.PAYMENT_INSTRUCTIONS_MODAL_CONFIRM_BUTTON)
+        return self
+
+    def tap_confirm_deposit_settings(self):
+        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.CONFIRM_BUTTON_IN_DEPOSIT_SETTING_PAGE)
+        self.common_actions.click_element(*self.service_appointment_page_locators.CONFIRM_BUTTON_IN_DEPOSIT_SETTING_PAGE)
+        return self
+
+    def tap_close_deposit_management_page(self):
+        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.CLOSE_BUTTON_IN_DEPOSIT_MANAGEMENT_PAGE)
+        self.common_actions.click_element(*self.service_appointment_page_locators.CLOSE_BUTTON_IN_DEPOSIT_MANAGEMENT_PAGE)
+        return self
+
+    def tap_specific_date_deposit_settings(self):
+        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.SPECIFIC_DATE_RANGE_IN_DEPOSIT_MANAGEMENT_PAGE)
+        self.common_actions.click_element(*self.service_appointment_page_locators.SPECIFIC_DATE_RANGE_IN_DEPOSIT_MANAGEMENT_PAGE)
+        return self
+
+    def turn_off_specific_date_deposit_switch(self):
+        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.SPECIFIC_DATE_DEPOSIT_SWITCH_IN_DEPOSIT_SETTING_PAGE)
+        if not self.common_actions.is_element_present(*self.service_appointment_page_locators.DEFAULT_MEMBER_STATUS_IN_DEPOSIT_SETTING_PAGE):
+            self.common_actions.click_element(*self.service_appointment_page_locators.SPECIFIC_DATE_DEPOSIT_SWITCH_IN_DEPOSIT_SETTING_PAGE)
+            self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.DEFAULT_MEMBER_STATUS_IN_DEPOSIT_SETTING_PAGE)
+        self.common_actions.click_element(*self.service_appointment_page_locators.SPECIFIC_DATE_DEPOSIT_SWITCH_IN_DEPOSIT_SETTING_PAGE)
+        self.common_actions.wait_for_element_disappear(*self.service_appointment_page_locators.DEFAULT_MEMBER_STATUS_IN_DEPOSIT_SETTING_PAGE)
+        return self
+
+    def turn_on_specific_date_deposit_switch(self):
+        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.SPECIFIC_DATE_DEPOSIT_SWITCH_IN_DEPOSIT_SETTING_PAGE)
+        if not self.common_actions.is_element_present(*self.service_appointment_page_locators.DEFAULT_MEMBER_STATUS_IN_DEPOSIT_SETTING_PAGE):
+            self.common_actions.click_element(*self.service_appointment_page_locators.SPECIFIC_DATE_DEPOSIT_SWITCH_IN_DEPOSIT_SETTING_PAGE)
+            self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.DEFAULT_MEMBER_STATUS_IN_DEPOSIT_SETTING_PAGE)
+        return self
+
+    def set_specific_date(self, name, start_date, end_date):
+        today = self.common_use.get_current_timestamp()
+        if end_date == "tomorrow":
+            end_date = self.common_use.add_days_to_date(today, 1)
+        today_year = int(today[:4])
+        today_month = int(today[4:6])
+        start_year, start_month, start_day = map(int, start_date.split('/'))
+        end_year, end_month, end_day = map(int, end_date.split('/'))
+        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.PAYMENT_PERIOD_IN_DEPOSIT_SETTING_PAGE)
+        self.common_actions.click_element(*self.service_appointment_page_locators.PAYMENT_PERIOD_IN_DEPOSIT_SETTING_PAGE)
+        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.ADDITIONAL_PAYMENT_PERIOD_MODAL_ADDITIONAL_PAYMENT_PERIOD)
+        self.common_actions.click_element(*self.service_appointment_page_locators.ADDITIONAL_PAYMENT_PERIOD_MODAL_ADDITIONAL_PAYMENT_PERIOD)
+        self.common_actions.wait_for_element_visible(*self.service_appointment_page_locators.ADDITIONAL_PAYMENT_PERIOD_MODAL_PERIOD_NAME_FIELD)
+        self.common_actions.send_keys_to_element(*self.service_appointment_page_locators.ADDITIONAL_PAYMENT_PERIOD_MODAL_PERIOD_NAME_FIELD, name)
+        self.common_actions.click_element(*self.service_appointment_page_locators.ADDITIONAL_PAYMENT_PERIOD_MODAL_START_DATE)
+        if start_year >= today_year:
+            if start_month >= today_month:
+                click_num = (start_year-today_year) * 12 + (start_month - today_month)
+                for i in range(click_num):
+                    self.common_actions.click_element(*self.service_appointment_page_locators.ARROW_RIGHT)
+                    self.common_actions.is_element_visible(*self.service_appointment_page_locators.MONTH_AND_YEAR(start_year, start_month))
+                self.common_actions.click_element(*self.service_appointment_page_locators.DAY(start_day))
+                self.common_actions.click_element(*self.service_appointment_page_locators.PAYMENT_PERIOD_MODAL_CONFIRM_BUTTON)
+                self.common_actions.wait_for_element_disappear(*self.service_appointment_page_locators.MONTH_AND_YEAR(start_year, start_month))
+        self.common_actions.click_element(*self.service_appointment_page_locators.ADDITIONAL_PAYMENT_PERIOD_MODAL_END_DATE)
+        if end_year >= today_year:
+            if end_month >= today_month:
+                click_num = (end_year-today_year) * 12 + (end_month - today_month)
+                for i in range(click_num):
+                    self.common_actions.click_element(*self.service_appointment_page_locators.ARROW_RIGHT)
+                    self.common_actions.is_element_visible(*self.service_appointment_page_locators.MONTH_AND_YEAR(end_year, end_month))
+                self.common_actions.click_element(*self.service_appointment_page_locators.DAY(end_day))
+                self.common_actions.click_element(*self.service_appointment_page_locators.PAYMENT_PERIOD_MODAL_CONFIRM_BUTTON)
+                self.common_actions.wait_for_element_disappear(*self.service_appointment_page_locators.MONTH_AND_YEAR(end_year, end_month))
+        self.common_actions.click_element(*self.service_appointment_page_locators.ADDITIONAL_PAYMENT_PERIOD_MODAL_CONFIRM_BUTTON)
+        self.common_actions.wait_for_element_disappear(*self.service_appointment_page_locators.ADDITIONAL_PAYMENT_PERIOD_MODAL_CONFIRM_BUTTON)
+        self.common_actions.click_element(*self.service_appointment_page_locators.PAYMENT_PERIOD_MODAL_CONFIRM_BUTTON)
+        return self
+
+
+
+
+
+
+
+
+
+
+
 
