@@ -25,8 +25,10 @@ class LoginPage(CommonActions):
       
   def click_contact_cs_button(self):
       self.click_element(*LoginLocators.CONTACT_CS_BUTTON)
-      self.click_element(*LoginLocators.CONTACT_CS_BACK_BUTTON)
-
+      try:
+          self.click_element(*LoginLocators.CONTACT_CS_BACK_BUTTON)
+      except:
+          self.driver.back()
       
   def click_terms_and_conditions_button(self):
       self.click_element(*LoginLocators.TERMS_AND_CONDITIONS_BUTTON)
@@ -76,7 +78,8 @@ class LoginPage(CommonActions):
           # Check if login success popup is displayed
           pop_up = self.is_element_visible(*LoginLocators.LOGIN_SUCCESS_POPUP)
           assert pop_up, "Login success popup not found"
-          self.click_if_exists(*LoginLocators.FINISH_BUTTON)
+          time.sleep(2)
+          self.driver.find_element(*LoginLocators.FINISH_BUTTON).click()
       except NoSuchElementException:
           return False
   
@@ -217,6 +220,7 @@ class LoginPage(CommonActions):
         self.click_login_button()
     
         try:
+            self.is_element_visible(*LoginLocators.EMAIL_INPUT)
             email_input = self.find_element(*LoginLocators.EMAIL_INPUT)
             current_value = email_input.get_attribute("text")
             if current_value:
