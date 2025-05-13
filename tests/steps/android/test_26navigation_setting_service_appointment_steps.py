@@ -58,6 +58,11 @@ def tap_service_items(driver):
     service_appointment_page = ServiceAppointmentPage(driver)
     assert service_appointment_page.tap_service_items(), "Service items are not displayed"
 
+@when("I delete all service category")
+def delete_service_category(driver):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.delete_service_category(delete_all=True), "Delete service category is not displayed"
+
 @when(parsers.parse('I add a new service category named "{category_name}"'))
 def add_service_category(driver, category_name):
     category_name = CommonUseSection.replace_current_datetime(category_name)
@@ -303,6 +308,11 @@ def tap_online_booking(driver):
     service_appointment_page = ServiceAppointmentPage(driver)
     assert service_appointment_page.tap_online_booking(), "Online booking is not displayed"
 
+@when("I delete all appointment combinations")
+def delete_appointment_combination(driver):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.delete_appointment_combination(delete_all=True), "Delete appointment combination is not displayed"
+
 @when(parsers.parse('I add a new appointment combination named "{combination_name}" and introduction "{combination_introduction}" and service personnel "{service_personnel}"'))
 def add_appointment_combination(driver, combination_name, combination_introduction, service_personnel):
     combination_name = CommonUseSection.replace_current_datetime(combination_name)
@@ -320,9 +330,7 @@ def add_appointment_combination(driver, combination_name, combination_introducti
 def delete_appointment_combination(driver, combination_name):
     combination_name = CommonUseSection.replace_current_datetime(combination_name)
     service_appointment_page = ServiceAppointmentPage(driver)
-    assert service_appointment_page.tap_edit_appointment_combination(combination_name), "Edit appointment combination is not displayed"
-    assert service_appointment_page.delete_appointment_combination(), "Delete appointment combination button is not displayed"
-    assert service_appointment_page.verify_appointment_combination_name_not_visible(combination_name), "Appointment combination name is still displayed"
+    assert service_appointment_page.delete_appointment_combination(combination_name), "Delete appointment combination button is not displayed"
 
 @when(parsers.parse('I add a new appointment combination named "{combination_name}" and introduction "{combination_introduction}" and service personnel "{service_personnel}"'))
 def add_appointment_combination(driver, combination_name, combination_introduction, service_personnel):
@@ -488,6 +496,13 @@ def verify_service_item(driver, category_name, service_item_name):
     service_appointment_page = ServiceAppointmentPage(driver)
     assert service_appointment_page.verify_service_item(category_name, service_item_name), "Service item is not displayed"
 
+@given(parsers.parse('I have a service item "{category_name}" and "{service_item_name}"'))
+def verify_service_item(driver, category_name, service_item_name):
+    category_name = CommonUseSection.replace_current_datetime(category_name)
+    service_item_name = CommonUseSection.replace_current_datetime(service_item_name)
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.verify_service_item(category_name, service_item_name), "Service item is not displayed"
+
 @when("I tap on the deposit management")
 def tap_deposit_management(driver):
     service_appointment_page = ServiceAppointmentPage(driver)
@@ -523,7 +538,7 @@ def set_payable_service_item_scope(driver, service_scope):
     service_appointment_page = ServiceAppointmentPage(driver)
     assert service_appointment_page.set_payable_service_item(service_scope), "Payable service item scope is not displayed"
 
-@when(parsers.parse('I set the payable service item scope to "{service_scope}" and service item "{category_name}" "{service_item_name}"'))
+@when(parsers.parse('I set the payable service item scope to "{service_scope}" and service item "{category_name}" "{service_item_name}" and clear all'))
 def set_payable_service_item_scope(driver, service_scope, category_name, service_item_name):
     category_name = CommonUseSection.replace_current_datetime(category_name)
     service_item_name = CommonUseSection.replace_current_datetime(service_item_name)
@@ -534,6 +549,21 @@ def set_payable_service_item_scope(driver, service_scope, category_name, service
 def go_to_integration_payment_method(driver):
     service_appointment_page = ServiceAppointmentPage(driver)
     assert service_appointment_page.go_to_integration_payment_method(), "Integration payment method is not displayed"
+
+@when(parsers.parse('I set the payment method to "{payment_method}"'))
+def set_payment_method(driver, payment_method):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.set_payment_method(payment_method), "Payment method is not displayed"
+
+@when(parsers.parse('I set the payment method to "{payment_method}"'))
+def set_payment_method(driver, payment_method):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.set_payment_method(payment_method), "Payment method is not displayed"
+
+@when(parsers.parse('I set the payment method to "{payment_method}"'))
+def set_payment_method(driver, payment_method):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.set_payment_method(payment_method), "Payment method is not displayed"
 
 @when(parsers.parse('I set the payment method to "{payment_method}"'))
 def set_payment_method(driver, payment_method):
@@ -566,11 +596,6 @@ def tap_confirm_deposit_settings(driver):
     service_appointment_page = ServiceAppointmentPage(driver)
     assert service_appointment_page.tap_confirm_deposit_settings(), "Confirm deposit settings button is not displayed"
 
-@when("I tap on the close button in the deposit management page")
-def tap_close_deposit_management_page(driver):
-    service_appointment_page = ServiceAppointmentPage(driver)
-    assert service_appointment_page.tap_close_deposit_management_page(), "Close deposit management page button is not displayed"
-
 @when("I tap on the specific date deposit settings")
 def tap_specific_date_deposit_settings(driver):
     service_appointment_page = ServiceAppointmentPage(driver)
@@ -593,3 +618,272 @@ def set_specific_date(driver, name, start_day, end_day):
     end_day = CommonUseSection.replace_current_datetime(end_day)
     service_appointment_page = ServiceAppointmentPage(driver)
     assert service_appointment_page.set_specific_date(name, start_day, end_day), "Specific date is not displayed"
+
+@when(parsers.parse('I set the default member status to receive deposit and set the receive type "{receive_type}"'))
+def set_default_member_status_receive_deposit(driver, receive_type):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.set_default_member_status_receive_deposit(
+        receive_type), "Default member status receive deposit is not displayed"
+
+@when(parsers.parse('I set the payable service item scope to "{service_scope}"'))
+def set_payable_service_item_scope(driver, service_scope):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.set_payable_service_item(
+        service_scope), "Payable service item scope is not displayed"
+
+@when(parsers.parse('I set the payable service item scope to "{service_scope}" and service item "{category_name}" "{service_item_name}" and clear all'))
+def set_payable_service_item_scope(driver, service_scope, category_name, service_item_name):
+    category_name = CommonUseSection.replace_current_datetime(category_name)
+    service_item_name = CommonUseSection.replace_current_datetime(service_item_name)
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.set_payable_service_item(service_scope, category_name, service_item_name, clear_all=True), "Payable service item scope is not displayed"
+
+@when("I go to integration payment method")
+def go_to_integration_payment_method(driver):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.go_to_integration_payment_method(), "Integration payment method is not displayed"
+
+@when(parsers.parse('I set the payment method to "{payment_method}"'))
+def set_payment_method(driver, payment_method):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.set_payment_method(payment_method), "Payment method is not displayed"
+
+@when(parsers.parse('I set the payment method to "{payment_method}"'))
+def set_payment_method(driver, payment_method):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.set_payment_method(payment_method), "Payment method is not displayed"
+
+@when(parsers.parse('I set the payment method to "{payment_method}"'))
+def set_payment_method(driver, payment_method):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.set_payment_method(payment_method), "Payment method is not displayed"
+
+@when(parsers.parse('I set the payment method to "{payment_method}"'))
+def set_payment_method(driver, payment_method):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.set_payment_method(payment_method), "Payment method is not displayed"
+
+@when(parsers.parse('I set the payment amount pricing method to "{pricing_method}" and amount "{amount}"'))
+def set_payment_amount_pricing_method(driver, pricing_method, amount):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.set_payment_amount_pricing_method(pricing_method, amount), "Payment amount pricing method is not displayed"
+
+@when(parsers.parse(
+    'I set the payment amount pricing method to "{pricing_method}" and minimum amount "{amount}" and percentage "{percentage}"'))
+def set_payment_amount_pricing_method(driver, pricing_method, amount, percentage):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.set_payment_amount_pricing_method(pricing_method, amount, percentage), "Payment amount pricing method is not displayed"
+
+@when(parsers.parse('I set the auto cancel if unpaid to "{unpaid_time}"'))
+def set_auto_cancel_if_unpaid(driver, unpaid_time):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.set_auto_cancel_if_unpaid(unpaid_time), "Auto cancel if unpaid is not displayed"
+
+@when(parsers.parse('I set the payment instructions to "{instruction}"'))
+def set_payment_instructions(driver, instruction):
+    instruction = CommonUseSection.replace_current_datetime(instruction)
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.set_payment_instructions(instruction), "Payment instructions is not displayed"
+
+@when("I tap on the confirm button in the deposit settings page")
+def tap_confirm_deposit_settings(driver):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.tap_confirm_deposit_settings(), "Confirm deposit settings button is not displayed"
+
+@when("I tap on the close button in the deposit management page")
+def tap_close_deposit_management_page(driver):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.tap_close_deposit_management_page(), "Close deposit management page button is not displayed"
+
+@then("I should see the service appointment page")
+def verify_service_appointment_page(driver):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.verify_service_appointment_page(), "Service appointment page is not displayed"
+
+
+
+
+# Scenario: Advanced Feature Settings
+@when("I tap on the advanced feature settings")
+def tap_advanced_feature_settings(driver):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.tap_advanced_feature_settings(), "Advanced feature settings is not displayed"
+
+@when("I tap on the reservation restriction")
+def tap_reservation_restriction(driver):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.tap_reservation_restriction(), "Reservation restriction is not displayed"
+
+@when(parsers.parse('I set the cancellation time to "{restriction}"'))
+def set_cancellation_time(driver, restriction):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.set_cancellation_time(restriction), "Cancellation time is not displayed"
+
+@when("I turn off the upcoming reservation switch")
+def turn_off_upcoming_reservation_switch(driver):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.turn_off_upcoming_reservation_switch(), "Upcoming reservation switch is not displayed"
+
+@when("I turn on the upcoming reservation switch")
+def turn_on_upcoming_reservation_switch(driver):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.turn_on_upcoming_reservation_switch(), "Upcoming reservation switch is not displayed"
+
+@when(parsers.parse('I set the upcoming reservation count to "{count}"'))
+def set_upcoming_reservation_count(driver, count):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.set_upcoming_reservation_count(count), "Upcoming reservation count is not displayed"
+
+@when("I turn off the no show switch")
+def turn_off_no_show_switch(driver):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.turn_off_no_show_switch(), "No show switch is not displayed"
+
+@when("I turn on the no show switch")
+def turn_on_no_show_switch(driver):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.turn_on_no_show_switch(), "No show switch is not displayed"
+
+@when(parsers.parse('I set the no show count to "{count}"'))
+def set_no_show_count(driver, count):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.set_no_show_count(count), "No show count is not displayed"
+
+@when("I turn off the monthly reservation cancellation limit switch")
+def turn_off_monthly_reservation_cancellation_limit_switch(driver):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.turn_off_monthly_reservation_cancellation_limit_switch(), "Monthly reservation cancellation limit switch is not displayed"
+
+@when("I turn on the monthly reservation cancellation limit switch")
+def turn_on_monthly_reservation_cancellation_limit_switch(driver):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.turn_on_monthly_reservation_cancellation_limit_switch(), "Monthly reservation cancellation limit switch is not displayed"
+
+@when(parsers.parse('I set the monthly reservation cancellation limit to "{limit}"'))
+def set_monthly_reservation_cancellation_limit(driver, limit):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.set_monthly_reservation_cancellation_limit(limit), "Monthly reservation cancellation limit is not displayed"
+
+@when("I turn off customer score limit switch")
+def turn_off_customer_score_limit_switch(driver):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.turn_off_customer_score_limit_switch(), "Customer score limit switch is not displayed"
+
+@when("I turn on customer score limit switch")
+def turn_on_customer_score_limit_switch(driver):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.turn_on_customer_score_limit_switch(), "Customer score limit switch is not displayed"
+
+@when(parsers.parse('I set the customer score limit to "{limit}"'))
+def set_customer_score_limit(driver, limit):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.set_customer_score_limit(limit), "Customer score limit is not displayed"
+
+@when("I tap on the confirm button in the reservation restriction page")
+def tap_confirm_reservation_restriction(driver):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.tap_confirm_reservation_restriction(), "Confirm reservation restriction button is not displayed"
+
+@when("I tap on the post reservation buffer")
+def tap_post_reservation_buffer(driver):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.tap_post_reservation_buffer(), "Post reservation buffer is not displayed"
+
+@when("I turn off the post reservation buffer switch")
+def turn_off_post_reservation_buffer_switch(driver):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.turn_off_post_reservation_buffer_switch(), "Post reservation buffer switch is not displayed"
+
+@when("I turn on the post reservation buffer switch")
+def turn_on_post_reservation_buffer_switch(driver):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.turn_on_post_reservation_buffer_switch(), "Post reservation buffer switch is not displayed"
+
+@when(parsers.parse('I set the post reservation buffer time to "{time}" minutes'))
+def set_post_reservation_buffer_time(driver, time):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.set_post_reservation_buffer_time(time), "Post reservation buffer time is not displayed"
+
+@when(parsers.parse('I set the need post reservation buffer service item to "{category_name}" "{service_item_name}"'))
+def set_need_post_reservation_buffer_service_item(driver, category_name, service_item_name):
+    category_name = CommonUseSection.replace_current_datetime(category_name)
+    service_item_name = CommonUseSection.replace_current_datetime(service_item_name)
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.set_need_post_reservation_buffer_service_item(category_name, service_item_name, clear_all=True), "Need post reservation buffer service item is not displayed"
+
+@when("I tap on the confirm button in the post reservation buffer page")
+def tap_confirm_post_reservation_buffer(driver):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.tap_confirm_post_reservation_buffer(), "Confirm post reservation buffer button is not displayed"
+
+@when("I tap on the business hours")
+def tap_business_hours(driver):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.tap_business_hours(), "Business hours is not displayed"
+
+@when("I turn off the business hours switch")
+def turn_off_business_hours_switch(driver):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.turn_off_business_hours_switch(), "Business hours switch is not displayed"
+
+@when("I turn on the business hours switch")
+def turn_on_business_hours_switch(driver):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.turn_on_business_hours_switch(), "Business hours switch is not displayed"
+
+@when(parsers.parse('I set the business hours to "{weekdays}" 9:00-21:00'))
+def set_business_hours(driver, weekdays):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.set_business_hours(weekdays), "Business hours is not displayed"
+
+@when("I tap on the close button in the business hours page")
+def tap_close_business_hours_page(driver):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.tap_close_business_hours_page(), "Close business hours page button is not displayed"
+
+@when("I tap on the equipment management")
+def tap_equipment_management(driver):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.tap_equipment_management(), "Equipment management is not displayed"
+
+@when("I Delete the equipment")
+def delete_equipment(driver):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.delete_equipment(), "Delete equipment is not displayed"
+
+@when(parsers.parse('I add a new equipment named "{equipment_name}" and set the equipment number to "{equipment_num}" and select the service item "{service_item_category}" "{service_item_name}"'))
+def add_equipment(driver, equipment_name, equipment_num, service_item_category, service_item_name):
+    equipment_name = CommonUseSection.replace_current_datetime(equipment_name)
+    service_item_category = CommonUseSection.replace_current_datetime(service_item_category)
+    service_item_name = CommonUseSection.replace_current_datetime(service_item_name)
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.add_equipment(equipment_name, equipment_num, service_item_category, service_item_name, clear_all=True), "Add equipment is not displayed"
+
+@when(parsers.parse('I edit the equipment "{old_equipment_name}" to "{new_equipment_name}" and set the equipment number to "{equipment_num}" and select the service item "{service_item_category}" "{service_item_name}"'))
+def edit_equipment(driver, old_equipment_name, new_equipment_name, equipment_num, service_item_category, service_item_name):
+    old_equipment_name = CommonUseSection.replace_current_datetime(old_equipment_name)
+    new_equipment_name = CommonUseSection.replace_current_datetime(new_equipment_name)
+    service_item_category = CommonUseSection.replace_current_datetime(service_item_category)
+    service_item_name = CommonUseSection.replace_current_datetime(service_item_name)
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.edit_equipment(old_equipment_name, new_equipment_name, equipment_num, service_item_category, service_item_name), "Edit equipment is not displayed"
+
+@when("I tap on the close button in the equipment management page")
+def tap_close_equipment_management_page(driver):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.tap_close_equipment_management_page(), "Close equipment management page button is not displayed"
+
+@when("I tap on the close button in the advanced feature settings page")
+def tap_close_advanced_feature_settings_page(driver):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.tap_close_advanced_feature_settings_page(), "Close advanced feature settings page button is not displayed"
+
+@when("I tap on the close button in the service appointment page")
+def tap_close_service_appointment_page(driver):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.tap_close_service_appointment_page(), "Close service appointment page button is not displayed"
+
+@then("I should see the Branch Settings page")
+def verify_branch_settings_page_after_close(driver):
+    service_appointment_page = ServiceAppointmentPage(driver)
+    assert service_appointment_page.verify_branch_settings_page(), "Branch settings page is not displayed"

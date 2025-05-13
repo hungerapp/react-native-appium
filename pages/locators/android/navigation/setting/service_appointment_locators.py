@@ -41,6 +41,7 @@ class ServiceAppointmentPageLocators:
     CATEGORY_MANAGEMENT_MODAL_NAME = lambda self, category_name: (AppiumBy.XPATH,f'//*[@text="{category_name}"][1]')
     CATEGORY_MANAGEMENT_MODAL_EDIT_BUTTON = lambda self, category_name: (AppiumBy.XPATH,f'//*[@text="{category_name}"][1]/../android.view.ViewGroup//*[@resource-id="pen-to-square"]')
     CATEGORY_MANAGEMENT_MODAL_DELETE_BUTTON = lambda self, category_name: (AppiumBy.XPATH,f'//*[@text="{category_name}"][1]/../android.view.ViewGroup//*[@resource-id="circle-minus"]')
+    CATEGORY_MANAGEMENT_MODAL_DELETE_BUTTON_ALL = (AppiumBy.XPATH,'//android.widget.TextView[@text="分類管理"]/../../../android.view.ViewGroup//android.view.ViewGroup//android.view.ViewGroup[@resource-id="circle-minus"]')
     # Service Appointment Page/Service Item List Page/Category Management Modal/Delete Category Dialog
     DELETE_CATEGORY_DIALOG_TITLE = (AppiumBy.XPATH,'//*[@text="刪除分類"]')
     DELETE_CATEGORY_DIALOG_DESCRIPTION = lambda self, category_name: (AppiumBy.XPATH,f'//*[@text="確定要刪除 {category_name}？此分類中的所有服務項目也會一併刪除。"]')
@@ -94,6 +95,7 @@ class ServiceAppointmentPageLocators:
     UNSPECIFIED_APPOINTMENT_COMBINATION_MODAL_IN_ONLINE_BOOKING_MANAGEMENT_PAGE = lambda self, unspecified_service: (AppiumBy.XPATH,f'//*[@content-desc="不指定"]/../*[@text="{unspecified_service}"]')
     EDIT_SERVICE_PERSONNEL_BUTTON_IN_ONLINE_BOOKING_MANAGEMENT_PAGE = lambda self, service_personnel: (AppiumBy.XPATH,f'//*[@text="{service_personnel}"]/../android.view.ViewGroup//*[@resource-id="pen-to-square"]')
     EDIT_ADD_UNSPECIFIED_APPOINTMENT_COMBINATION_MODAL_BUTTON_IN_ONLINE_BOOKING_MANAGEMENT_PAGE = lambda self, unspecified_service: (AppiumBy.XPATH,f'//*[@content-desc="不指定"]/../*[@text="{unspecified_service}"]/../android.view.ViewGroup//*[@resource-id="pen-to-square"]')
+    EDIT_ALL_UNSPECIFIED_APPOINTMENT_COMBINATION_MODAL_BUTTON_IN_ONLINE_BOOKING_MANAGEMENT_PAGE = (AppiumBy.XPATH,f'//android.widget.TextView[@text="不指定"]')
     # Add Unspecified Appointment Combination Modal
     ADD_UNSPECIFIED_APPOINTMENT_COMBINATION_MODAL_CLOSE_BUTTON = (AppiumBy.XPATH,'//*[@resource-id="xmark"][2]')
     ADD_UNSPECIFIED_APPOINTMENT_COMBINATION_MODAL_CONFIRM_BUTTON = (AppiumBy.ACCESSIBILITY_ID,'check')
@@ -258,13 +260,54 @@ class ServiceAppointmentPageLocators:
     DAY = lambda self, day: (AppiumBy.XPATH,f'//*[@content-desc="{day}"]')
 
     # Service Appointment Page/Advanced Features Page
-
-
-
-
-
-
-
-
-
-
+    RESERVATION_RESTRICTION_IN_ADVANCED_FEATURES_PAGE = (AppiumBy.XPATH,'//*[@text="預約限制"]')
+    POST_RESERVATION_BUFFER_TIME_IN_ADVANCED_FEATURES_PAGE = (AppiumBy.XPATH,'//*[@text="預約後緩衝時間"]')
+    BUSINESS_HOURS_IN_ADVANCED_FEATURES_PAGE = (AppiumBy.XPATH,'//*[@text="營業時間"]')
+    EQUIPMENT_MANAGEMENT_IN_ADVANCED_FEATURES_PAGE = (AppiumBy.XPATH,'//*[@text="設備管理"]')
+    CLOSE_BUTTON_IN_ADVANCED_FEATURES_PAGE = (AppiumBy.ACCESSIBILITY_ID,'xmark')
+    # Service Appointment Page/Advanced Features Page/Reservation Restriction Page
+    CONFIRM_BUTTON_IN_RESERVATION_RESTRICTION_PAGE = (AppiumBy.XPATH,'//*[@resource-id="check"]')
+    RESERVATION_CANCELLATION_SETTINGS = (AppiumBy.ACCESSIBILITY_ID,'預約取消設定-select-field')
+    RESERVATION_CANCELLATION_SETTINGS_SELECTION = lambda self, text: (AppiumBy.XPATH,f'//*[@resource-id="預約取消設定-option"]//*[@text="{text}"]')
+    UPCOMING_RESERVATION_SWITCH = (AppiumBy.ACCESSIBILITY_ID,'尚未到來的預約次數-switch-button')
+    UPCOMING_RESERVATION_COUNT_FIELD = (AppiumBy.XPATH,'//*[@resource-id="尚未到來的預約次數-switch-button"]/../../../android.view.ViewGroup/android.view.ViewGroup/*[@resource-id="數量-text-input"]')
+    NO_SHOW_SWITCH = (AppiumBy.ACCESSIBILITY_ID,'爽約次數-switch-button')
+    NO_SHOW_COUNT_FIELD = (AppiumBy.XPATH,'//*[@resource-id="爽約次數-switch-button"]/../../../android.view.ViewGroup/android.view.ViewGroup/*[@resource-id="數量-text-input"]')
+    MONTHLY_RESERVATION_CANCELLATION_LIMIT_SWITCH = (AppiumBy.ACCESSIBILITY_ID,'每月取消預約的次數-switch-button')
+    MONTHLY_RESERVATION_CANCELLATION_LIMIT_COUNT_FIELD = (AppiumBy.XPATH,'//*[@resource-id="每月取消預約的次數-switch-button"]/../../../android.view.ViewGroup/android.view.ViewGroup/*[@resource-id="數量-text-input"]')
+    CUSTOMER_SCORE_LIMIT_SWITCH = (AppiumBy.ACCESSIBILITY_ID,'顧客分數限制-switch-button')
+    CUSTOMER_SCORE_LIMIT_FIELD = (AppiumBy.ACCESSIBILITY_ID,'分數-number-field-input')
+    # Service Appointment Page/Advanced Features Page /Post Reservation Buffer Time Page
+    POST_RESERVATION_BUFFER_TIME_CONFIRM_BUTTON = (AppiumBy.XPATH,'//*[@resource-id="check"]')
+    POST_RESERVATION_BUFFER_TIME_SWITCH = (AppiumBy.ACCESSIBILITY_ID,'緩衝時間-switch-button')
+    POST_RESERVATION_BUFFER_TIME_FIELD = (AppiumBy.ACCESSIBILITY_ID,'時間長度-text-input')
+    POST_RESERVATION_BUFFER_SERVICE_ITEM = (AppiumBy.XPATH,'//*[@text="需加上緩衝時間的服務項目"]')
+    POST_RESERVATION_BUFFER_SERVICE_ITEM_CATEGORY = lambda self, category_name: (AppiumBy.XPATH,f'//android.widget.HorizontalScrollView//*[@text="{category_name}"]')
+    POST_RESERVATION_BUFFER_SERVICE_ITEM_SELECTION = lambda self, service_item: (AppiumBy.XPATH,f'//*[@text="{service_item}"]')
+    POST_RESERVATION_BUFFER_SERVICE_ITEM_ALL_CLEAR = (AppiumBy.XPATH,'//android.widget.TextView[@text="全部清除"]')
+    POST_RESERVATION_BUFFER_SERVICE_ITEM_CONFIRM = (AppiumBy.XPATH,'(//*[@resource-id="check"])[2]')
+    # Service Appointment Page/Advanced Features Page /Business Hours Page
+    BUSINESS_HOURS_CLOSE_BUTTON = (AppiumBy.ACCESSIBILITY_ID,'xmark')
+    BUSINESS_HOURS_SWITCH = (AppiumBy.ACCESSIBILITY_ID,'營業時間-switch-button')
+    BUSINESS_HOURS_BY_DAY = lambda self, weekdays: (AppiumBy.XPATH,f'//*[@text="{weekdays}"]')
+    BUSINESS_HOURS_BY_DAY_CONFIRM_BUTTON = (AppiumBy.XPATH,'//*[@resource-id="check"]')
+    BUSINESS_HOURS_BY_DAY_CLOSED_ALL_DAY_SWITCH = (AppiumBy.ACCESSIBILITY_ID,'整日不營業-switch-button')
+    BUSINESS_HOURS_BY_DAY_DELETE_BUTTON = (AppiumBy.XPATH,'//*[@resource-id="circle-minus"]')
+    BUSINESS_HOURS_BY_DAY_ADD_BUSINESS_HOURS_BUTTON = (AppiumBy.XPATH,'//android.widget.TextView[@text="新增營業時間"]')
+    BUSINESS_HOURS_BY_DAY_TIME = (AppiumBy.XPATH,'//*[@text="09:00-21:00"]')
+    # Service Appointment Page/Advanced Features Page /Equipment Management Page
+    EQUIPMENT_MANAGEMENT_CLOSE_BUTTON = (AppiumBy.ACCESSIBILITY_ID,'xmark')
+    EQUIPMENT_MANAGEMENT_ADD_EQUIPMENT_BUTTON = (AppiumBy.XPATH,'//android.widget.TextView[@text="新增設備"]')
+    EQUIPMENT_MANAGEMENT_DELETE_BUTTON = (AppiumBy.XPATH,'//*[@resource-id="circle-minus"]')
+    DELETE_DIALOG_DELETE_BUTTON = (AppiumBy.XPATH,'//*[@text="刪除"]')
+    EQUIPMENT_MANAGEMENT_EDIT_BUTTON = lambda self, equipment_name: (AppiumBy.XPATH,f'//android.widget.TextView[@text="{equipment_name}"]/../android.view.ViewGroup//*[@resource-id="pen-to-square"]')
+    # Service Appointment Page/Advanced Features Page /Equipment Management Page / Add Equipment Page and Edit Equipment Page
+    EQUIPMENT_CONFIRM_BUTTON = (AppiumBy.XPATH,'//android.view.ViewGroup[@resource-id="check"]')
+    EQUIPMENT_ENABLE_SWITCH = (AppiumBy.ACCESSIBILITY_ID,'開啟設備-switch-button')
+    EQUIPMENT_NAME_FIELD = (AppiumBy.ACCESSIBILITY_ID,'設備名稱-text-input')
+    EQUIPMENT_NUMBER_FIELD = (AppiumBy.ACCESSIBILITY_ID,'設備數量-text-input')
+    EQUIPMENT_LINKED_SERVICE = (AppiumBy.XPATH,'//android.widget.TextView[@text="此設備連動的服務"]')
+    LINKED_SERVICE_ITEM_CATEGORY = lambda self, category_name: (AppiumBy.XPATH,f'//android.widget.HorizontalScrollView//*[@text="{category_name}"]')
+    LINKED_SERVICE_ITEM_SELECTION = lambda self, service_item: (AppiumBy.XPATH,f'//*[@text="{service_item}"]')
+    LINKED_SERVICE_ITEM_ALL_CLEAR = (AppiumBy.XPATH,'//android.widget.TextView[@text="全部清除"]')
+    LINKED_SERVICE_ITEM_CONFIRM = (AppiumBy.XPATH,'	(//android.view.ViewGroup[@resource-id="check"])[2]')
