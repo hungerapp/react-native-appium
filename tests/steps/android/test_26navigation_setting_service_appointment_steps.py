@@ -98,7 +98,7 @@ def select_service_category(driver, category_name):
 def click_add_service_item_button(driver):
     service_appointment_page = ServiceAppointmentPage(driver)
     assert service_appointment_page.click_add_service_item_button(), "Add service item button is not displayed"
-    
+
 @when(parsers.parse('I enter the service item name "{item_name}"'))
 def enter_service_item_name(driver, item_name):
     item_name = CommonUseSection.replace_current_datetime(item_name)
