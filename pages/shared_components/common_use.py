@@ -104,12 +104,73 @@ class CommonUseSection(CommonActions):
     SAVE_NEW_MEMBER_BUTTON = (AppiumBy.ACCESSIBILITY_ID, 'check')
     SAVE_NAV_NEW_MEMBER_BUTTON = (AppiumBy.ACCESSIBILITY_ID, 'createMemberOnSubmit')
     RIGHT_ARROW = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("arrow-right")')      
-    
+    LEFT_ARROW = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("arrow-left")')
     
     def __init__(self, driver):
         super().__init__(driver)
         
-    ############# Used Gestures #############
+    ############# Used Gestures for Common Use components #############
+    def _perform_random_swipe(self, start_x, start_y, max_offset=50):
+        """Execute random swipe"""
+        try:
+            actions = ActionChains(self.driver)
+            pointer = PointerInput(interaction.POINTER_TOUCH, "touch")
+        
+        
+            end_x = start_x + random.randint(-max_offset, max_offset)
+            end_y = start_y + random.randint(-800, 800)  
+        
+            actions.w3c_actions = ActionBuilder(self.driver, mouse=pointer)
+            actions.w3c_actions.pointer_action.move_to_location(start_x, start_y)
+            actions.w3c_actions.pointer_action.pointer_down()
+            actions.w3c_actions.pointer_action.move_to_location(end_x, end_y)
+            actions.w3c_actions.pointer_action.release()
+            actions.perform()
+        
+        except Exception as e:
+            print(f"Random swipe error: {str(e)}")
+            raise
+        
+    def tap_at_coordinates(self, x, y):
+        """
+        Use W3C Actions API to click at specified coordinates
+        """
+        actions = ActionChains(self.driver)
+        pointer = PointerInput(interaction.POINTER_TOUCH, "touch")
+        
+        actions.w3c_actions = ActionBuilder(self.driver, mouse=pointer)
+        actions.w3c_actions.pointer_action.move_to_location(x, y)
+        actions.w3c_actions.pointer_action.pointer_down()
+        actions.w3c_actions.pointer_action.pause(0.1) 
+        actions.w3c_actions.pointer_action.pointer_up()
+        actions.perform()
+    
+    def swipe_gesture(self, x, y, width, height, direction='up', percent=0.6, speed=1000):
+        """
+        通用滑動手勢
+        Args:
+         x (int): 起始 X 座標
+         y (int): 起始 Y 座標
+         width (int): 滑動區域寬度
+         height (int): 滑動區域高度
+         direction (str): 滑動方向 ('up', 'down', 'left', 'right')
+         percent (float): 滑動百分比 (0.0-1.0)
+         speed (int): 滑動速度（毫秒）
+        """
+        try:
+          self.driver.execute_script('mobile: swipeGesture', {
+            'left': x,
+            'top': y,
+            'width': width,
+            'height': height,
+            'direction': direction,
+            'percent': percent,
+            'speed': speed
+          })
+        except:
+         print(f"Swipe gesture error")
+    ###############################################    
+    
     def swipe_calendar_component(self):
         # Get date picker window
         calendar_window = self.find_element(*self.CALENDAR_WINDOW)
@@ -141,44 +202,7 @@ class CommonUseSection(CommonActions):
                 time.sleep(0.5)
         
         # click confirm
-        self.click_element(*self.CONFIRM_BUTTON)
-        
-    def _perform_random_swipe(self, start_x, start_y, max_offset=50):
-        """執行隨機滑動"""
-        try:
-            actions = ActionChains(self.driver)
-            pointer = PointerInput(interaction.POINTER_TOUCH, "touch")
-        
-        
-            end_x = start_x + random.randint(-max_offset, max_offset)
-            end_y = start_y + random.randint(-800, 800)  
-        
-            actions.w3c_actions = ActionBuilder(self.driver, mouse=pointer)
-            actions.w3c_actions.pointer_action.move_to_location(start_x, start_y)
-            actions.w3c_actions.pointer_action.pointer_down()
-            actions.w3c_actions.pointer_action.move_to_location(end_x, end_y)
-            actions.w3c_actions.pointer_action.release()
-            actions.perform()
-        
-        except Exception as e:
-            print(f"Random swipe error: {str(e)}")
-            raise
-        
-    def tap_at_coordinates(self, x, y):
-        """
-        使用 W3C Actions API 在指定座標點擊
-        """
-        actions = ActionChains(self.driver)
-        pointer = PointerInput(interaction.POINTER_TOUCH, "touch")
-        
-        actions.w3c_actions = ActionBuilder(self.driver, mouse=pointer)
-        actions.w3c_actions.pointer_action.move_to_location(x, y)
-        actions.w3c_actions.pointer_action.pointer_down()
-        actions.w3c_actions.pointer_action.pause(0.1) 
-        actions.w3c_actions.pointer_action.pointer_up()
-        actions.perform()
-        
-    ###############################################          
+        self.click_element(*self.CONFIRM_BUTTON)      
         
     def wait_briefly(self, seconds=0.5):
         time.sleep(seconds)
@@ -581,26 +605,26 @@ class CommonUseSection(CommonActions):
         except:
             self.click_element(*self.SAVE_NAV_NEW_MEMBER_BUTTON)
         
-    def choose_date(self):
+    def choose_date(self, max_clicks=5):
         # click right arrow multiple times
-        clicks = random.randint(1, 5)
-        for _ in range(clicks):
-            self.driver.find_element(*self.RIGHT_ARROW).click()
-            time.sleep(0.5)
+        clicks = random.randint(1, max_clicks)
         
+        for _ in range(clicks):
+            direction = random.choice(['left', 'right'])
+            if direction == 'left': 
+                self.click_element(*self.LEFT_ARROW)
+            else:
+                self.click_element(*self.RIGHT_ARROW)
+            time.sleep(0.5)
+            
         dates = self.driver.find_elements(AppiumBy.XPATH, '//android.view.ViewGroup[@content-desc="一, 二, 三, 四, 五, 六, 日"]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup')
         
         random.choice(dates).click()
         
         # click outside to close the date window
-        size = self.driver.get_window_size()
-        x = int(size['width'] * 0.5)
-        y = int(size['height'] * 0.9)
-        self.driver.execute_script('mobile: clickGesture', {
-            'x': x,
-            'y': y
-        })
-
+        window_size = self.get_screen_size()
+        self.tap_at_coordinates(int(window_size[0] * 0.5), int(window_size[1] * 0.9))
+        
     @staticmethod
     def get_current_timestamp():
         """

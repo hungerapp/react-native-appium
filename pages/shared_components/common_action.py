@@ -1,4 +1,5 @@
 import time
+
 from typing import Tuple, Union
 from appium.webdriver.webdriver import WebDriver
 from selenium.webdriver.support.ui import WebDriverWait
@@ -6,6 +7,10 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException, NoSuchElementException, StaleElementReferenceException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.actions import interaction
+from selenium.webdriver.common.actions.pointer_input import PointerInput
+from selenium.webdriver.common.actions.action_builder import ActionBuilder
 
 class CommonActions:
     def __init__(self, driver: WebDriver, default_timeout: int = 10):
@@ -245,9 +250,18 @@ class CommonActions:
 
     def tap(self, x: int, y: int):
         """
-        點擊指定座標
+        use W3C Actions API to tap at specified coordinates
+        Ex. self.common_actions.tap(int(window_size[0] * 0.5), int(window_size[1] * 0.9))
         """
-        self.driver.tap([(x, y)])
+        actions = ActionChains(self.driver)
+        pointer = PointerInput(interaction.POINTER_TOUCH, "touch")
+        
+        actions.w3c_actions = ActionBuilder(self.driver, mouse=pointer)
+        actions.w3c_actions.pointer_action.move_to_location(x, y)
+        actions.w3c_actions.pointer_action.pointer_down()
+        actions.w3c_actions.pointer_action.pause(0.1) 
+        actions.w3c_actions.pointer_action.pointer_up()
+        actions.perform()
 
     def hide_keyboard(self):
         """
