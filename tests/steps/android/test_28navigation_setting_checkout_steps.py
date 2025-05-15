@@ -1,5 +1,4 @@
-from pytest_bdd import scenarios, given, when, then, parsers
-from pages.shared_components.common_use import CommonUseSection
+from pytest_bdd import scenarios, given, when, then
 from pages.android.navigation.setting.checkout import CheckoutPage
 
 scenarios('../../../features/navigation/setting/checkout.feature')
