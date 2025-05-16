@@ -90,7 +90,7 @@ class CommonActions:
         點擊可點擊的元素
         """
         if timeout is None:
-            timeout = self.default_timeout
+             timeout = self.default_timeout
 
         max_attempts = 3
         for attempt in range(max_attempts):
@@ -248,11 +248,19 @@ class CommonActions:
         """
         self.driver.swipe(start_x, start_y, end_x, end_y, duration)
 
-    def tap(self, x: int, y: int):
+    def tap(self, x_ratio: float, y_ratio: float):
         """
-        use W3C Actions API to tap at specified coordinates
-        Ex. self.common_actions.tap(int(window_size[0] * 0.5), int(window_size[1] * 0.9))
+        使用 W3C Actions API 在螢幕指定比例位置點擊
+        
+        Args:
+        x_ratio (float): x 座標的螢幕比例 (0.0 ~ 1.0)
+        y_ratio (float): y 座標的螢幕比例 (0.0 ~ 1.0)
+        Ex. 
+        self.common_actions.tap(0.5, 0.9)
         """
+        size = self.get_screen_size()
+        x = int(size[0] * x_ratio)
+        y = int(size[1] * y_ratio)
         actions = ActionChains(self.driver)
         pointer = PointerInput(interaction.POINTER_TOUCH, "touch")
         

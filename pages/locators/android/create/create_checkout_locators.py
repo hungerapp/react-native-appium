@@ -24,7 +24,7 @@ class CreateCheckoutLocators:
       ITEM_INFO_TITLE = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("測試1")')
       ITEM_INFO_PRICE = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("NT$")')
       ITEM_INFO_REQUEST_PRICE = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("NT$")')
-      ITEM_INFO_BACK_BUTTON = (AppiumBy.XPATH, '//com.horcrux.svg.GroupView')
+      ITEM_INFO_BACK_BUTTON = (AppiumBy.ACCESSIBILITY_ID, '商品資訊-close-button')
       SAVE_PRODUCT_BTN = (AppiumBy.XPATH, '//com.horcrux.svg.GroupView')
       SAVE_ITEM_BTN = (AppiumBy.ACCESSIBILITY_ID, 'check')
       NON_SELECTED_MEMBER_SECTION = (AppiumBy.ACCESSIBILITY_ID, '尚未選擇會員')
@@ -47,7 +47,7 @@ class CreateCheckoutLocators:
         'clear': (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("清除")'),
         'confirm': (AppiumBy.ACCESSIBILITY_ID, 'circle-check')
       }
-      PAYMENT_ERROR_MESSAGE = lambda self, is_above: (
+      PAYMENT_ERROR_MESSAGE = lambda is_above: (
         AppiumBy.ANDROID_UIAUTOMATOR,
         f'new UiSelector().textMatches(".*{("多" if is_above else "少")}收\\sNT\\$.*")'
       )
@@ -69,6 +69,7 @@ class CreateCheckoutLocators:
       SALES_PERFORMANCE = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("總業績")')
       POSTING_SECTION = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("業績記入日期")')
       RIGHT_ARROW = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("arrow-right")')
+      LEFT_ARROW = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("arrow-left")')
       PERFORMANCE_PERSONNEL = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("業績歸屬")')
       PERFORMANCE_CHANGE_PERSONNEL_SALLY = (AppiumBy.ACCESSIBILITY_ID, 'checkbox-single-option-2')
       SALES_PERFORMANCE_EDIT1_ICON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("pen-to-square").instance(7)')
@@ -104,7 +105,7 @@ class CreateCheckoutLocators:
         },
         'ticket2': {
             'select': (AppiumBy.ACCESSIBILITY_ID, '自動化測試票卷2'),
-            'plus': (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("plus").instance(1)')
+            'plus': (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("plus").instance(2)')
         }
       }
       TICKET_INFO = (AppiumBy.XPATH, '(//android.view.ViewGroup[@resource-id="circle-info"])[2]/com.horcrux.svg.SvgView/com.horcrux.svg.GroupView/com.horcrux.svg.PathView')

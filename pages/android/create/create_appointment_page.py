@@ -11,7 +11,7 @@ from pages.locators.android.create.create_appointment_locators import CreateAppo
 
 class CreateAppointmentPage(CommonUseSection):
     def __init__(self, driver):
-        self.driver = driver
+        super().__init__(driver)
         self.common_actions = CommonActions(driver)
     
     

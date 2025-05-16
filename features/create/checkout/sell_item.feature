@@ -7,12 +7,12 @@ Feature: Sell Item Checkout Process
 
     Given I click the create checkout option
     When I select sell item option  
-    Then I select a sales performance owner  
-    Then I select an item and view the item info
-    Then I do not select a member  
-    Then I choose a payment method without making adjustments  
-    Then I proceed to checkout  
-    Then I do not sign any signature  
+    And I select a sales performance owner  
+    And I select an item and view the item info
+    And I do not select a member  
+    And I choose a payment method without making adjustments  
+    And I proceed to checkout  
+    And I do not sign any signature  
     Then I confirm the checkout and successfully create a checkout
 
 
@@ -23,20 +23,21 @@ Feature: Sell Item Checkout Process
 
     Given I click the create checkout option
     When I select sell item option  
-    Then I select a sales performance owner  
-    Then I select an item and view the item info
-    Then I search non-existing member then re-search for an existing member
-    Then I click search result
+    And I select a sales performance owner  
+    And I select an item and view the item info
+    And I search non-existing member "99999999999999999" then re-search for an existing member "0972205690"
+    And I click search result
     When I clear all selected items
-    Then I reselect items
-    Then I adjust the item  
-    Then I select a payment method below the item price and validate errors  
-    Then I input checkout record content
-    Then I adjust the total sales performance  
-    Then I adjust the bonus points  
-    Then I proceed to checkout  
-    Then I attempt to sign the signature  
-    Then I clear the signature  
+    And I reselect items
+    And I adjust the item  
+    And I select a payment method below the item price and validate errors  
+    And I input checkout record content
+    And I adjust the total sales performance  
+    And I adjust the bonus points  
+    When I proceed to checkout  
+    And I attempt to sign the signature  
+    And I clear the signature
+    And I attempt to sign the signature again
     Then I confirm the checkout and successfully create a checkout
 
 
@@ -48,18 +49,18 @@ Feature: Sell Item Checkout Process
 
     Given I click the create checkout option
     When I select sell item option  
-    Then I select a sales performance owner  
-    Then I select an item and view the item info
-    Then I click the non-selected member section and add a brand new member
-    Then I delete the member information and re-add it
-    Then I add new discount for the item
-    Then I select a payment method above the item price and validate errors
-    Then I calculate the change amount
-    Then I input checkout record content and cancel it  
-    Then I adjust the total sales performance  
-    Then I adjust the bonus points  
-    Then I proceed to checkout  
-    Then I do not sign any signature  
+    And I select a sales performance owner  
+    And I select an item and view the item info
+    And I click the non-selected member section and add a brand new member
+    And I delete the member information and re-add it
+    And I add new discount for the item
+    And I select a payment method above the item price and validate errors
+    And I calculate the change amount
+    And I input checkout record content and cancel it  
+    And I adjust the total sales performance  
+    And I adjust the bonus points  
+    When I proceed to checkout  
+    And I do not sign any signature  
     Then I confirm the checkout and successfully create a checkout
 
 

@@ -7,14 +7,14 @@ Feature: Customer Deposit Checkout
 
     Given I click the create checkout option
     When I select deposit option  
-    Then I search for an existing member  
-    Then I click the search result
-    Then I select a sales performance owner  
-    Then I enter the deposit amount  
-    Then I select a payment method and do not make any changes
-    Then I calculate the change amount
-    Then I proceed to checkout  
-    Then I do not sign any signature  
+    And I search for an existing member "0972205690"
+    And I click the search result
+    And I select a sales performance owner  
+    And I enter the deposit amount  
+    And I select a payment method and do not make any changes
+    And I calculate the change amount
+    When I proceed to checkout  
+    And I do not sign any signature  
     Then I confirm the checkout and successfully create a checkout
 
 
@@ -26,19 +26,19 @@ Feature: Customer Deposit Checkout
 
     Given I click the create checkout option
     When I select deposit option  
-    Then I search for an existing member
-    Then I click the search result
-    Then I select a sales performance owner  
-    Then I enter the deposit amount  
-    Then I delete the member and re-search for an existing member  
-    Then I modify and clear the deposit amount before re-entering it  
-    Then I modify the sales amount  
-    Then I select a different payment method and change it below the item price and validate errors  
-    Then I input checkout record content  
-    Then I adjust the bonus points using quick select
-    Then I proceed to checkout  
-    Then I attempt to sign the signature  
-    Then I clear the signature  
+    And I search for an existing member "0972205690"
+    And I click the search result
+    And I select a sales performance owner  
+    And I enter the deposit amount  
+    And I delete the member and re-search for an existing member "0972205690"
+    And I modify and clear the deposit amount before re-entering it  
+    And I modify the sales amount  
+    And I select a different payment method and change it below the item price and validate errors  
+    And I input checkout record content  
+    And I adjust the bonus points using quick select
+    When I proceed to checkout  
+    And I attempt to sign the signature  
+    And I clear the signature  
     Then I confirm the checkout and successfully create a checkout
 
 
@@ -50,15 +50,15 @@ Feature: Customer Deposit Checkout
 
     Given I click the create checkout option
     When I select deposit option  
-    Then I add a brand new member
-    Then I select a sales performance owner  
-    Then I enter the deposit amount  
-    Then I select a payment method and change it above the item price and validate errors  
-    Then I input checkout record content and cancel it 
-    Then I adjust the total sales performance  
-    Then I adjust the bonus points using quick select
-    Then I proceed to checkout  
-    Then I do not sign any signature  
+    And I add a brand new member
+    And I select a sales performance owner  
+    And I enter the deposit amount  
+    And I select a payment method and change it above the item price and validate errors  
+    And I input checkout record content and cancel it 
+    And I adjust the total sales performance  
+    And I adjust the bonus points using quick select
+    When I proceed to checkout  
+    And I do not sign any signature  
     Then I confirm the checkout and successfully create a checkout
 
 

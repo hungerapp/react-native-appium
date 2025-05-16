@@ -69,8 +69,7 @@ class CommonUseSection(CommonActions):
     AMOUNT_SAVE_BTN = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(1)')
     EDIT_ITEM_QUANTITY_ICON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("caret-down").instance(1)')
     QUANTITY_PLUS_BUTTON = (AppiumBy.XPATH, '//android.view.ViewGroup[@resource-id="plus"]/com.horcrux.svg.SvgView/com.horcrux.svg.GroupView/com.horcrux.svg.PathView')
-    QUANTITY_REVISE_INPUT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textMatches("^[1-9][0-9]{0,2}$")')
-    QUANTITY_REVISE_INPUT2 = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("android.widget.EditText")')
+    QUANTITY_REVISE_INPUT = (AppiumBy.ACCESSIBILITY_ID, 'undefined-number-field-input')
     QUANTITY_REVISE_SAVE_BTN = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(1)')
     REMOVE_ITEM_BTN = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("circle-minus").instance(0)')
     REMOVE_CONFIRM_BTN = (AppiumBy.ACCESSIBILITY_ID, '移除')
@@ -131,20 +130,6 @@ class CommonUseSection(CommonActions):
             print(f"Random swipe error: {str(e)}")
             raise
         
-    def tap_at_coordinates(self, x, y):
-        """
-        Use W3C Actions API to click at specified coordinates
-        """
-        actions = ActionChains(self.driver)
-        pointer = PointerInput(interaction.POINTER_TOUCH, "touch")
-        
-        actions.w3c_actions = ActionBuilder(self.driver, mouse=pointer)
-        actions.w3c_actions.pointer_action.move_to_location(x, y)
-        actions.w3c_actions.pointer_action.pointer_down()
-        actions.w3c_actions.pointer_action.pause(0.1) 
-        actions.w3c_actions.pointer_action.pointer_up()
-        actions.perform()
-    
     def swipe_gesture(self, x, y, width, height, direction='up', percent=0.6, speed=1000):
         """
         通用滑動手勢
@@ -379,36 +364,7 @@ class CommonUseSection(CommonActions):
         return self
     
     def select_service(self):
-        try:
-            tab_container = self.find_element(*self.TAB_CONTAINER)
-            size = tab_container.size
-            location = tab_container.location
-
-            start_x = location['x'] + int(size['width'] * 0.8)
-            end_x = location['x'] + int(size['width'] * 0.2)
-            y = location['y'] + int(size['height'] * 0.5)
-
-            max_attempts = 5
-            found_target = False
-
-            for _ in range(max_attempts):
-                self.swipe(start_x, y, end_x, y, 100)
-                time.sleep(0.5)
-                try:
-                    self.click_element(*self.AUTO_TEST_TAB)
-                    found_target = True
-                    break
-                except NoSuchElementException:
-                    continue
-
-            if not found_target:
-                print("Could not find AUTO_TEST_TAB after maximum attempts")
-                return self
-
-        except Exception as e:
-            print(f"Error swiping tabs: {str(e)}")
-            return self
-
+        self.swipe_and_find_tab()
         # Select specific services under AUTO_TEST_TAB
         try:
             service1 = self.find_element(*self.SERVICE_OPTION1)
@@ -428,6 +384,41 @@ class CommonUseSection(CommonActions):
             print(f"Error selecting services: {str(e)}")
 
         return self
+    
+    def swipe_and_find_tab(self, target_tab_locator=AUTO_TEST_TAB, max_attempts=5):
+        """args: target_tab_locator is the locator of the tab to be found
+           ex. self.swipe_and_find_tab(CreateRequestLocators.AUTO_TEST_TAB)
+           instead of using *CreateRequestLocators.AUTO_TEST_TAB
+        """
+        try:
+            tab_container = self.find_element(*self.TAB_CONTAINER)
+            size = tab_container.size
+            location = tab_container.location
+
+            start_x = location['x'] + int(size['width'] * 0.8)
+            end_x = location['x'] + int(size['width'] * 0.2)
+            y = location['y'] + int(size['height'] * 0.5)
+
+            max_attempts = 5
+            found_target = False
+
+            for _ in range(max_attempts):
+                self.swipe(start_x, y, end_x, y, 100)
+                time.sleep(0.5)
+                try:
+                    self.click_element(*target_tab_locator)
+                    found_target = True
+                    break
+                except NoSuchElementException:
+                    continue
+
+            if not found_target:
+                print("Could not find AUTO_TEST_TAB after maximum attempts")
+                return self
+
+        except Exception as e:
+            print(f"Error swiping tabs: {str(e)}")
+            return self
     
     
     def handle_sub_services(self):
@@ -456,33 +447,31 @@ class CommonUseSection(CommonActions):
         except Exception as e:
             return False
 
-    
-    
     def update_items_amount(self):
         self.click_element(*self.AMOUNT_EDIT_ICON)
-        self.send_keys_to_element(*self.AMOUNT_INPUT, str(random.randint(10, 99)))
-        self.click_element(*self.AMOUNT_CLEAR_BTN)
-
-        self.send_keys_to_element(*self.AMOUNT_INPUT, str(random.randint(10, 99)))
         time.sleep(0.5)
-        self.click_element(*self.AMOUNT_SAVE_BTN)
+        self.driver.find_element(*self.AMOUNT_INPUT).send_keys(str(random.randint(10, 99)))
+        self.click_element(*self.AMOUNT_CLEAR_BTN)
+        time.sleep(0.5)
+        self.driver.find_element(*self.AMOUNT_INPUT).send_keys(str(random.randint(10, 99)))
+        time.sleep(0.5)
+        self.driver.find_element(*self.AMOUNT_SAVE_BTN).click()
         
-
     def update_items_quantity(self):
-        self.click_element(*self.EDIT_ITEM_QUANTITY_ICON)
+        self.driver.find_element(*self.EDIT_ITEM_QUANTITY_ICON).click()
         try:
           if random.choice([True, False]):
-             plus_button = self.find_element(*self.QUANTITY_PLUS_BUTTON)
+             plus_button = self.driver.find_element(*self.QUANTITY_PLUS_BUTTON)
              click_times = random.randint(5,8)
              for _ in range(click_times):
                 plus_button.click()
                 time.sleep(0.5)
-          else:
-             self.click_element(*self.QUANTITY_REVISE_INPUT)
+          else: 
              random_quantity = str(random.randint(5, 99))
-             self.send_keys_to_element(*self.QUANTITY_REVISE_INPUT2, random_quantity)
+             self.driver.find_element(*self.QUANTITY_REVISE_INPUT).click()
+             self.driver.find_element(*self.QUANTITY_REVISE_INPUT).send_keys(random_quantity)
           
-          self.click_element(*self.QUANTITY_REVISE_SAVE_BTN)
+          self.driver.find_element(*self.QUANTITY_REVISE_SAVE_BTN).click()
         
         except Exception as e:
             print(f"Error updating items quantity: {str(e)}")
@@ -490,13 +479,12 @@ class CommonUseSection(CommonActions):
     
     def remove_item(self):
         self.click_element(*self.REMOVE_ITEM_BTN)
-        remove_confirm_btn = self.find_element(*self.REMOVE_CONFIRM_BTN)
-        if remove_confirm_btn.is_displayed() and remove_confirm_btn.is_enabled():
-            self.click_element(*self.REMOVE_CONFIRM_BTN)
-        
+        self.is_element_visible(*self.REMOVE_CONFIRM_BTN)
+        self.click_element(*self.REMOVE_CONFIRM_BTN)
         self.click_element(*self.BACK_TO_PREVIOUS_PAGE_ICON)
     
     def add_new_discount(self, existing_member=False):
+        self.is_element_visible(*self.ADD_NEW_DISCOUNT_BTN)
         self.click_element(*self.ADD_NEW_DISCOUNT_BTN)
         
         #randomly select tab
@@ -505,7 +493,7 @@ class CommonUseSection(CommonActions):
             tabs.append(self.COUPON_TAB)
             
         selected_tab = random.choice(tabs)
-        self.click_element(*selected_tab)
+        self.driver.find_element(*selected_tab).click()
         
         if selected_tab == self.CASH_TAB:
             self._handle_cash_tab()
@@ -520,19 +508,19 @@ class CommonUseSection(CommonActions):
         if random.choice([True, False]):
             self.click_element(*self.AMOUNT_INPUT_FIELD)
             random_amount = str(random.randint(10, 99))
-            self.send_keys_to_element(*self.AMOUNT_INPUT_FIELD, random_amount)
+            self.driver.find_element(*self.AMOUNT_INPUT_FIELD).send_keys(random_amount)
         else:
             amount = random.choice(self.CASH_QUICK_AMOUNTS)
-            self.click_element(AppiumBy.ANDROID_UIAUTOMATOR, f'new UiSelector().text("{amount}")')
+            self.driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR, f'new UiSelector().text("{amount}")').click()
             
     def _handle_discount_tab(self):
         if random.choice([True, False]):
             self.click_element(*self.DISCOUNT_INPUT_FIELD)
             random_discount = str(random.choice(self.DISCOUNT_INPUT_OPTIONS))
-            self.send_keys_to_element(*self.DISCOUNT_INPUT_FIELD, random_discount)
+            self.driver.find_element(*self.DISCOUNT_INPUT_FIELD).send_keys(random_discount)
         else:
             discount = random.choice(self.DISCOUNT_QUICK_RATES)
-            self.click_element(AppiumBy.ANDROID_UIAUTOMATOR, f'new UiSelector().text("{discount}")')
+            self.driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR, f'new UiSelector().text("{discount}")').click()
             
     def _handle_coupon_tab(self):
         self.click_element(*self.AUTO_TEST_COUPON)
@@ -555,14 +543,14 @@ class CommonUseSection(CommonActions):
             self.swipe(start_x, start_y, start_x, end_y, duration=500)
             time.sleep(1)
         
-            self.click_element(AppiumBy.ANDROID_UIAUTOMATOR, f'new UiSelector().text("{random_quantity}")')
+            self.driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR, f'new UiSelector().text("{random_quantity}")').click()
             time.sleep(0.5)
         
             # Input amount
-            self.click_element(*self.QUANTITY_INPUT)
+            self.driver.find_element(*self.QUANTITY_INPUT).click()
             random_amount = str(random.randint(1, 100))
-            self.clear_text(*self.QUANTITY_INPUT)
-            self.send_keys_to_element(*self.QUANTITY_INPUT, random_amount)
+            self.driver.find_element(*self.QUANTITY_INPUT).clear()
+            self.driver.find_element(*self.QUANTITY_INPUT).send_keys(random_amount)
             
         except Exception as e:
             print(f"Error handling coupon tab: {str(e)}")
@@ -605,25 +593,58 @@ class CommonUseSection(CommonActions):
         except:
             self.click_element(*self.SAVE_NAV_NEW_MEMBER_BUTTON)
         
-    def choose_date(self, max_clicks=5):
-        # click right arrow multiple times
-        clicks = random.randint(1, max_clicks)
-        
+    def choose_date(self, clicks=3):
         for _ in range(clicks):
-            direction = random.choice(['left', 'right'])
-            if direction == 'left': 
-                self.click_element(*self.LEFT_ARROW)
-            else:
-                self.click_element(*self.RIGHT_ARROW)
-            time.sleep(0.5)
-            
+            self.is_element_visible(*self.RIGHT_ARROW)
+            self.click_element(*self.RIGHT_ARROW)
+            time.sleep(1)
+          
         dates = self.driver.find_elements(AppiumBy.XPATH, '//android.view.ViewGroup[@content-desc="一, 二, 三, 四, 五, 六, 日"]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup')
         
         random.choice(dates).click()
         
         # click outside to close the date window
-        window_size = self.get_screen_size()
-        self.tap_at_coordinates(int(window_size[0] * 0.5), int(window_size[1] * 0.9))
+        self.tap(0.5, 0.9)
+        
+    def sign_request(self):
+        """simulate the signature, draw the "王" in the left top corner"""
+        try:
+            signature_pad = self.driver.find_element(AppiumBy.CLASS_NAME, "android.widget.Image")
+            size = signature_pad.size
+
+            left = 0.02
+            right = 0.2
+            top = 0.03
+            mid = 0.1
+            bottom = 0.2
+
+            strokes = [
+                # first stroke: top horizontal line
+                [(left, top), (right, top)],
+                # second stroke: middle horizontal line
+                [(left, mid), (right, mid)],
+                # third stroke: bottom horizontal line
+                [(left, bottom), (right, bottom)],
+                # fourth stroke: middle vertical line
+                [((left+right)/2, top), ((left+right)/2, bottom+0.03)]
+            ]
+
+            for stroke in strokes:
+                actions = ActionChains(self.driver)
+                start_x = size['width'] * stroke[0][0]
+                start_y = size['height'] * stroke[0][1]
+                end_x = size['width'] * stroke[1][0]
+                end_y = size['height'] * stroke[1][1]
+
+                actions.move_to_element_with_offset(signature_pad, start_x, start_y)
+                actions.click_and_hold()
+                actions.move_to_element_with_offset(signature_pad, end_x, end_y)
+                actions.release()
+                actions.perform()
+                time.sleep(0.2)
+        except Exception as e:
+            print(f"Error during signing: {str(e)}")
+            raise
         
     @staticmethod
     def get_current_timestamp():
