@@ -19,8 +19,6 @@ class CreateRequestPage(CommonUseSection):
         try:
           self.common_actions.is_element_visible(*CreateRequestLocators.CREATE_BTN)
           self.common_actions.click_element(*CreateRequestLocators.CREATE_BTN)
-              
-          self.common_actions.is_element_visible(*CreateRequestLocators.CREATE_REQUEST_BTN)
           self.common_actions.click_element(*CreateRequestLocators.CREATE_REQUEST_BTN)
                     
         except NoSuchElementException:

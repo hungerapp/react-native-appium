@@ -20,7 +20,6 @@ class CreateCheckoutPage(CommonUseSection):
         try:
             self.common_actions.is_element_visible(*CreateCheckoutLocators.CREATE_BTN)
             self.common_actions.click_element(*CreateCheckoutLocators.CREATE_BTN)
-            self.common_actions.is_element_visible(*CreateCheckoutLocators.CREATE_CHECKOUT_OPTION)
             self.common_actions.click_element(*CreateCheckoutLocators.CREATE_CHECKOUT_OPTION)
                             
         except TimeoutException:
