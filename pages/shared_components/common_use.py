@@ -292,7 +292,7 @@ class CommonUseSection(CommonActions):
             search_term = random.choice(COMMON_SEARCH_TERMS)
         
             self.click_element(*self.SEARCH_INPUT)
-            self.send_keys_to_element(*self.SEARCH_INPUT, search_term["keyword"])
+            self.driver.find_element(*self.SEARCH_INPUT).send_keys(search_term["keyword"])
         
             result = self.find_element(AppiumBy.ANDROID_UIAUTOMATOR,
             f'new UiSelector().textContains("{search_term["expected"]}")')
@@ -562,13 +562,13 @@ class CommonUseSection(CommonActions):
         first_digit = '9' # first digit cannot be 1
         rest_digits = ''.join(random.choice('0123456789') for _ in range(8))
         phone_number = first_digit + rest_digits
-        self.send_keys_to_element(*self.PHONE_NUMBER_INPUT, phone_number)
+        self.driver.find_element(*self.PHONE_NUMBER_INPUT).send_keys(phone_number)
         
         time.sleep(0.5)
         # Generate random name
         nickname_chars = string.ascii_letters + string.digits + "!@#$%^&*()_+-=[]{}|;:,.<>?" + "QA測試文字在這裡qa_test"
         nickname = ''.join(random.choice(nickname_chars) for _ in range(5))
-        self.send_keys_to_element(*self.NICKNAME_INPUT, nickname)
+        self.driver.find_element(*self.NICKNAME_INPUT).send_keys(nickname)
         
         # select random gender
         self.select_random_gender()
@@ -581,7 +581,7 @@ class CommonUseSection(CommonActions):
         description = ''.join(random.choice(nickname_chars) for _ in range(20))
         self.click_element(*self.MEMBER_DESCRIPTION_INPUT)
         time.sleep(0.5)
-        self.send_keys_to_element(*self.MEMBER_DESCRIPTION_MODAL_INPUT, description)
+        self.driver.find_element(*self.MEMBER_DESCRIPTION_MODAL_INPUT).send_keys(description)
         self.click_element(*self.MEMBER_DESCRIPTION_MODAL_SAVE_BUTTON)
         
         self.click_element(*self.ADD_NEW_MEMBER_TOGGLE)

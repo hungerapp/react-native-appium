@@ -265,7 +265,7 @@ class CommonActions:
         Args:
         x_ratio (float): x 座標的螢幕比例 (0.0 ~ 1.0)
         y_ratio (float): y 座標的螢幕比例 (0.0 ~ 1.0)
-        Ex. 
+        Ex.
         self.common_actions.tap(0.5, 0.9)
         """
         size = self.get_screen_size()

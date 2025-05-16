@@ -43,8 +43,10 @@ class CreateAppointmentPage(CommonUseSection):
 
     def fill_existing_contact(self, name, phone):
         self.common_actions.click_if_exists(*CreateAppointmentLocators.CONTACT_INFO_SECTION)
-        self.common_actions.send_keys_to_element(*CreateAppointmentLocators.PHONE_INPUT, phone)
-        self.common_actions.send_keys_to_element(*CreateAppointmentLocators.NAME_INPUT, name)
+        phone_input = self.common_actions.find_element(*CreateAppointmentLocators.PHONE_INPUT)
+        phone_input.send_keys(phone)
+        name_input = self.common_actions.find_element(*CreateAppointmentLocators.NAME_INPUT)
+        name_input.send_keys(name)
         self.select_random_gender()
         self.common_actions.click_element(*CreateAppointmentLocators.SAVE_CONTACT_BUTTON)
         return self
@@ -328,11 +330,13 @@ class CreateAppointmentPage(CommonUseSection):
 
     # Contact related methods
     def enter_phone_number(self, phone_number):
-        self.common_actions.send_keys_to_element(*CreateAppointmentLocators.PHONE_INPUT, phone_number)
+        phone_input = self.common_actions.find_element(*CreateAppointmentLocators.PHONE_INPUT)
+        self.common_actions.send_keys_to_element(phone_input, phone_number)
         return self
     
     def enter_name(self, name):
-        self.common_actions.send_keys_to_element(*CreateAppointmentLocators.NAME_INPUT, name)
+        name_input = self.common_actions.find_element(*CreateAppointmentLocators.NAME_INPUT)
+        self.common_actions.send_keys_to_element(name_input, name)
         return self
       
     def verify_invalid_phone_error_message(self):
@@ -346,13 +350,13 @@ class CreateAppointmentPage(CommonUseSection):
 
     def search_by_phone(self):
         self.common_actions.is_element_visible(*CreateAppointmentLocators.PHONE_SEARCH_BUTTON)
-        time.sleep(1.5)
+        time.sleep(1)
         self.driver.find_element(*CreateAppointmentLocators.PHONE_SEARCH_BUTTON).click()
         return self
 
     def search_by_name(self):
         self.common_actions.is_element_visible(*CreateAppointmentLocators.NAME_SEARCH_BUTTON)
-        time.sleep(1.5)
+        time.sleep(1)
         self.driver.find_element(*CreateAppointmentLocators.NAME_SEARCH_BUTTON).click()
         return self
 

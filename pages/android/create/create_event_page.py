@@ -88,8 +88,7 @@ class CreateEventPage(CommonUseSection):
         time.sleep(0.5)
         
         # click outside to close the time window
-        window_size = self.common_actions.get_screen_size()
-        self.common_actions.tap(int(window_size[0] * 0.5), int(window_size[1] * 0.9))
+        self.common_actions.tap(0.5, 0.9)
     ###############################################   
     
     def create_event_option(self):
@@ -123,9 +122,9 @@ class CreateEventPage(CommonUseSection):
         except Exception as e:
             print(f"Quickly select event failed: {str(e)}")
 
-    def enter_event_title(self, title=None):
-        if title is not None:
-            self.common_actions.send_keys_to_element(*CreateEventLocators.EVENT_TITLE_INPUT, title)
+    def enter_event_title(self, title):
+        event_title_input = self.driver.find_element(*CreateEventLocators.EVENT_TITLE_INPUT)
+        self.common_actions.send_keys_to_element(event_title_input, title)
         
         self.common_actions.click_element(*CreateEventLocators.SAVE_BUTTON)
         

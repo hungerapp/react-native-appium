@@ -328,7 +328,7 @@ class PersonalPage(CommonUseSection):
             print(f"[PersonalPage][get_empty_name_error_message] error: {str(e)}")
             raise
           
-  def input_phone_number(self, valid=True):
+  def input_phone_number(self, valid: bool = True):
     """Input phone number"""
     try:
         self.common_action.clear_text(*PersonalPageLocators.PHONE_INPUT_INITIAL)
@@ -340,7 +340,8 @@ class PersonalPage(CommonUseSection):
             # Generate an invalid phone number
             phone_number = f"{random.randint(10000, 99999)}"
         
-        self.common_action.send_keys_to_element(*PersonalPageLocators.PHONE_INPUT_INITIAL, phone_number)
+        phone_input = self.common_action.find_element(*PersonalPageLocators.PHONE_INPUT_INITIAL)
+        phone_input.send_keys(phone_number)
         return phone_number
     except Exception as e:
         print(f"[PersonalPage][input_phone_number] error: {str(e)}")
