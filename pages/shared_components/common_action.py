@@ -329,7 +329,6 @@ class CommonActions:
         element = self.find_element(locator_type, locator_value)
         return element.get_attribute(attribute)
 
-
     def get_element_location(self, locator_type: str, locator_value: str) -> Tuple[int, int]:
         """
         獲取元素位置

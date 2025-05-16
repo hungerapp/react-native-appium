@@ -2,7 +2,7 @@ from appium.webdriver.common.appiumby import AppiumBy
 
 class MemberApplyLocators:
       
-      ################# COUCHER MANAGEMENT #################
+      ################# VOUCHER MANAGEMENT #################
       
       # VOUCHER SECTION
       MEMBER_APPLY = (AppiumBy.ANDROID_UIAUTOMATOR,'new UiSelector().textContains("會員應用")')
