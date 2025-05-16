@@ -1,4 +1,3 @@
-from pages.shared_components.common_use import CommonUseSection
 from pages.locators.android.navigation.setting.brand_locators import BrandPageLocators
 from pages.shared_components.common_action import CommonActions
 from pages.shared_components.common_use import CommonUseSection

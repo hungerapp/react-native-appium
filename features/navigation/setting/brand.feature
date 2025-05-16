@@ -18,7 +18,7 @@ Feature: Brand Management in Branch Settings
         And I turn off the branch phone display switch
         And I turn on the branch phone display switch
         And I select "+886" as the country code
-        And I enter "09<current_datetime>" in the branch phone number field
+        And I enter "0920250101" in the branch phone number field
         And I turn off the branch address display switch
         And I turn on the branch address display switch
         And I select "臺北市" as the city

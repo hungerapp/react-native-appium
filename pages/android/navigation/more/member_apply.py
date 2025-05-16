@@ -10,11 +10,13 @@ from selenium.webdriver.common.actions.pointer_input import PointerInput
 
 from pages.locators.android.navigation.more.member_apply_locators import MemberApplyLocators
 from pages.shared_components.common_use import CommonUseSection
+from pages.shared_components.common_action import CommonActions
 
 class MemberApplyPage(CommonUseSection):
     def __init__(self, driver):
         self.driver = driver
         self.member_apply_locators = MemberApplyLocators()
+        self.common_actions = CommonActions(driver)
         
     def tap_member_apply(self):
         self.driver.find_element(*self.member_apply_locators.MEMBER_APPLY).click()
@@ -104,8 +106,7 @@ class MemberApplyPage(CommonUseSection):
         
     def usage_period_section(self):
         # scroll to the bottom of the page to continue doing the next step
-        self.driver.swipe(start_x=500, start_y=1800, end_x=500, end_y=300, duration=800)
-        time.sleep(1)
+        self.common_actions.scroll_to_element(*self.member_apply_locators.USAGE_PERIOD, max_swipes=10)
         
         # usage period section
         self.driver.find_element(*self.member_apply_locators.USAGE_PERIOD).click()
@@ -119,19 +120,20 @@ class MemberApplyPage(CommonUseSection):
         # days
         elif selected_usage == self.member_apply_locators.USAGE_OPTIONS[1]:
             random_days = str(random.randint(1, 30))
+            self.common_actions.scroll_to_element(*self.member_apply_locators.USAGE_PERIOD_TIME_INPUT)
             input_field = self.driver.find_element(*self.member_apply_locators.USAGE_PERIOD_TIME_INPUT)
             input_field.send_keys(random_days)
             
         # expire time
         else:
+            self.common_actions.scroll_to_element(*self.member_apply_locators.USAGE_PERIOD_CHOOSE_TIME)
             self.driver.find_element(*self.member_apply_locators.USAGE_PERIOD_CHOOSE_TIME).click()
             time.sleep(1)
             self.add_gift_voucher_choose_date()
             
     def performance_setting_section(self):
         # scroll to the bottom of the page to find the created voucher
-        self.driver.swipe(start_x=500, start_y=2000, end_x=500, end_y=200, duration=800)
-        time.sleep(1)
+        self.common_actions.scroll_to_element(*self.member_apply_locators.INCLUDE_PERFORMANCE_TOGGLE, max_swipes=15)
         
         # performance setting section
         self.driver.find_element(*self.member_apply_locators.INCLUDE_PERFORMANCE_TOGGLE).click()
@@ -144,18 +146,16 @@ class MemberApplyPage(CommonUseSection):
 
     def other_section(self):
         # scroll to the bottom of the page to find the created voucher
-        self.driver.swipe(start_x=500, start_y=2000, end_x=500, end_y=200, duration=800)
-        time.sleep(1)
-        
+        self.common_actions.scroll_to_element(*self.member_apply_locators.OTHER_TICKET_TRANSFER_TOGGLE, max_swipes=15)
+
         # other section
         self.driver.find_element(*self.member_apply_locators.OTHER_TICKET_TRANSFER_TOGGLE).click()
         time.sleep(0.5)
-        
+
 
     def edit_and_delete_general_voucher(self):
         # scroll to the bottom of the page to find the created voucher
-        self.driver.swipe(start_x=500, start_y=2000, end_x=500, end_y=200, duration=800)
-        time.sleep(1)
+        self.common_actions.scroll_to_element(*self.member_apply_locators.EDIT_GENERAL_VOUCHER_BUTTON)
         
         # edit voucher toggle
         self.driver.find_element(*self.member_apply_locators.EDIT_GENERAL_VOUCHER_BUTTON).click()
@@ -172,8 +172,7 @@ class MemberApplyPage(CommonUseSection):
             time.sleep(0.5)
         
         # scroll down again
-        self.driver.swipe(start_x=500, start_y=1800, end_x=500, end_y=300, duration=800)
-        time.sleep(1)
+        self.common_actions.scroll_to_element(*self.member_apply_locators.OTHER_TICKET_TRANSFER_TOGGLE)
         
         self.driver.find_element(*self.member_apply_locators.OTHER_TICKET_TRANSFER_TOGGLE).click()
         
@@ -243,13 +242,13 @@ class MemberApplyPage(CommonUseSection):
         
         
         # scroll down again
-        self.driver.swipe(start_x=500, start_y=2000, end_x=500, end_y=200, duration=800)
-        time.sleep(1)
+        self.common_actions.scroll_to_element(*self.member_apply_locators.OTHER_TICKET_TRANSFER_TOGGLE, max_swipes=15)
         
         # click transfer toggle
         self.driver.find_element(*self.member_apply_locators.OTHER_TICKET_TRANSFER_TOGGLE).click()
         
         # delete voucher
+        self.common_actions.scroll_to_element(*self.member_apply_locators.DELETE_BONUS_POINT_VOUCHER_BUTTON)
         self.driver.find_element(*self.member_apply_locators.DELETE_BONUS_POINT_VOUCHER_BUTTON).click()
         time.sleep(0.5)
         self.driver.find_element(*self.member_apply_locators.DELETE_CONFIRM_BUTTON).click()
@@ -274,17 +273,11 @@ class MemberApplyPage(CommonUseSection):
         
         # discount setting section
         self.discount_setting_section()
-        
-        # scroll down 
-        self.driver.swipe(start_x=500, start_y=1800, end_x=500, end_y=300, duration=800)
-        time.sleep(1)
+
         
         # usage period section
         self.usage_period_section()
-        
-        # scroll down again
-        self.driver.swipe(start_x=500, start_y=1800, end_x=500, end_y=300, duration=800)
-        time.sleep(1)
+
         
         # other section
         time.sleep(0.5)
@@ -314,12 +307,9 @@ class MemberApplyPage(CommonUseSection):
         for toggle in toggle_elements:
             toggle.click()
             time.sleep(0.5)
-            
-        # scroll down again
-        self.driver.swipe(start_x=500, start_y=2000, end_x=500, end_y=200, duration=800)
-        time.sleep(1)
         
         # delete voucher
+        self.common_actions.scroll_to_element(*self.member_apply_locators.DELETE_MEMBERSHIP_GIFT_VOUCHER_BUTTON, max_swipes=15)
         self.driver.find_element(*self.member_apply_locators.DELETE_MEMBERSHIP_GIFT_VOUCHER_BUTTON).click()
         time.sleep(0.5)
         self.driver.find_element(*self.member_apply_locators.DELETE_CONFIRM_BUTTON).click()
@@ -374,12 +364,10 @@ class MemberApplyPage(CommonUseSection):
         for toggle in toggle_elements:
             toggle.click()
             time.sleep(0.5)
-            
-        # scroll down again
-        self.driver.swipe(start_x=500, start_y=2000, end_x=500, end_y=200, duration=800)
-        time.sleep(1)
+
         
         # delete voucher
+        self.common_actions.scroll_to_element(*self.member_apply_locators.DELETE_BIRTHDAY_GIFT_VOUCHER_BUTTON, max_swipes=15)
         self.driver.find_element(*self.member_apply_locators.DELETE_BIRTHDAY_GIFT_VOUCHER_BUTTON).click()
         time.sleep(0.5)
         self.driver.find_element(*self.member_apply_locators.DELETE_CONFIRM_BUTTON).click()
