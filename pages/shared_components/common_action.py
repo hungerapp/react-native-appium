@@ -123,6 +123,9 @@ class CommonActions:
         1. 傳入定位器: send_keys_to_element(*LoginLocators.EMAIL_INPUT, "text")
         2. 傳入元素: send_keys_to_element(element, "text")
         """
+        # make sure the text is a string
+        text = str(text) if text is not None else None
+        
         if isinstance(locator_or_element, WebElement):
             element = locator_or_element
             element.clear()

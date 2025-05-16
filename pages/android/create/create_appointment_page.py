@@ -134,7 +134,8 @@ class CreateAppointmentPage(CommonUseSection):
         random_note = ''.join(random.choices(characters, k=10))
         self.common_actions.click_element(*CreateAppointmentLocators.NOTE_CONTENT_INPUT)
         self.common_actions.click_element(*CreateAppointmentLocators.MODAL_NOTE_CONTENT_INPUT)
-        self.common_actions.send_keys_to_element(*CreateAppointmentLocators.MODAL_NOTE_CONTENT_INPUT, random_note)
+        
+        self.driver.find_element(*CreateAppointmentLocators.MODAL_NOTE_CONTENT_INPUT).send_keys(random_note)
         self.hide_keyboard()
         
         self.common_actions.click_element(*CreateAppointmentLocators.MODAL_NOTE_SAVE_BTN)
