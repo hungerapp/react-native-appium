@@ -176,8 +176,8 @@ def clean_app_state(driver, common_actions, request):
     print(f"\n🔁 Preparing test: {test_name}")
 
     platform = os.getenv('APPIUM_OS', 'android').lower()
-    email = os.getenv('TEST_EMAIL', 'test@example.com')
-    ver_code = os.getenv('VERIFICATION_CODE', '123456')
+    email = os.getenv('TEST_EMAIL', 'leif@hotcake.app')
+    ver_code = os.getenv('VERIFICATION_CODE', '555666')
 
     print(f"🧪 Platform: {platform}")
 
