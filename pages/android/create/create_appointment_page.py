@@ -252,7 +252,6 @@ class CreateAppointmentPage(CommonUseSection):
                 500
             )
             
-            self.common_actions.is_element_visible(*CreateAppointmentLocators.DATE_BLOCK)
             self.common_actions.click_element(AppiumBy.ACCESSIBILITY_ID, '預約時間')
             
             self.common_actions.wait_for_element_visible(*CreateAppointmentLocators.DATE_BLOCK)
