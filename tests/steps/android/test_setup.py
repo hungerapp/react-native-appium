@@ -1,21 +1,19 @@
 # onboarding_flow.py
 
 from pages.android.login_page import LoginPage
-from pages.locators.android.onboarding.onboarding_locators import OnboardingLocators
+from pages.android.onboarding import OnboardingPage
+
 
 def setup_flow(driver, common_actions, email, ver_code):
     print("Running onboarding flow...")
 
     # --- STEP 1: Start update (可選)
-    start_updating_app = common_actions.find_element(*OnboardingLocators.START_UPDATE)
-    start_updating_app.click()
+    onboarding_page = OnboardingPage(driver)
+    onboarding_page.start_update()
 
     # --- STEP 2: Select language
-
-    select_language_element = common_actions.find_element(*OnboardingLocators.SELECT_LANGUAGE)
-    select_language_element.click()
-    confirm_button_element = common_actions.find_element(*OnboardingLocators.CONFIRM_BUTTON)
-    confirm_button_element.click()
+    onboarding_page.select_language()
+    onboarding_page.confirm_language_selection()
 
     # --- STEP 3: Continue to login page
     login_page = LoginPage(driver)
