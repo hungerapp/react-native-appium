@@ -159,11 +159,12 @@ class CreateCheckoutPage(CommonUseSection):
         self.common_actions.click_element(*CreateCheckoutLocators.PAYMENT_METHOD)
         
         # use regex to match any number
-        TOTAL_AMOUNT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textMatches("\\d{1,3}(,\\d{3})*").instance(0)')
+        TOTAL_AMOUNT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textMatches("合計NT\\$\\d{1,3}(,\\d{3})*")')
 
         total_amount_text = self.driver.find_element(*TOTAL_AMOUNT).text
-        total_amount = int(total_amount_text.replace(",", ""))
-
+        amount_str = total_amount_text.replace("合計NT$", "").replace(",", "")
+        total_amount = int(amount_str)
+        print(f"Total amount: {total_amount}")
         if is_above_price:
             cash_amount = total_amount + random.randint(10, 20000)
         else:
