@@ -1,7 +1,8 @@
 # onboarding_flow.py
 
-from pages.android.login_page import LoginPage
 from pages.android.onboarding import OnboardingPage
+from pages.android.login_page import LoginPage
+from pages.android.personal_page import PersonalPage
 
 
 def setup_flow(driver, common_actions, email, ver_code):
@@ -23,5 +24,9 @@ def setup_flow(driver, common_actions, email, ver_code):
     login_page.login(email, ver_code)
 
     # --- STEP 5: Verify login success
-    assert login_page.is_logged_in(), "❌ Failed to log in successfully"
-    print("🎉 Login successful")
+    login_page.is_logged_in(),
+
+    # --- STEP 6: visit branch
+    personal_page = PersonalPage(driver)
+    personal_page.visit_all_branches_smart()
+
