@@ -69,7 +69,7 @@ class CommonActions:
         向指定元素發送鍵盤輸入
         """
         element = self.find_element(locator_type, locator_value)
-        element.clear()
+        # element.clear()
         element.send_keys(text)
 
     def clear_text(self, locator_type: str, locator_value: str):
