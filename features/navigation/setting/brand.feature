@@ -1,7 +1,13 @@
+@onboarding
 Feature: Brand Management in Branch Settings
     As a branch administrator
     I hope to manage the brand information of the branch
     To provide a better customer experience
+
+    Background:
+        Given I am on the Calendar page
+        When I tap on the Settings icon in the navigation bar
+        Then I should see the Branch Settings page
 
     @regression @navigation_to_branch_settings_page
     Scenario: Navigate to the Branch Settings Page
