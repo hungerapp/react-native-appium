@@ -292,7 +292,7 @@ class CreateAppointmentPage(CommonUseSection):
                 try:
                     self.common_actions.click_element(*CreateAppointmentLocators.SELECT_BUSY_TIME)
                 except:
-                    print("Unable to select time slot")
+                    pass
             else:
                 print("No available time slots found")
         except Exception as e:
@@ -324,6 +324,7 @@ class CreateAppointmentPage(CommonUseSection):
             print(f"Error selecting deposit options: {str(e)}")
     
     def click_create_button(self):
+        self.common_actions.is_element_visible(*CreateAppointmentLocators.CONFIRM_CREATE_BUTTON)
         self.common_actions.click_element(*CreateAppointmentLocators.CONFIRM_CREATE_BUTTON)
         return self
 
@@ -348,13 +349,11 @@ class CreateAppointmentPage(CommonUseSection):
         return self
 
     def search_by_phone(self):
-        self.common_actions.is_element_visible(*CreateAppointmentLocators.PHONE_SEARCH_BUTTON)
         time.sleep(1)
         self.driver.find_element(*CreateAppointmentLocators.PHONE_SEARCH_BUTTON).click()
         return self
 
     def search_by_name(self):
-        self.common_actions.is_element_visible(*CreateAppointmentLocators.NAME_SEARCH_BUTTON)
         time.sleep(1)
         self.driver.find_element(*CreateAppointmentLocators.NAME_SEARCH_BUTTON).click()
         return self
@@ -362,7 +361,6 @@ class CreateAppointmentPage(CommonUseSection):
     def select_search_result_and_save(self):
         try:
             time.sleep(1.5)
-            self.common_actions.is_element_visible(*CreateAppointmentLocators.SPECIFIC_SEARCH_RESULT)
             self.common_actions.click_element(*CreateAppointmentLocators.SPECIFIC_SEARCH_RESULT)
                     
             time.sleep(0.5)
@@ -382,12 +380,13 @@ class CreateAppointmentPage(CommonUseSection):
         self.common_actions.click_element(*CreateAppointmentLocators.CONTACT_HAS_CHOSEN)
         self.common_actions.clear_text(*CreateAppointmentLocators.CONTACT_PHONE_CHANGE)
         self.enter_phone_number("911111116")
-        time.sleep(2)
-        self.search_by_phone()
         try:
-            specific_result = self.common_actions.find_element(*CreateAppointmentLocators.CHANGE_SPECIFIC_SEARCH_RESULT)
+            self.search_by_phone()
+            time.sleep(1)
+            specific_result = self.driver.find_element(*CreateAppointmentLocators.CHANGE_SPECIFIC_SEARCH_RESULT)
+            specific_result.click()  
             
-            specific_result.click()               
+            self.common_actions.is_element_visible(*CreateAppointmentLocators.SAVE_CONTACT_BUTTON)
             self.common_actions.click_element(*CreateAppointmentLocators.SAVE_CONTACT_BUTTON)
         except Exception as e:
             print(f"Error selecting specific search result: {str(e)}")
