@@ -28,5 +28,5 @@ def setup_flow(driver, common_actions, email, ver_code):
 
     # --- STEP 6: visit branch
     personal_page = PersonalPage(driver)
-    personal_page.visit_all_branches_smart()
+    personal_page.visit_branch()
 

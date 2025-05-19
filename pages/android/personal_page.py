@@ -13,12 +13,15 @@ from appium.webdriver.common.appiumby import AppiumBy
 
 from pages.shared_components.common_use import CommonUseSection
 from pages.locators.android.personal_page.personal_page_locators import PersonalPageLocators
+from pages.shared_components.common_action import CommonActions
 
-class PersonalPage(CommonUseSection):
+class PersonalPage:
   
   def __init__(self, driver):
     self.driver = driver
     self.personal_page_locators = PersonalPageLocators()
+    self.common_actions = CommonActions(driver)
+    self.common_use_section = CommonUseSection(driver)
     
     
     # Get window size
@@ -82,7 +85,18 @@ class PersonalPage(CommonUseSection):
     except Exception as e:
         print(f"Scroll down error: {str(e)}")
         raise
-  
+
+  def visit_branch(self):
+
+    # click Pro branch
+    self.common_actions.wait_for_element_visible(*self.personal_page_locators.PRO_BRANCH_NAME)
+    self.common_actions.click_element(*self.personal_page_locators.PRO_BRANCH_NAME)
+    self.common_actions.wait_for_element_visible(*self.personal_page_locators.POP_UP_CANCEL_ICON)
+    self.common_actions.click_element(*self.personal_page_locators.POP_UP_CANCEL_ICON)
+    return self
+
+
+
   #click all branches
   def visit_all_branches_smart(self):
     """Smart visit all branches"""
