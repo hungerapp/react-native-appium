@@ -107,9 +107,9 @@ class PersonalPage(CommonUseSection):
                         self.driver.find_element(*self.personal_page_locators.POP_UP_CANCEL_ICON).click()
                         self.driver.find_element(*self.personal_page_locators.BACK_TO_PERSONAL_PAGE_BTN).click()
                         
-                    else:
-                        self.driver.find_element(*self.personal_page_locators.POP_UP_CANCEL_ICON).click()
-                        self.driver.find_element(*self.personal_page_locators.BACK_TO_PERSONAL_PAGE_BTN).click()
+                else:
+                    self.driver.find_element(*self.personal_page_locators.POP_UP_CANCEL_ICON).click()
+                    self.driver.find_element(*self.personal_page_locators.BACK_TO_PERSONAL_PAGE_BTN).click()
 
                     
                     results.append({
