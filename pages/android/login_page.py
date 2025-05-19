@@ -78,7 +78,9 @@ class LoginPage(CommonActions):
           # Check if login success popup is displayed
           pop_up = self.is_element_visible(*LoginLocators.LOGIN_SUCCESS_POPUP)
           assert pop_up, "Login success popup not found"
-          self.click_if_exists(*LoginLocators.FINISH_BUTTON)
+          self.wait_for_element_clickable(*LoginLocators.FINISH_BUTTON)
+          self.click_element(*LoginLocators.FINISH_BUTTON)
+          return None
       except NoSuchElementException:
           return False
   
