@@ -4,13 +4,13 @@ Feature: Brand Management in Branch Settings
     I hope to manage the brand information of the branch
     To provide a better customer experience
 
-    @regression @navigation_to_branch_settings_page @test
+    @regression @navigation_to_branch_settings_page @test_l
     Scenario: Navigate to the Branch Settings Page
         Given I am on the Calendar page
         When I tap on the Settings icon in the navigation bar
         Then I should see the Branch Settings page
 
-    @regression @save_branch_brand_info @test
+    @regression @save_branch_brand_info @test_l
     Scenario: Save Branch and Brand Information
         Given I am on the Branch Setting page
         When I tap on the Branch Name

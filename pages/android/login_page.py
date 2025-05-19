@@ -61,7 +61,9 @@ class LoginPage(CommonActions):
           pass
 
   def enter_ver_code(self, ver_code):
+      self.wait_for_element_visible(*LoginLocators.VER_CODE_INPUT)
       self.send_keys_to_element(*LoginLocators.VER_CODE_INPUT, ver_code)
+      self.wait_for_element_clickable(*LoginLocators.VER_SUBMIT_BUTTON)
       self.click_element(*LoginLocators.VER_SUBMIT_BUTTON)
 
   def click_finish_button(self):
