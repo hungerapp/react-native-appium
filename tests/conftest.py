@@ -177,24 +177,24 @@ def clean_app_state(request):
     print(f"Current platform from .env: {platform}")
 
     # --- App 清理流程（包含 CI） ---
-    if request.node.get_closest_marker('login'):
-        try:
-            if platform == 'android':
-                print("Cleaning Android app...")
-                run(['adb', 'shell', 'am', 'force-stop', 'com.hunger.hotcakeapp.staging'], check=True)
-                run(['adb', 'uninstall', 'com.hunger.hotcakeapp.staging'], check=True)
-            elif platform == 'ios':
-                print("Cleaning iOS app...")
-                app_path = os.getenv('IOS_APP_PATH')
-                if app_path:
-                    run(['xcrun', 'simctl', 'uninstall', 'booted', 'com.hunger.hotcakeapp.staging'], check=True)
-                    run(['xcrun', 'simctl', 'install', 'booted', app_path], check=True)
-                else:
-                    print("Please set IOS_APP_PATH in your .env")
-        except Exception as e:
-            print(f"App cleanup failed: {e}")
+    try:
+        if platform == 'android':
+            print("Cleaning Android app...")
+            run(['adb', 'shell', 'am', 'force-stop', 'com.hunger.hotcakeapp.staging'], check=True)
+            run(['adb', 'uninstall', 'com.hunger.hotcakeapp.staging'], check=True)
+        elif platform == 'ios':
+            print("Cleaning iOS app...")
+            app_path = os.getenv('IOS_APP_PATH')
+            if app_path:
+                run(['xcrun', 'simctl', 'uninstall', 'booted', 'com.hunger.hotcakeapp.staging'], check=True)
+                run(['xcrun', 'simctl', 'install', 'booted', app_path], check=True)
+            else:
+                print("Please set IOS_APP_PATH in your .env")
+    except Exception as e:
+        print(f"App cleanup failed: {e}")
 
-        # --- Onboarding + login 流程 ---
+    # --- Onboarding + login 流程 ---
+    if not request.node.get_closest_marker('login'):
         print("Running onboarding & login setup flow...")
         try:
             setup_flow(request.getfixturevalue('driver'), email, ver_code)
