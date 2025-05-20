@@ -27,8 +27,9 @@ def verify_onboarding_page(driver):
     onboarding_page.confirm_language_selection()
 
 @then('I can start using the app')
-
-
+def start_using_app(driver):
+    login_page = LoginPage(driver)
+    login_page.continue_to_login_page()
 
 
 # Scenario: Select language and click contact cs
