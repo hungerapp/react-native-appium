@@ -9,7 +9,7 @@ Feature: Item Management in Branch Settings
         When I tap on the Item
         Then I should see the item page
 
-    @regression @item_management @item_list_setting
+    @regression @item_management @item_list_setting @setting_brand_and_branch
     Scenario: Item List Setting
         Given I am on the item page
         When I tap on the Item in the item page

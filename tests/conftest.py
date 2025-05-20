@@ -173,13 +173,13 @@ def clean_app_state(driver, common_actions, request):
     """每個測試前都重新安裝 App 並執行 onboarding + login（包含 CI）"""
 
     test_name = request.node.name
-    print(f"\n🔁 Preparing test: {test_name}")
+    print(f"\nPreparing test: {test_name}")
 
     platform = os.getenv('APPIUM_OS', 'android').lower()
     email = os.getenv('TEST_EMAIL', 'leif@hotcake.app')
     ver_code = os.getenv('VERIFICATION_CODE', '555666')
 
-    print(f"🧪 Platform: {platform}")
+    print(f"Platform: {platform}")
 
     # --- App 清理流程（包含 CI） ---
     try:
@@ -199,7 +199,7 @@ def clean_app_state(driver, common_actions, request):
         print(f"⚠️ App cleanup failed: {e}")
 
     # --- Onboarding + login 流程 ---
-    print("🚀 Running onboarding & login setup flow...")
+    print("Running onboarding & login setup flow...")
     try:
         setup_flow(driver, common_actions, email, ver_code)
     except Exception as e:
