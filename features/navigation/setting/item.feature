@@ -3,7 +3,7 @@ Feature: Item Management in Branch Settings
     I want to manage the item information of the branch
     To provide a better customer experience
 
-    @regression @item_management @navigation_to_item
+    @regression @item_management @navigation_to_item @setting_brand_and_branch
     Scenario: Navigate to Item
         Given I am on the branch settings page
         When I tap on the Item
