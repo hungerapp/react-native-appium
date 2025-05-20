@@ -18,13 +18,61 @@ from pages.shared_components.common_use import CommonUseSection
 from utils.initial_setup import setup_flow
 
 
-@pytest.fixture(scope="session")
-def driver():
-    """Set up and tear down Appium driver for the test session."""
+@pytest.fixture(scope="session", autouse=True)
+def driver(request):
+    """Create driver and reinstall App before each test session"""
+    print("=========== Session Start: Creating driver and preparing environment ===========")
+
+    # Get environment variables
+    platform = os.getenv('APPIUM_OS', 'android').lower()
+    email = os.getenv('TEST_EMAIL', 'qatest@hunger.ai')
+    ver_code = os.getenv('VERIFICATION_CODE', '555666')
+    print(f"Current platform: {platform}")
+
+    # --- App cleanup process ---
+    try:
+        if platform == 'android':
+            print("Cleaning Android application...")
+            run(['adb', 'shell', 'am', 'force-stop', 'com.hunger.hotcakeapp.staging'], check=True)
+            run(['adb', 'uninstall', 'com.hunger.hotcakeapp.staging'], check=True)
+        elif platform == 'ios':
+            print("Cleaning iOS application...")
+            app_path = os.getenv('IOS_APP_PATH')
+            if app_path:
+                run(['xcrun', 'simctl', 'uninstall', 'booted', 'com.hunger.hotcakeapp.staging'], check=True)
+                run(['xcrun', 'simctl', 'install', 'booted', app_path], check=True)
+            else:
+                print("Please set IOS_APP_PATH in your .env")
+    except Exception as e:
+        print(f"App cleanup failed: {e}")
+
+    # --- Create driver ---
     appium_setup = AppiumSetup()
     driver = appium_setup.setUp()
+
+    # Check if there are tests with the 'login' marker in the current test collection
+    has_login_tag = False
+    for item in request.session.items:
+        if item.get_closest_marker('login'):
+            has_login_tag = True
+            break
+
+    # --- Onboarding + login process ---
+    if has_login_tag:
+        print("Found tests with login marker, skipping onboarding and login process")
+    else:
+        print("Executing onboarding and login process...")
+        try:
+            setup_flow(driver, email, ver_code)
+            print("Initialization process completed")
+        except Exception as e:
+            print(f"Onboarding/Login process failed: {e}")
+
     yield driver
+
+    # --- Cleanup at the end of the session ---
     appium_setup.tearDown()
+    print("=========== Session End ===========")
 
 def pytest_configure(config):
     """Configure test collection and markers"""
@@ -163,45 +211,9 @@ def pytest_sessionfinish(session):
         import traceback
         print(traceback.format_exc())
 
+"""
 @pytest.fixture(autouse=True)
 def clean_app_state(request):
-    """每個測試前都重新安裝 App 並執行 onboarding + login（包含 CI）"""
-    print(f"Current test name: {request.node.name}")
-    print(f"Module name: {request.node.module.__name__}")
-    print(f"Module file path: {request.node.module.__file__}")
-
-    # check environment variable
-    platform = os.getenv('APPIUM_OS', 'android').lower()
-    email = os.getenv('TEST_EMAIL', 'qatest@hunger.ai')
-    ver_code = os.getenv('VERIFICATION_CODE', '555666')
-    print(f"Current platform from .env: {platform}")
-
-    # --- App 清理流程（包含 CI） ---
-    try:
-        if platform == 'android':
-            print("Cleaning Android app...")
-            run(['adb', 'shell', 'am', 'force-stop', 'com.hunger.hotcakeapp.staging'], check=True)
-            run(['adb', 'uninstall', 'com.hunger.hotcakeapp.staging'], check=True)
-        elif platform == 'ios':
-            print("Cleaning iOS app...")
-            app_path = os.getenv('IOS_APP_PATH')
-            if app_path:
-                run(['xcrun', 'simctl', 'uninstall', 'booted', 'com.hunger.hotcakeapp.staging'], check=True)
-                run(['xcrun', 'simctl', 'install', 'booted', app_path], check=True)
-            else:
-                print("Please set IOS_APP_PATH in your .env")
-    except Exception as e:
-        print(f"App cleanup failed: {e}")
-
-    # --- Onboarding + login 流程 ---
-    print("Running onboarding & login setup flow...")
-    try:
-        setup_flow(request.getfixturevalue('driver'), email, ver_code)
-    except Exception as e:
-        print(f"Onboarding/Login flow failed: {e}")
-    yield
-        
-    """
     # TODO: 本地環境的重試邏輯，暫時註解掉
     # 等待穩定後再討論是否需要重新啟用
     try:
@@ -247,7 +259,7 @@ def clean_app_state(request):
             
     except Exception as e:
         print(f"Error during cleanup and relogin: {str(e)}")
-    """
+"""
         
 @pytest.fixture
 def common_actions(driver):
@@ -255,5 +267,4 @@ def common_actions(driver):
 
 @pytest.fixture
 def common_use(driver):
-    return CommonUseSection(driver) 
-        
+    return CommonUseSection(driver)
