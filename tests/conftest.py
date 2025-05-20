@@ -194,12 +194,11 @@ def clean_app_state(request):
         print(f"App cleanup failed: {e}")
 
     # --- Onboarding + login 流程 ---
-    if not request.node.get_closest_marker('login'):
-        print("Running onboarding & login setup flow...")
-        try:
-            setup_flow(request.getfixturevalue('driver'), email, ver_code)
-        except Exception as e:
-            print(f"Onboarding/Login flow failed: {e}")
+    print("Running onboarding & login setup flow...")
+    try:
+        setup_flow(request.getfixturevalue('driver'), email, ver_code)
+    except Exception as e:
+        print(f"Onboarding/Login flow failed: {e}")
     yield
         
     """
