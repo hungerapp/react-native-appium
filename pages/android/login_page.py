@@ -41,6 +41,7 @@ class LoginPage(CommonActions):
       self.click_element(*LoginLocators.PRIVACY_BACK_BUTTON)
 
   def click_login_button(self):
+      self.wait_for_element_clickable(*LoginLocators.LOGIN_BUTTON)
       self.click_element(*LoginLocators.LOGIN_BUTTON)
   
   def enter_email(self, email):
@@ -67,6 +68,7 @@ class LoginPage(CommonActions):
       self.click_element(*LoginLocators.VER_SUBMIT_BUTTON)
 
   def click_finish_button(self):
+      self.wait_for_element_clickable(*LoginLocators.FINISH_BUTTON)
       self.click_element(*LoginLocators.FINISH_BUTTON)
 
   def handle_save_alert(self):
@@ -142,15 +144,17 @@ class LoginPage(CommonActions):
 
         try:
             # find email input and clear
+            self.wait_for_element_visible(*LoginLocators.EMAIL_INPUT)
             email_input = self.find_element(*LoginLocators.EMAIL_INPUT)
             current_value = email_input.get_attribute("text")
             if current_value:
                 email_input.clear()
             
             # enter email
-            email_input.send_keys(email)
+            self.send_keys_to_element(*LoginLocators.EMAIL_INPUT, email)
             
             # click next button
+            self.wait_for_element_clickable(*LoginLocators.EMAIL_NEXT_BUTTON)
             self.click_element(*LoginLocators.EMAIL_NEXT_BUTTON)
             
             try:

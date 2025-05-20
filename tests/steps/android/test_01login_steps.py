@@ -29,6 +29,8 @@ def verify_onboarding_page(driver):
 @then('I can start using the app')
 
 
+
+
 # Scenario: Select language and click contact cs
 @allure.feature('Select Language and click contact cs')
 @allure.story('Select Language and click contact cs')

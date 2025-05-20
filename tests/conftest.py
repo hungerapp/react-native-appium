@@ -164,42 +164,42 @@ def pytest_sessionfinish(session):
         print(traceback.format_exc())
 
 @pytest.fixture(autouse=True)
-def clean_app_state(driver, common_actions, request):
+def clean_app_state(request):
     """每個測試前都重新安裝 App 並執行 onboarding + login（包含 CI）"""
+    print(f"Current test name: {request.node.name}")
+    print(f"Module name: {request.node.module.__name__}")
+    print(f"Module file path: {request.node.module.__file__}")
 
-    test_name = request.node.name
-    print(f"\nPreparing test: {test_name}")
-
+    # check environment variable
     platform = os.getenv('APPIUM_OS', 'android').lower()
     email = os.getenv('TEST_EMAIL', 'qatest@hunger.ai')
     ver_code = os.getenv('VERIFICATION_CODE', '555666')
-
-    print(f"Platform: {platform}")
+    print(f"Current platform from .env: {platform}")
 
     # --- App 清理流程（包含 CI） ---
-    try:
-        if platform == 'android':
-            print("📱 Cleaning Android app...")
-            run(['adb', 'shell', 'am', 'force-stop', 'com.hunger.hotcakeapp.staging'], check=True)
-            run(['adb', 'uninstall', 'com.hunger.hotcakeapp.staging'], check=True)
-        elif platform == 'ios':
-            print("🍎 Cleaning iOS app...")
-            app_path = os.getenv('IOS_APP_PATH')
-            if app_path:
-                run(['xcrun', 'simctl', 'uninstall', 'booted', 'com.hunger.hotcakeapp.staging'], check=True)
-                run(['xcrun', 'simctl', 'install', 'booted', app_path], check=True)
-            else:
-                print("⚠️ Please set IOS_APP_PATH in your .env")
-    except Exception as e:
-        print(f"⚠️ App cleanup failed: {e}")
+    if request.node.get_closest_marker('login'):
+        try:
+            if platform == 'android':
+                print("Cleaning Android app...")
+                run(['adb', 'shell', 'am', 'force-stop', 'com.hunger.hotcakeapp.staging'], check=True)
+                run(['adb', 'uninstall', 'com.hunger.hotcakeapp.staging'], check=True)
+            elif platform == 'ios':
+                print("Cleaning iOS app...")
+                app_path = os.getenv('IOS_APP_PATH')
+                if app_path:
+                    run(['xcrun', 'simctl', 'uninstall', 'booted', 'com.hunger.hotcakeapp.staging'], check=True)
+                    run(['xcrun', 'simctl', 'install', 'booted', app_path], check=True)
+                else:
+                    print("Please set IOS_APP_PATH in your .env")
+        except Exception as e:
+            print(f"App cleanup failed: {e}")
 
-    # --- Onboarding + login 流程 ---
-    print("Running onboarding & login setup flow...")
-    try:
-        setup_flow(driver, common_actions, email, ver_code)
-    except Exception as e:
-        print(f"❌ Onboarding/Login flow failed: {e}")
-
+        # --- Onboarding + login 流程 ---
+        print("Running onboarding & login setup flow...")
+        try:
+            setup_flow(request.getfixturevalue('driver'), email, ver_code)
+        except Exception as e:
+            print(f"Onboarding/Login flow failed: {e}")
     yield
         
     """

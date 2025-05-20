@@ -5,7 +5,7 @@ from pages.android.login_page import LoginPage
 from pages.android.personal_page import PersonalPage
 
 
-def setup_flow(driver, common_actions, email, ver_code):
+def setup_flow(driver, email, ver_code):
     print("Running onboarding flow...")
 
     # --- STEP 1: Start update (可選)
