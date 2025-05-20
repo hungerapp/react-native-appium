@@ -4,6 +4,12 @@ Feature: Login Feature (existing)
   So that I can access the main features of the app
   
 
+  @regression @onboarding @hahaha
+  Scenario: Display onboarding animation and start using the app
+    Given the app is launched for the first time
+    When I select my language and click sure button
+    Then I can start using the app
+
   @regression @select_language_and_contact_cs
   Scenario: Select language and click contact cs
     Given the app is launched

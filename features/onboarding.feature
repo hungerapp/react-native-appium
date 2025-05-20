@@ -3,7 +3,7 @@ Feature: First launch onboarding flow
   I want to see the onboarding animation
   And be navigated to the onboarding page
   
-  @regression  @onboarding 
+  @regression  @onboarding
   Scenario: Display onboarding animation and start using the app
     Given the app is launched for the first time
     When I select my language and click sure button

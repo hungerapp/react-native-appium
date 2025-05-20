@@ -1,26 +1,21 @@
 import os
 import pytest
-import requests
 import subprocess
-import time
-import allure
-
 
 from dotenv import load_dotenv
 
 # load .env file
 load_dotenv()
 
-from subprocess import run, Popen
+from subprocess import run
 from datetime import datetime
 
 from setup import AppiumSetup
 from utils.send_report_to_slack import send_report_to_slack
 from utils.logger import logger
-from screenshot_hooks import pytest_runtest_makereport
 from pages.shared_components.common_action import CommonActions
 from pages.shared_components.common_use import CommonUseSection
-from tests.steps.android.test_setup import setup_flow
+from utils.initial_setup import setup_flow
 
 
 @pytest.fixture(scope="session")
@@ -176,7 +171,7 @@ def clean_app_state(driver, common_actions, request):
     print(f"\nPreparing test: {test_name}")
 
     platform = os.getenv('APPIUM_OS', 'android').lower()
-    email = os.getenv('TEST_EMAIL', 'leif@hotcake.app')
+    email = os.getenv('TEST_EMAIL', 'qatest@hunger.ai')
     ver_code = os.getenv('VERIFICATION_CODE', '555666')
 
     print(f"Platform: {platform}")
