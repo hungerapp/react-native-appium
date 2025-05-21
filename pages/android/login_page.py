@@ -27,6 +27,7 @@ class LoginPage(CommonActions):
       self.wait_for_element_visible(*LoginLocators.CONTACT_CS_BUTTON)
       self.click_element(*LoginLocators.CONTACT_CS_BUTTON)
       self.wait_for_element_visible(*LoginLocators.CONTACT_CS_BACK_BUTTON)
+      self.wait_for_element_clickable(*LoginLocators.CONTACT_CS_BACK_BUTTON)
       self.click_element(*LoginLocators.CONTACT_CS_BACK_BUTTON)
 
 
