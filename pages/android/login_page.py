@@ -24,9 +24,8 @@ class LoginPage(CommonActions):
       assert self.wait_for_element_visible(*LoginLocators.LOGIN_BUTTON) is not None, "Start using the app button not found"
 
   def click_contact_cs_button(self):
-      self.wait_for_element_visible(*LoginLocators.CONTACT_CS_BUTTON)
+      self.wait_for_element_clickable(*LoginLocators.CONTACT_CS_BUTTON)
       self.click_element(*LoginLocators.CONTACT_CS_BUTTON)
-      self.wait_for_element_visible(*LoginLocators.CONTACT_CS_BACK_BUTTON)
       self.wait_for_element_clickable(*LoginLocators.CONTACT_CS_BACK_BUTTON)
       self.click_element(*LoginLocators.CONTACT_CS_BACK_BUTTON)
 
