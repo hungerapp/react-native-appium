@@ -176,3 +176,6 @@ screenshots/
 
 # test execution log
 test_execution.log
+
+# Pytest configuration
+pytest_configs.json

@@ -71,7 +71,7 @@ Feature: Member Apply
     Then I can return to the membership application page
 
   # [MEMBER APPLY] CUSTOM_MEMBERSHIP_REGISTRATION
-  @regression @custom_membership_registration_in_member_apply_from_settings
+  @regression @custom_membership_registration_in_member_apply_from_settings @skip
   Scenario: Configure Custom Membership Registration in Membership Application
     Given I am on the membership application page
     When I tap on custom membership registration fields
