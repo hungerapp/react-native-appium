@@ -1,6 +1,6 @@
 Feature: Ticket Checkout Process  
 
-  @regression @sell_ticket_without_payment_adjustment
+  @regression @sell_ticket_without_payment_adjustment @create_checkout_sell_ticket @create_checkout @create
   Scenario: Checkout a ticket without selecting a payment adjustment  
     I want to complete a ticket checkout without adjusting the payment  
     So that I can verify the default checkout flow  
@@ -18,7 +18,7 @@ Feature: Ticket Checkout Process
     Then I confirm the checkout and successfully create a checkout
 
    
-  @regression @existing_member_ticket_below_price_payment_adjustment
+  @regression @existing_member_ticket_below_price_payment_adjustment @create_checkout_sell_ticket @create_checkout @create
   Scenario: Checkout a ticket with existing member and below item price payment adjustment  
     I want to complete a ticket checkout with existing member and below item price payment adjustment  
     So that I can validate the checkout process with changes  
@@ -41,7 +41,7 @@ Feature: Ticket Checkout Process
     Then I confirm the checkout and successfully create a checkout
 
  
-  @regression @new_member_above_ticket_price_payment_adjustment_and_multiple_modifications
+  @regression @new_member_above_ticket_price_payment_adjustment_and_multiple_modifications @create_checkout_sell_ticket @create_checkout @create
   Scenario: Checkout a ticket with new member and above item price payment adjustment and multiple modifications  
     I want to complete a ticket checkout with new member and above item price payment adjustment and multiple modifications  
     So that I can verify the system handles all changes correctly  

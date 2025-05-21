@@ -3,7 +3,7 @@ Feature: Invitation Code
     I want to share my invitation code and manage my invitations
     So that I can invite other merchants to join
 
-    @regression @invitation_code
+    @regression @invitation_code @navigate_settings @navigate @navigate_settings_invitation_code
     Scenario: Invitation Code
         Given I am on the Branch Settings page
         When I tap on the invitation code

@@ -29,7 +29,7 @@ Feature: Calendar Page Interactions
     Then the calendar page jumps to today's date
 
 
-  @regression @add_appointment_in_calendar
+  @regression @add_appointment_in_calendar @calendar
   Scenario: Add Appointment
     When I long-press any date in calendar
     Then I click on the add appointment option
@@ -37,7 +37,7 @@ Feature: Calendar Page Interactions
     Then I can successfully create an appointment
 
 
-  @regression @add_and_change_appointment_time
+  @regression @add_and_change_appointment_time @calendar
   Scenario: Add and change the appointment time
     When I long-press any date 
     Then I click on the add appointment option
@@ -45,14 +45,14 @@ Feature: Calendar Page Interactions
     Then I change the time of the appointment
     Then I can successfully create an appointment
 
-  @regression @long_press_and_add_event
+  @regression @long_press_and_add_event @calendar
   Scenario: Add Event
     When I long-press any date
     Then I click on the add event option
     Then I create event and input name in the create event page
     Then I can successfully create an event
 
-  @regression @add_and_change_event_time
+  @regression @add_and_change_event_time @calendar
   Scenario: Add and change the event time
     When I long-press any date
     Then I click on the add event option
@@ -60,7 +60,7 @@ Feature: Calendar Page Interactions
     Then I change the time of the event
     Then I can successfully create an event
   
-  @regression @refresh_calendar
+  @regression @refresh_calendar @calendar
   Scenario: Refresh Calendar
     When I click the refresh button
     Then the calendar page refreshes and shows the correct data

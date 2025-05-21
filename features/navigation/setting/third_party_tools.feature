@@ -3,7 +3,7 @@ Feature: Third Party Tools in Branch Settings
     I want to manage the third party tools of the branch
     To provide a better customer experience
 
-    @regression @third_party_tools_management @navigation_to_third_party_tools
+    @regression @third_party_tools_management @navigation_to_third_party_tools @navigate_settings @navigate @navigate_settings_third_party_tools
     Scenario: Navigate to Third Party Tools with Subscription plan free
         Given I am on the branch settings page
         And This branch is subscribed to "Free免費體驗方案"

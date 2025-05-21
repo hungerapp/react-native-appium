@@ -3,7 +3,7 @@ Feature: Create Appointment
   I want to create an appointment
   So that I can manage my schedule
   
-  @regression @create_appointment_anonymous
+  @regression @create_appointment_anonymous @create_create_appointment @create @create_appointment
   Scenario: Successfully create an appointment with anonymous nickname
     Given I click the back button to go to calendar page
     When I click the create appointment option
@@ -16,7 +16,7 @@ Feature: Create Appointment
     Then I click create appointment and should see the appointment created successfully
   
  
-  @regression @create_one_more_service
+  @regression @create_one_more_service @create_create_appointment @create @create_appointment
   Scenario: Successfully create an appointment with one more service
     Given I click the create appointment option
     When I select a service person
@@ -28,7 +28,7 @@ Feature: Create Appointment
     Then I can successfully create an appointment with one more service
 
 
-  @regression @create_one_more_then_delete
+  @regression @create_one_more_then_delete @create_create_appointment @create @create_appointment
   Scenario: Successfully create an appointment with one more service then delete
     Given I click the create appointment option
     When I select a service person
@@ -39,7 +39,7 @@ Feature: Create Appointment
     Then I can go back to calendar page after delete
 
 
-  @regression @create_appointment_existing_name_phone
+  @regression @create_appointment_existing_name_phone @create_create_appointment @create @create_appointment
   Scenario: Successfully create an appointment with existing name and phone number
     Given I click the create appointment option
     When I fill in the contact with existing name "王貝克" and phone "0972205690" number
@@ -50,7 +50,7 @@ Feature: Create Appointment
     Then I click create appointment and should see the appointment created successfully
 
 
-  @regression @contact_info_invalid_phone_number
+  @regression @contact_info_invalid_phone_number @create_create_appointment @create @create_appointment
   Scenario: Show error for invalid phone number format
     Given I click the create appointment option
     When I click contact info section
@@ -58,7 +58,7 @@ Feature: Create Appointment
     Then I should see an error message for invalid phone number
 
 
-  @regression @create_appointment_for_selecting_and_searching_country_code
+  @regression @create_appointment_for_selecting_and_searching_country_code @create_create_appointment @create @create_appointment
   Scenario: Create Appointment for selecting and searching country code
     Given I am on the contact page
     When I select random country code
@@ -67,7 +67,7 @@ Feature: Create Appointment
     Then I should see different country code in the phone number input field
 
 
-  @regression @contact_info_search_by_partial_phone_number
+  @regression @contact_info_search_by_partial_phone_number @create_create_appointment @create @create_appointment
   Scenario: Search contact by partial phone number
     Given I click contact back button to appointment page
     When I click contact info section
@@ -76,14 +76,14 @@ Feature: Create Appointment
     Then I should see search results and select the contact then save
 
 
-  @regression @create_appointment_for_modify_contact 
+  @regression @create_appointment_for_modify_contact @create_create_appointment @create @create_appointment
   Scenario: Create Appointment for modify contact
     Given I have chosen a contact
     When I change the contact info section
     Then I should save then back to calendar
 
 
-  @regression @contact_info_search_by_full_phone_number 
+  @regression @contact_info_search_by_full_phone_number @create_create_appointment @create @create_appointment
   Scenario: Search contact by full phone number
     Given I click the create appointment option
     When I click contact info section
@@ -92,7 +92,7 @@ Feature: Create Appointment
     Then I should see search results and save then back to calendar
 
 
-  @regression @contact_info_search_by_partial_name  
+  @regression @contact_info_search_by_partial_name @create_create_appointment @create @create_appointment
   Scenario: Search contact by partial name
     Given I click the create appointment option
     When I click contact info section
@@ -101,7 +101,7 @@ Feature: Create Appointment
     Then I should see search results and save then back to calendar
 
 
-  @regression @contact_info_search_by_full_name 
+  @regression @contact_info_search_by_full_name @create_create_appointment @create @create_appointment
   Scenario: Search contact by full name
     Given I click the create appointment option
     When I click contact info section

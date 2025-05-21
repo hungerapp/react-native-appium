@@ -1,7 +1,7 @@
 Feature: Export
 
   # [EXPORT] AVAILABLE_TIME_SLOTS_AS_CALENDAR_IMAGE
-  @regression @available_time_slots_export_as_calendar_image
+  @regression @available_time_slots_export_as_calendar_image @navigate_more @navigate @navigate_more_export
   Scenario: Exporting Available Time Slots as a Calendar Image
     Given I click on export available time slots
     When I select a staff member
@@ -13,7 +13,7 @@ Feature: Export
 
 
   # [EXPORT] AVAILABLE_TIME_SLOTS_AS_TEXT
-  @regression @time_slots_export_as_text
+  @regression @time_slots_export_as_text @navigate_more @navigate @navigate_more_export
   Scenario: Exporting Available Time Slots as Text
     Given I click on export available time slots
     When I click on the text tab

@@ -4,7 +4,7 @@ Feature: Create Request
   I want to request an item
   So I can successfully complete the request process
 
-  @regression @request_items_without_signing
+  @regression @request_items_without_signing @create_request @create @create_create_request
   Scenario: Request items without signing
     Given I click the create request option    
     When I select a requester  
@@ -12,7 +12,7 @@ Feature: Create Request
     And I request the item without signing  
     Then I confirm the request and successfully create a request  
 
-  @regression @modify_request_details_before_confirming
+  @regression @modify_request_details_before_confirming @create_request @create @create_create_request
   Scenario: Modify request details before confirming
     Given I click the create request option   
     When I select a requester  

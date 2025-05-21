@@ -3,20 +3,20 @@ Feature: Service Appointment Settings
   I want to manage service appointment settings
   So that I can provide better booking experience for customers
 
-  @regression @service_appointment @navigation_to_service_appointment_page
+  @regression @service_appointment @navigation_to_service_appointment_page @navigate_settings @navigate @navigate_settings_service_appointment
   Scenario: Navigate to Service Appointment Page
     Given I am on the branch settings page
     When I tap on the service appointment
     Then I should see the service appointment page
 
-  @regression @service_appointment @share_appointment_link
+  @regression @service_appointment @share_appointment_link @navigate_settings @navigate @navigate_settings_service_appointment
   Scenario: Share Appointment Link
     Given I am on the service appointment page
     When I share the appointment link
     And I click to apply for a LINE Official Account
     Then I should see the service appointment page
 
-  @regression @service_appointment @service_item
+  @regression @service_appointment @service_item @navigate_settings @navigate @navigate_settings_service_appointment
   Scenario: Service Item
     Given I am on the service appointment page
     When I tap on the service items
@@ -58,7 +58,7 @@ Feature: Service Appointment Settings
     And I tap on the close button on the service item page
     Then I should see the service appointment page
 
-  @regression @service_appointment @online_booking_settings
+  @regression @service_appointment @online_booking_settings @navigate_settings @navigate @navigate_settings_service_appointment
   Scenario: Online Booking Settings
     Given I am on the service appointment page
     And I have a service personnel named "服務人員1_<current_datetime>"
@@ -80,7 +80,7 @@ Feature: Service Appointment Settings
     And I tap on the close button on the online booking page
     Then I should see the service appointment page
   
-  @regression @service_appointment @booking_note_settings
+  @regression @service_appointment @booking_note_settings @navigate_settings @navigate @navigate_settings_service_appointment
   Scenario: Booking Note Settings
     Given I am on the service appointment page
     When I tap on the booking note
@@ -90,7 +90,7 @@ Feature: Service Appointment Settings
     And I tap on the confirm button in the booking note
     Then I should see the service appointment page
 
-  @regression @service_appointment @deposit_management_settings
+  @regression @service_appointment @deposit_management_settings @navigate_settings @navigate @navigate_settings_service_appointment
   Scenario: Deposit Management Settings
     Given I am on the service appointment page
     And I have a service item "服務項目分類<current_datetime>" and "一般日期指定收定金服務項目<current_datetime>"
@@ -133,7 +133,7 @@ Feature: Service Appointment Settings
     And I tap on the close button in the deposit management page
     Then I should see the service appointment page
 
-  @regression @service_appointment @reservation_restriction_settings
+  @regression @service_appointment @reservation_restriction_settings @navigate_settings @navigate @navigate_settings_service_appointment
   Scenario: Advanced Feature Settings
     Given I am on the service appointment page
     And I have a service item "服務項目分類<current_datetime>" and "需要緩衝時間的服務項目<current_datetime>"

@@ -1,6 +1,6 @@
 Feature: Customer Deposit Checkout  
    
-   @regression  @successful_deposit_checkout
+   @regression  @successful_deposit_checkout @create_checkout_deposit @create_checkout @create
    Scenario: Successful deposit checkout  
     I want to complete a deposit transaction successfully  
     So that I can verify the deposit process works correctly  
@@ -19,7 +19,7 @@ Feature: Customer Deposit Checkout
 
 
 
-   @regression  @modify_and_clear_deposit_details_before_checkout_with_existing_member
+   @regression  @modify_and_clear_deposit_details_before_checkout_with_existing_member @create_checkout_deposit @create_checkout @create
    Scenario: Modify and clear deposit details before checkout with existing member  
     I want to modify and clear deposit details before completing checkout with existing member  
     So that I can ensure the system handles data changes correctly  
@@ -43,7 +43,7 @@ Feature: Customer Deposit Checkout
 
 
 
-   @regression  @error_validation_during_deposit_checkout_with_new_member
+   @regression  @error_validation_during_deposit_checkout_with_new_member @create_checkout_deposit @create_checkout @create
    Scenario: Error validation during deposit checkout with new member  
     I want to validate error messages when entering incorrect deposit details with new member  
     So that I can verify the system correctly handles invalid inputs  

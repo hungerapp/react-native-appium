@@ -1,7 +1,7 @@
 Feature: Notification
 
   # [NOTIFICATIONS AND MESSAGES] 
-  @regression @notifications_and_messages_in_more
+  @regression @notifications_and_messages_in_more @navigation @navigation_more @navigation_more_notification
   Scenario: Managing Notifications and Viewing Updates
     Given I click on notifications and messages
     When I click on the view latest features button

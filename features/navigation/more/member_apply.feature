@@ -1,7 +1,7 @@
 Feature: Member Apply
 
   # [MEMBER APPLY] VOUCHER_MANAGEMENT
-  @regression @general_voucher_management_in_member_apply
+  @regression @general_voucher_management_in_member_apply @navigation @navigation_more @navigation_more_member_apply
   Scenario: Manage General Vouchers in Membership Application
     Given I tap on membership application
     When I tap on voucher management
@@ -9,7 +9,7 @@ Feature: Member Apply
     Then I can edit and delete a general voucher
 
   # [MEMBER APPLY] BONUS_POINT_VOUCHER_MANAGEMENT
-  @regression @bonus_point_voucher_management_in_member_apply
+  @regression @bonus_point_voucher_management_in_member_apply @navigation @navigation_more @navigation_more_member_apply
   Scenario: Manage Bonus Point Vouchers in Membership Application
     Given I am in the voucher management section
     When I switch to the bonus point redemption tab
@@ -17,7 +17,7 @@ Feature: Member Apply
     Then I can edit and delete a bonus point voucher
 
   # [MEMBER APPLY] MEMBERSHIP_GIFT_VOUCHER_MANAGEMENT
-  @regression @membership_gift_voucher_management_in_member_apply
+  @regression @membership_gift_voucher_management_in_member_apply @navigation @navigation_more @navigation_more_member_apply
   Scenario: Manage Membership Gift Vouchers in Membership Application
     Given I am in the voucher management section
     When I switch to the membership gift tab
@@ -25,7 +25,7 @@ Feature: Member Apply
     Then I can edit and delete a membership gift voucher
 
   # [MEMBER APPLY] BIRTHDAY_GIFT_VOUCHER_MANAGEMENT
-  @regression @birthday_gift_voucher_management_in_member_apply
+  @regression @birthday_gift_voucher_management_in_member_apply @navigation @navigation_more @navigation_more_member_apply
   Scenario: Manage Birthday Gift Vouchers in Membership Application
     Given I am in the voucher management section
     When I switch to the birthday gift tab
@@ -37,7 +37,7 @@ Feature: Member Apply
 
 
   # [MEMBER APPLY] DOCUMENT_MANAGEMENT
-  @regression @add_edit_preview_share_document_management_in_member_apply 
+  @regression @add_edit_preview_share_document_management_in_member_apply @navigation @navigation_more @navigation_more_member_apply
   Scenario: Manage Documents in Membership Application
     Given I am on the membership application page
     When I tap on document management
@@ -46,7 +46,7 @@ Feature: Member Apply
 
 
   # [MEMBER APPLY] DISABLED_DOCUMENT_MANAGEMENT
-  @regression @disabled_document_management_in_member_apply
+  @regression @disabled_document_management_in_member_apply @navigation @navigation_more @navigation_more_member_apply
   Scenario: Manage Disabled Documents
     Given I am in the document management section
     When I disable a document
@@ -57,7 +57,7 @@ Feature: Member Apply
 
 
   # [MEMBER APPLY] BONUS_POINT_RATIO_MANAGEMENT
-  @regression @bonus_point_ratio_in_member_apply 
+  @regression @bonus_point_ratio_in_member_apply @navigation @navigation_more @navigation_more_member_apply
   Scenario: Configure Bonus Point Ratio in Membership Application
     Given I am on the membership application page
     When I tap on bonus points
@@ -65,7 +65,7 @@ Feature: Member Apply
     Then I can return to the membership application page
 
   # [MEMBER APPLY] CUSTOM_MEMBERSHIP_REGISTRATION
-  @regression @custom_membership_registration_in_member_apply 
+  @regression @custom_membership_registration_in_member_apply @navigation @navigation_more @navigation_more_member_apply
   Scenario: Configure Custom Membership Registration in Membership Application
     Given I am on the membership application page
     When I tap on custom membership registration fields

@@ -3,13 +3,13 @@ Feature: Item Management in Branch Settings
     I want to manage the item information of the branch
     To provide a better customer experience
 
-    @regression @item_management @navigation_to_item @setting_brand_and_branch
+    @regression @item_management @navigation_to_item @setting_brand_and_branch @navigate_settings @navigate @navigate_settings_item
     Scenario: Navigate to Item
         Given I am on the branch settings page
         When I tap on the Item
         Then I should see the item page
 
-    @regression @item_management @item_list_setting @setting_brand_and_branch
+    @regression @item_management @item_list_setting @setting_brand_and_branch @navigate_settings @navigate @navigate_settings_item
     Scenario: Item List Setting
         Given I am on the item page
         When I tap on the Item in the item page
@@ -26,7 +26,7 @@ Feature: Item Management in Branch Settings
         And I tap on the close button in the item list page
         Then I should see the item page
 
-    @regression @item_management @inventory_setting
+    @regression @item_management @inventory_setting @setting_brand_and_branch @navigate_settings @navigate @navigate_settings_item
     Scenario: Inventory Setting
         Given I am on the item page
         And I have an item "商品分類<current_datetime>" "商品<current_datetime>" "商品介紹<current_datetime>" "100" "10"

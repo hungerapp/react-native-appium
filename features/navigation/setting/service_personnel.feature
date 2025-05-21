@@ -3,7 +3,7 @@ Feature: Service Personnel Management
     I want to manage service personnel
     So that I can maintain service staff information
 
-    @regression @service_personnel_settings
+    @regression @service_personnel_settings @navigate_settings @navigate @navigate_settings_service_personnel
     Scenario: Add service personnel
         Given I am on the Branch Settings page
         When I tap on the Service Personnel

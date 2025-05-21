@@ -1,13 +1,13 @@
 Feature: Member Apply
 
-  @regression @setting @navigate_to_member_apply
+  @regression @setting @navigate_to_member_apply @navigate @navigate_settings_member_apply @navigate_settings
   Scenario: Navigate to Member Apply
     Given I am on the branch settings page
     When I tap on the Member Apply
     Then I should see the member apply page
 
   # [MEMBER APPLY] VOUCHER_MANAGEMENT
-  @regression @setting @general_voucher_management_in_member_apply_from_settings
+  @regression @setting @general_voucher_management_in_member_apply_from_settings @navigate @navigate_settings_member_apply @navigate_settings
   Scenario: Manage General Vouchers in Membership Application
     Given I tap on membership application
     When I tap on voucher management
@@ -15,7 +15,7 @@ Feature: Member Apply
     Then I can edit and delete a general voucher
 
   # [MEMBER APPLY] BONUS_POINT_VOUCHER_MANAGEMENT
-  @regression @bonus_point_voucher_management_in_member_apply_from_settings
+  @regression @bonus_point_voucher_management_in_member_apply_from_settings @navigate @navigate_settings_member_apply @navigate_settings
   Scenario: Manage Bonus Point Vouchers in Membership Application
     Given I am in the voucher management section
     When I switch to the bonus point redemption tab
@@ -23,7 +23,7 @@ Feature: Member Apply
     Then I can edit and delete a bonus point voucher
 
   # [MEMBER APPLY] MEMBERSHIP_GIFT_VOUCHER_MANAGEMENT
-  @regression @membership_gift_voucher_management_in_member_apply_from_settings
+  @regression @membership_gift_voucher_management_in_member_apply_from_settings @navigate @navigate_settings_member_apply @navigate_settings
   Scenario: Manage Membership Gift Vouchers in Membership Application
     Given I am in the voucher management section
     When I switch to the membership gift tab

@@ -1,6 +1,6 @@
 Feature: Member Page
 
-  @regression @member_management
+  @regression @member_management @navigate_member @navigate
   Scenario: Manage member and page functionality
     Given I click on the member option in the bottom navigation bar
     When I click any member below the tab
@@ -14,7 +14,7 @@ Feature: Member Page
 
 
 
-  @regression @search_tags_billing
+  @regression @search_tags_billing @navigate_member @navigate
   Scenario: Search and passport tags and billing
     Given I am on the member page
     When I tap the search button
@@ -32,7 +32,7 @@ Feature: Member Page
                
 
   # 儲值金
-  @regression @top_up_balance
+  @regression @top_up_balance @navigate_member @navigate
   Scenario: Edit member top-up balance
     Given I am on the member passport page
     When I click on the Top-up Balance section
@@ -41,7 +41,7 @@ Feature: Member Page
     Then I can finish the top-up process
     Then I return to the Member Passport page
 
-  @regression @bonus_points
+  @regression @bonus_points @navigate_member @navigate
   Scenario: Edit Bonus Points
     Given I am on the member passport page
     When I click on the bonus points section
@@ -49,7 +49,7 @@ Feature: Member Page
     Then I return to the member passport page
 
 
-  @regression @edit_tickets
+  @regression @edit_tickets @navigate_member @navigate
   Scenario: Edit tickets
     Given I am on the member passport page
     When I click on the tickets section
@@ -60,7 +60,7 @@ Feature: Member Page
 
 
 
-  @regression @use_tickets
+  @regression @use_tickets @navigate_member @navigate
   Scenario: Use and gift a ticket from the ticket page
     Given I am on the ticket page
     When I tap on a ticket under owned tickets tab
