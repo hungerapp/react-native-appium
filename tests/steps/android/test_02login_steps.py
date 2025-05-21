@@ -8,7 +8,7 @@ from pages.android.login_page import LoginPage
 
 scenarios('../../../features/login.feature')
 
-TEST_EMAIL = 'julian@hotcake.app'
+TEST_EMAIL = 'qatest@hunger.ai'
 
 # Scenario: Select a language and click contact cs
 @allure.feature('Select Language and click contact cs')

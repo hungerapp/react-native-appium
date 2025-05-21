@@ -26,6 +26,7 @@ class LoginPage(CommonActions):
   def click_contact_cs_button(self):
       self.wait_for_element_clickable(*LoginLocators.CONTACT_CS_BUTTON)
       self.click_element(*LoginLocators.CONTACT_CS_BUTTON)
+      time.sleep(3)
       self.wait_for_element_clickable(*LoginLocators.CONTACT_CS_BACK_BUTTON)
       self.click_element(*LoginLocators.CONTACT_CS_BACK_BUTTON)
 
@@ -84,9 +85,8 @@ class LoginPage(CommonActions):
   def is_logged_in(self):
       try:
           # Check if the login success popup is displayed
-          self.is_element_visible(*LoginLocators.LOGIN_SUCCESS_POPUP)
           self.wait_for_element_disappear(*LoginLocators.LOGIN_SUCCESS_POPUP)
-          time.sleep(5)
+          time.sleep(3)
           self.wait_for_element_clickable(*LoginLocators.FINISH_BUTTON)
           self.click_element(*LoginLocators.FINISH_BUTTON)
           return None
