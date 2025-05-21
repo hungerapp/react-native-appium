@@ -7,7 +7,7 @@ class LoginLocators:
       # language save button may disappear frequently, thus we use uiautomator to find it
       LANGUAGE_SAVE_BUTTON = (AppiumBy.ACCESSIBILITY_ID, '語言設定-modal-right-button ')
       CONTACT_CS_BUTTON = (AppiumBy.ACCESSIBILITY_ID, '聯繫客服')
-      CONTACT_CS_BACK_BUTTON = (AppiumBy.ACCESSIBILITY_ID, '關閉')
+      CONTACT_CS_BACK_BUTTON = (AppiumBy.XPATH, '//*[@content-desc="關閉"]')
       TERMS_AND_CONDITIONS_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("服務條款")')
       TC_BACK_BUTTON = (AppiumBy.ACCESSIBILITY_ID, '返回夯客APP')
       PRIVACY_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("隱私權政策")')
