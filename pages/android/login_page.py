@@ -19,12 +19,8 @@ class LoginPage(CommonActions):
       self.click_element(*LoginLocators.LANGUAGE_SAVE_BUTTON)
 
   def continue_to_login_page(self):
-      self.wait_for_element_visible(*LoginLocators.LANGUAGE_SETTING_BUTTON)
-      language_setting_btn = self.find_element(*LoginLocators.LANGUAGE_SETTING_BUTTON)
-      contact_cs_btn = self.find_element(*LoginLocators.CONTACT_CS_BUTTON)
-
-      assert language_setting_btn.is_displayed(), "Language setting button not found"
-      assert contact_cs_btn.is_displayed(), "Contact customer service button not found"
+      assert self.wait_for_element_visible(*LoginLocators.LANGUAGE_SETTING_BUTTON), "Language setting button not found"
+      assert self.wait_for_element_visible(*LoginLocators.CONTACT_CS_BUTTON), "Contact customer service button not found"
       assert self.wait_for_element_visible(*LoginLocators.LOGIN_BUTTON) is not None, "Start using the app button not found"
 
   def click_contact_cs_button(self):
@@ -87,7 +83,7 @@ class LoginPage(CommonActions):
 
   def is_logged_in(self):
       try:
-          # Check if login success popup is displayed
+          # Check if the login success popup is displayed
           self.is_element_visible(*LoginLocators.LOGIN_SUCCESS_POPUP)
           self.wait_for_element_disappear(*LoginLocators.LOGIN_SUCCESS_POPUP)
           time.sleep(5)
@@ -116,9 +112,12 @@ class LoginPage(CommonActions):
 
 
   def error_unregistered_message(self):
+      self.wait_for_element_visible(*LoginLocators.ERROR_UNREGISTERED_WINDOW_TITLE)
       error_element = self.find_element(*LoginLocators.ERROR_UNREGISTERED_WINDOW_TITLE)
       assert error_element.is_displayed(), "Error unregistered window title not found"
+      self.wait_for_element_visible(*LoginLocators.ERROR_UNREGISTERED_WINDOW_MESSAGE)
       error_text = self.find_element(*LoginLocators.ERROR_UNREGISTERED_WINDOW_MESSAGE).text.strip()
+      self.wait_for_element_visible(*LoginLocators.ERROR_UNREGISTERED_WINDOW_BUTTON)
       self.click_element(*LoginLocators.ERROR_UNREGISTERED_WINDOW_BUTTON)
       return error_text
 
@@ -126,6 +125,7 @@ class LoginPage(CommonActions):
 
   def get_email_error_message(self):
        try:
+            self.wait_for_element_visible(*LoginLocators.ERROR_MESSAGE)
             error_element = self.find_element(*LoginLocators.ERROR_MESSAGE)
             return error_element.text.strip()
 
@@ -136,8 +136,10 @@ class LoginPage(CommonActions):
 
   def error_ver_window(self):
         try:
+            self.wait_for_element_visible(*LoginLocators.ERROR_WINDOW_TEXT)
             error_element = self.find_element(*LoginLocators.ERROR_WINDOW_TEXT)
             error_text = error_element.text.strip()
+            self.wait_for_element_visible(*LoginLocators.ERROR_RETRY_BUTTON)
             self.click_element(*LoginLocators.ERROR_RETRY_BUTTON)
             return error_text
 
@@ -145,6 +147,7 @@ class LoginPage(CommonActions):
             return None
 
   def click_login_cancel_button(self):
+       self.wait_for_element_visible(*LoginLocators.LOGIN_CANCEL_BUTTON)
        self.click_element(*LoginLocators.LOGIN_CANCEL_BUTTON)
 
 
@@ -189,6 +192,7 @@ class LoginPage(CommonActions):
 
         try:
             # find email input and clear
+            self.wait_for_element_visible(*LoginLocators.EMAIL_INPUT)
             email_input = self.find_element(*LoginLocators.EMAIL_INPUT)
             current_value = email_input.get_attribute("text")
             if current_value:
@@ -198,6 +202,7 @@ class LoginPage(CommonActions):
             email_input.send_keys(email)
 
             # click next button
+            self.wait_for_element_clickable(*LoginLocators.EMAIL_NEXT_BUTTON)
             self.click_element(*LoginLocators.EMAIL_NEXT_BUTTON)
 
         except Exception as e:
@@ -209,6 +214,7 @@ class LoginPage(CommonActions):
 
         try:
             # find email input and clear
+            self.wait_for_element_visible(*LoginLocators.EMAIL_INPUT)
             email_input = self.find_element(*LoginLocators.EMAIL_INPUT)
             current_value = email_input.get_attribute("text")
             if current_value:
@@ -218,6 +224,7 @@ class LoginPage(CommonActions):
             email_input.send_keys(email)
 
             # click next button
+            self.wait_for_element_clickable(*LoginLocators.EMAIL_NEXT_BUTTON)
             self.click_element(*LoginLocators.EMAIL_NEXT_BUTTON)
 
         except Exception as e:
@@ -225,9 +232,11 @@ class LoginPage(CommonActions):
             raise
 
   def click_modify_email_button(self):
+        self.wait_for_element_visible(*LoginLocators.MODIFY_EMAIL_BUTTON)
         self.click_element(*LoginLocators.MODIFY_EMAIL_BUTTON)
 
   def is_verification_code_page(self):
+      self.wait_for_element_visible(*LoginLocators.IS_VERIFICATION_CODE_PAGE_TITLE)
       verification_code_page_title = self.find_element(*LoginLocators.IS_VERIFICATION_CODE_PAGE_TITLE)
       return verification_code_page_title.is_displayed()
 
@@ -236,11 +245,12 @@ class LoginPage(CommonActions):
         self.click_login_button()
 
         try:
+
+            self.wait_for_element_visible(*LoginLocators.EMAIL_INPUT)
             email_input = self.find_element(*LoginLocators.EMAIL_INPUT)
             current_value = email_input.get_attribute("text")
             if current_value:
                email_input.clear()
-
             email_input.send_keys(email)
 
 

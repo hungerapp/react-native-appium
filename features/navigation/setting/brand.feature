@@ -1,4 +1,3 @@
-@onboarding
 Feature: Brand Management in Branch Settings
     As a branch administrator
     I hope to manage the brand information of the branch
