@@ -9,243 +9,198 @@ from selenium.webdriver.common.actions.action_builder import ActionBuilder
 from selenium.webdriver.common.actions.pointer_input import PointerInput
 
 from pages.locators.android.create.create_event_locators import CreateEventLocators
+from pages.shared_components.common_use import CommonUseSection
+from pages.shared_components.common_action import CommonActions
 
-class CreateEventPage:
+
+class CreateEventPage(CommonUseSection):
     def __init__(self, driver):
-        self.driver = driver
-        self.create_event_locators = CreateEventLocators()
+        super().__init__(driver)
+        self.common_actions = CommonActions(driver)
+        
+    ############# Used Gestures #############
+    def swipe_and_close_time_picker(self):
+        window_size = self.common_actions.get_screen_size()
+        width = window_size[0]
+        height = window_size[1]
+        
+
+        picker_top = height * 0.45     # time picker middle position
+        picker_height = height * 0.15   # picker visible area height
+        
+        # more accurate hour and minute positions (based on the image)
+        hour_x = width * 0.33    # hour position (aligned with "01")
+        minute_x = width * 0.67   # minute position (aligned with "00")
         
         
+        # start time swipe operation
+        # swipe hour
+        self.swipe_gesture(
+          x=int(hour_x - 5),
+          y=int(picker_top),
+          width=20, # swipe area width
+          height=int(picker_height),
+          direction='up',
+          percent=0.6,   
+          speed=1000      
+          )
+        time.sleep(0.5)
+        
+        # swipe minute
+        self.swipe_gesture(
+          x=int(minute_x - 5),
+          y=int(picker_top),
+          width=20,
+          height=int(picker_height),
+          direction='up',
+          percent=0.5,
+          speed=1000
+          )
+        time.sleep(1)
+        
+        # click end time block
+        self.common_actions.click_element(*CreateEventLocators.CLICK_END_TIME)
+        time.sleep(1.5)
+        
+        # end time swipe operation
+        # swipe hour
+        self.swipe_gesture(
+          x=int(hour_x - 5),
+          y=int(picker_top),
+          width=20,
+          height=int(picker_height),
+          direction='up',
+          percent=0.98,
+          speed=3000
+          )
+        time.sleep(0.5)
+        
+        # swipe minute
+        self.swipe_gesture(
+          x=int(minute_x - 5),
+          y=int(picker_top),
+          width=20,
+          height=int(picker_height),
+          direction='up',
+          percent=0.85,
+          speed=2000
+          )
+        time.sleep(0.5)
+        
+        # click outside to close the time window
+        self.common_actions.tap(0.5, 0.9)
+    ###############################################   
+    
     def create_event_option(self):
         try:
-          time.sleep(1.5)
-          create_button = self.driver.find_element(*self.create_event_locators.CREATE_BTN)
-          if create_button.is_displayed() and create_button.is_enabled():
-              create_button.click()
+          self.common_actions.is_element_visible(*CreateEventLocators.CREATE_BTN)
+          self.common_actions.click_element(*CreateEventLocators.CREATE_BTN)
               
-          self.driver.find_element(*self.create_event_locators.CREATE_EVENT_OPTION).click()
+          self.common_actions.click_element(*CreateEventLocators.CREATE_EVENT_OPTION)
                     
         except NoSuchElementException:
           raise NoSuchElementException("Unable to find create appointment button after multiple attempts")
       
         return self
     
-    
     def click_event_section(self):
-        time.sleep(0.5)
-        self.driver.find_element(*self.create_event_locators.EVENT).click()
+        self.common_actions.is_element_visible(*CreateEventLocators.EVENT)
+        self.common_actions.click_element(*CreateEventLocators.EVENT)
 
-    
     def quickly_select_event(self):
-        time.sleep(0.5)
         try:
-            random_option = random.choice(self.create_event_locators.QUICK_OPTIONS)
-
+            time.sleep(0.5)
+            random_option = random.choice(CreateEventLocators.QUICK_OPTIONS)
             quick_select = self.driver.find_element(
             AppiumBy.XPATH,
             f"//android.widget.TextView[@text='{random_option}']"
             )
             quick_select.click()
-            time.sleep(0.5)
             
-            self.driver.find_element(*self.create_event_locators.SAVE_BUTTON).click()
+            self.common_actions.click_element(*CreateEventLocators.SAVE_BUTTON)
         
         except Exception as e:
-                print(f"快速選取失敗: {str(e)}")
+            print(f"Quickly select event failed: {str(e)}")
 
-    def enter_event_title(self, title=None):
-        time.sleep(0.5)
+    def enter_event_title(self, title):
+        event_title_input = self.driver.find_element(*CreateEventLocators.EVENT_TITLE_INPUT)
+        self.common_actions.send_keys_to_element(event_title_input, title)
         
-        if title is not None:
-            self.driver.find_element(*self.create_event_locators.EVENT_TITLE_INPUT).send_keys(title)
+        self.common_actions.click_element(*CreateEventLocators.SAVE_BUTTON)
         
-        time.sleep(0.5)
-        self.driver.find_element(*self.create_event_locators.SAVE_BUTTON).click()
-        
-
-    
     def click_time_section(self):
-        self.driver.find_element(*self.create_event_locators.TIME).click()
-        time.sleep(1)
+        self.common_actions.is_element_visible(*CreateEventLocators.TIME)
+        self.common_actions.click_element(*CreateEventLocators.TIME)
     
     def select_event_time(self, all_day=True):
-        
-        self.driver.find_element(*self.create_event_locators.SELECTED_DATE).click()
-        
-        # select random date
-        direction = random.choice(['left', 'right'])
-        if direction == 'left':
-            arrow = self.driver.find_element(*self.create_event_locators.LEFT_DATE_ARROW)
-        else:
-            arrow = self.driver.find_element(*self.create_event_locators.RIGHT_DATE_ARROW)
-            arrow.click()
-            
-        dates = self.driver.find_elements(AppiumBy.XPATH, '//android.view.ViewGroup[@content-desc="一, 二, 三, 四, 五, 六, 日"]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup')
-      
-        random.choice(dates).click()
-        
-        # click outside to close the date window
-        size = self.driver.get_window_size()
-        self.tap_at_coordinates(int(size['width'] * 0.5), int(size['height'] * 0.9))
-        
-        time.sleep(0.5)
+        self.common_actions.is_element_visible(*CreateEventLocators.SELECTED_DATE)
+        self.common_actions.click_element(*CreateEventLocators.SELECTED_DATE)
+        self.choose_date()
         
         if all_day:
-            self.driver.find_element(*self.create_event_locators.ALL_DAY_TOGGLE).click()
+            self.common_actions.is_element_visible(*CreateEventLocators.ALL_DAY_TOGGLE)
+            self.common_actions.click_element(*CreateEventLocators.ALL_DAY_TOGGLE)
         else:
-            self.driver.find_element(*self.create_event_locators.CLICK_START_TIME).click()
+            self.common_actions.is_element_visible(*CreateEventLocators.CLICK_START_TIME)
+            self.common_actions.click_element(*CreateEventLocators.CLICK_START_TIME)
             time.sleep(0.5)
-
-            window_size = self.driver.get_window_size()
-            width = window_size['width']
-            height = window_size['height']
-        
-            # calculate the position of the time picker (more accurate positioning based on the image)
-            picker_top = height * 0.45     # time picker middle position
-            picker_height = height * 0.15   # picker visible area height
-        
-            # more accurate hour and minute positions (based on the image)
-            hour_x = width * 0.33    # hour position (aligned with "01")
-            minute_x = width * 0.67   # minute position (aligned with "00")
-        
-        
-            # start time swipe operation
-            # swipe hour
-            self.driver.execute_script('mobile: swipeGesture', {
-            'left': int(hour_x - 10),
-            'top': int(picker_top),
-            'width': 20,         # swipe area width
-            'height': int(picker_height),
-            'direction': 'up',
-            'percent': 0.6,   
-            'speed': 1000      
-            })
-            
-            time.sleep(0.5)
-        
-            # swipe minute
-            self.driver.execute_script('mobile: swipeGesture', {
-            'left': int(minute_x - 10),
-            'top': int(picker_top),
-            'width': 20,
-            'height': int(picker_height),
-            'direction': 'up',
-            'percent': 0.5,
-            'speed': 1500
-            })
-        
-            time.sleep(0.5)
-        
-            # click end time block
-            self.driver.find_element(*self.create_event_locators.CLICK_END_TIME).click()
-            time.sleep(1.5)
-        
-            # end time swipe operation
-            # swipe hour
-            self.driver.execute_script('mobile: swipeGesture', {
-            'left': int(hour_x - 10),
-            'top': int(picker_top),
-            'width': 20,
-            'height': int(picker_height),
-            'direction': 'up',
-            'percent': 0.95,
-            'speed': 3000
-            })
-        
-            time.sleep(0.5)
-        
-            # swipe minute
-            self.driver.execute_script('mobile: swipeGesture', {
-            'left': int(minute_x - 10),
-            'top': int(picker_top),
-            'width': 20,
-            'height': int(picker_height),
-            'direction': 'up',
-            'percent': 0.5,
-            'speed': 1500
-            })
-        
-            time.sleep(0.5)
-        
-            # click outside to close the time window
-            window_size = self.driver.get_window_size()
-            self.tap_at_coordinates(int(window_size['width'] * 0.5), int(window_size['height'] * 0.9))
-        self.driver.find_element(*self.create_event_locators.TIME_SAVE_BUTTON).click()
-        time.sleep(1)
+            self.swipe_and_close_time_picker()
+        self.common_actions.click_element(*CreateEventLocators.TIME_SAVE_BUTTON)
         
     def change_selected_time(self):
-        self.driver.find_element(*self.create_event_locators.TIME).click()
-        self.driver.find_element(*self.create_event_locators.SELECTED_DATE).click()
-
-        # select random date
-        direction = random.choice(['left', 'right'])
-        if direction == 'left':
-            arrow = self.driver.find_element(*self.create_event_locators.LEFT_DATE_ARROW)
-        else:
-            arrow = self.driver.find_element(*self.create_event_locators.RIGHT_DATE_ARROW)
-            arrow.click()
-                
-        dates = self.driver.find_elements(AppiumBy.XPATH, '//android.view.ViewGroup[@content-desc="一, 二, 三, 四, 五, 六, 日"]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup')
-      
-        random.choice(dates).click()
+        self.common_actions.is_element_visible(*CreateEventLocators.TIME)
+        self.common_actions.click_element(*CreateEventLocators.TIME)
+        self.common_actions.is_element_visible(*CreateEventLocators.SELECTED_DATE)
+        self.common_actions.click_element(*CreateEventLocators.SELECTED_DATE)
+        self.choose_date()
+        self.common_actions.click_element(*CreateEventLocators.TIME_SAVE_BUTTON)
         
-        # click outside to close the date window
-        size = self.driver.get_window_size()
-        self.tap_at_coordinates(int(size['width'] * 0.5), int(size['height'] * 0.9))
-        
-        time.sleep(0.5)
-        self.driver.find_element(*self.create_event_locators.TIME_SAVE_BUTTON).click()
-        
-    
     def click_repeat_section(self):
-        time.sleep(0.5)
-        self.driver.find_element(*self.create_event_locators.REPEAT).click()
-        self.driver.find_element(*self.create_event_locators.REPEAT_SAVE_BUTTON).click()
+        self.common_actions.is_element_visible(*CreateEventLocators.REPEAT)
+        self.common_actions.click_element(*CreateEventLocators.REPEAT)
+        self.common_actions.click_element(*CreateEventLocators.REPEAT_SAVE_BUTTON)
     
     def toggle_repeat_option(self, enable=False, multi_select=True):
-        self.driver.find_element(*self.create_event_locators.REPEAT).click()
+        self.common_actions.is_element_visible(*CreateEventLocators.REPEAT)
+        self.common_actions.click_element(*CreateEventLocators.REPEAT)
         time.sleep(0.5)
-        repeat_toggle = self.driver.find_element(*self.create_event_locators.REPEAT_TOGGLE)
+        repeat_toggle = self.common_actions.find_element(*CreateEventLocators.REPEAT_TOGGLE)
         if enable != repeat_toggle.is_selected():
             repeat_toggle.click()
             try:
                 if multi_select:
                     num_selections = random.randint(2,4)
-                    selected_days = random.sample(self.create_event_locators.WEEKDAYS, num_selections)
+                    selected_days = random.sample(CreateEventLocators.WEEKDAYS, num_selections)
                     
                     for day in selected_days:
                         self.driver.find_element(AppiumBy.ACCESSIBILITY_ID, day).click()
                 else:
-                    selected_day = random.choice(self.create_event_locators.WEEKDAYS)
+                    selected_day = random.choice(CreateEventLocators.WEEKDAYS)
                     self.driver.find_element(AppiumBy.ACCESSIBILITY_ID, selected_day).click()
             except Exception as e:
                 print(f"Toggle repeat option failed: {str(e)}")
-                
-                
-                
-        self.driver.find_element(*self.create_event_locators.REPEAT_SAVE_BUTTON).click()
+              
+        self.common_actions.click_element(*CreateEventLocators.REPEAT_SAVE_BUTTON)
 
     def click_repeat_toggle(self):
-        time.sleep(1.5)
-        self.driver.find_element(*self.create_event_locators.REPEAT).click()
-        time.sleep(0.5)
-        repeat_toggle = self.driver.find_element(*self.create_event_locators.REPEAT_TOGGLE)
-        repeat_toggle.click()
-        self.driver.find_element(*self.create_event_locators.REPEAT_SAVE_BUTTON).click()
+        self.common_actions.is_element_visible(*CreateEventLocators.REPEAT)
+        self.common_actions.click_element(*CreateEventLocators.REPEAT)
+        self.common_actions.is_element_visible(*CreateEventLocators.REPEAT_TOGGLE)
+        self.common_actions.click_element(*CreateEventLocators.REPEAT_TOGGLE)
+        self.common_actions.click_element(*CreateEventLocators.REPEAT_SAVE_BUTTON)
 
-        
     def click_save_button(self):
-        time.sleep(0.5)
-        self.driver.find_element(*self.create_event_locators.SAVE_BUTTON).click()
+        self.common_actions.is_element_visible(*CreateEventLocators.SAVE_BUTTON)
+        self.common_actions.click_element(*CreateEventLocators.SAVE_BUTTON)
         
     def new_event_page_save_button(self):
-        time.sleep(0.5)
-        self.driver.find_element(*self.create_event_locators.NEW_EVENT_PAGE_SAVE_BUTTON).click()
+        self.common_actions.is_element_visible(*CreateEventLocators.NEW_EVENT_PAGE_SAVE_BUTTON)
+        self.common_actions.click_element(*CreateEventLocators.NEW_EVENT_PAGE_SAVE_BUTTON)
 
     def verify_error_message(self):
         try:
-            error_message = self.driver.find_element(*self.create_event_locators.ERROR_MESSAGE)
-            actual_message = error_message.text.strip()
+            error_message = self.common_actions.get_element_text(*CreateEventLocators.ERROR_MESSAGE)
+            actual_message = error_message.strip()
             expected_message = "此欄位為必填。"
             assert actual_message == expected_message, f"Expected message: {expected_message}, but got: {actual_message}"
             return True
@@ -254,39 +209,30 @@ class CreateEventPage:
             return False
     
     def verify_time_error_display(self):
-        self.driver.find_element(*self.create_event_locators.TIME_SAVE_BUTTON).click()
+        self.common_actions.is_element_visible(*CreateEventLocators.TIME_SAVE_BUTTON)
+        self.common_actions.click_element(*CreateEventLocators.TIME_SAVE_BUTTON)
         try:
-            error_icon1 = self.driver.find_element(*self.create_event_locators.ERROR_ICON1)
-            error_icon2 = self.driver.find_element(*self.create_event_locators.ERROR_ICON2)
-            error_icon3 = self.driver.find_element(*self.create_event_locators.ERROR_ICON3)
+            error_icon1 = self.driver.find_element(*CreateEventLocators.ERROR_ICON1)
+            error_icon2 = self.driver.find_element(*CreateEventLocators.ERROR_ICON2)
+            error_icon3 = self.driver.find_element(*CreateEventLocators.ERROR_ICON3)
             assert error_icon1.is_displayed() and error_icon2.is_displayed() and error_icon3.is_displayed(), "Expected error icon to be displayed"
             return True
         except NoSuchElementException:
             return False
         
     def click_repeat_back_button(self):
-        self.driver.find_element(*self.create_event_locators.REPEAT_BACK_BUTTON).click()
-        time.sleep(0.5)
-        self.driver.find_element(*self.create_event_locators.BACK_TO_CALENDAR).click()
-        self.driver.find_element(*self.create_event_locators.WINDOW_LEAVE_BUTTON).click()
+        self.common_actions.is_element_visible(*CreateEventLocators.REPEAT_BACK_BUTTON)
+        self.common_actions.click_element(*CreateEventLocators.REPEAT_BACK_BUTTON)
+        self.common_actions.is_element_visible(*CreateEventLocators.BACK_TO_CALENDAR)
+        self.common_actions.click_element(*CreateEventLocators.BACK_TO_CALENDAR)
+        self.common_actions.is_element_visible(*CreateEventLocators.WINDOW_LEAVE_BUTTON)
+        self.common_actions.click_element(*CreateEventLocators.WINDOW_LEAVE_BUTTON)
     
     def modify_quick_select_settings(self):
-        self.driver.find_element(*self.create_event_locators.MODIFY_QUICK_SELECT_ICON).click()
-        time.sleep(0.5)
+        self.common_actions.is_element_visible(*CreateEventLocators.MODIFY_QUICK_SELECT_ICON)
+        self.common_actions.click_element(*CreateEventLocators.MODIFY_QUICK_SELECT_ICON)
+
         
-    def tap_at_coordinates(self, x, y):
-        """
-        使用 W3C Actions API 在指定座標點擊
-        """
-        actions = ActionChains(self.driver)
-        pointer = PointerInput(interaction.POINTER_TOUCH, "touch")
-        
-        actions.w3c_actions = ActionBuilder(self.driver, mouse=pointer)
-        actions.w3c_actions.pointer_action.move_to_location(x, y)
-        actions.w3c_actions.pointer_action.pointer_down()
-        actions.w3c_actions.pointer_action.pause(0.1) 
-        actions.w3c_actions.pointer_action.pointer_up()
-        actions.perform()
         
         
         

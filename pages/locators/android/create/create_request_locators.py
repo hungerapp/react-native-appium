@@ -11,7 +11,7 @@ class CreateRequestLocators:
     
       REQUESTER_SAVE_BUTTON = (AppiumBy.ACCESSIBILITY_ID, 'check')
       TAB_CONTAINER = (AppiumBy.XPATH, '//android.widget.HorizontalScrollView/android.view.ViewGroup')
-      AUTO_TEST_TAB = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("自動化測試商品")')
+      AUTO_TEST_TAB = (AppiumBy.ACCESSIBILITY_ID, '自動化測試商品')
       SAVE_PRODUCT_BTN = (AppiumBy.ACCESSIBILITY_ID, 'check')
       
       TEST_PRODUCT_OPTIONS = [
@@ -32,7 +32,7 @@ class CreateRequestLocators:
       AMOUNT_CLEAR_BTN = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("清除")')
       AMOUNT_SAVE_BTN = (AppiumBy.ACCESSIBILITY_ID, 'circle-check')
       EDIT_ITEM_QUANTITY_ICON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("caret-down").instance(1)')
-      QUANTITLY_PLUS_BUTTON = (AppiumBy.XPATH, '//android.view.ViewGroup[contains(@resource-id, "plus")]')
+      QUANTITY_PLUS_BUTTON = (AppiumBy.XPATH, '//android.view.ViewGroup[contains(@resource-id, "plus")]')
       QUANTITY_REVISE_INPUT2 = (AppiumBy.XPATH, "//*[@resource-id='undefined-number-field-input']")
       QUANTITY_REVISE_SAVE_BTN = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(1)')
       

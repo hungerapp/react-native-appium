@@ -14,6 +14,7 @@ class CreateAppointmentLocators:
       SERVICE_PAGE_TOGGLE_SWITCH = (AppiumBy.ACCESSIBILITY_ID, '該筆預約為指定預約-switch-button')
       SERVICE_PAGE_SAVE_BTN = (AppiumBy.ACCESSIBILITY_ID, 'check')
       SERVICE = (AppiumBy.ACCESSIBILITY_ID, '服務')
+      SERVICE2 = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("服務")')
       TAB_CONTAINER = (AppiumBy.XPATH, '//android.widget.HorizontalScrollView/android.view.ViewGroup')
       SERVICE_TAB_CONTAINER = (AppiumBy.XPATH, "//android.widget.HorizontalScrollView/android.view.ViewGroup")
       AUTO_TEST_TAB = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("自動化測試服物分類")')
@@ -28,8 +29,8 @@ class CreateAppointmentLocators:
       BACK_TO_CALENDAR_BTN = (AppiumBy.ACCESSIBILITY_ID, 'xmark')
     
       MEMBER_PASSPORT_BTN = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("查看會員護照")')
-      MEMBER_PASSPORT_TITLE = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("會員護照")')
-      MEMBER_PASSPORT_BACK_BTN = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(0)')
+      MEMBER_PASSPORT_TITLE = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("會員護照")')
+      MEMBER_PASSPORT_BACK_BTN = (AppiumBy.ACCESSIBILITY_ID, 'xmark')
       
       
       # Sub-service options
@@ -91,11 +92,11 @@ class CreateAppointmentLocators:
       NAME_INPUT = (AppiumBy.ACCESSIBILITY_ID, '姓名-text-input')
       PHONE_SEARCH_BUTTON = (AppiumBy.ACCESSIBILITY_ID, '電話搜尋')
       NAME_SEARCH_BUTTON = (AppiumBy.ACCESSIBILITY_ID, '姓名搜尋')
-      SPECIFIC_SEARCH_RESULT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("+886 972 205690")')
+      SPECIFIC_SEARCH_RESULT = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("+886 972 205690")')
       CHANGE_SPECIFIC_SEARCH_RESULT = (AppiumBy.ACCESSIBILITY_ID, '+886 911 111116, Wei 先生, 上次預約姓名： Wei')
       SAVE_CONTACT_BUTTON = (AppiumBy.ACCESSIBILITY_ID, 'check')
       INVALID_PHONE_MSG = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text(" 格式錯誤。")')
       CONTACT_BACK_BTN = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("xmark").instance(1)')
-      CONTACT_HAS_CHOSEN = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("+886 972 205690")')
+      CONTACT_HAS_CHOSEN = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("王貝克")')
       CONTACT_PHONE_CHANGE = (AppiumBy.ACCESSIBILITY_ID, '電話-text-input')
      

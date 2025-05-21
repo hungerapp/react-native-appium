@@ -2,10 +2,14 @@ import time
 from typing import Tuple, Union
 from appium.webdriver.webdriver import WebDriver
 from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions
+from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException, NoSuchElementException, StaleElementReferenceException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.actions import interaction
+from selenium.webdriver.common.actions.pointer_input import PointerInput
+from selenium.webdriver.common.actions.action_builder import ActionBuilder
 
 class CommonActions:
     def __init__(self, driver: WebDriver, default_timeout: int = 10):
@@ -18,23 +22,57 @@ class CommonActions:
         self.wait = WebDriverWait(driver, default_timeout)
         self.default_timeout = default_timeout
 
-    def find_element(self, locator_type: str, locator_value: str):
+    def find_element(self, locator_type: str, locator_value: str, timeout: int = None):
         """
         使用顯式等待查找元素並返回
-        """
-        return self.wait.until(
-            expected_conditions.presence_of_element_located((locator_type, locator_value))
-        )
+        增加重試機制以提高穩定性
 
-    def is_element_visible(self, locator_type: str, locator_value: str):
+        Args:
+            locator_type: 定位方式
+            locator_value: 定位值
+            timeout: 可選的等待時間，如果不指定則使用默認值
+
+        Returns:
+            WebElement: 找到的元素
+
+        Raises:
+            TimeoutException: 如果在指定時間內未找到元素
+        """
+        if timeout is None:
+            timeout = self.default_timeout
+
+        max_attempts = 3
+        for attempt in range(max_attempts):
+            try:
+                return WebDriverWait(self.driver, timeout).until(
+                    EC.presence_of_element_located((locator_type, locator_value))
+                )
+            except (TimeoutException, StaleElementReferenceException) as e:
+                if attempt == max_attempts - 1:
+                    raise TimeoutException(
+                        f"Element ({locator_type}={locator_value}) not found after {max_attempts} attempts"
+                    ) from e
+                time.sleep(1)
+
+    def is_element_visible(self, locator_type: str, locator_value: str, timeout: int = None):
         """
         檢查元素是否存在且可見
         """
-        try:
-            element = self.driver.find_element(locator_type, locator_value)
-            return self.wait.until(expected_conditions.visibility_of(element))
-        except (NoSuchElementException, TimeoutException):
-            return False
+        if timeout is None:
+            timeout = self.default_timeout
+
+        max_attempts = 3
+        for attempt in range(max_attempts):
+            try:
+                element = WebDriverWait(self.driver, timeout).until(
+                    EC.visibility_of_element_located((locator_type, locator_value))
+                )
+                return True
+            except (TimeoutException, StaleElementReferenceException):
+                if attempt == max_attempts - 1:
+                    return False
+                time.sleep(1)
+        return False
 
     def is_element_present(self, locator_type: str, locator_value: str) -> bool:
         """
@@ -46,14 +84,27 @@ class CommonActions:
         except NoSuchElementException:
             return False
 
-    def click_element(self, locator_type: str, locator_value: str):
+    def click_element(self, locator_type: str, locator_value: str, timeout: int = None):
         """
         點擊可點擊的元素
         """
-        element = self.wait.until(
-            expected_conditions.element_to_be_clickable((locator_type, locator_value))
-        )
-        element.click()
+        if timeout is None:
+             timeout = self.default_timeout
+
+        max_attempts = 3
+        for attempt in range(max_attempts):
+            try:
+                element = WebDriverWait(self.driver, timeout).until(
+                    EC.element_to_be_clickable((locator_type, locator_value))
+                )
+                element.click()
+                return
+            except (TimeoutException, StaleElementReferenceException) as e:
+                if attempt == max_attempts - 1:
+                    raise TimeoutException(
+                        f"Element ({locator_type}={locator_value}) not clickable after {max_attempts} attempts"
+                    ) from e
+                time.sleep(1)
 
     def click_if_exists(self, locator_type: str, locator_value: str) -> bool:
         """
@@ -64,13 +115,26 @@ class CommonActions:
             return True
         return False
 
-    def send_keys_to_element(self, locator_type: str, locator_value: str, text: str):
+    def send_keys_to_element(self, locator_or_element, text: str = None, locator_value: str = None):
         """
         向指定元素發送鍵盤輸入
+        支援兩種使用方式：
+        1. 傳入定位器: send_keys_to_element(*LoginLocators.EMAIL_INPUT, "text")
+        2. 傳入元素: send_keys_to_element(element, "text")
         """
-        element = self.find_element(locator_type, locator_value)
-        # element.clear()
-        element.send_keys(text)
+        # make sure the text is a string
+        text = str(text) if text is not None else None
+
+        if isinstance(locator_or_element, WebElement):
+            element = locator_or_element
+            element.clear()
+            element.send_keys(text)
+        else:
+            element = self.wait.until(
+                EC.visibility_of_element_located((locator_or_element, locator_value))
+            )
+            element.clear()
+            element.send_keys(text)
 
     def clear_text(self, locator_type: str, locator_value: str):
         """
@@ -106,7 +170,7 @@ class CommonActions:
             self.driver.implicitly_wait(0)
             wait = WebDriverWait(self.driver, timeout)
             return wait.until(
-                expected_conditions.visibility_of_element_located((locator_type, locator_value))
+                EC.visibility_of_element_located((locator_type, locator_value))
             )
         except NoSuchElementException:
             return False
@@ -122,7 +186,7 @@ class CommonActions:
         """
         try:
             self.wait.until(
-                expected_conditions.element_to_be_clickable((locator_type, locator_value))
+                EC.element_to_be_clickable((locator_type, locator_value))
             )
             return True
         except TimeoutException:
@@ -193,11 +257,28 @@ class CommonActions:
         """
         self.driver.swipe(start_x, start_y, end_x, end_y, duration)
 
-    def tap(self, x: int, y: int):
+    def tap(self, x_ratio: float, y_ratio: float):
         """
-        點擊指定座標
+        使用 W3C Actions API 在螢幕指定比例位置點擊
+
+        Args:
+        x_ratio (float): x 座標的螢幕比例 (0.0 ~ 1.0)
+        y_ratio (float): y 座標的螢幕比例 (0.0 ~ 1.0)
+        Ex.
+        self.common_actions.tap(0.5, 0.9)
         """
-        self.driver.tap([(x, y)])
+        size = self.get_screen_size()
+        x = int(size[0] * x_ratio)
+        y = int(size[1] * y_ratio)
+        actions = ActionChains(self.driver)
+        pointer = PointerInput(interaction.POINTER_TOUCH, "touch")
+
+        actions.w3c_actions = ActionBuilder(self.driver, mouse=pointer)
+        actions.w3c_actions.pointer_action.move_to_location(x, y)
+        actions.w3c_actions.pointer_action.pointer_down()
+        actions.w3c_actions.pointer_action.pause(0.1)
+        actions.w3c_actions.pointer_action.pointer_up()
+        actions.perform()
 
     def hide_keyboard(self):
         """
@@ -229,7 +310,7 @@ class CommonActions:
             self.driver.implicitly_wait(0)
             wait = WebDriverWait(self.driver, timeout)
             wait.until(
-                expected_conditions.visibility_of_element_located((locator_type, locator_value))
+                EC.visibility_of_element_located((locator_type, locator_value))
             )
             return True
         except TimeoutException:
@@ -253,7 +334,7 @@ class CommonActions:
         """
         try:
             self.driver.implicitly_wait(0)
-            return WebDriverWait(self.driver, timeout).until(expected_conditions.invisibility_of_element_located((locator_type, locator_value)))
+            return WebDriverWait(self.driver, timeout).until(EC.invisibility_of_element_located((locator_type, locator_value)))
         except NoSuchElementException:
             return True
         except TimeoutException:
@@ -328,6 +409,7 @@ class CommonActions:
         """
         element = self.find_element(locator_type, locator_value)
         return element.get_attribute(attribute)
+
 
     def get_element_location(self, locator_type: str, locator_value: str) -> Tuple[int, int]:
         """
@@ -437,7 +519,7 @@ class CommonActions:
                 for attempt in range(max_attempts):
                     try:
                         element = self.wait.until(
-                            expected_conditions.element_to_be_clickable((locator_type, locator_value))
+                            EC.element_to_be_clickable((locator_type, locator_value))
                         )
                         element.click()
                         time.sleep(1) 

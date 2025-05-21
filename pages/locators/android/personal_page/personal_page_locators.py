@@ -4,7 +4,7 @@ from appium.webdriver.common.appiumby import AppiumBy
 class PersonalPageLocators:
       # View basic personal information 
       PROFILE_PICTURE = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("android.widget.ImageView").instance(0)')
-      USERNAME = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("ann")')
+      USERNAME = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("QA")')
       GREETING_MESSAGE = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textMatches(".*保持好心情.*|.*開始美好.*|.*好好休息.*")')
       EMAIL_ADDRESS = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textMatches(".*@.*")')
 
@@ -40,7 +40,7 @@ class PersonalPageLocators:
       INTEGRATE_GOOGLE_CALENDAR_BUTTON = (AppiumBy.ACCESSIBILITY_ID, 'Google行事曆, 進行串接')
   
       # Push notification page
-      PUSH_NOTTIFICATION_SAVE = (AppiumBy.ACCESSIBILITY_ID, 'check')
+      PUSH_NOTIFICATION_SAVE = (AppiumBy.ACCESSIBILITY_ID, 'check')
   
       # Manage account settings
       SETTINGS_BUTTON = (AppiumBy.ACCESSIBILITY_ID, 'gear')
@@ -53,15 +53,14 @@ class PersonalPageLocators:
       
       # For Toggle locators
       TOGGLE_LOCATORS = {
-        "wen_toggle": (AppiumBy.XPATH, "//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[4]/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup[2]/android.view.ViewGroup"),
-        "sally_toggle": (AppiumBy.XPATH, "//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[4]/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup[2]/android.view.ViewGroup"),
-        "bella_toggle": (AppiumBy.XPATH, "//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[4]/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup[2]/android.view.ViewGroup"),
-        "dami_toggle": (AppiumBy.XPATH, "//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[4]/android.view.ViewGroup/android.view.ViewGroup[4]/android.view.ViewGroup[2]/android.view.ViewGroup"),
-        "ella_toggle": (AppiumBy.XPATH, '//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[4]/android.view.ViewGroup/android.view.ViewGroup[5]/android.view.ViewGroup[2]/android.view.ViewGroup'),
-        "kelly_toggle": (AppiumBy.XPATH, "//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[4]/android.view.ViewGroup/android.view.ViewGroup[6]/android.view.ViewGroup[2]/android.view.ViewGroup"),
-        "test_toggle": (AppiumBy.XPATH, '//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[4]/android.view.ViewGroup/android.view.ViewGroup[7]/android.view.ViewGroup[2]/android.view.ViewGroup'),
-        "918_toggle": (AppiumBy.XPATH, "//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[4]/android.view.ViewGroup/android.view.ViewGroup[8]/android.view.ViewGroup[2]/android.view.ViewGroup"),
-        "new1_toggle": (AppiumBy.XPATH, "//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[4]/android.view.ViewGroup/android.view.ViewGroup[9]/android.view.ViewGroup[2]/android.view.ViewGroup")
+        "wen_toggle": (AppiumBy.XPATH, "//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[4]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.Switch/android.view.ViewGroup"),
+        "sally_toggle": (AppiumBy.XPATH, "//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[4]/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.Switch/android.view.ViewGroup"),
+        "bella_toggle": (AppiumBy.XPATH, "//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[4]/android.view.ViewGroup/android.view.ViewGroup[3]/android.widget.Switch/android.view.ViewGroup"),
+        "dami_toggle": (AppiumBy.XPATH, "//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[4]/android.view.ViewGroup/android.view.ViewGroup[4]/android.widget.Switch/android.view.ViewGroup"),
+        "ella_toggle": (AppiumBy.XPATH, '//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[4]/android.view.ViewGroup/android.view.ViewGroup[5]/android.widget.Switch/android.view.ViewGroup'),
+        "kelly_toggle": (AppiumBy.XPATH, "//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[4]/android.view.ViewGroup/android.view.ViewGroup[6]/android.widget.Switch/android.view.ViewGroup"),
+        "test_toggle": (AppiumBy.XPATH, '//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[4]/android.view.ViewGroup/android.view.ViewGroup[7]/android.widget.Switch/android.view.ViewGroup'),
+        "918_toggle": (AppiumBy.XPATH, "//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[4]/android.view.ViewGroup/android.view.ViewGroup[8]/android.widget.Switch/android.view.ViewGroup")
       }
       
       

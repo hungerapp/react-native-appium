@@ -36,7 +36,7 @@ Feature: Login Feature (existing)
   @regression @login_modify_email
   Scenario: Modify email from verification code page
     When the user clicks modify email button "julian@hotcake.app"
-    Then the user can enter valid email again "ann@hunger.ai"
+    Then the user can enter valid email again "qatest@hunger.ai"
     Then the user should be on verification code page again
 
   @regression @login_existing 

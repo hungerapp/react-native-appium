@@ -9,7 +9,7 @@ from pages.shared_components.common_action import CommonActions
 class LoginPage(CommonActions):
   def __init__(self, driver):
       super().__init__(driver)
-
+  
   def select_language(self):
       self.wait_for_element_visible(*LoginLocators.LANGUAGE_SETTING_BUTTON)
       self.click_element(*LoginLocators.LANGUAGE_SETTING_BUTTON)
@@ -19,18 +19,18 @@ class LoginPage(CommonActions):
       self.click_element(*LoginLocators.LANGUAGE_SAVE_BUTTON)
 
   def continue_to_login_page(self):
-      assert self.wait_for_element_visible(*LoginLocators.LANGUAGE_SETTING_BUTTON), "Language setting button not found"
-      assert self.wait_for_element_visible(*LoginLocators.CONTACT_CS_BUTTON), "Contact customer service button not found"
-      assert self.wait_for_element_visible(*LoginLocators.LOGIN_BUTTON) is not None, "Start using the app button not found"
+      assert self.is_element_visible(*LoginLocators.LANGUAGE_SETTING_BUTTON), "Language setting button not found"
+      assert self.is_element_visible(*LoginLocators.CONTACT_CS_BUTTON), "Contact customer service button not found"
+      assert self.is_element_visible(*LoginLocators.LOGIN_BUTTON), "Start using the app button not found"
 
   def click_contact_cs_button(self):
       self.wait_for_element_clickable(*LoginLocators.CONTACT_CS_BUTTON)
       self.click_element(*LoginLocators.CONTACT_CS_BUTTON)
-      time.sleep(3)
-      self.wait_for_element_clickable(*LoginLocators.CONTACT_CS_BACK_BUTTON)
-      self.click_element(*LoginLocators.CONTACT_CS_BACK_BUTTON)
-
-
+      try:
+          self.click_element(*LoginLocators.CONTACT_CS_BACK_BUTTON)
+      except:
+          self.driver.back()
+      
   def click_terms_and_conditions_button(self):
       self.wait_for_element_visible(*LoginLocators.TERMS_AND_CONDITIONS_BUTTON)
       self.click_element(*LoginLocators.TERMS_AND_CONDITIONS_BUTTON)
@@ -69,9 +69,9 @@ class LoginPage(CommonActions):
           pass
 
   def enter_ver_code(self, ver_code):
-      self.wait_for_element_visible(*LoginLocators.VER_CODE_INPUT)
-      self.send_keys_to_element(*LoginLocators.VER_CODE_INPUT, ver_code)
-      self.wait_for_element_clickable(*LoginLocators.VER_SUBMIT_BUTTON)
+      self.is_element_visible(*LoginLocators.VER_CODE_INPUT)
+      ver_code_input = self.find_element(*LoginLocators.VER_CODE_INPUT)
+      self.send_keys_to_element(ver_code_input, ver_code)
       self.click_element(*LoginLocators.VER_SUBMIT_BUTTON)
 
   def click_finish_button(self):
@@ -84,12 +84,11 @@ class LoginPage(CommonActions):
 
   def is_logged_in(self):
       try:
-          # Check if the login success popup is displayed
-          self.wait_for_element_disappear(*LoginLocators.LOGIN_SUCCESS_POPUP)
-          time.sleep(3)
-          self.wait_for_element_clickable(*LoginLocators.FINISH_BUTTON)
-          self.click_element(*LoginLocators.FINISH_BUTTON)
-          return None
+          # Check if login success popup is displayed
+          pop_up = self.is_element_visible(*LoginLocators.LOGIN_SUCCESS_POPUP)
+          assert pop_up, "Login success popup not found"
+          time.sleep(2)
+          self.driver.find_element(*LoginLocators.FINISH_BUTTON).click()
       except NoSuchElementException:
           return False
 
@@ -102,55 +101,45 @@ class LoginPage(CommonActions):
             if current_value:
                email_input.clear()
 
-            email_input.send_keys(email)
+            self.send_keys_to_element(email_input, email)
             self.click_element(*LoginLocators.EMAIL_NEXT_BUTTON)
 
 
        except NoSuchElementException as e:
             print(f"無法找到元素: {str(e)}")
-            raise
-
+            raise  
 
   def error_unregistered_message(self):
-      self.wait_for_element_visible(*LoginLocators.ERROR_UNREGISTERED_WINDOW_TITLE)
-      error_element = self.find_element(*LoginLocators.ERROR_UNREGISTERED_WINDOW_TITLE)
-      assert error_element.is_displayed(), "Error unregistered window title not found"
-      self.wait_for_element_visible(*LoginLocators.ERROR_UNREGISTERED_WINDOW_MESSAGE)
-      error_text = self.find_element(*LoginLocators.ERROR_UNREGISTERED_WINDOW_MESSAGE).text.strip()
-      self.wait_for_element_visible(*LoginLocators.ERROR_UNREGISTERED_WINDOW_BUTTON)
+      error_element = self.get_element_text(*LoginLocators.ERROR_UNREGISTERED_WINDOW_TITLE)
+      assert error_element, "Error unregistered window title not found"
+      error_text = self.get_element_text(*LoginLocators.ERROR_UNREGISTERED_WINDOW_MESSAGE)
       self.click_element(*LoginLocators.ERROR_UNREGISTERED_WINDOW_BUTTON)
-      return error_text
+      return error_text.strip()
 
 
 
   def get_email_error_message(self):
-       try:
-            self.wait_for_element_visible(*LoginLocators.ERROR_MESSAGE)
-            error_element = self.find_element(*LoginLocators.ERROR_MESSAGE)
-            return error_element.text.strip()
+       try: 
+            error_element = self.get_element_text(*LoginLocators.ERROR_MESSAGE)
+            return error_element.strip()
 
        except NoSuchElementException:
             return None
 
-
-
   def error_ver_window(self):
         try:
-            self.wait_for_element_visible(*LoginLocators.ERROR_WINDOW_TEXT)
-            error_element = self.find_element(*LoginLocators.ERROR_WINDOW_TEXT)
-            error_text = error_element.text.strip()
-            self.wait_for_element_visible(*LoginLocators.ERROR_RETRY_BUTTON)
+            error_element = self.get_element_text(*LoginLocators.ERROR_WINDOW_TEXT)
             self.click_element(*LoginLocators.ERROR_RETRY_BUTTON)
-            return error_text
-
+            return error_element.strip()
+            
         except NoSuchElementException:
             return None
 
   def click_login_cancel_button(self):
        self.wait_for_element_visible(*LoginLocators.LOGIN_CANCEL_BUTTON)
        self.click_element(*LoginLocators.LOGIN_CANCEL_BUTTON)
-
-
+       
+ 
   def login(self, email, ver_code=None):
         '''run the valid login process'''
         self.click_login_button()
@@ -164,8 +153,8 @@ class LoginPage(CommonActions):
                 email_input.clear()
 
             # enter email
-            self.send_keys_to_element(*LoginLocators.EMAIL_INPUT, email)
-
+            self.send_keys_to_element(email_input, email)
+            
             # click next button
             self.wait_for_element_clickable(*LoginLocators.EMAIL_NEXT_BUTTON)
             self.click_element(*LoginLocators.EMAIL_NEXT_BUTTON)
@@ -199,8 +188,8 @@ class LoginPage(CommonActions):
                 email_input.clear()
 
             # enter email
-            email_input.send_keys(email)
-
+            self.send_keys_to_element(email_input, email)
+            
             # click next button
             self.wait_for_element_clickable(*LoginLocators.EMAIL_NEXT_BUTTON)
             self.click_element(*LoginLocators.EMAIL_NEXT_BUTTON)
@@ -221,8 +210,8 @@ class LoginPage(CommonActions):
                 email_input.clear()
 
             # enter email
-            email_input.send_keys(email)
-
+            self.send_keys_to_element(email_input, email)
+            
             # click next button
             self.wait_for_element_clickable(*LoginLocators.EMAIL_NEXT_BUTTON)
             self.click_element(*LoginLocators.EMAIL_NEXT_BUTTON)
@@ -236,32 +225,31 @@ class LoginPage(CommonActions):
         self.click_element(*LoginLocators.MODIFY_EMAIL_BUTTON)
 
   def is_verification_code_page(self):
-      self.wait_for_element_visible(*LoginLocators.IS_VERIFICATION_CODE_PAGE_TITLE)
-      verification_code_page_title = self.find_element(*LoginLocators.IS_VERIFICATION_CODE_PAGE_TITLE)
-      return verification_code_page_title.is_displayed()
+      verification_code_page_title = self.is_element_visible(*LoginLocators.IS_VERIFICATION_CODE_PAGE_TITLE)
+      return verification_code_page_title
 
   def login_with_invalid_email(self, email):
         """run the invalid login process"""
         self.click_login_button()
 
         try:
-
-            self.wait_for_element_visible(*LoginLocators.EMAIL_INPUT)
+            self.is_element_visible(*LoginLocators.EMAIL_INPUT)
             email_input = self.find_element(*LoginLocators.EMAIL_INPUT)
             current_value = email_input.get_attribute("text")
             if current_value:
                email_input.clear()
-            email_input.send_keys(email)
 
+            self.send_keys_to_element(email_input, email)
 
+            
         except NoSuchElementException as e:
             print(f"無法找到元素: {str(e)}")
-            raise
-
+            raise  
+        
   def login_with_invalid_ver_code(self, ver_code=None):
         """run the invalid login process"""
         self.enter_ver_code(ver_code)
-
+        
 
 ########### Just for logout ###########
   def click_logout_button(self):
