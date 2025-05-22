@@ -20,7 +20,7 @@ class WebLayoutManagementPage:
         return self
 
     def select_web_layout_color(self, color_num):
-        self.common_actions.wait_for_element_visible(*self.locators.WEB_COLOR_SELECTION_IN_WEB_LAYOUT_MANAGEMENT_PAGE(color_num))
+        self.common_actions.wait_for_element_visible(*self.locators.WEB_COLOR_SELECTION_IN_WEB_LAYOUT_MANAGEMENT_PAGE   (color_num))
         self.common_actions.click_element(*self.locators.WEB_COLOR_SELECTION_IN_WEB_LAYOUT_MANAGEMENT_PAGE(color_num))
         return self
 
@@ -48,4 +48,50 @@ class WebLayoutManagementPage:
     def tap_close_button(self):
         self.common_actions.wait_for_element_clickable(*self.locators.CLOSE_BUTTON_IN_WEB_LAYOUT_MANAGEMENT_PAGE)
         self.common_actions.click_element(*self.locators.CLOSE_BUTTON_IN_WEB_LAYOUT_MANAGEMENT_PAGE)
+        self.common_actions.wait_for_element_disappear(*self.locators.WEEK_START_DAY)
+        return self
+
+    def tap_close_button_in_branch_settings_page(self):
+        self.common_actions.wait_for_element_clickable(*self.locators.WEB_LAYOUT_MANAGEMENT_IN_BRANCH_SETTINGS_PAGE)
+        self.common_actions.click_element(*self.locators.CLOSE_BUTTON_IN_BRANCH_SETTINGS_PAGE)
+        return self
+
+    def turn_on_online_service_appointment(self):
+        self.common_actions.wait_for_element_visible(*self.locators.ONLINE_SERVICE_APPOINTMENT_SWITCH)
+        self.common_actions.toggle_switch(*self.locators.ONLINE_SERVICE_APPOINTMENT_SWITCH, should_be_on=True)
+        return self
+
+    def turn_off_online_service_appointment(self):
+        self.common_actions.wait_for_element_visible(*self.locators.ONLINE_SERVICE_APPOINTMENT_SWITCH)
+        self.common_actions.toggle_switch(*self.locators.ONLINE_SERVICE_APPOINTMENT_SWITCH, should_be_on=False)
+        return self
+
+    def turn_on_stored_value_feature(self):
+        self.common_actions.wait_for_element_visible(*self.locators.STORED_VALUE_FEATURE_SWITCH)
+        self.common_actions.toggle_switch(*self.locators.STORED_VALUE_FEATURE_SWITCH, should_be_on=True)
+        return self
+
+    def turn_off_stored_value_feature(self):
+        self.common_actions.wait_for_element_visible(*self.locators.STORED_VALUE_FEATURE_SWITCH)
+        self.common_actions.toggle_switch(*self.locators.STORED_VALUE_FEATURE_SWITCH, should_be_on=False)
+        return self
+
+    def turn_on_ticket_feature(self):
+        self.common_actions.wait_for_element_visible(*self.locators.TICKET_FEATURE_SWITCH)
+        self.common_actions.toggle_switch(*self.locators.TICKET_FEATURE_SWITCH, should_be_on=True)
+        return self
+
+    def turn_off_ticket_feature(self):
+        self.common_actions.wait_for_element_visible(*self.locators.TICKET_FEATURE_SWITCH)
+        self.common_actions.toggle_switch(*self.locators.TICKET_FEATURE_SWITCH, should_be_on=False)
+        return self
+
+    def turn_on_bonus_points_feature(self):
+        self.common_actions.wait_for_element_visible(*self.locators.BONUS_POINTS_FEATURE_SWITCH)
+        self.common_actions.toggle_switch(*self.locators.BONUS_POINTS_FEATURE_SWITCH, should_be_on=True)
+        return self
+
+    def turn_off_bonus_points_feature(self):
+        self.common_actions.wait_for_element_visible(*self.locators.BONUS_POINTS_FEATURE_SWITCH)
+        self.common_actions.toggle_switch(*self.locators.BONUS_POINTS_FEATURE_SWITCH, should_be_on=False)
         return self

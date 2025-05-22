@@ -17,8 +17,15 @@ Feature: web layout management
     Scenario: Setting the web layout
         Given I am on the branch settings page
         When I tap on the Web Layout
-
-        When I select the web layout color "1"
+        And I turn on the online service appointment
+        And I turn off the online service appointment
+        And I turn on the stored value feature
+        And I turn off the stored value feature
+        And I turn on the ticket feature
+        And I turn off the ticket feature
+        And I turn on the bonus points feature
+        And I turn off the bonus points feature
+        And I select the web layout color "3"
         And I set week start day to "週一"
         And I set week start day to "週日"
         And I set the google tracking code to "google tracking code <current_datetime>"

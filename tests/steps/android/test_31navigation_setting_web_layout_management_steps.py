@@ -36,7 +36,47 @@ def tap_web_layout_management(driver):
     web_layout_management_page = WebLayoutManagementPage(driver)
     assert web_layout_management_page.tap_web_layout_management(), "Failed to tap on Web Layout Management"
 
-@when(parsers.parse("I select the web layout color {color}"))
+@when("I turn on the online service appointment")
+def turn_on_online_service_appointment(driver):
+    web_layout_management_page = WebLayoutManagementPage(driver)
+    assert web_layout_management_page.turn_on_online_service_appointment(), "Failed to turn on the online service appointment"
+
+@when("I turn off the online service appointment")
+def turn_off_online_service_appointment(driver):
+    web_layout_management_page = WebLayoutManagementPage(driver)
+    assert web_layout_management_page.turn_off_online_service_appointment(), "Failed to turn off the online service appointment"
+
+@when("I turn on the stored value feature")
+def turn_on_stored_value_feature(driver):
+    web_layout_management_page = WebLayoutManagementPage(driver)
+    assert web_layout_management_page.turn_on_stored_value_feature(), "Failed to turn on the stored value feature"
+
+@when("I turn off the stored value feature")
+def turn_off_stored_value_feature(driver):
+    web_layout_management_page = WebLayoutManagementPage(driver)
+    assert web_layout_management_page.turn_off_stored_value_feature(), "Failed to turn off the stored value feature"
+
+@when("I turn on the ticket feature")
+def turn_on_ticket_feature(driver):
+    web_layout_management_page = WebLayoutManagementPage(driver)
+    assert web_layout_management_page.turn_on_ticket_feature(), "Failed to turn on the ticket feature"
+
+@when("I turn off the ticket feature")
+def turn_off_ticket_feature(driver):
+    web_layout_management_page = WebLayoutManagementPage(driver)
+    assert web_layout_management_page.turn_off_ticket_feature(), "Failed to turn off the ticket feature"
+
+@when("I turn on the bonus points feature")
+def turn_on_bonus_points_feature(driver):
+    web_layout_management_page = WebLayoutManagementPage(driver)
+    assert web_layout_management_page.turn_on_bonus_points_feature(), "Failed to turn on the bonus points feature"
+
+@when("I turn off the bonus points feature")
+def turn_off_bonus_points_feature(driver):
+    web_layout_management_page = WebLayoutManagementPage(driver)
+    assert web_layout_management_page.turn_off_bonus_points_feature(), "Failed to turn off the bonus points feature"
+
+@when(parsers.parse('I select the web layout color "{color}"'))
 def select_web_layout_color(driver, color):
     web_layout_management_page = WebLayoutManagementPage(driver)
     assert web_layout_management_page.select_web_layout_color(color), f"Failed to select the web layout color {color}"
@@ -66,3 +106,8 @@ def tap_close_button(driver):
 def tap_close_button_in_branch_settings_page(driver):
     web_layout_management_page = WebLayoutManagementPage(driver)
     assert web_layout_management_page.tap_close_button_in_branch_settings_page(), "Failed to tap on the close button in the branch settings page"
+
+@then("I should see the calendar page")
+def verify_calendar_page(driver):
+    calendar_page = CalendarPage(driver)
+    assert calendar_page.verify_calendar_page(), "Calendar page is not displayed"

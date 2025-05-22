@@ -9,6 +9,10 @@ class WebLayoutManagementLocators:
     ############# Web Layout Management Page ############
     CLOSE_BUTTON_IN_WEB_LAYOUT_MANAGEMENT_PAGE = (AppiumBy.XPATH, '//*[@resource-id="xmark"]')
     CONFIRM_BUTTON_IN_WEB_LAYOUT_MANAGEMENT_PAGE = (AppiumBy.XPATH, '//*[@content-desc="check"]')
+    ONLINE_SERVICE_APPOINTMENT_SWITCH = (AppiumBy.ACCESSIBILITY_ID, '線上服務預約-switch-button')
+    STORED_VALUE_FEATURE_SWITCH = (AppiumBy.ACCESSIBILITY_ID, '儲值金功能-switch-button')
+    TICKET_FEATURE_SWITCH = (AppiumBy.ACCESSIBILITY_ID, '票券功能-switch-button')
+    BONUS_POINTS_FEATURE_SWITCH = (AppiumBy.ACCESSIBILITY_ID, '紅利點數功能-switch-button')
     WEB_COLOR_SELECTION_IN_WEB_LAYOUT_MANAGEMENT_PAGE = lambda self, num: (AppiumBy.XPATH, f'//android.widget.HorizontalScrollView//android.view.ViewGroup/android.view.ViewGroup[{num}]/android.view.ViewGroup')
     WEEK_START_DAY = (AppiumBy.ACCESSIBILITY_ID, '會員端：預約行事曆起始日-fake-field')
     WEEK_START_DAY_SELECTION = lambda self, day: (AppiumBy.ACCESSIBILITY_ID, f'{day}-popup-option')

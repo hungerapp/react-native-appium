@@ -1,7 +1,7 @@
 import time
 
 from selenium.common.exceptions import NoSuchElementException
-from appium.webdriver.common.appiumby import AppiumBy
+
 
 from pages.locators.android.login.login_locators import LoginLocators
 from pages.shared_components.common_action import CommonActions
@@ -103,7 +103,7 @@ class LoginPage(CommonActions):
             if current_value:
                email_input.clear()
 
-            self.send_keys_to_element(email_input, email)
+            self.send_keys_to_element(*LoginLocators.EMAIL_INPUT, email)
             self.click_element(*LoginLocators.EMAIL_NEXT_BUTTON)
 
 
@@ -155,7 +155,7 @@ class LoginPage(CommonActions):
                 email_input.clear()
 
             # enter email
-            self.send_keys_to_element(email_input, email)
+            self.send_keys_to_element(*LoginLocators.EMAIL_INPUT, email)
 
             current_value = email_input.get_attribute("text")
             if current_value:
@@ -194,7 +194,7 @@ class LoginPage(CommonActions):
                 email_input.clear()
 
             # enter email
-            self.send_keys_to_element(email_input, email)
+            self.send_keys_to_element(*LoginLocators.EMAIL_INPUT, email)
             
             # click next button
             self.wait_for_element_clickable(*LoginLocators.EMAIL_NEXT_BUTTON)
@@ -216,7 +216,7 @@ class LoginPage(CommonActions):
                 email_input.clear()
 
             # enter email
-            self.send_keys_to_element(email_input, email)
+            self.send_keys_to_element(*LoginLocators.EMAIL_INPUT, email)
             
             # click next button
             self.wait_for_element_clickable(*LoginLocators.EMAIL_NEXT_BUTTON)
@@ -245,7 +245,7 @@ class LoginPage(CommonActions):
             if current_value:
                email_input.clear()
 
-            self.send_keys_to_element(email_input, email)
+            self.send_keys_to_element(*LoginLocators.EMAIL_INPUT, email)
 
             
         except NoSuchElementException as e:

@@ -117,26 +117,14 @@ class CommonActions:
             return True
         return False
 
-    def send_keys_to_element(self, locator_or_element, text: str = None, locator_value: str = None):
+    def send_keys_to_element(self, locator_type: str, locator_value: str, text: str):
         """
         向指定元素發送鍵盤輸入
-        支援兩種使用方式：
-        1. 傳入定位器: send_keys_to_element(*LoginLocators.EMAIL_INPUT, "text")
-        2. 傳入元素: send_keys_to_element(element, "text")
         """
-        # make sure the text is a string
-        text = str(text) if text is not None else None
-
-        if isinstance(locator_or_element, WebElement):
-            element = locator_or_element
-            element.clear()
-            element.send_keys(text)
-        else:
-            element = self.wait.until(
-                EC.visibility_of_element_located((locator_or_element, locator_value))
-            )
-            element.clear()
-            element.send_keys(text)
+        element = self.find_element(locator_type, locator_value)
+        # element.clear()
+        element.send_keys(text)
+        return element
 
     def clear_text(self, locator_type: str, locator_value: str):
         """
