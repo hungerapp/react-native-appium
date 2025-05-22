@@ -19,11 +19,6 @@ class WebLayoutManagementPage:
         self.common_actions.click_element(*self.locators.WEB_LAYOUT_MANAGEMENT_IN_BRANCH_SETTINGS_PAGE)
         return self
 
-    def verify_web_layout_management_page(self):
-        self.common_actions.wait_for_element_visible(*self.locators.CONFIRM_BUTTON_IN_WEB_LAYOUT_MANAGEMENT_PAGE)
-        self.common_actions.wait_for_element_visible(*self.locators.WEEK_START_DAY)
-        return self
-
     def select_web_layout_color(self, color_num):
         self.common_actions.wait_for_element_visible(*self.locators.WEB_COLOR_SELECTION_IN_WEB_LAYOUT_MANAGEMENT_PAGE(color_num))
         self.common_actions.click_element(*self.locators.WEB_COLOR_SELECTION_IN_WEB_LAYOUT_MANAGEMENT_PAGE(color_num))

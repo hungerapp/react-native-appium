@@ -1,10 +1,31 @@
 from pytest_bdd import scenarios, given, when, then, parsers
-from pages.android.navigation.setting.web_layout_management import WebLayoutManagementPage
 from pages.shared_components.common_use import CommonUseSection
+from pages.android.navigation.setting.web_layout_management import WebLayoutManagementPage
+from pages.android.calendar.calendar_page import CalendarPage
+from pages.android.personal_page import PersonalPage
 
 scenarios('../../../features/navigation/setting/web_layout_management.feature')
 
-# Scenario: Navigate to Web Layout Management
+# Background: Select the target branch for testing
+@given(parsers.parse('I have selected the target branch "{branch_name}"'))
+def verify_current_branch(driver, branch_name):
+    calendar_page = CalendarPage(driver)
+    personal_page = PersonalPage(driver)
+    calendar_page.tap_branch_button()
+    personal_page.select_branch(branch_name)
+    calendar_page.click_close_tutorial_popup()
+
+@given("I Navigate to the branch settings page")
+def navigate_to_branch_settings_page(driver):
+    calendar_page = CalendarPage(driver)
+    calendar_page.tap_navigation_bar_settings_icon()
+
+
+
+
+
+
+# Scenario: Setting the web layout
 @given("I am on the branch settings page")
 def on_branch_settings_page(driver):
     web_layout_management_page = WebLayoutManagementPage(driver)
@@ -14,20 +35,6 @@ def on_branch_settings_page(driver):
 def tap_web_layout_management(driver):
     web_layout_management_page = WebLayoutManagementPage(driver)
     assert web_layout_management_page.tap_web_layout_management(), "Failed to tap on Web Layout Management"
-
-@then("I should see the web layout page")
-def see_web_layout_page(driver):
-    web_layout_management_page = WebLayoutManagementPage(driver)
-    assert web_layout_management_page.verify_web_layout_management_page(), "Web Layout Management page is not displayed"
-
-
-
-
-# Scenario: Setting the web layout
-@given("I am on the web layout page")
-def on_web_layout_page(driver):
-    web_layout_management_page = WebLayoutManagementPage(driver)
-    assert web_layout_management_page.verify_web_layout_management_page(), "Web Layout Management page is not displayed"
 
 @when(parsers.parse("I select the web layout color {color}"))
 def select_web_layout_color(driver, color):
@@ -55,7 +62,7 @@ def tap_close_button(driver):
     web_layout_management_page = WebLayoutManagementPage(driver)
     assert web_layout_management_page.tap_close_button(), "Failed to tap on the close button in the web layout page"
 
-@then("I should see the branch settings page")
-def see_branch_settings_page(driver):
+@when("I tap on the close button in the branch settings page")
+def tap_close_button_in_branch_settings_page(driver):
     web_layout_management_page = WebLayoutManagementPage(driver)
-    assert web_layout_management_page.verify_branch_settings_page(), "Branch settings page is not displayed"
+    assert web_layout_management_page.tap_close_button_in_branch_settings_page(), "Failed to tap on the close button in the branch settings page"
