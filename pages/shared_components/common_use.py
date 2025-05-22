@@ -158,7 +158,7 @@ class CommonUseSection(CommonActions):
     ###############################################    
     
     def swipe_calendar_component(self):
-        # Get date picker window
+        # Get a date picker window
         calendar_window = self.find_element(*self.CALENDAR_WINDOW)
         window_rect = calendar_window.rect
         

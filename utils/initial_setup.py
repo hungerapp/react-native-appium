@@ -3,12 +3,13 @@
 from pages.android.onboarding import OnboardingPage
 from pages.android.login_page import LoginPage
 from pages.android.personal_page import PersonalPage
+from pages.android.calendar.calendar_page import CalendarPage
 
 
 def setup_flow(driver, email, ver_code):
     print("Running onboarding flow...")
 
-    # --- STEP 1: Start update (可選)
+    # --- STEP 1: Start update
     onboarding_page = OnboardingPage(driver)
     onboarding_page.start_update()
 
@@ -26,7 +27,11 @@ def setup_flow(driver, email, ver_code):
     # --- STEP 5: Verify login success
     login_page.is_logged_in(),
 
-    # --- STEP 6: visit branch
+    # --- STEP 6: Select a branch
     personal_page = PersonalPage(driver)
-    personal_page.visit_branch()
+    personal_page.select_branch("Pro 分店")
+
+    # --- STEP 7: Close tutorial pop-up
+    calendar_page = CalendarPage(driver)
+    calendar_page.click_close_tutorial_popup()
 

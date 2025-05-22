@@ -313,7 +313,7 @@ class PersonalPage(CommonUseSection):
         raise
         
   def get_empty_name_error_message(self):
-        """Get empty name error message"""
+        """Get an empty name error message"""
         try:
             name_field = self.common_action.find_element(*PersonalPageLocators.NAME_INPUT)
             if name_field.is_displayed():
@@ -325,7 +325,8 @@ class PersonalPage(CommonUseSection):
                 error_msg = self.common_action.get_element_text(*PersonalPageLocators.EMPTY_NAME_ERROR_MESSAGE)
                 assert error_msg == " 此欄位為必填。", "Empty name error message is not correct"
                 return error_msg
-              
+            return None
+
         except Exception as e:
             print(f"[PersonalPage][get_empty_name_error_message] error: {str(e)}")
             raise
@@ -420,5 +421,11 @@ class PersonalPage(CommonUseSection):
   def select_language(self):
     self.common_action.click_element(*PersonalPageLocators.LANGUAGE_CHINESE_OPTION)
     self.common_action.click_element(*PersonalPageLocators.LANGUAGE_CONFIRM_BUTTON)
+
+  def select_branch(self, branch_name):
+    """Select a branch"""
+    self.common_action.wait_for_element_visible(*PersonalPageLocators.PRO_BRANCH_NAME)
+    self.common_action.scroll_to_element(*PersonalPageLocators.BRANCH_NAME_SELECTED(branch_name))
+    self.common_action.click_element(*PersonalPageLocators.BRANCH_NAME_SELECTED(branch_name))
 
   

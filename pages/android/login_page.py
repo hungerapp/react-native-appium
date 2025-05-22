@@ -69,10 +69,11 @@ class LoginPage(CommonActions):
           pass
 
   def enter_ver_code(self, ver_code):
-      self.is_element_visible(*LoginLocators.VER_CODE_INPUT)
-      ver_code_input = self.find_element(*LoginLocators.VER_CODE_INPUT)
-      self.send_keys_to_element(ver_code_input, ver_code)
-      self.click_element(*LoginLocators.VER_SUBMIT_BUTTON)
+          self.wait_for_element_visible(*LoginLocators.IS_VERIFICATION_CODE_PAGE_TITLE)
+          ver_code_element = self.find_element(*LoginLocators.VER_CODE_INPUT)
+          ver_code_element.send_keys(ver_code)
+          self.wait_for_element_clickable(*LoginLocators.VER_SUBMIT_BUTTON)
+          self.click_element(*LoginLocators.VER_SUBMIT_BUTTON)
 
   def click_finish_button(self):
       self.wait_for_element_clickable(*LoginLocators.FINISH_BUTTON)
@@ -84,11 +85,12 @@ class LoginPage(CommonActions):
 
   def is_logged_in(self):
       try:
-          # Check if login success popup is displayed
+          # Check if the login success popup is displayed
           pop_up = self.is_element_visible(*LoginLocators.LOGIN_SUCCESS_POPUP)
           assert pop_up, "Login success popup not found"
           time.sleep(2)
           self.driver.find_element(*LoginLocators.FINISH_BUTTON).click()
+          return None
       except NoSuchElementException:
           return False
 
@@ -141,7 +143,7 @@ class LoginPage(CommonActions):
        
  
   def login(self, email, ver_code=None):
-        '''run the valid login process'''
+        """run the valid login process"""
         self.click_login_button()
 
         try:
@@ -154,7 +156,11 @@ class LoginPage(CommonActions):
 
             # enter email
             self.send_keys_to_element(email_input, email)
-            
+
+            current_value = email_input.get_attribute("text")
+            if current_value:
+                pass
+
             # click next button
             self.wait_for_element_clickable(*LoginLocators.EMAIL_NEXT_BUTTON)
             self.click_element(*LoginLocators.EMAIL_NEXT_BUTTON)

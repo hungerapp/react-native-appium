@@ -53,6 +53,8 @@ class CommonActions:
                         f"Element ({locator_type}={locator_value}) not found after {max_attempts} attempts"
                     ) from e
                 time.sleep(1)
+                return None
+        return None
 
     def is_element_visible(self, locator_type: str, locator_value: str, timeout: int = None):
         """
@@ -64,7 +66,7 @@ class CommonActions:
         max_attempts = 3
         for attempt in range(max_attempts):
             try:
-                element = WebDriverWait(self.driver, timeout).until(
+                WebDriverWait(self.driver, timeout).until(
                     EC.visibility_of_element_located((locator_type, locator_value))
                 )
                 return True
