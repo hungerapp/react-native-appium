@@ -12,7 +12,10 @@ class LokiLogger:
         self.env = os.getenv("ENV", "staging")
         self.service_name = "react-native-appium"
         # 判斷執行類型
-        if os.getenv("GITHUB_ACTIONS") == "true":
+        self.is_github_action = os.getenv("GITHUB_ACTIONS") == "true"
+        # 從環境變數獲取設備名稱
+        self.device_name = os.getenv("BROWSERSTACK_DEVICE_NAME", "unknown")
+        if self.is_github_action:
             event_name = os.getenv("GITHUB_EVENT_NAME", "")
             if event_name == "schedule":
                 self.run_type = "scheduled"
@@ -35,7 +38,7 @@ class LokiLogger:
                 tags: List[str],
                 platform: str,
                 os_version: str,
-                device_name: str,
+                device_name: Optional[str] = None,  # 改為可選參數
                 browserstack_session: Optional[str] = None,
                 git_branch: Optional[str] = None,
                 git_commit: Optional[str] = None,
@@ -46,11 +49,15 @@ class LokiLogger:
                 stack_trace: Optional[str] = None,
                 retry_attempt: Optional[int] = None) -> None:
         
+        # 使用環境變數中的設備名稱，如果沒有則使用傳入的設備名稱
+        actual_device_name = self.device_name if self.is_github_action else (device_name or "unknown")
+        
         log_data = {
             "project": self.project,
             "type": "app",
             "service_name": self.service_name,
-            "run_type": self.run_type,  # 添加執行類型
+            "run_type": self.run_type,
+            "is_github_action": self.is_github_action,
             "test_name": test_name,
             "feature": feature,
             "scenario": scenario,
@@ -61,7 +68,7 @@ class LokiLogger:
             "tags": tags,
             "platform": platform,
             "os_version": os_version,
-            "device_name": device_name,
+            "device_name": actual_device_name,  # 使用實際設備名稱
             "browserstack_session": browserstack_session,
             "git_branch": git_branch,
             "git_commit": git_commit,
@@ -82,12 +89,13 @@ class LokiLogger:
             "env": self.env,
             "type": "app",
             "service_name": self.service_name,
-            "run_type": self.run_type,  # 添加執行類型
+            "run_type": self.run_type,
+            "is_github_action": str(self.is_github_action).lower(),
             "test_name": test_name,
             "status": status,
             "platform": platform,
             "os_version": os_version,
-            "device_name": device_name
+            "device_name": actual_device_name  # 使用實際設備名稱
         }
         # tags 也可以合併成一個 label 字串
         if tags:
