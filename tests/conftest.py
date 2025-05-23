@@ -22,7 +22,7 @@ from screenshot_hooks import pytest_runtest_makereport
 @pytest.fixture(scope="session", autouse=True)
 def driver(request):
     """Create driver and reinstall App before each test session"""
-    print("=========== Session Start: Creating driver and preparing environment ===========")
+    print("\n=========== Session Start: Creating driver and preparing environment ===========")
 
     # Get environment variables
     platform = os.getenv('APPIUM_OS', 'android').lower()
