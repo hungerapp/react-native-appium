@@ -10,6 +10,7 @@ class LokiLogger:
         self.loki_url = loki_url
         self.project = "react-native-appium"
         self.env = os.getenv("ENV", "staging")
+        self.service_name = "react-native-appium"
 
     def _get_timestamp(self) -> str:
         return str(int(time.time() * 1e9))
@@ -37,6 +38,7 @@ class LokiLogger:
         log_data = {
             "project": self.project,
             "type": "app",
+            "service_name": self.service_name,
             "test_name": test_name,
             "feature": feature,
             "scenario": scenario,
@@ -67,6 +69,7 @@ class LokiLogger:
             "project": self.project,
             "env": self.env,
             "type": "app",
+            "service_name": self.service_name,
             "test_name": test_name,
             "status": status,
             "platform": platform,
@@ -105,4 +108,4 @@ class LokiLogger:
             print(f"Payload: {json.dumps(loki_payload, indent=2)}")
 
 # 創建全局實例
-loki_logger = LokiLogger("http://198.19.249.147:3100/loki/api/v1/push") 
+loki_logger = LokiLogger("http://13.112.144.21:7723/loki/api/v1/push") 
