@@ -1,7 +1,7 @@
 Feature: Tutorial Guide
 
   # [TUTORIAL GUIDE]
-  @regression @tutorial_guide_in_more
+  @regression @tutorial_guide_in_more @navigation @navigation_more @navigation_more_tutorial_guide
   Scenario: Opening the Tutorial Guide
     Given I click on the tutorial guide
     Then I can click on the service staff section

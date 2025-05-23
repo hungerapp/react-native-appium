@@ -3,13 +3,13 @@ Feature: Brand Management in Branch Settings
     I hope to manage the brand information of the branch
     To provide a better customer experience
 
-    @regression @navigation_to_branch_settings_page
+    @regression @navigation_to_branch_settings_page @navigate_settings @navigate @navigate_settings_brand
     Scenario: Navigate to the Branch Settings Page
         Given I am on the Calendar page
         When I tap on the Settings icon in the navigation bar
         Then I should see the Branch Settings page
 
-    @regression @save_branch_brand_info
+    @regression @save_branch_brand_info @navigate_settings @navigate @navigate_settings_brand
     Scenario: Save Branch and Brand Information
         Given I am on the Branch Setting page
         When I tap on the Branch Name
@@ -18,7 +18,7 @@ Feature: Brand Management in Branch Settings
         And I turn off the branch phone display switch
         And I turn on the branch phone display switch
         And I select "+886" as the country code
-        And I enter "09<current_datetime>" in the branch phone number field
+        And I enter "0920250101" in the branch phone number field
         And I turn off the branch address display switch
         And I turn on the branch address display switch
         And I select "臺北市" as the city

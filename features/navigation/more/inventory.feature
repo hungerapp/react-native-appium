@@ -1,7 +1,7 @@
 Feature: Inventory
   
   # [INVENTORY]
-  @regression @inventory_management_in_more
+  @regression @inventory_management_in_more @navigate_more @navigate @navigate_more_inventory
   Scenario: Manage Inventory for Automated Test Products
     Given I tap on inventory management
     When I tap on the products tab

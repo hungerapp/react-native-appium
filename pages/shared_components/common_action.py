@@ -1,5 +1,4 @@
 import time
-
 from typing import Tuple, Union
 from appium.webdriver.webdriver import WebDriver
 from selenium.webdriver.support.ui import WebDriverWait
@@ -53,7 +52,9 @@ class CommonActions:
                     raise TimeoutException(
                         f"Element ({locator_type}={locator_value}) not found after {max_attempts} attempts"
                     ) from e
-                time.sleep(1) 
+                time.sleep(1)
+                return None
+        return None
 
     def is_element_visible(self, locator_type: str, locator_value: str, timeout: int = None):
         """
@@ -65,7 +66,7 @@ class CommonActions:
         max_attempts = 3
         for attempt in range(max_attempts):
             try:
-                element = WebDriverWait(self.driver, timeout).until(
+                WebDriverWait(self.driver, timeout).until(
                     EC.visibility_of_element_located((locator_type, locator_value))
                 )
                 return True
@@ -116,26 +117,14 @@ class CommonActions:
             return True
         return False
 
-    def send_keys_to_element(self, locator_or_element, text: str = None, locator_value: str = None):
+    def send_keys_to_element(self, locator_type: str, locator_value: str, text: str):
         """
         向指定元素發送鍵盤輸入
-        支援兩種使用方式：
-        1. 傳入定位器: send_keys_to_element(*LoginLocators.EMAIL_INPUT, "text")
-        2. 傳入元素: send_keys_to_element(element, "text")
         """
-        # make sure the text is a string
-        text = str(text) if text is not None else None
-        
-        if isinstance(locator_or_element, WebElement):
-            element = locator_or_element
-            element.clear()
-            element.send_keys(text)
-        else:
-            element = self.wait.until(
-                EC.visibility_of_element_located((locator_or_element, locator_value))
-            )
-            element.clear()
-            element.send_keys(text)
+        element = self.find_element(locator_type, locator_value)
+        # element.clear()
+        element.send_keys(text)
+        return element
 
     def clear_text(self, locator_type: str, locator_value: str):
         """
@@ -261,7 +250,7 @@ class CommonActions:
     def tap(self, x_ratio: float, y_ratio: float):
         """
         使用 W3C Actions API 在螢幕指定比例位置點擊
-        
+
         Args:
         x_ratio (float): x 座標的螢幕比例 (0.0 ~ 1.0)
         y_ratio (float): y 座標的螢幕比例 (0.0 ~ 1.0)
@@ -273,11 +262,11 @@ class CommonActions:
         y = int(size[1] * y_ratio)
         actions = ActionChains(self.driver)
         pointer = PointerInput(interaction.POINTER_TOUCH, "touch")
-        
+
         actions.w3c_actions = ActionBuilder(self.driver, mouse=pointer)
         actions.w3c_actions.pointer_action.move_to_location(x, y)
         actions.w3c_actions.pointer_action.pointer_down()
-        actions.w3c_actions.pointer_action.pause(0.1) 
+        actions.w3c_actions.pointer_action.pause(0.1)
         actions.w3c_actions.pointer_action.pointer_up()
         actions.perform()
 

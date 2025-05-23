@@ -2,18 +2,15 @@ import pytest
 import allure
 import random
 
-#from appium.webdriver.common.appiumby import AppiumBy
 from pytest_bdd import scenarios, given, when, then, parsers
-
 from pages.android.login_page import LoginPage
 
 
 scenarios('../../../features/login.feature')
 
-TEST_EMAIL = 'julian@hotcake.app'
+TEST_EMAIL = 'qatest@hunger.ai'
 
-
-# Scenario: Select language and click contact cs
+# Scenario: Select a language and click contact cs
 @allure.feature('Select Language and click contact cs')
 @allure.story('Select Language and click contact cs')
 @pytest.mark.run(order=2)

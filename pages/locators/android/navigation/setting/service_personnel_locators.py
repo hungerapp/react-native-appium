@@ -9,6 +9,7 @@ class ServicePersonnelPageLocators:
     CLOSE_BUTTON_IN_SERVICE_PERSONNEL_PAGE = (AppiumBy.ACCESSIBILITY_ID, "xmark")
     SERVICE_PERSONNEL_DESCRIPTION_IN_SERVICE_PERSONNEL_PAGE = (AppiumBy.XPATH, '//*[@text="「服務人員」是夯客計費的單位，新增後將會增加收費。"]')
     ADD_SERVICE_PERSONNEL_BUTTON_IN_SERVICE_PERSONNEL_PAGE = (AppiumBy.XPATH, '//*[@text="新增服務人員"]')
+    DELETE_ALL_SERVICE_PERSONNEL_BUTTON_IN_SERVICE_PERSONNEL_PAGE = (AppiumBy.XPATH, '//*[@resource-id="circle-minus"]')
     DELETE_SERVICE_PERSONNEL_BUTTON_IN_SERVICE_PERSONNEL_PAGE = lambda self, text: (AppiumBy.XPATH, f'//*[@text="{text}"]/../android.view.ViewGroup//*[@resource-id="circle-minus"]')
     EDIT_SERVICE_PERSONNEL_BUTTON_IN_SERVICE_PERSONNEL_PAGE = lambda self, text: (AppiumBy.XPATH, f'//*[@text="{text}"]/../android.view.ViewGroup//*[@resource-id="pen-to-square"]')
     # Add Service Personnel Dialog

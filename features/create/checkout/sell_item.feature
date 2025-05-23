@@ -1,6 +1,6 @@
 Feature: Sell Item Checkout Process  
 
-  @regression @no_member_no_signature
+  @regression @no_member_no_signature @create_checkout_sell_item @create_checkout @create
   Scenario: Checkout without selecting a member and without signing  
     I want to complete a checkout without selecting a member and without signing  
     So that I can verify the checkout flow when no member is chosen  
@@ -16,7 +16,7 @@ Feature: Sell Item Checkout Process
     Then I confirm the checkout and successfully create a checkout
 
 
-  @regression @existing_member_item_below_price_and_payment_adjustment
+  @regression @existing_member_item_below_price_and_payment_adjustment @create_checkout_sell_item @create_checkout @create
   Scenario: Checkout with existing member and  below item price payment adjustment validation  
     I want to complete a checkout with an existing member and validate payment adjustments  
     So that I can verify the behavior when modifying payment options  
@@ -42,7 +42,7 @@ Feature: Sell Item Checkout Process
 
 
 
-  @regression @new_member_item_above_price_payment_adjustment
+  @regression @new_member_item_above_price_payment_adjustment @create_checkout_sell_item @create_checkout @create
   Scenario: Checkout with new member and above item price payment adjustment validation  
     I want to complete a checkout validate payment adjustments  
     So that I can verify the behavior when adding a new member  

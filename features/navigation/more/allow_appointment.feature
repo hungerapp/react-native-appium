@@ -1,7 +1,7 @@
 Feature: Allow Appointment
 
   # [ALLOW APPOINTMENT SETTINGS] ACCESS_RESERVATION_SETTINGS
-  @regression @access_reservation_settings
+  @regression @access_reservation_settings @navigate_more @navigate @navigate_more_allow_appointment
   Scenario: Accessing Reservation Settings
     Given I click on the allow appointment settings
     Then I can click the toggle and select open times
@@ -11,7 +11,7 @@ Feature: Allow Appointment
 
 
   # [ALLOW APPOINTMENT SETTINGS] OPEN_TIME_MANAGEMENT
-  @regression @open_time_management_in_more
+  @regression @open_time_management_in_more @navigate_more @navigate @navigate_more_allow_appointment
   Scenario: Managing Open Time
     When I click on the open time tab
     Then I can select the display date
@@ -21,7 +21,7 @@ Feature: Allow Appointment
 
 
   # [ALLOW APPOINTMENT SETTINGS] OPEN_ITEMS_MANAGEMENT
-  @regression @open_items_management_in_more
+  @regression @open_items_management_in_more @navigate_more @navigate @navigate_more_allow_appointment
   Scenario: Managing Open Items
     When I click on the open items tab
     Then I can select the main item

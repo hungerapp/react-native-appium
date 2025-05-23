@@ -2,7 +2,7 @@ Feature: Deposit
   
 
   # [DEPOSIT] 
-  @regression @deposit_status_in_more
+  @regression @deposit_status_in_more @navigate_more @navigate @navigate_more_deposit
   Scenario: Manage Deposits - Unpaid and Paid Tabs
     Given I tap on deposit
     When I tap on the unpaid tab

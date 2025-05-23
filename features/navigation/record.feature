@@ -1,13 +1,13 @@
 Feature: Record function in bottom navigation
 
-    @regression @view_recent_and_canceled_appointments
+    @regression @view_recent_and_canceled_appointments @navigate_records @navigate
     Scenario: View and Switch Between Recent and Canceled Appointments
         Given I tap on records in the navigation bar
         Then I can tap on any recently added order under the appointments tab
         When I switch to the recently canceled tab
         Then I can tap on any recently canceled order
     
-    @regression @filter_by_personnel_and_search
+    @regression @filter_by_personnel_and_search @navigate_records @navigate
     Scenario: Filter by Personnel and Search
         Given I am on the Records page
         When I click on the billing tab
@@ -16,7 +16,7 @@ Feature: Record function in bottom navigation
         Then I can tap on the search field and enter a billing number
         Then I can successfully search for the specified billing number
 
-    @regression @view_checkout_details_and_check_payment_method
+    @regression @view_checkout_details_and_check_payment_method @navigate_records @navigate
     Scenario: View Checkout Details and Check Payment Method
         Given I am on the Records page
         When I click on the billing tab
@@ -26,7 +26,7 @@ Feature: Record function in bottom navigation
         Then I can check the payment method
         
     
-    @regression @process_and_delete_claim_request
+    @regression @process_and_delete_claim_request @navigate_records @navigate
     Scenario: Process and Delete a claim request
         Given I am on the Records page
         When I click on the billing tab

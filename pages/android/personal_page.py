@@ -1,12 +1,14 @@
 import time
 import random
 import string
+import warnings
 
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.actions import interaction
 from selenium.webdriver.common.actions.action_builder import ActionBuilder
 from selenium.webdriver.common.actions.pointer_input import PointerInput
+from datetime import datetime, timedelta
 from appium.webdriver.common.appiumby import AppiumBy
 
 from pages.shared_components.common_use import CommonUseSection
@@ -18,8 +20,8 @@ class PersonalPage(CommonUseSection):
   def __init__(self, driver):
     super().__init__(driver)
     self.common_action = CommonActions(driver)
-    
-  
+
+
   ############# Used Gestures #############
   def _scroll_down(self):
     """Scroll down"""
@@ -28,13 +30,13 @@ class PersonalPage(CommonUseSection):
         start_x = screen_size[0] * 0.5
         start_y = screen_size[1] * 0.7
         end_y = screen_size[1] * 0.3
-        
+
         # execute scroll
         self.common_action.swipe(
-            start_x, 
-            start_y, 
-            start_x, 
-            end_y, 
+            start_x,
+            start_y,
+            start_x,
+            end_y,
             duration=500
         )
     except Exception as e:
@@ -48,13 +50,13 @@ class PersonalPage(CommonUseSection):
         start_x = screen_size[0] * 0.5
         start_y = screen_size[1] * 0.3
         end_y = screen_size[1] * 0.7
-        
+
         # scroll to top
         self.common_action.swipe(
-            start_x, 
-            start_y, 
-            start_x, 
-            end_y, 
+            start_x,
+            start_y,
+            start_x,
+            end_y,
             duration=500
         )
     except Exception as e:
@@ -66,22 +68,22 @@ class PersonalPage(CommonUseSection):
     try:
         actions = ActionChains(self.driver)
         pointer = PointerInput(interaction.POINTER_TOUCH, "touch")
-        
-        
+
+
         end_x = start_x + random.randint(-max_offset, max_offset)
-        end_y = start_y + random.randint(-800, 800)  
-        
+        end_y = start_y + random.randint(-800, 800)
+
         actions.w3c_actions = ActionBuilder(self.driver, mouse=pointer)
         actions.w3c_actions.pointer_action.move_to_location(start_x, start_y)
         actions.w3c_actions.pointer_action.pointer_down()
         actions.w3c_actions.pointer_action.move_to_location(end_x, end_y)
         actions.w3c_actions.pointer_action.release()
         actions.perform()
-        
+
     except Exception as e:
         print(f"[PersonalPage][_perform_random_swipe] error: {str(e)}")
         raise
-      
+
   ###############################################
   
   # Check if Basic elements are displayed (profile picture, username, greeting message, email address)
@@ -117,7 +119,7 @@ class PersonalPage(CommonUseSection):
     """click star free ultra branch"""
     results = []
     visited_branches = set()
-   
+
     try:
         for branch_info in PersonalPageLocators.BRANCH_NAMES:
             try:
@@ -161,7 +163,7 @@ class PersonalPage(CommonUseSection):
     except Exception as e:
         print(f"[PersonalPage][visit_all_branches_smart] error: {str(e)}")
         raise
-        
+
   # Google Calendar
   def click_google_calendar_button(self):
     self.common_action.click_element(*PersonalPageLocators.GOOGLE_CALENDAR_BUTTON)
@@ -174,7 +176,7 @@ class PersonalPage(CommonUseSection):
         time.sleep(0.5)
         self.driver.back()
     return self
-  
+
   # Push notification
   def click_push_notification_button(self):
     self.common_action.click_element(*PersonalPageLocators.PUSH_NOTIFICATION_BUTTON)
@@ -281,7 +283,7 @@ class PersonalPage(CommonUseSection):
     """Click account settings"""
     self.common_action.click_element(*PersonalPageLocators.ACCOUNT_SETTINGS_OPTION)
     return self
-  
+
   def generate_random_name(self):
     """Generate random name"""
     random_suffix = ''.join(random.choices(string.ascii_letters + string.digits, k=4))
@@ -292,7 +294,7 @@ class PersonalPage(CommonUseSection):
         name_field = self.common_action.find_element(*PersonalPageLocators.NAME_INPUT)
         if name_field.is_displayed():
             print(f"Found name input field, current text: {name_field.text}") 
-            
+
             # clear existing text
             name_field.clear()
             
@@ -300,7 +302,7 @@ class PersonalPage(CommonUseSection):
             random_name = self.generate_random_name()
             time.sleep(2)
             name_field.send_keys(random_name)
-            
+
             print(f"Successfully input new name: {random_name}")
             return random_name
             
@@ -311,23 +313,24 @@ class PersonalPage(CommonUseSection):
         raise
         
   def get_empty_name_error_message(self):
-        """Get empty name error message"""
+        """Get an empty name error message"""
         try:
             name_field = self.common_action.find_element(*PersonalPageLocators.NAME_INPUT)
             if name_field.is_displayed():
                 print(f"Found name input field, current text: {name_field.text}")
-                
+
                 # clear existing text
                 name_field.clear()
                 
                 error_msg = self.common_action.get_element_text(*PersonalPageLocators.EMPTY_NAME_ERROR_MESSAGE)
                 assert error_msg == " 此欄位為必填。", "Empty name error message is not correct"
                 return error_msg
-              
+            return None
+
         except Exception as e:
             print(f"[PersonalPage][get_empty_name_error_message] error: {str(e)}")
             raise
-          
+
   def input_phone_number(self, valid: bool = True):
     """Input phone number"""
     try:
@@ -346,7 +349,7 @@ class PersonalPage(CommonUseSection):
     except Exception as e:
         print(f"[PersonalPage][input_phone_number] error: {str(e)}")
         raise
-    
+
   def get_empty_phone_error_message(self):
         """Get error message"""
         
@@ -411,12 +414,18 @@ class PersonalPage(CommonUseSection):
     except Exception as e:
         print(f"Search country code error: {str(e)}")
         raise
-    
+
   def click_language_settings(self):
     self.common_action.click_element(*PersonalPageLocators.LANGUAGE_SETTINGS_OPTION)
     
   def select_language(self):
     self.common_action.click_element(*PersonalPageLocators.LANGUAGE_CHINESE_OPTION)
     self.common_action.click_element(*PersonalPageLocators.LANGUAGE_CONFIRM_BUTTON)
+
+  def select_branch(self, branch_name):
+    """Select a branch"""
+    self.common_action.wait_for_element_visible(*PersonalPageLocators.PRO_BRANCH_NAME)
+    self.common_action.scroll_to_element(*PersonalPageLocators.BRANCH_NAME_SELECTED(branch_name))
+    self.common_action.click_element(*PersonalPageLocators.BRANCH_NAME_SELECTED(branch_name))
 
   

@@ -5,12 +5,15 @@ from selenium.webdriver.common.action_chains import ActionChains
 from appium.webdriver.common.appiumby import AppiumBy
 
 from pages.locators.android.calendar.calendar_locators import CalendarLocators
+from pages.shared_components.common_action import CommonActions
+
 
 class CalendarPage:
     def __init__(self, driver):
         self.driver = driver
         self.current_display_mode = None
         self.calendar_locators = CalendarLocators()
+        self.common_actions = CommonActions(driver)
 
     
     def open_month_selection(self):
@@ -174,3 +177,25 @@ class CalendarPage:
 
     def refresh_calendar(self):
         self.driver.find_element(*self.calendar_locators.REFRESH_BUTTON).click()
+
+    def click_close_tutorial_popup(self):
+        if self.common_actions.wait_for_element_visible(*self.calendar_locators.TUTORIAL_POPUP_CLOSE_BUTTON):
+            self.common_actions.click_element(*self.calendar_locators.TUTORIAL_POPUP_CLOSE_BUTTON)
+        return self
+
+    def tap_branch_button(self):
+        self.common_actions.wait_for_element_visible(*self.calendar_locators.BRANCH_BUTTON)
+        self.common_actions.click_element(*self.calendar_locators.BRANCH_BUTTON)
+        return self
+
+    def tap_navigation_bar_settings_icon(self):
+        self.common_actions.wait_for_element_visible(*self.calendar_locators.SETTINGS_OPTION_IN_NAVIGATION)
+        self.common_actions.click_element(*self.calendar_locators.SETTINGS_OPTION_IN_NAVIGATION)
+        self.common_actions.wait_for_element_disappear(*self.calendar_locators.SETTINGS_OPTION_IN_NAVIGATION)
+        return self
+
+    def verify_calendar_page(self):
+        self.common_actions.wait_for_element_visible(*self.calendar_locators.SETTINGS_OPTION_IN_NAVIGATION)
+        return self
+
+

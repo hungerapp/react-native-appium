@@ -1,6 +1,6 @@
 Feature: Search Functionality
   
-  @regression @search_valid_number
+  @regression @search_valid_number @navigate_search @navigate
   Scenario: Search with a valid complete number
      Given I tap on the Search option in the navigation bar
      When I enter a valid complete number
@@ -10,7 +10,7 @@ Feature: Search Functionality
      Then I tap on the corresponding result again
      Then I click back button to return to the previous page
 
-  @regression @existing_name_search
+  @regression @existing_name_search @navigate_search @navigate
   Scenario: Search with an existing name
      Given I tap on the Search option in the navigation bar
      When I enter an existing name
@@ -19,7 +19,7 @@ Feature: Search Functionality
      Then I tap on the corresponding result again
      Then I click back button to return to the previous page
 
-  @regression @invalid_name_search
+  @regression @invalid_name_search @navigate_search @navigate
   Scenario: Search with an invalid name
      Given I tap on the Search option in the navigation bar
      When I enter an invalid name
@@ -28,7 +28,7 @@ Feature: Search Functionality
      Then I see no data indicating that the name is invalid
      Then I click back button to return to the previous page
 
-  @regression @invalid_number_search 
+  @regression @invalid_number_search @navigate_search @navigate
   Scenario: Search with an invalid complete number
      Given I tap on the Search option in the navigation bar
      When I enter an invalid complete number

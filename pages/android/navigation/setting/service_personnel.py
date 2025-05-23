@@ -71,16 +71,26 @@ class ServicePersonnelPage:
         self.common_actions.wait_for_element_visible(*self.service_personnel_page_locators.SERVICE_PERSONNEL_BUTTON_IN_BRANCH_SETTINGS_PAGE)
         return self
 
-    def delete_service_personnel(self, service_personnel_name):
-        self.common_actions.click_element(*self.service_personnel_page_locators.DELETE_SERVICE_PERSONNEL_BUTTON_IN_SERVICE_PERSONNEL_PAGE(service_personnel_name))
-        self.common_actions.wait_for_element_visible(*self.service_personnel_page_locators.TITLE_IN_DELETE_SERVICE_PERSONNEL_DIALOG)
-        self.common_actions.is_element_visible(*self.service_personnel_page_locators.DESCRIPTION_IN_DELETE_SERVICE_PERSONNEL_DIALOG(service_personnel_name))
-        self.common_actions.is_element_visible(*self.service_personnel_page_locators.DELETE_FIELD_IN_DELETE_SERVICE_PERSONNEL_DIALOG)
-        self.common_actions.is_element_visible(*self.service_personnel_page_locators.CANCEL_BUTTON_IN_DELETE_SERVICE_PERSONNEL_DIALOG)
-        self.common_actions.send_keys_to_element(*self.service_personnel_page_locators.DELETE_FIELD_IN_DELETE_SERVICE_PERSONNEL_DIALOG, "Delete")
-        self.common_actions.wait_for_element_clickable(*self.service_personnel_page_locators.DELETE_BUTTON_IN_DELETE_SERVICE_PERSONNEL_DIALOG)
-        self.common_actions.click_element(*self.service_personnel_page_locators.DELETE_BUTTON_IN_DELETE_SERVICE_PERSONNEL_DIALOG)
-        self.common_actions.wait_for_element_disappear(*self.service_personnel_page_locators.DELETE_FIELD_IN_DELETE_SERVICE_PERSONNEL_DIALOG)
+    def delete_service_personnel(self, service_personnel_name=None, delete_all=False):
+        self.common_actions.wait_for_element_visible(*self.service_personnel_page_locators.TITLE_IN_SERVICE_PERSONNEL_PAGE)
+        if delete_all:
+            while self.common_actions.is_element_present(*self.service_personnel_page_locators.DELETE_ALL_SERVICE_PERSONNEL_BUTTON_IN_SERVICE_PERSONNEL_PAGE):
+                self.common_actions.click_element(*self.service_personnel_page_locators.DELETE_ALL_SERVICE_PERSONNEL_BUTTON_IN_SERVICE_PERSONNEL_PAGE)
+                self.common_actions.is_element_visible(*self.service_personnel_page_locators.DELETE_FIELD_IN_DELETE_SERVICE_PERSONNEL_DIALOG)
+                self.common_actions.send_keys_to_element(*self.service_personnel_page_locators.DELETE_FIELD_IN_DELETE_SERVICE_PERSONNEL_DIALOG, "Delete")
+                self.common_actions.wait_for_element_clickable(*self.service_personnel_page_locators.DELETE_BUTTON_IN_DELETE_SERVICE_PERSONNEL_DIALOG)
+                self.common_actions.click_element(*self.service_personnel_page_locators.DELETE_BUTTON_IN_DELETE_SERVICE_PERSONNEL_DIALOG)
+                self.common_actions.wait_for_element_disappear(*self.service_personnel_page_locators.DELETE_FIELD_IN_DELETE_SERVICE_PERSONNEL_DIALOG)
+        else:
+            self.common_actions.click_element(*self.service_personnel_page_locators.DELETE_SERVICE_PERSONNEL_BUTTON_IN_SERVICE_PERSONNEL_PAGE(service_personnel_name))
+            self.common_actions.wait_for_element_visible(*self.service_personnel_page_locators.TITLE_IN_DELETE_SERVICE_PERSONNEL_DIALOG)
+            self.common_actions.is_element_visible(*self.service_personnel_page_locators.DESCRIPTION_IN_DELETE_SERVICE_PERSONNEL_DIALOG(service_personnel_name))
+            self.common_actions.is_element_visible(*self.service_personnel_page_locators.DELETE_FIELD_IN_DELETE_SERVICE_PERSONNEL_DIALOG)
+            self.common_actions.is_element_visible(*self.service_personnel_page_locators.CANCEL_BUTTON_IN_DELETE_SERVICE_PERSONNEL_DIALOG)
+            self.common_actions.send_keys_to_element(*self.service_personnel_page_locators.DELETE_FIELD_IN_DELETE_SERVICE_PERSONNEL_DIALOG, "Delete")
+            self.common_actions.wait_for_element_clickable(*self.service_personnel_page_locators.DELETE_BUTTON_IN_DELETE_SERVICE_PERSONNEL_DIALOG)
+            self.common_actions.click_element(*self.service_personnel_page_locators.DELETE_BUTTON_IN_DELETE_SERVICE_PERSONNEL_DIALOG)
+            self.common_actions.wait_for_element_disappear(*self.service_personnel_page_locators.DELETE_FIELD_IN_DELETE_SERVICE_PERSONNEL_DIALOG)
         return self
 
 

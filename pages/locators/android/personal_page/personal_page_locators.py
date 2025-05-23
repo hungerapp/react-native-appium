@@ -31,6 +31,7 @@ class PersonalPageLocators:
       ]
       
       PRO_BRANCH_NAME = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Pro 分店")')
+      BRANCH_NAME_SELECTED = lambda branch_name: (AppiumBy.ANDROID_UIAUTOMATOR, f'new UiSelector().textContains("{branch_name}")')
   
   
       # Quick functions

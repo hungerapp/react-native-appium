@@ -64,5 +64,19 @@ class CalendarLocators:
       ADD_APPOINTMENT_OPTION = (AppiumBy.ACCESSIBILITY_ID, '新增預約')
       LONG_PRESS_DATE = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("6")')
       ADD_EVENT_OPTION = (AppiumBy.ACCESSIBILITY_ID, '新增事件')
-    
+
+      ################### Tutorial Popups ###################
+      TUTORIAL_POPUP_CLOSE_BUTTON = (AppiumBy.XPATH, '//*[@resource-id="xmark"]')
+      #######################################################
+
+      ########## Branch Name Locators ##############
+      BRANCH_NAME = lambda self, branch_name: (AppiumBy.ANDROID_UIAUTOMATOR, f'new UiSelector().textContains("{branch_name}")')
+      BRANCH_BUTTON = (AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("com.horcrux.svg.PathView").instance(0)')
+      ###############################################
+
+      ########## Navigation Bar Locators ##############
+      SETTINGS_OPTION_IN_NAVIGATION = (AppiumBy.XPATH, '//*[@content-desc="設定"]')
+      ##################################################
+
+
     

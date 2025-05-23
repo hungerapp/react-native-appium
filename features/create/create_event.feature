@@ -3,7 +3,7 @@ Feature: Create Event
   I want to create an event
   So that I can manage my schedule
 
-  @regression @add_event_flow
+  @regression @add_event_flow @create_create_event @create @create_event
   Scenario: Add event flow
   Given I click the create event option
   When I select Add Service Personnel for single choice
@@ -12,7 +12,7 @@ Feature: Create Event
   And I disable the Repeat option
   Then I click the Save button and back to the calendar page
 
-  @regression @service_personnel_selection_and_time_setting
+  @regression @service_personnel_selection_and_time_setting @create_create_event @create @create_event
   Scenario: Service Personnel Selection and Time Setting
   Given I click the create event option
   When I select Service Personnel for multi-select or select all
@@ -21,7 +21,7 @@ Feature: Create Event
   And I enable the Repeat option
   Then I click the Save button and back to the calendar page
 
-  @regression @error_handling_for_missing_time
+  @regression @error_handling_for_missing_time @create_create_event @create @create_event
   Scenario: Error Handling for Missing Time
   Given I click the create event option
   When I select Add Service Personnel for single choice
@@ -30,7 +30,7 @@ Feature: Create Event
   Then I revise the selected time and return to the Create Event page
 
 
-  @regression @repeat_enabled_but_save_error
+  @regression @repeat_enabled_but_save_error @create_create_event @create @create_event
   Scenario: Repeat Enabled but Save Error
   Given I am on the Create Event page
   When I enable the Repeat option and save

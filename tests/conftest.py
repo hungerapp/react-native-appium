@@ -1,34 +1,79 @@
 import os
 import pytest
-import requests
 import subprocess
-import time
-import allure
-
 
 from dotenv import load_dotenv
 
 # load .env file
 load_dotenv()
 
-from subprocess import run, Popen
+from subprocess import run
 from datetime import datetime
 
 from setup import AppiumSetup
 from utils.send_report_to_slack import send_report_to_slack
 from utils.logger import logger
-from screenshot_hooks import pytest_runtest_makereport
 from pages.shared_components.common_action import CommonActions
 from pages.shared_components.common_use import CommonUseSection
+from utils.initial_setup import setup_flow
+from screenshot_hooks import pytest_runtest_makereport
 
 
-@pytest.fixture(scope="session")
-def driver():
-    """Set up and tear down Appium driver for the test session."""
+@pytest.fixture(scope="session", autouse=True)
+def driver(request):
+    """Create driver and reinstall App before each test session"""
+    print("=========== Session Start: Creating driver and preparing environment ===========")
+
+    # Get environment variables
+    platform = os.getenv('APPIUM_OS', 'android').lower()
+    email = os.getenv('TEST_EMAIL', 'qatest@hunger.ai')
+    ver_code = os.getenv('VERIFICATION_CODE', '555666')
+    print(f"Current platform: {platform}")
+
+    # --- App cleanup process ---
+    try:
+        if platform == 'android':
+            print("Cleaning Android application...")
+            run(['adb', 'shell', 'am', 'force-stop', 'com.hunger.hotcakeapp.staging'], check=True)
+            run(['adb', 'uninstall', 'com.hunger.hotcakeapp.staging'], check=True)
+        elif platform == 'ios':
+            print("Cleaning iOS application...")
+            app_path = os.getenv('IOS_APP_PATH')
+            if app_path:
+                run(['xcrun', 'simctl', 'uninstall', 'booted', 'com.hunger.hotcakeapp.staging'], check=True)
+                run(['xcrun', 'simctl', 'install', 'booted', app_path], check=True)
+            else:
+                print("Please set IOS_APP_PATH in your .env")
+    except Exception as e:
+        print(f"App cleanup failed: {e}")
+
+    # --- Create driver ---
     appium_setup = AppiumSetup()
     driver = appium_setup.setUp()
+
+    # Check if there are tests with the 'login' marker in the current test collection
+    has_login_tag = False
+    for item in request.session.items:
+        if item.get_closest_marker('login'):
+            has_login_tag = True
+            break
+
+    # --- Onboarding + login process ---
+    if has_login_tag:
+        print("Found tests with login marker, skipping onboarding and login process")
+    else:
+        print("Executing onboarding and login process...")
+        try:
+            setup_flow(driver, email, ver_code)
+            print("Initialization process completed")
+        except Exception as e:
+            print(f"Onboarding/Login process failed: {e}")
+
     yield driver
+
+    # --- Cleanup at the end of the session ---
     appium_setup.tearDown()
+    print("=========== Session End ===========")
 
 def pytest_configure(config):
     """Configure test collection and markers"""
@@ -167,98 +212,55 @@ def pytest_sessionfinish(session):
         import traceback
         print(traceback.format_exc())
 
-@pytest.fixture(autouse=True)        
+"""
+@pytest.fixture(autouse=True)
 def clean_app_state(request):
-    '''Each test will re-install when we run the test'''
-    print(f"Current test name: {request.node.name}")
-    print(f"Module name: {request.node.module.__name__}")
-    print(f"Module file path: {request.node.module.__file__}")
-    
-    # check environment variable
-    platform = os.getenv('APPIUM_OS', 'android').lower()
-    is_ci = os.getenv('IS_CI', 'false').lower() == 'true'
-    print(f"Current platform from .env: {platform}")
-    print(f"Running in CI environment: {is_ci}")
-    
-    if not hasattr(request.node, 'retry_count'):
-        request.node.retry_count = 0
-    
-    # if running in CI, skip local cleanup
-    if is_ci:
-        print("Running in BrowserStack - skipping local cleanup")
-        yield
-    else:
-        # local cleanup
-        if request.node.get_closest_marker('onboarding'):
+    # TODO: 本地環境的重試邏輯，暫時註解掉
+    # 等待穩定後再討論是否需要重新啟用
+    try:
+        if hasattr(request.node, 'rep_call') and request.node.rep_call.failed:
+            if request.node.retry_count >= 3:
+                print(f"Test {request.node.name} 已達到最大重試次數 (3次)，不再重試")
+                return
+                
+            request.node.retry_count += 1
+            print(f"Test {request.node.name} failed, 第 {request.node.retry_count} 次重試...")
+            
             if platform == 'android':
                 try:
-                    # Android cleanup
+                    print("正在停止 app...")
                     run(['adb', 'shell', 'am', 'force-stop', 'com.hunger.hotcakeapp.staging'])
-                    run(['adb', 'uninstall', 'com.hunger.hotcakeapp.staging'])
-                except Exception as e:
-                    print(f"Warning: Local cleanup failed - {str(e)}")
-            elif platform == 'ios':
-                # iOS cleanup
-                app_path = os.getenv('IOS_APP_PATH')
-                if app_path:
-                    try:
-                        # For simulator
-                        run(['xcrun', 'simctl', 'uninstall', 'booted', 'com.hunger.hotcakeapp.staging'])
-                        run(['xcrun', 'simctl', 'install', 'booted', app_path])
-                    except Exception as e:
-                        print(f"Warning: Local cleanup failed - {str(e)}")
-                else:
-                    print("Warning: Please ensure IOS_APP_PATH is set in .env")
-        
-        yield
-        
-        """
-        # TODO: 本地環境的重試邏輯，暫時註解掉
-        # 等待穩定後再討論是否需要重新啟用
-        try:
-            if hasattr(request.node, 'rep_call') and request.node.rep_call.failed:
-                if request.node.retry_count >= 3:
-                    print(f"Test {request.node.name} 已達到最大重試次數 (3次)，不再重試")
-                    return
                     
-                request.node.retry_count += 1
-                print(f"Test {request.node.name} failed, 第 {request.node.retry_count} 次重試...")
-                
-                if platform == 'android':
+                    print("正在啟動 app...")
+                    run(['adb', 'shell', 'am', 'start', '-n', 'com.hunger.hotcakeapp.staging/com.hunger.hotcakeapp.staging.MainActivity'])
+                    
+                    print("開始重新登入...")
                     try:
-                        print("正在停止 app...")
-                        run(['adb', 'shell', 'am', 'force-stop', 'com.hunger.hotcakeapp.staging'])
+                        from pages.android.login_page import LoginPage 
+                        login_page = LoginPage(driver)
                         
-                        print("正在啟動 app...")
-                        run(['adb', 'shell', 'am', 'start', '-n', 'com.hunger.hotcakeapp.staging/com.hunger.hotcakeapp.staging.MainActivity'])
+                        time.sleep(5)
                         
-                        print("開始重新登入...")
-                        try:
-                            from pages.android.login_page import LoginPage 
-                            login_page = LoginPage(driver)
-                            
-                            time.sleep(5)
-                            
-                            TEST_EMAIL = "ann@hunger.ai" 
-                            TEST_VER = "5556666"  
-                            
-                            login_page.click_logout_button()
-                            login_page.login(TEST_EMAIL, TEST_VER)
-                            
-                            login_page.is_logged_in()
-                            print("重新登入完成")
-                            
-                        except Exception as e:
-                            print(f"登入過程發生錯誤: {str(e)}")
-                            import traceback
-                            print(traceback.format_exc())
-                            raise
+                        TEST_EMAIL = "ann@hunger.ai" 
+                        TEST_VER = "5556666"  
+                        
+                        login_page.click_logout_button()
+                        login_page.login(TEST_EMAIL, TEST_VER)
+                        
+                        login_page.is_logged_in()
+                        print("重新登入完成")
+                        
                     except Exception as e:
-                        print(f"重試過程發生錯誤: {str(e)}")
-                
-        except Exception as e:
-            print(f"Error during cleanup and relogin: {str(e)}")
-        """
+                        print(f"登入過程發生錯誤: {str(e)}")
+                        import traceback
+                        print(traceback.format_exc())
+                        raise
+                except Exception as e:
+                    print(f"重試過程發生錯誤: {str(e)}")
+            
+    except Exception as e:
+        print(f"Error during cleanup and relogin: {str(e)}")
+"""
         
 @pytest.fixture
 def common_actions(driver):
@@ -266,5 +268,4 @@ def common_actions(driver):
 
 @pytest.fixture
 def common_use(driver):
-    return CommonUseSection(driver) 
-        
+    return CommonUseSection(driver)
