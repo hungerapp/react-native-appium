@@ -1,7 +1,7 @@
 import os
 import pytest
 import subprocess
-
+import time
 from dotenv import load_dotenv
 
 # load .env file
@@ -17,6 +17,7 @@ from pages.shared_components.common_action import CommonActions
 from pages.shared_components.common_use import CommonUseSection
 from utils.initial_setup import setup_flow
 from screenshot_hooks import pytest_runtest_makereport
+from utils.loki_logger import loki_logger
 
 
 @pytest.fixture(scope="session", autouse=True)
@@ -269,3 +270,65 @@ def common_actions(driver):
 @pytest.fixture
 def common_use(driver):
     return CommonUseSection(driver)
+
+@pytest.hookimpl(hookwrapper=True)
+def pytest_runtest_makereport(item, call):
+    outcome = yield
+    report = outcome.get_result()
+    
+    if report.when == "call":  # 只在測試執行時記錄
+        start_time = getattr(item, 'start_time', time.time())
+        duration = time.time() - start_time
+        
+        # 獲取測試相關資訊
+        test_name = item.name
+        feature = item.module.__name__
+        scenario = item.function.__doc__ or test_name
+        
+        # 獲取標籤
+        tags = []
+        if hasattr(item, 'function') and hasattr(item.function, '__scenario__'):
+            scenario_obj = item.function.__scenario__
+            if hasattr(scenario_obj, 'tags'):
+                # 處理標籤，可能是字串或物件
+                tags = []
+                for tag in scenario_obj.tags:
+                    if isinstance(tag, str):
+                        tags.append(tag)
+                    elif hasattr(tag, 'name'):
+                        tags.append(tag.name)
+        
+        # 獲取平台資訊
+        platform = os.getenv('APPIUM_OS', 'android').lower()
+        os_version = os.getenv('APPIUM_OS_VERSION', '14.0')
+        device_name = os.getenv('APPIUM_DEVICE_NAME', 'Unknown Device')
+        
+        # 獲取 CI 相關資訊
+        git_branch = os.getenv('GIT_BRANCH')
+        git_commit = os.getenv('GIT_COMMIT')
+        ci_job_id = os.getenv('CI_JOB_ID')
+        ci_pipeline = os.getenv('CI_PIPELINE')
+        
+        # 發送到 Loki
+        loki_logger.send_log(
+            test_name=test_name,
+            feature=feature,
+            scenario=scenario,
+            status="passed" if report.passed else "failed",
+            duration=duration,
+            tags=tags,
+            platform=platform,
+            os_version=os_version,
+            device_name=device_name,
+            git_branch=git_branch,
+            git_commit=git_commit,
+            ci_job_id=ci_job_id,
+            ci_pipeline=ci_pipeline,
+            error_message=str(report.longrepr) if report.failed else None,
+            stack_trace=str(report.longrepr) if report.failed else None
+        )
+
+@pytest.hookimpl(hookwrapper=True)
+def pytest_runtest_setup(item):
+    item.start_time = time.time()
+    yield

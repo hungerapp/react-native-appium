@@ -8,11 +8,11 @@ from typing import Dict, List, Optional
 class LokiLogger:
     def __init__(self, loki_url: str):
         self.loki_url = loki_url
-        self.project = "mobile-app"
+        self.project = "react-native-appium"
         self.env = os.getenv("ENV", "staging")
 
     def _get_timestamp(self) -> str:
-        return datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ")
+        return str(int(time.time() * 1e9))
 
     def send_log(self,
                 test_name: str,
@@ -42,7 +42,7 @@ class LokiLogger:
             "scenario": scenario,
             "status": status,
             "duration": duration,
-            "timestamp": self._get_timestamp(),
+            "timestamp": datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ"),
             "env": self.env,
             "tags": tags,
             "platform": platform,
@@ -86,7 +86,7 @@ class LokiLogger:
                 {
                     "stream": labels,
                     "values": [
-                        [str(int(time.time() * 1e9)), json.dumps(log_data, ensure_ascii=False)]
+                        [self._get_timestamp(), json.dumps(log_data, ensure_ascii=False)]
                     ]
                 }
             ]
@@ -99,8 +99,10 @@ class LokiLogger:
                 headers={"Content-Type": "application/json"}
             )
             response.raise_for_status()
+            print(f"Log sent successfully to Loki: {response.status_code}")
         except requests.exceptions.RequestException as e:
             print(f"Error sending log to Loki: {str(e)}")
+            print(f"Payload: {json.dumps(loki_payload, indent=2)}")
 
 # 創建全局實例
 loki_logger = LokiLogger("http://198.19.249.147:3100/loki/api/v1/push") 
