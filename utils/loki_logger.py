@@ -8,9 +8,20 @@ from typing import Dict, List, Optional
 class LokiLogger:
     def __init__(self, loki_url: str):
         self.loki_url = loki_url
-        self.project = "react-native-appium"
+        self.project = "hotcake-app"
         self.env = os.getenv("ENV", "staging")
         self.service_name = "react-native-appium"
+        # 判斷執行類型
+        if os.getenv("GITHUB_ACTIONS") == "true":
+            event_name = os.getenv("GITHUB_EVENT_NAME", "")
+            if event_name == "schedule":
+                self.run_type = "scheduled"
+            elif event_name == "push":
+                self.run_type = "release"
+            else:
+                self.run_type = "manual"
+        else:
+            self.run_type = "local"
 
     def _get_timestamp(self) -> str:
         return str(int(time.time() * 1e9))
@@ -39,6 +50,7 @@ class LokiLogger:
             "project": self.project,
             "type": "app",
             "service_name": self.service_name,
+            "run_type": self.run_type,  # 添加執行類型
             "test_name": test_name,
             "feature": feature,
             "scenario": scenario,
@@ -70,6 +82,7 @@ class LokiLogger:
             "env": self.env,
             "type": "app",
             "service_name": self.service_name,
+            "run_type": self.run_type,  # 添加執行類型
             "test_name": test_name,
             "status": status,
             "platform": platform,
