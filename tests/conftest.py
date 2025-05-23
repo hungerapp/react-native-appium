@@ -16,6 +16,7 @@ from utils.logger import logger
 from pages.shared_components.common_action import CommonActions
 from pages.shared_components.common_use import CommonUseSection
 from utils.initial_setup import setup_flow
+from screenshot_hooks import pytest_runtest_makereport
 
 
 @pytest.fixture(scope="session", autouse=True)

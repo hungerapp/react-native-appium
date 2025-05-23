@@ -50,7 +50,7 @@ def pytest_runtest_makereport(item, call):
         try:
             print(f"Test {item.name} failed - attempting to take screenshot")
             logger.info(f"Test {item.name} failed - attempting to take screenshot")
-            
+
             # Get driver instance from request
             request = item._request
             if not request:
@@ -58,38 +58,38 @@ def pytest_runtest_makereport(item, call):
                 print(error_msg)
                 logger.error(error_msg)
                 return
-                
+
             driver = request.getfixturevalue("driver")
             if not driver:
                 error_msg = f"Test {item.name} failed - driver instance not found"
                 print(error_msg)
                 logger.error(error_msg)
                 return
-                
+
             if not hasattr(driver, 'save_screenshot'):
                 error_msg = f"driver instance does not support screenshot functionality"
                 print(error_msg)
                 logger.error(error_msg)
                 return
-            
+
             # Extract relevant part of the test name
             test_name = item.name
             if test_name.startswith('test_'):
                 test_name = test_name[5:]  # Remove "test_" prefix
-            
+
             if is_running_in_ci():
                 # In CI environment, save screenshot to artifacts directory
                 artifacts_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), "artifacts")
                 os.makedirs(artifacts_dir, exist_ok=True)
-                
+
                 timestamp = datetime.now().strftime("%Y%m%d_%H%M")
                 screenshot_name = f"{test_name}_{timestamp}.png"
                 screenshot_path = os.path.join(artifacts_dir, screenshot_name)
-                
+
                 # Save screenshot
                 driver.save_screenshot(screenshot_path)
                 success_msg = f"Screenshot saved to artifacts: {screenshot_path}"
-                
+
                 # Also attach to Allure
                 with open(screenshot_path, 'rb') as f:
                     allure.attach(
@@ -101,15 +101,15 @@ def pytest_runtest_makereport(item, call):
                 # In local environment, save to screenshots directory
                 screenshots_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), "screenshots")
                 os.makedirs(screenshots_dir, exist_ok=True)
-                
+
                 timestamp = datetime.now().strftime("%Y%m%d_%H%M")
                 screenshot_name = f"{test_name}_{timestamp}.png"
                 screenshot_path = os.path.join(screenshots_dir, screenshot_name)
-                
+
                 # Save screenshot
                 driver.save_screenshot(screenshot_path)
                 success_msg = f"Screenshot saved: {screenshot_path}"
-                
+
                 # Also attach to Allure for local runs
                 with open(screenshot_path, 'rb') as f:
                     allure.attach(
@@ -117,10 +117,10 @@ def pytest_runtest_makereport(item, call):
                         name=f"{test_name}",
                         attachment_type=allure.attachment_type.PNG
                     )
-            
+
             print(success_msg)
             logger.info(success_msg)
-            
+
             # Add failure information to log
             if hasattr(report, 'longrepr'):
                 # get the first line of the error message
@@ -130,9 +130,9 @@ def pytest_runtest_makereport(item, call):
                 error_msg = f"Test failure: {test_failure}"
                 print(error_msg)
                 logger.error(error_msg)
-            
+
         except Exception as e:
             # only keep the first line of the error message
             error_msg = f"Screenshot process error: {str(e)}"
             print(error_msg)
-            logger.error(error_msg) 
+            logger.error(error_msg)
